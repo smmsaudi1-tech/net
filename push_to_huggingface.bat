@@ -18,15 +18,18 @@ if not exist dist (
     exit /b 1
 )
 
-echo [2/3] Preparing Git repository for Hugging Face...
+echo [2/3] Preparing Git repository for Hugging Face Static SDK...
 git init
 git branch -M main
 git remote add hf https://huggingface.co/spaces/Yousef891238/net 2>nul || git remote set-url hf https://huggingface.co/spaces/Yousef891238/net
 
-echo [3/3] Committing and Pushing pre-built bundle to Hugging Face...
+copy /y dist\index.html index.html >nul 2>&1
+xcopy /s /e /y dist\assets assets\ >nul 2>&1
+
+echo [3/3] Committing and Pushing to Hugging Face...
 git add .
-git add -f dist
-git commit -m "Deploy pre-built NEXUS to Hugging Face Spaces"
+git add -f index.html assets
+git commit -m "Deploy NEXUS Static Web App to Hugging Face Spaces"
 git push -f hf main
 
 echo.
