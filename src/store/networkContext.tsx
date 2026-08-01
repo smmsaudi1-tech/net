@@ -169,6 +169,28 @@ export const NetworkProvider: React.FC<{ children: React.ReactNode }> = ({ child
     setLogs((prev) => [newLog, ...prev.slice(0, 49)]);
   };
 
+  // Fetch Real Devices from NEXUS Local Network Agent if available
+  useEffect(() => {
+    const fetchRealDevices = async () => {
+      try {
+        const res = await fetch('http://localhost:3001/api/devices');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && Array.isArray(data.devices) && data.devices.length > 0) {
+            setDevices(data.devices);
+            addLogMessage(`تم الربط بالوكيل المحلي بنجاح واكتشاف ${data.devices.length} أجهزة حقيقية على الشبكة`, 'success', 'device_detected');
+          }
+        }
+      } catch (err) {
+        // Agent server not running yet, using initial/simulated devices list
+      }
+    };
+
+    fetchRealDevices();
+    const agentInterval = setInterval(fetchRealDevices, 10000);
+    return () => clearInterval(agentInterval);
+  }, []);
+
   // Real-time Simulation Loop
   useEffect(() => {
     const interval = setInterval(() => {

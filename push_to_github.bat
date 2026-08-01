@@ -1,10 +1,9 @@
 @echo off
-chcp 65001 > nul
 title NEXUS - Push to GitHub
 color 0A
 
 echo ===================================================
-echo     🚀 NEXUS — Automated GitHub Auto-Push Tool
+echo     NEXUS -- Automated GitHub Auto-Push Tool
 echo ===================================================
 echo.
 
@@ -37,11 +36,11 @@ git push -u origin main
 echo.
 if %errorlevel% equ 0 (
     echo ===================================================
-    echo    ✨ SUCCESS! Project successfully pushed to GitHub!
+    echo    SUCCESS! Project successfully pushed to GitHub!
     echo ===================================================
 ) else (
     echo ===================================================
-    echo    ⚠️ PUSH ERROR: Please check your GitHub login/token.
+    echo    PUSH ERROR: Please check your GitHub login/token.
     echo ===================================================
 )
 
