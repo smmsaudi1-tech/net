@@ -23,9 +23,10 @@ git init
 git branch -M main
 git remote add hf https://huggingface.co/spaces/Yousef891238/net 2>nul || git remote set-url hf https://huggingface.co/spaces/Yousef891238/net
 
-echo [3/3] Committing and Pushing to Hugging Face...
+echo [3/3] Committing and Pushing pre-built bundle to Hugging Face...
 git add .
-git commit -m "Deploy NEXUS to Hugging Face Spaces"
+git add -f dist
+git commit -m "Deploy pre-built NEXUS to Hugging Face Spaces"
 git push -f hf main
 
 echo.
