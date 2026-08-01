@@ -3,7 +3,9 @@ title: NEXUS Personal Network Control Center
 emoji: 📡
 colorFrom: cyan
 colorTo: blue
-sdk: static
+sdk: gradio
+sdk_version: 4.19.0
+app_file: app.py
 pinned: false
 ---
 
