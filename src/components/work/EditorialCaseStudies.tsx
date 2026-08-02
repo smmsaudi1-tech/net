@@ -106,19 +106,26 @@ export const EditorialCaseStudies: React.FC = () => {
                 }}
                 className={`group relative rounded-3xl border overflow-hidden p-6 sm:p-8 flex flex-col justify-between h-[420px] sm:h-[480px] transition-all duration-500 cursor-pointer ${
                   theme === 'dark'
-                    ? 'bg-[#0d0d0d] border-[#262626] hover:border-[#525252]'
-                    : 'bg-[#ffffff] border-[#e5e5e5] hover:border-[#a3a3a3] shadow-lg'
+                    ? 'bg-[#0d0d0d] border-[#262626] hover:border-emerald-500/50 shadow-2xl'
+                    : 'bg-[#ffffff] border-[#e5e5e5] hover:border-emerald-500/50 shadow-xl'
                 }`}
                 data-cursor="VIEW DETAILS"
               >
-                {/* Background Image */}
+                {/* Full Color Image Background without dark dimming filters */}
                 <div className="absolute inset-0 z-0 overflow-hidden">
                   <img
                     src={project.imageUrl}
                     alt={project.title}
-                    className="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 opacity-40 group-hover:opacity-60"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-100"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/60 to-transparent opacity-90" />
+                  {/* Subtle legibility gradient at bottom only */}
+                  <div
+                    className={`absolute inset-0 ${
+                      theme === 'dark'
+                        ? 'bg-gradient-to-t from-black/90 via-black/30 to-transparent'
+                        : 'bg-gradient-to-t from-black/85 via-black/20 to-transparent'
+                    }`}
+                  />
                 </div>
 
                 {/* Top Info */}
@@ -126,20 +133,20 @@ export const EditorialCaseStudies: React.FC = () => {
                   <span className="px-3.5 py-1 rounded-full bg-[#000000]/80 border border-[#333333] text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-widest backdrop-blur-md">
                     {project.category}
                   </span>
-                  <span className="text-xs font-mono text-[#a3a3a3]">{project.year || '2026'}</span>
+                  <span className="text-xs font-mono font-bold text-white shadow-sm">{project.year || '2026'}</span>
                 </div>
 
                 {/* Bottom Title & Actions */}
                 <div className="relative z-10 space-y-4">
                   <div className="space-y-1">
-                    <p className="text-xs font-mono text-[#a3a3a3] uppercase">{project.subtitle}</p>
-                    <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white font-sans">
+                    <p className="text-xs font-mono text-zinc-300 font-bold uppercase drop-shadow-md">{project.subtitle}</p>
+                    <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white font-sans drop-shadow-lg">
                       {project.title}
                     </h3>
                   </div>
 
                   <div className="flex items-center justify-between pt-2">
-                    <span className="text-xs font-mono text-emerald-400 font-bold uppercase flex items-center gap-1.5">
+                    <span className="text-xs font-mono text-emerald-400 font-bold uppercase flex items-center gap-1.5 drop-shadow-md">
                       <span>CLICK TO VIEW DETAILS</span>
                     </span>
 
@@ -149,7 +156,7 @@ export const EditorialCaseStudies: React.FC = () => {
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="p-2.5 rounded-full bg-white text-black hover:bg-emerald-400 transition-all shadow-lg"
+                        className="p-2.5 rounded-full bg-white text-black hover:bg-emerald-400 transition-all shadow-xl"
                       >
                         <ArrowUpRight className="w-4 h-4 stroke-[3]" />
                       </a>
@@ -173,7 +180,7 @@ export const EditorialCaseStudies: React.FC = () => {
         )}
       </div>
 
-      {/* Project Detail Modal Overlay with Click Outside to Close & Prominent Close Button */}
+      {/* Project Detail Modal Overlay */}
       <AnimatePresence>
         {activeModalProject && (
           <div

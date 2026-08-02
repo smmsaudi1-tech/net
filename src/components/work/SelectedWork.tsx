@@ -56,7 +56,7 @@ export const SelectedWork: React.FC = () => {
                   <img
                     src={proj.imageUrl}
                     alt={proj.title}
-                    className="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent opacity-80" />
 
