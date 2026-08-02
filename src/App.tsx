@@ -16,11 +16,13 @@ import { ParticleField } from './components/effects/ParticleField';
 import { MarqueeStrip } from './components/effects/MarqueeStrip';
 import { AiChatbotWidget } from './components/chat/AiChatbotWidget';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { smoothScroll } from './utils/smoothScroll';
 
 function MainAppContent() {
   const [loaded, setLoaded] = useState(false);
   const { theme } = useTheme();
+  const { lang } = useLanguage();
 
   useEffect(() => {
     smoothScroll.start();
@@ -31,7 +33,7 @@ function MainAppContent() {
     <div
       className={`min-h-screen font-sans selection:bg-[#ffffff] selection:text-[#000000] overflow-x-hidden relative transition-colors duration-500 ${
         theme === 'dark' ? 'bg-[#000000] text-[#ffffff]' : 'bg-[#ffffff] text-[#000000]'
-      }`}
+      } ${lang === 'AR' ? 'font-arabic' : ''}`}
     >
       {/* 01 — Cinematic Loader */}
       {!loaded && <CinematicLoader onComplete={() => setLoaded(true)} />}
@@ -98,7 +100,9 @@ function MainAppContent() {
 export function App() {
   return (
     <ThemeProvider>
-      <MainAppContent />
+      <LanguageProvider>
+        <MainAppContent />
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

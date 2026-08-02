@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, Globe } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { soundEngine } from '../../utils/audioEngine';
 
 export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { lang, toggleLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,9 +57,9 @@ export const Navbar: React.FC = () => {
           </span>
         </div>
 
-        {/* Links Right */}
+        {/* Links & Switchers Right */}
         <nav
-          className={`hidden md:flex items-center gap-8 text-[11px] font-mono font-bold tracking-[0.2em] uppercase transition-colors ${
+          className={`hidden md:flex items-center gap-7 text-[11px] font-mono font-bold tracking-[0.2em] uppercase transition-colors ${
             theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
           }`}
         >
@@ -66,28 +68,28 @@ export const Navbar: React.FC = () => {
             className="hover:text-[#ffffff] dark:hover:text-[#ffffff] light:hover:text-[#000000] transition-colors cursor-pointer py-1"
             data-cursor="WORK"
           >
-            WORK
+            {t('WORK', 'المشاريع')}
           </button>
           <button
             onClick={() => scrollToSection('services')}
             className="hover:text-[#ffffff] dark:hover:text-[#ffffff] light:hover:text-[#000000] transition-colors cursor-pointer py-1"
             data-cursor="SERVICES"
           >
-            SERVICES
+            {t('SERVICES', 'الخدمات')}
           </button>
           <button
             onClick={() => scrollToSection('process')}
             className="hover:text-[#ffffff] dark:hover:text-[#ffffff] light:hover:text-[#000000] transition-colors cursor-pointer py-1"
             data-cursor="PROCESS"
           >
-            PROCESS
+            {t('PROCESS', 'خريطة العمل')}
           </button>
           <button
             onClick={() => scrollToSection('about')}
             className="hover:text-[#ffffff] dark:hover:text-[#ffffff] light:hover:text-[#000000] transition-colors cursor-pointer py-1"
             data-cursor="ABOUT"
           >
-            ABOUT
+            {t('ABOUT', 'عن الفريق')}
           </button>
           <button
             onClick={() => scrollToSection('contact')}
@@ -96,7 +98,25 @@ export const Navbar: React.FC = () => {
             }`}
             data-cursor="CONTACT"
           >
-            CONTACT
+            {t('CONTACT', 'تواصل معنا')}
+          </button>
+
+          {/* BILINGUAL LANGUAGE SWITCHER BUTTON (EN / AR) */}
+          <button
+            onClick={() => {
+              soundEngine.playClick();
+              toggleLanguage();
+            }}
+            className={`px-3 py-1.5 rounded-full border text-xs font-mono font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+              theme === 'dark'
+                ? 'bg-[#181818] border-[#262626] text-[#ffffff] hover:border-[#ffffff]'
+                : 'bg-[#f4f4f5] border-[#e4e4e7] text-[#000000] hover:border-[#000000]'
+            }`}
+            data-cursor="LANG"
+            title="Switch Language / تغيير اللغة"
+          >
+            <Globe className="w-3.5 h-3.5" />
+            <span>{lang === 'EN' ? 'العربية 🇸🇦' : 'ENGLISH 🇬🇧'}</span>
           </button>
 
           {/* LIGHT MODE & DARK MODE TOGGLE BUTTON */}
@@ -117,8 +137,22 @@ export const Navbar: React.FC = () => {
           </button>
         </nav>
 
-        {/* Mobile Menu & Theme Button */}
-        <div className="flex md:hidden items-center gap-3">
+        {/* Mobile Controls */}
+        <div className="flex md:hidden items-center gap-2">
+          <button
+            onClick={() => {
+              soundEngine.playClick();
+              toggleLanguage();
+            }}
+            className={`px-2.5 py-1 rounded-full border text-[10px] font-mono font-bold ${
+              theme === 'dark'
+                ? 'bg-[#181818] border-[#262626] text-[#ffffff]'
+                : 'bg-[#f4f4f5] border-[#e4e4e7] text-[#000000]'
+            }`}
+          >
+            {lang === 'EN' ? 'عربي' : 'EN'}
+          </button>
+
           <button
             onClick={() => {
               soundEngine.playClick();
@@ -162,19 +196,19 @@ export const Navbar: React.FC = () => {
           >
             <div className="flex flex-col gap-5 text-sm font-bold tracking-[0.25em] uppercase">
               <button onClick={() => scrollToSection('work')} className="py-2">
-                WORK
+                {t('WORK', 'المشاريع')}
               </button>
               <button onClick={() => scrollToSection('services')} className="py-2">
-                SERVICES
+                {t('SERVICES', 'الخدمات')}
               </button>
               <button onClick={() => scrollToSection('process')} className="py-2">
-                PROCESS
+                {t('PROCESS', 'خريطة العمل')}
               </button>
               <button onClick={() => scrollToSection('about')} className="py-2">
-                ABOUT
+                {t('ABOUT', 'عن الفريق')}
               </button>
               <button onClick={() => scrollToSection('contact')} className="py-2 font-black">
-                CONTACT →
+                {t('CONTACT →', 'تواصل معنا ←')}
               </button>
             </div>
           </motion.div>
