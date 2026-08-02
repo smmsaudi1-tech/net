@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Save, Plus, Trash2, Edit3, Upload, Image as ImageIcon, Database, FileText, Check, Sparkles, Lock, LogOut, UserCheck, ShieldAlert } from 'lucide-react';
+import { X, Save, Plus, Trash2, Edit3, Upload, Image as ImageIcon, Database, FileText, Check, Sparkles, Lock, LogOut, UserCheck, ShieldAlert, Key } from 'lucide-react';
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
 import { useSiteContent } from '../../context/SiteContentContext';
@@ -20,7 +20,6 @@ export const AdminCmsModal: React.FC = () => {
 
   // Auth State
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [authLoading, setAuthLoading] = useState(true);
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [authError, setAuthError] = useState<string | null>(null);
@@ -43,7 +42,6 @@ export const AdminCmsModal: React.FC = () => {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
-      setAuthLoading(false);
     });
     return () => unsub();
   }, []);
@@ -79,7 +77,16 @@ export const AdminCmsModal: React.FC = () => {
       setLoginEmail('');
       setLoginPassword('');
     } catch (err: any) {
-      setAuthError(err.message || 'Failed to sign in. Please verify your email and password in Firebase.');
+      const msg = err.message || '';
+      if (msg.includes('API key') || msg.includes('400') || msg.includes('invalid-api-key')) {
+        setAuthError(
+          '💡 Vercel / Firebase Key Alert: Please add your real VITE_FIREBASE_API_KEY environment variable in Vercel settings or project .env file.'
+        );
+      } else if (msg.includes('auth/invalid-credential') || msg.includes('auth/user-not-found') || msg.includes('auth/wrong-password')) {
+        setAuthError('Incorrect email or password. Please verify your Firebase Authentication credentials.');
+      } else {
+        setAuthError(msg || 'Failed to sign in. Please verify your credentials.');
+      }
     } finally {
       setIsLoggingIn(false);
     }
@@ -204,7 +211,7 @@ export const AdminCmsModal: React.FC = () => {
               {currentUser && (
                 <button
                   onClick={handleSignOut}
-                  className="px-3 py-1.5 rounded-full border border-rose-500/30 bg-rose-500/10 text-rose-400 text-xs font-bold uppercase flex items-center gap-1.5 hover:bg-rose-500 hover:text-white transition-all"
+                  className="px-3 py-1.5 rounded-full border border-rose-500/30 bg-rose-500/10 text-rose-400 text-xs font-bold uppercase flex items-center gap-1.5 hover:bg-rose-500 hover:text-white transition-all cursor-pointer"
                   title="Sign Out of Admin Session"
                 >
                   <LogOut className="w-3.5 h-3.5" /> Sign Out
@@ -222,7 +229,7 @@ export const AdminCmsModal: React.FC = () => {
 
           {/* Authentication Guard View */}
           {(!currentUser || !isAuthorizedAdmin) ? (
-            <div className="flex-1 flex flex-col items-center justify-center p-6 text-center space-y-6">
+            <div className="flex-1 flex flex-col items-center justify-center p-6 text-center space-y-6 overflow-y-auto">
               {currentUser && !isAuthorizedAdmin ? (
                 /* User logged in but email is not authorized */
                 <div className="max-w-md p-8 rounded-3xl border border-rose-500/30 bg-rose-500/10 space-y-4 text-center">
@@ -240,7 +247,7 @@ export const AdminCmsModal: React.FC = () => {
                   </div>
                   <button
                     onClick={handleSignOut}
-                    className="px-5 py-2.5 rounded-full bg-rose-500 text-white font-bold text-xs uppercase"
+                    className="px-5 py-2.5 rounded-full bg-rose-500 text-white font-bold text-xs uppercase cursor-pointer"
                   >
                     Switch Account / Sign Out
                   </button>
@@ -257,7 +264,7 @@ export const AdminCmsModal: React.FC = () => {
                   </div>
 
                   {authError && (
-                    <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-sans">
+                    <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-sans leading-relaxed">
                       {authError}
                     </div>
                   )}
@@ -523,13 +530,13 @@ export const AdminCmsModal: React.FC = () => {
                           <div className="flex flex-col gap-2">
                             <button
                               onClick={() => setEditingProject(proj)}
-                              className="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white"
+                              className="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white cursor-pointer"
                             >
                               <Edit3 className="w-4 h-4" />
                             </button>
                             <button
                               onClick={() => handleDeleteProject(proj.id)}
-                              className="p-2 rounded-lg bg-rose-500/20 hover:bg-rose-500/40 text-rose-400"
+                              className="p-2 rounded-lg bg-rose-500/20 hover:bg-rose-500/40 text-rose-400 cursor-pointer"
                             >
                               <Trash2 className="w-4 h-4" />
                             </button>
