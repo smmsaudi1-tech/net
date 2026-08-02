@@ -2,24 +2,25 @@
 <html lang="ar" dir="rtl" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#06080d" />
-    <meta name="description" content="NEXUS — Personal Network Control Center for local network management, live bandwidth traffic monitoring, QoS priorities, schedules, and smart automation rules." />
-    <title>NEXUS — Personal Network Control Center</title>
+    <meta name="description" content="NextGen Devs — الاستوديو الأقوى لتصميم وتطوير المواقع والمتاجر الإلكترونية لبراندات الفاشون والمطاعم والكافيهات مع أنيميشن سينمائي ولوحة تحكم مخصصة." />
+    <title>NextGen Devs — الاستوديو الأقوى لتطوير مواقع البراندات والمطاعم</title>
     <link rel="manifest" href="/manifest.json" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/assets/index-BW-qkQaS.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-B5V087Z5.css">
   </head>
   <body class="bg-[#06080d] text-slate-100 font-sans selection:bg-cyan-500/30 selection:text-cyan-200 antialiased min-h-screen overflow-x-hidden">
     <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
     <script>
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW reg error:', err));
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+          for (let registration of registrations) {
+            registration.unregister();
+          }
         });
       }
     </script>

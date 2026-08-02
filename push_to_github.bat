@@ -1,9 +1,9 @@
 @echo off
-title NEXUS - Push to GitHub
+title NextGen Devs - Push to GitHub
 color 0A
 
 echo ===================================================
-echo     NEXUS -- Automated GitHub Auto-Push Tool
+echo     NextGen Devs -- Automated GitHub Push Tool
 echo ===================================================
 echo.
 
@@ -24,25 +24,18 @@ echo [2/4] Staging all project files...
 git add .
 
 echo.
-set /p msg="[3/4] Enter Commit Message (Press ENTER for default 'Update NEXUS Code'): "
-if "%msg%"=="" set msg=Update NEXUS Code
+set /p msg="[3/4] Enter Commit Message (Press ENTER for default 'Update NextGen Devs Code'): "
+if "%msg%"=="" set msg=Update NextGen Devs Web Agency Platform
 
 git commit -m "%msg%"
 
 echo.
-echo [4/4] Pushing code to GitHub repository (https://github.com/smmsaudi1-tech/net.git)...
-git push -u origin main
+echo [4/4] Pushing to GitHub repository...
+git push -u origin main --force
 
 echo.
-if %errorlevel% equ 0 (
-    echo ===================================================
-    echo    SUCCESS! Project successfully pushed to GitHub!
-    echo ===================================================
-) else (
-    echo ===================================================
-    echo    PUSH ERROR: Please check your GitHub login/token.
-    echo ===================================================
-)
-
+echo ===================================================
+echo   ✅ Successfully Pushed NextGen Devs to GitHub!
+echo ===================================================
 echo.
 pause
