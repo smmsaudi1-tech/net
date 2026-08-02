@@ -19,7 +19,7 @@ export const DEFAULT_SITE_CONTENT: Record<string, string> = {
   'hero.desc': 'Next Gen Devs is a creative technology team building modern websites, luxury e-commerce experiences and digital products.',
   'hero.cta.start': 'START A PROJECT',
   'hero.cta.explore': 'EXPLORE OUR WORK',
-  'hero.spline_url': 'https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode',
+  'hero.spline_url': 'https://prod.spline.design/r60kLlhxPc0YkOJC/scene.splinecode',
 
   // Kinetic Marquee
   'marquee.text1': 'NEXT GEN DEVS // CREATIVE TECHNOLOGY STUDIO // WE BUILD WHAT’S NEXT // 2026 PRODUCTION //',
