@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ProcessItem } from '../../types';
+import { useTheme } from '../../context/ThemeContext';
 
 export const ProcessSection: React.FC = () => {
+  const { theme } = useTheme();
+
   const processes: ProcessItem[] = [
     {
       number: '01',
@@ -37,20 +40,39 @@ export const ProcessSection: React.FC = () => {
   ];
 
   return (
-    <section id="process" className="py-32 bg-[#000000] border-b border-[#181818] relative text-left">
+    <section
+      id="process"
+      className={`py-32 border-b transition-colors duration-500 relative text-left ${
+        theme === 'dark'
+          ? 'bg-[#000000] text-[#ffffff] border-[#181818]'
+          : 'bg-[#ffffff] text-[#000000] border-[#e4e4e7]'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-20">
         
         {/* Title */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#181818] pb-8">
+        <div
+          className={`flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b pb-8 ${
+            theme === 'dark' ? 'border-[#181818]' : 'border-[#e4e4e7]'
+          }`}
+        >
           <div>
-            <p className="text-[10px] font-mono tracking-[0.4em] text-[#525252] uppercase mb-2">
+            <p
+              className={`text-[10px] font-mono tracking-[0.4em] uppercase mb-2 ${
+                theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
+              }`}
+            >
               // METHODOLOGY
             </p>
-            <h2 className="text-4xl sm:text-6xl font-black text-[#ffffff] tracking-tighter uppercase font-sans">
+            <h2 className="text-4xl sm:text-6xl font-black tracking-tighter uppercase font-sans">
               OUR PROCESS
             </h2>
           </div>
-          <p className="text-xs font-mono text-[#a3a3a3] tracking-widest uppercase">
+          <p
+            className={`text-xs font-mono tracking-widest uppercase ${
+              theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
+            }`}
+          >
             [ PRECISION WORKFLOW ]
           </p>
         </div>
@@ -64,28 +86,44 @@ export const ProcessSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b border-[#181818] pb-12 group"
+              className={`grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b pb-12 group ${
+                theme === 'dark' ? 'border-[#181818]' : 'border-[#e4e4e7]'
+              }`}
             >
               {/* Huge Number */}
               <div className="lg:col-span-3">
-                <span className="text-6xl sm:text-8xl font-black font-mono text-[#262626] group-hover:text-[#ffffff] transition-colors duration-500">
+                <span
+                  className={`text-6xl sm:text-8xl font-black font-mono transition-colors duration-500 ${
+                    theme === 'dark'
+                      ? 'text-[#262626] group-hover:text-[#ffffff]'
+                      : 'text-[#e4e4e7] group-hover:text-[#000000]'
+                  }`}
+                >
                   {proc.number}
                 </span>
               </div>
 
               {/* Title & Subtitle */}
               <div className="lg:col-span-5 space-y-2">
-                <h3 className="text-3xl sm:text-4xl font-black text-[#ffffff] uppercase tracking-tight font-sans">
+                <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight font-sans">
                   {proc.title}
                 </h3>
-                <p className="text-xs font-mono text-[#525252] uppercase tracking-widest">
+                <p
+                  className={`text-xs font-mono uppercase tracking-widest ${
+                    theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
+                  }`}
+                >
                   {proc.subtitle}
                 </p>
               </div>
 
               {/* Description */}
               <div className="lg:col-span-4">
-                <p className="text-xs sm:text-sm text-[#a3a3a3] leading-relaxed font-sans font-medium">
+                <p
+                  className={`text-xs sm:text-sm leading-relaxed font-sans font-medium ${
+                    theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
+                  }`}
+                >
                   {proc.description}
                 </p>
               </div>

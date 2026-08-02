@@ -6,6 +6,7 @@ import { ExternalLink, ArrowUpRight, Eye } from 'lucide-react';
 import { REAL_PROJECTS } from '../../data/projectsData';
 import { RealProject } from '../../types';
 import { soundEngine } from '../../utils/audioEngine';
+import { useTheme } from '../../context/ThemeContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,6 +14,7 @@ export const EditorialCaseStudies: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>('ALL');
   const [activeModalProject, setActiveModalProject] = useState<RealProject | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
 
   const categories = ['ALL', 'E-COMMERCE', 'BRANDS', 'APPS'];
 
@@ -56,16 +58,31 @@ export const EditorialCaseStudies: React.FC = () => {
   }, [selectedFilter]);
 
   return (
-    <section id="work" className="py-28 bg-[#000000] relative border-b border-[#181818] text-left">
+    <section
+      id="work"
+      className={`py-28 border-b transition-colors duration-500 relative text-left ${
+        theme === 'dark'
+          ? 'bg-[#000000] text-[#ffffff] border-[#181818]'
+          : 'bg-[#ffffff] text-[#000000] border-[#e4e4e7]'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-12">
         
         {/* Section Header & Filter Tabs */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#181818] pb-8">
+        <div
+          className={`flex flex-col md:flex-row md:items-end justify-between gap-6 border-b pb-8 ${
+            theme === 'dark' ? 'border-[#181818]' : 'border-[#e4e4e7]'
+          }`}
+        >
           <div>
-            <p className="text-[10px] font-mono tracking-[0.4em] text-[#525252] uppercase mb-2">
+            <p
+              className={`text-[10px] font-mono tracking-[0.4em] uppercase mb-2 ${
+                theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
+              }`}
+            >
               // GSAP SCROLL-ANIMATED PRODUCTIONS
             </p>
-            <h2 className="text-4xl sm:text-6xl font-black text-[#ffffff] tracking-tighter uppercase font-sans">
+            <h2 className="text-4xl sm:text-6xl font-black tracking-tighter uppercase font-sans">
               SELECTED WORK
             </h2>
           </div>
@@ -81,8 +98,12 @@ export const EditorialCaseStudies: React.FC = () => {
                 }}
                 className={`px-5 py-2.5 rounded-full border transition-all duration-300 font-bold uppercase tracking-widest cursor-pointer ${
                   selectedFilter === cat
-                    ? 'bg-[#ffffff] text-[#000000] border-[#ffffff]'
-                    : 'bg-[#0d0d0d] text-[#a3a3a3] border-[#262626] hover:border-[#525252]'
+                    ? theme === 'dark'
+                      ? 'bg-[#ffffff] text-[#000000] border-[#ffffff]'
+                      : 'bg-[#000000] text-[#ffffff] border-[#000000]'
+                    : theme === 'dark'
+                    ? 'bg-[#0d0d0d] text-[#a3a3a3] border-[#262626] hover:border-[#525252]'
+                    : 'bg-[#f4f4f5] text-[#525252] border-[#e4e4e7] hover:border-[#a1a1aa]'
                 }`}
               >
                 {cat}
@@ -98,7 +119,11 @@ export const EditorialCaseStudies: React.FC = () => {
               <motion.div
                 key={proj.id}
                 layout
-                className="product-card-anim group p-6 rounded-3xl bg-[#0d0d0d] border border-[#262626] hover:border-[#ffffff] transition-all duration-500 flex flex-col justify-between space-y-6 shadow-2xl relative"
+                className={`product-card-anim group p-6 rounded-3xl border transition-all duration-500 flex flex-col justify-between space-y-6 shadow-2xl relative ${
+                  theme === 'dark'
+                    ? 'bg-[#0d0d0d] border-[#262626] hover:border-[#ffffff]'
+                    : 'bg-[#f4f4f5] border-[#e4e4e7] hover:border-[#000000]'
+                }`}
                 data-cursor="VIEW"
               >
                 {/* Visual Image Banner */}
@@ -133,36 +158,55 @@ export const EditorialCaseStudies: React.FC = () => {
 
                 {/* Compact Details Info */}
                 <div className="space-y-4 text-left">
-                  <div className="flex items-center justify-between text-[10px] font-mono text-[#525252] uppercase">
+                  <div
+                    className={`flex items-center justify-between text-[10px] font-mono uppercase ${
+                      theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
+                    }`}
+                  >
                     <span>{proj.subtitle}</span>
                     <span>{proj.year}</span>
                   </div>
 
-                  <h3 className="text-2xl sm:text-3xl font-black text-[#ffffff] uppercase tracking-tight font-sans group-hover:text-[#a3a3a3] transition-colors">
+                  <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight font-sans group-hover:text-[#a3a3a3] transition-colors">
                     {proj.title}
                   </h3>
 
-                  <p className="text-xs text-[#a3a3a3] font-sans leading-relaxed line-clamp-2 font-medium">
+                  <p
+                    className={`text-xs font-sans leading-relaxed line-clamp-2 font-medium ${
+                      theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
+                    }`}
+                  >
                     {proj.description}
                   </p>
 
                   {/* Tech Stack Badges */}
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {proj.techStack.map((tech, i) => (
-                      <span key={i} className="px-2.5 py-1 rounded-md bg-[#181818] border border-[#262626] text-[9px] font-mono text-[#d4d4d4]">
+                      <span
+                        key={i}
+                        className={`px-2.5 py-1 rounded-md text-[9px] font-mono border ${
+                          theme === 'dark'
+                            ? 'bg-[#181818] border-[#262626] text-[#d4d4d4]'
+                            : 'bg-[#ffffff] border-[#e4e4e7] text-[#27272a]'
+                        }`}
+                      >
                         {tech}
                       </span>
                     ))}
                   </div>
 
                   {/* Actions */}
-                  <div className="pt-2 flex items-center justify-between border-t border-[#181818]">
+                  <div
+                    className={`pt-2 flex items-center justify-between border-t ${
+                      theme === 'dark' ? 'border-[#181818]' : 'border-[#e4e4e7]'
+                    }`}
+                  >
                     <button
                       onClick={() => {
                         soundEngine.playClick();
                         setActiveModalProject(proj);
                       }}
-                      className="text-[11px] font-mono font-bold text-[#ffffff] tracking-widest uppercase flex items-center gap-1.5 hover:underline cursor-pointer"
+                      className="text-[11px] font-mono font-bold tracking-widest uppercase flex items-center gap-1.5 hover:underline cursor-pointer"
                     >
                       <Eye className="w-3.5 h-3.5" />
                       <span>LIVE PREVIEW</span>
@@ -172,7 +216,9 @@ export const EditorialCaseStudies: React.FC = () => {
                       href={proj.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[11px] font-mono font-bold text-[#a3a3a3] hover:text-[#ffffff] tracking-widest uppercase flex items-center gap-1 transition-colors"
+                      className={`text-[11px] font-mono font-bold tracking-widest uppercase flex items-center gap-1 transition-colors ${
+                        theme === 'dark' ? 'text-[#a3a3a3] hover:text-[#ffffff]' : 'text-[#525252] hover:text-[#000000]'
+                      }`}
                     >
                       <span>VISIT SITE</span>
                       <ExternalLink className="w-3.5 h-3.5" />
