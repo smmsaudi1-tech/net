@@ -17,14 +17,15 @@ const getCustomApiKey = () => {
 
 const savedKey = getCustomApiKey();
 
-// Standard Firebase Configuration
+// User Real Firebase Configuration
 export const firebaseConfig = {
-  apiKey: savedKey || env.VITE_FIREBASE_API_KEY || "AIzaSyDemoKeyForNextGenDevsStudio2026",
-  authDomain: env.VITE_FIREBASE_AUTH_DOMAIN || "next-gen-devs-studio.firebaseapp.com",
-  projectId: env.VITE_FIREBASE_PROJECT_ID || "next-gen-devs-studio",
-  storageBucket: env.VITE_FIREBASE_STORAGE_BUCKET || "next-gen-devs-studio.appspot.com",
-  messagingSenderId: env.VITE_FIREBASE_MESSAGING_SENDER_ID || "123456789012",
-  appId: env.VITE_FIREBASE_APP_ID || "1:123456789012:web:abc123def456ghi789jkl"
+  apiKey: savedKey || env.VITE_FIREBASE_API_KEY || "AIzaSyAmpOrpmQP4mDNqQ901xZ9slxhNLWf5hWo",
+  authDomain: env.VITE_FIREBASE_AUTH_DOMAIN || "project-4758047965677777481.firebaseapp.com",
+  projectId: env.VITE_FIREBASE_PROJECT_ID || "project-4758047965677777481",
+  storageBucket: env.VITE_FIREBASE_STORAGE_BUCKET || "project-4758047965677777481.firebasestorage.app",
+  messagingSenderId: env.VITE_FIREBASE_MESSAGING_SENDER_ID || "486512069256",
+  appId: env.VITE_FIREBASE_APP_ID || "1:486512069256:web:9de02a8be691b0e99e2d3d",
+  measurementId: env.VITE_FIREBASE_MEASUREMENT_ID || "G-YBW8PQ5STE"
 };
 
 // Initialize Firebase App gracefully
