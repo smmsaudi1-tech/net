@@ -24,87 +24,96 @@ export const ThreeDScene: React.FC = () => {
     container.appendChild(renderer.domElement);
 
     // 2. Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0xffffff, 3.5, 100);
-    pointLight.position.set(5, 5, 5);
+    const pointLight = new THREE.PointLight(0xffffff, 4, 100);
+    pointLight.position.set(6, 6, 6);
     scene.add(pointLight);
 
-    const mouseLight = new THREE.PointLight(0xffffff, 2, 50);
+    const mouseLight = new THREE.PointLight(0xffffff, 3, 50);
     mouseLight.position.set(0, 0, 4);
     scene.add(mouseLight);
 
-    // 3. Abstract Futuristic Object (Group of Metallic Fragments)
+    // 3. PROGRAMMING & CODE-THEMED 3D SCULPTURE
     const mainGroup = new THREE.Group();
     scene.add(mainGroup);
 
-    // Main Metallic Core Geometry
-    const coreGeo = new THREE.IcosahedronGeometry(1.6, 2);
-    const coreMat = new THREE.MeshStandardMaterial({
-      color: 0x1a1a1a,
+    // Outer Glass Code Cube Matrix
+    const cubeGeo = new THREE.BoxGeometry(2.2, 2.2, 2.2);
+    const cubeMat = new THREE.MeshStandardMaterial({
+      color: 0x111111,
       metalness: 0.9,
-      roughness: 0.15,
+      roughness: 0.1,
+      wireframe: true
+    });
+    const codeCube = new THREE.Mesh(cubeGeo, cubeMat);
+    mainGroup.add(codeCube);
+
+    // Inner Glowing Core (Architectural Compiler Node)
+    const coreGeo = new THREE.OctahedronGeometry(1.2, 0);
+    const coreMat = new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      metalness: 1.0,
+      roughness: 0.05,
       wireframe: false
     });
     const coreMesh = new THREE.Mesh(coreGeo, coreMat);
     mainGroup.add(coreMesh);
 
-    // Wireframe Outer Shell
-    const wireGeo = new THREE.IcosahedronGeometry(2.1, 1);
-    const wireMat = new THREE.MeshBasicMaterial({
-      color: 0x525252,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.35
-    });
-    const wireMesh = new THREE.Mesh(wireGeo, wireMat);
-    mainGroup.add(wireMesh);
+    // Orbiting Binary Ring 1 (Horizontal Code Stream)
+    const ringGeo1 = new THREE.TorusGeometry(2.8, 0.03, 16, 100);
+    const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x525252, wireframe: true });
+    const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
+    ring1.rotation.x = Math.PI / 3;
+    mainGroup.add(ring1);
 
-    // Orbiting Floating Geometric Fragments
-    const fragments: THREE.Mesh[] = [];
-    const fragGeo = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-    const fragMat = new THREE.MeshStandardMaterial({
+    // Orbiting Binary Ring 2 (Vertical Code Stream)
+    const ringGeo2 = new THREE.TorusGeometry(3.2, 0.02, 16, 100);
+    const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xa3a3a3, wireframe: true });
+    const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
+    ring2.rotation.y = Math.PI / 4;
+    mainGroup.add(ring2);
+
+    // Orbiting Code Brackets & Syntax Bits (< />, { }, 01)
+    const syntaxNodes: THREE.Mesh[] = [];
+    const nodeGeo = new THREE.BoxGeometry(0.25, 0.25, 0.25);
+    const nodeMat = new THREE.MeshStandardMaterial({
       color: 0xffffff,
       metalness: 1.0,
       roughness: 0.1
     });
 
-    for (let i = 0; i < 18; i++) {
-      const frag = new THREE.Mesh(fragGeo, fragMat);
-      const radius = 2.8 + Math.random() * 0.8;
+    for (let i = 0; i < 24; i++) {
+      const node = new THREE.Mesh(nodeGeo, nodeMat);
+      const radius = 3.2 + Math.random() * 0.8;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(Math.random() * 2 - 1);
 
-      frag.position.x = radius * Math.sin(phi) * Math.cos(theta);
-      frag.position.y = radius * Math.sin(phi) * Math.sin(theta);
-      frag.position.z = radius * Math.cos(phi);
+      node.position.x = radius * Math.sin(phi) * Math.cos(theta);
+      node.position.y = radius * Math.sin(phi) * Math.sin(theta);
+      node.position.z = radius * Math.cos(phi);
 
-      frag.rotation.x = Math.random() * Math.PI;
-      frag.rotation.y = Math.random() * Math.PI;
-
-      mainGroup.add(frag);
-      fragments.push(frag);
+      mainGroup.add(node);
+      syntaxNodes.push(node);
     }
 
-    // 4. Mouse Tracking Physics
+    // 4. Mouse & Scroll Interaction Physics
     let targetX = 0;
     let targetY = 0;
 
     const onMouseMove = (e: MouseEvent) => {
       const windowHalfX = window.innerWidth / 2;
       const windowHalfY = window.innerHeight / 2;
-      targetX = (e.clientX - windowHalfX) * 0.0015;
-      targetY = (e.clientY - windowHalfY) * 0.0015;
+      targetX = (e.clientX - windowHalfX) * 0.0018;
+      targetY = (e.clientY - windowHalfY) * 0.0018;
 
-      // Move light with cursor
       mouseLight.position.x = (e.clientX / window.innerWidth) * 10 - 5;
       mouseLight.position.y = -(e.clientY / window.innerHeight) * 10 + 5;
     };
 
     window.addEventListener('mousemove', onMouseMove);
 
-    // Resize Handler
     const onResize = () => {
       if (!container) return;
       camera.aspect = container.clientWidth / container.clientHeight;
@@ -121,17 +130,21 @@ export const ThreeDScene: React.FC = () => {
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
 
-      // Smooth Rotation
-      mainGroup.rotation.y = elapsedTime * 0.2 + targetX;
-      mainGroup.rotation.x = elapsedTime * 0.1 + targetY;
+      // Continuous 3D Code Cube Rotation
+      mainGroup.rotation.y = elapsedTime * 0.25 + targetX;
+      mainGroup.rotation.x = elapsedTime * 0.15 + targetY;
 
-      wireMesh.rotation.y = -elapsedTime * 0.15;
+      coreMesh.rotation.y = -elapsedTime * 0.4;
+      codeCube.rotation.z = elapsedTime * 0.1;
 
-      // Orbit fragments
-      fragments.forEach((frag, idx) => {
-        frag.rotation.x += 0.01;
-        frag.rotation.y += 0.01;
-        frag.position.y += Math.sin(elapsedTime * 2 + idx) * 0.003;
+      ring1.rotation.z = elapsedTime * 0.2;
+      ring2.rotation.z = -elapsedTime * 0.25;
+
+      // Pulse Orbiting Nodes
+      syntaxNodes.forEach((node, idx) => {
+        node.rotation.x += 0.02;
+        node.rotation.y += 0.02;
+        node.position.y += Math.sin(elapsedTime * 2.5 + idx) * 0.004;
       });
 
       renderer.render(scene, camera);
@@ -153,7 +166,7 @@ export const ThreeDScene: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="w-full h-[450px] sm:h-[600px] relative overflow-hidden pointer-events-none"
+      className="w-full h-[480px] sm:h-[620px] relative overflow-hidden pointer-events-none flex items-center justify-center"
     />
   );
 };
