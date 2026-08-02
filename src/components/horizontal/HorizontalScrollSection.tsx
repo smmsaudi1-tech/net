@@ -1,67 +1,104 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowUpRight } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const HorizontalScrollSection: React.FC = () => {
+  const targetRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const steps = [
-    { number: '01', title: 'IDEA', desc: 'Understanding your vision, business model & digital goals.' },
-    { number: '02', title: 'DESIGN', desc: 'Architecting minimal luxury UX/UI & motion prototypes.' },
-    { number: '03', title: 'CODE', desc: 'Engineering robust React, Next.js, and Three.js systems.' },
-    { number: '04', title: 'TEST', desc: 'Performance optimization, accessibility & 99/100 speed audit.' },
-    { number: '05', title: 'LAUNCH', desc: 'Deploying globally with zero downtime and continuous support.' }
+    { number: '01', title: 'IDEA & DISCOVERY', desc: 'Analyzing brand position, architecture, business goals, and audience psychology.', detail: 'DISCOVERY PHASE // 2026' },
+    { number: '02', title: 'LUXURY DESIGN', desc: 'Architecting minimal typography, 3D WebGL scenes, and fluid motion prototypes.', detail: 'DESIGN SYSTEM' },
+    { number: '03', title: 'HARDWARE CODE', desc: 'Engineering robust React, Next.js, and WebGL code for ultra-fast performance.', detail: 'ENGINEERING' },
+    { number: '04', title: 'SPEED AUDIT', desc: 'Optimizing render cycles, mobile touch responsiveness, and 99/100 Lighthouse score.', detail: 'OPTIMIZATION' },
+    { number: '05', title: 'GLOBAL LAUNCH', desc: 'Deploying globally with zero downtime, instant edge CDN routing, and ongoing scaling.', detail: 'PRODUCTION DEPLOY' }
   ];
 
+  useEffect(() => {
+    const container = containerRef.current;
+    const target = targetRef.current;
+
+    if (!container || !target) return;
+
+    const ctx = gsap.context(() => {
+      const scrollWidth = target.scrollWidth - window.innerWidth;
+
+      gsap.to(target, {
+        x: -scrollWidth,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: container,
+          start: 'top top',
+          end: () => `+=${scrollWidth}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true
+        }
+      });
+    }, container);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="py-32 bg-[#000000] border-b border-[#181818] overflow-hidden relative text-left">
-      <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-16">
+    <section ref={containerRef} className="bg-[#000000] border-b border-[#181818] relative overflow-hidden text-left">
+      <div className="h-[100dvh] flex flex-col justify-between py-12 px-6 sm:px-12">
         
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#181818] pb-8">
+        {/* Top Header */}
+        <div className="flex items-center justify-between border-b border-[#181818] pb-6 max-w-7xl mx-auto w-full">
           <div>
-            <p className="text-[10px] font-mono tracking-[0.4em] text-[#525252] uppercase mb-2">
-              // PRODUCTION ROADMAP
+            <p className="text-[10px] font-mono tracking-[0.4em] text-[#525252] uppercase mb-1">
+              // GSAP PINNED HORIZONTAL ROADMAP
             </p>
-            <h2 className="text-4xl sm:text-7xl font-black text-[#ffffff] tracking-tighter uppercase font-sans">
-              FROM IDEA TO DIGITAL.
+            <h2 className="text-3xl sm:text-5xl font-black text-[#ffffff] tracking-tighter uppercase font-sans">
+              FROM IDEA TO DIGITAL
             </h2>
           </div>
-          <p className="text-xs font-mono text-[#a3a3a3] tracking-widest uppercase">
-            [ 05 STAGES OF CREATION ]
-          </p>
+          <span className="text-xs font-mono text-[#a3a3a3] tracking-widest uppercase">
+            [ GSAP SCROLLTRIGGER PINNED ]
+          </span>
         </div>
 
-        {/* Horizontal Process Track */}
-        <div className="flex gap-6 overflow-x-auto pb-8 scrollbar-none snap-x">
+        {/* Horizontal Moving Track */}
+        <div ref={targetRef} className="flex items-center gap-8 pl-4 pr-32">
           {steps.map((step, idx) => (
-            <motion.div
+            <div
               key={step.number}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="flex-shrink-0 w-80 sm:w-96 p-8 rounded-3xl bg-[#0d0d0d] border border-[#262626] hover:border-[#525252] transition-all space-y-6 snap-center group shadow-2xl"
-              data-cursor="PROCESS"
+              className="w-[320px] sm:w-[480px] h-[360px] sm:h-[420px] p-8 sm:p-10 rounded-3xl bg-[#0d0d0d] border border-[#262626] hover:border-[#ffffff] transition-all duration-500 flex flex-col justify-between group shadow-2xl flex-shrink-0"
+              data-cursor="GSAP PIN"
             >
               <div className="flex items-center justify-between text-mono">
-                <span className="text-xs font-mono text-[#525252] font-bold">STAGE //</span>
-                <span className="text-2xl font-mono font-black text-[#ffffff] group-hover:text-[#a3a3a3] transition-colors">
+                <span className="text-xs font-mono text-[#525252] font-bold">{step.detail}</span>
+                <span className="text-3xl font-mono font-black text-[#ffffff] group-hover:scale-110 transition-transform">
                   {step.number}
                 </span>
               </div>
 
-              <h3 className="text-3xl sm:text-4xl font-black text-[#ffffff] tracking-tight uppercase font-sans">
-                {step.title}
-              </h3>
+              <div className="space-y-3">
+                <h3 className="text-3xl sm:text-4xl font-black text-[#ffffff] tracking-tight uppercase font-sans group-hover:text-[#a3a3a3] transition-colors">
+                  {step.title}
+                </h3>
 
-              <p className="text-xs text-[#a3a3a3] leading-relaxed font-sans font-medium">
-                {step.desc}
-              </p>
+                <p className="text-xs sm:text-sm text-[#a3a3a3] leading-relaxed font-sans font-medium">
+                  {step.desc}
+                </p>
+              </div>
 
               <div className="pt-4 border-t border-[#1a1a1a] flex items-center justify-between text-[10px] font-mono text-[#525252] uppercase">
-                <span>NEXT GEN STAGE</span>
-                <span>STEP {idx + 1} OF 5</span>
+                <span>NEXT GEN ROADMAP</span>
+                <ArrowUpRight className="w-4 h-4 text-[#ffffff] opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-            </motion.div>
+            </div>
           ))}
+        </div>
+
+        {/* Bottom Scroll Indicator */}
+        <div className="max-w-7xl mx-auto w-full flex justify-between text-[10px] font-mono text-[#525252] uppercase">
+          <span>SCROLL DOWN TO ADVANCE HORIZONTALLY</span>
+          <span>GSAP PINNED STAGE</span>
         </div>
 
       </div>

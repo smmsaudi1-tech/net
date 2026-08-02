@@ -5,7 +5,7 @@ import { Navbar } from './components/nav/Navbar';
 import { HeroSection } from './components/hero/HeroSection';
 import { BrandStatement } from './components/statement/BrandStatement';
 import { ExperimentalServices } from './components/services/ExperimentalServices';
-import { SelectedWork } from './components/work/SelectedWork';
+import { EditorialCaseStudies } from './components/work/EditorialCaseStudies';
 import { HorizontalScrollSection } from './components/horizontal/HorizontalScrollSection';
 import { ProcessSection } from './components/process/ProcessSection';
 import { FloatingTechStack } from './components/tech/FloatingTechStack';
@@ -33,22 +33,22 @@ export function App() {
 
           {/* Core Sections */}
           <main>
-            {/* 02 & 03 — Hero Section & 3D WebGL Scene */}
+            {/* 02 & 03 — Architectural Hero & 3D WebGL Signature */}
             <HeroSection />
 
-            {/* 04 — Brand Statement */}
+            {/* 04 — Kinetic Brand Statement */}
             <BrandStatement />
 
-            {/* 05 — Experimental Services */}
+            {/* 05 — Experimental Vertical Services */}
             <ExperimentalServices />
 
-            {/* 06 & 07 — Selected Work Showcase */}
-            <SelectedWork />
+            {/* 06 & 07 — Editorial Case Studies Showcase */}
+            <EditorialCaseStudies />
 
-            {/* 08 — Horizontal Scroll Section */}
+            {/* 08 — GSAP ScrollTrigger Pinned Horizontal Section */}
             <HorizontalScrollSection />
 
-            {/* 09 — Process Section */}
+            {/* 09 — Process Methodology */}
             <ProcessSection />
 
             {/* 10 — Floating Tech Stack */}
