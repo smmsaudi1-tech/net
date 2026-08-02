@@ -1,14 +1,25 @@
-import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
-import { getAuth } from 'firebase/auth';
+import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
+import { getFirestore, Firestore } from 'firebase/firestore';
+import { getStorage, FirebaseStorage } from 'firebase/storage';
+import { getAuth, Auth } from 'firebase/auth';
 
 // Safe environment accessor
 const env = (import.meta as any).env || {};
 
+// Read custom stored API key if user configured it in Admin UI
+const getCustomApiKey = () => {
+  try {
+    return localStorage.getItem('custom_firebase_api_key') || '';
+  } catch {
+    return '';
+  }
+};
+
+const savedKey = getCustomApiKey();
+
 // Standard Firebase Configuration
-const firebaseConfig = {
-  apiKey: env.VITE_FIREBASE_API_KEY || "AIzaSyDemoKeyForNextGenDevsStudio2026",
+export const firebaseConfig = {
+  apiKey: savedKey || env.VITE_FIREBASE_API_KEY || "AIzaSyDemoKeyForNextGenDevsStudio2026",
   authDomain: env.VITE_FIREBASE_AUTH_DOMAIN || "next-gen-devs-studio.firebaseapp.com",
   projectId: env.VITE_FIREBASE_PROJECT_ID || "next-gen-devs-studio",
   storageBucket: env.VITE_FIREBASE_STORAGE_BUCKET || "next-gen-devs-studio.appspot.com",
@@ -17,9 +28,18 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase App gracefully
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+export let app: FirebaseApp = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+export let db: Firestore = getFirestore(app);
+export let storage: FirebaseStorage = getStorage(app);
+export let auth: Auth = getAuth(app);
 
-export const db = getFirestore(app);
-export const storage = getStorage(app);
-export const auth = getAuth(app);
+export const updateCustomFirebaseApiKey = (newApiKey: string) => {
+  try {
+    localStorage.setItem('custom_firebase_api_key', newApiKey.trim());
+    window.location.reload();
+  } catch (e) {
+    console.error('Error saving custom Firebase API key:', e);
+  }
+};
+
 export default app;

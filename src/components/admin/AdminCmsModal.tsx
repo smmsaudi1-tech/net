@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Save, Plus, Trash2, Edit3, Upload, Image as ImageIcon, Database, FileText, Check, Sparkles, Lock, LogOut, UserCheck, ShieldAlert, Key } from 'lucide-react';
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged, User } from 'firebase/auth';
-import { auth } from '../../lib/firebase';
+import { auth, updateCustomFirebaseApiKey, firebaseConfig } from '../../lib/firebase';
 import { useSiteContent } from '../../context/SiteContentContext';
 import { useTheme } from '../../context/ThemeContext';
 import { subscribeProjects, addFirebaseProject, updateFirebaseProject, deleteFirebaseProject, uploadProjectImage } from '../../services/projectService';
@@ -22,6 +22,8 @@ export const AdminCmsModal: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
+  const [customApiKey, setCustomApiKey] = useState('');
+  const [showApiKeyInput, setShowApiKeyInput] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
@@ -67,6 +69,8 @@ export const AdminCmsModal: React.FC = () => {
     AUTHORIZED_ADMIN_EMAILS.some(e => e.toLowerCase() === currentUser.email?.toLowerCase())
   );
 
+  const isUsingDemoKey = firebaseConfig.apiKey.includes('AIzaSyDemoKey');
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthError(null);
@@ -78,9 +82,10 @@ export const AdminCmsModal: React.FC = () => {
       setLoginPassword('');
     } catch (err: any) {
       const msg = err.message || '';
-      if (msg.includes('API key') || msg.includes('400') || msg.includes('invalid-api-key')) {
+      if (msg.includes('API key') || msg.includes('400') || msg.includes('invalid-api-key') || isUsingDemoKey) {
+        setShowApiKeyInput(true);
         setAuthError(
-          '💡 Vercel / Firebase Key Alert: Please add your real VITE_FIREBASE_API_KEY environment variable in Vercel settings or project .env file.'
+          '⚠️ Firebase API Key Missing/Invalid: Paste your real Firebase API Key (starts with AIzaSy...) below to authenticate.'
         );
       } else if (msg.includes('auth/invalid-credential') || msg.includes('auth/user-not-found') || msg.includes('auth/wrong-password')) {
         setAuthError('Incorrect email or password. Please verify your Firebase Authentication credentials.');
@@ -90,6 +95,12 @@ export const AdminCmsModal: React.FC = () => {
     } finally {
       setIsLoggingIn(false);
     }
+  };
+
+  const handleSaveApiKey = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!customApiKey.trim()) return;
+    updateCustomFirebaseApiKey(customApiKey.trim());
   };
 
   const handleSignOut = async () => {
@@ -253,61 +264,97 @@ export const AdminCmsModal: React.FC = () => {
                   </button>
                 </div>
               ) : (
-                /* Login Form */
-                <form onSubmit={handleLogin} className="w-full max-w-md p-8 rounded-3xl border border-[#262626] bg-[#121216] space-y-5 text-left shadow-2xl">
-                  <div className="flex items-center gap-3 border-b border-zinc-800 pb-4">
-                    <Lock className="w-6 h-6 text-emerald-400" />
-                    <div>
-                      <h4 className="text-sm font-bold text-white uppercase tracking-wider font-sans">Firebase Admin Login</h4>
-                      <p className="text-[11px] text-zinc-400 font-sans">Sign in with authorized admin account</p>
+                /* Login Form & Config Setup */
+                <div className="w-full max-w-md space-y-4">
+                  <form onSubmit={handleLogin} className="p-8 rounded-3xl border border-[#262626] bg-[#121216] space-y-5 text-left shadow-2xl">
+                    <div className="flex items-center gap-3 border-b border-zinc-800 pb-4">
+                      <Lock className="w-6 h-6 text-emerald-400" />
+                      <div>
+                        <h4 className="text-sm font-bold text-white uppercase tracking-wider font-sans">Firebase Admin Login</h4>
+                        <p className="text-[11px] text-zinc-400 font-sans">Sign in with authorized admin account</p>
+                      </div>
                     </div>
-                  </div>
 
-                  {authError && (
-                    <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-sans leading-relaxed">
-                      {authError}
+                    {authError && (
+                      <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-sans leading-relaxed">
+                        {authError}
+                      </div>
+                    )}
+
+                    <div className="space-y-4 text-xs font-mono">
+                      <div>
+                        <label className="block text-zinc-400 mb-1">Admin Email</label>
+                        <input
+                          type="email"
+                          required
+                          value={loginEmail}
+                          onChange={(e) => setLoginEmail(e.target.value)}
+                          placeholder="mhamedwalid@gmail.com or youssefosama@gmail.com"
+                          className="w-full bg-[#1a1a20] border border-[#333] p-3 rounded-xl text-white focus:border-emerald-500 focus:outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-zinc-400 mb-1">Firebase Password</label>
+                        <input
+                          type="password"
+                          required
+                          value={loginPassword}
+                          onChange={(e) => setLoginPassword(e.target.value)}
+                          placeholder="••••••••"
+                          className="w-full bg-[#1a1a20] border border-[#333] p-3 rounded-xl text-white focus:border-emerald-500 focus:outline-none"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={isLoggingIn}
+                        className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs tracking-wider uppercase flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
+                      >
+                        <UserCheck className="w-4 h-4" />
+                        {isLoggingIn ? 'Authenticating...' : 'Sign In as Admin'}
+                      </button>
                     </div>
+
+                    <div className="pt-2 flex items-center justify-between text-[10px] text-zinc-500 font-mono">
+                      <span>Admins: mhamedwalid / youssefosama</span>
+                      <button
+                        type="button"
+                        onClick={() => setShowApiKeyInput(!showApiKeyInput)}
+                        className="text-emerald-400 hover:underline flex items-center gap-1 cursor-pointer"
+                      >
+                        <Key className="w-3 h-3" /> Config API Key
+                      </button>
+                    </div>
+                  </form>
+
+                  {/* Config Firebase API Key Box */}
+                  {showApiKeyInput && (
+                    <form onSubmit={handleSaveApiKey} className="p-5 rounded-3xl border border-amber-500/30 bg-[#161410] space-y-3 text-left">
+                      <div className="flex items-center gap-2 text-xs font-bold text-amber-400">
+                        <Key className="w-4 h-4" />
+                        <span>Paste Firebase API Key (From Firebase Console)</span>
+                      </div>
+                      <p className="text-[11px] text-zinc-400 font-sans">
+                        If Vercel environment variables are not set yet, paste your real Firebase API Key below:
+                      </p>
+                      <input
+                        type="text"
+                        required
+                        value={customApiKey}
+                        onChange={(e) => setCustomApiKey(e.target.value)}
+                        placeholder="AIzaSy..."
+                        className="w-full bg-[#1c1a16] border border-amber-500/40 p-2.5 rounded-xl text-xs font-mono text-white"
+                      />
+                      <button
+                        type="submit"
+                        className="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs uppercase cursor-pointer"
+                      >
+                        Save API Key & Reload
+                      </button>
+                    </form>
                   )}
-
-                  <div className="space-y-4 text-xs font-mono">
-                    <div>
-                      <label className="block text-zinc-400 mb-1">Admin Email</label>
-                      <input
-                        type="email"
-                        required
-                        value={loginEmail}
-                        onChange={(e) => setLoginEmail(e.target.value)}
-                        placeholder="mhamedwalid@gmail.com or youssefosama@gmail.com"
-                        className="w-full bg-[#1a1a20] border border-[#333] p-3 rounded-xl text-white focus:border-emerald-500 focus:outline-none"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-zinc-400 mb-1">Firebase Password</label>
-                      <input
-                        type="password"
-                        required
-                        value={loginPassword}
-                        onChange={(e) => setLoginPassword(e.target.value)}
-                        placeholder="••••••••"
-                        className="w-full bg-[#1a1a20] border border-[#333] p-3 rounded-xl text-white focus:border-emerald-500 focus:outline-none"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={isLoggingIn}
-                      className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs tracking-wider uppercase flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
-                    >
-                      <UserCheck className="w-4 h-4" />
-                      {isLoggingIn ? 'Authenticating...' : 'Sign In as Admin'}
-                    </button>
-                  </div>
-
-                  <div className="pt-2 text-[10px] text-center text-zinc-500 font-mono">
-                    Authorized emails: mhamedwalid@gmail.com | youssefosama@gmail.com
-                  </div>
-                </form>
+                </div>
               )}
             </div>
           ) : (
