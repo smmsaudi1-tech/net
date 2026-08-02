@@ -3,10 +3,13 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, ArrowDown } from 'lucide-react';
 import { ThreeDScene } from '../canvas/ThreeDScene';
 import { useTheme } from '../../context/ThemeContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const HeroSection: React.FC = () => {
   const { theme } = useTheme();
-  const headline = 'WE BUILD WHAT’S NEXT.';
+  const { t, lang } = useLanguage();
+
+  const headline = t('hero.h1', 'WE BUILD WHAT’S NEXT.', 'نبني مستقبلك الرقمي.');
   const letters = headline.split('');
 
   const scrollToSection = (id: string) => {
@@ -37,15 +40,15 @@ export const HeroSection: React.FC = () => {
             }`}
           >
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-            <span>CREATIVE TECHNOLOGY STUDIO / 2026</span>
+            <span>{t('hero.tag', 'CREATIVE TECHNOLOGY STUDIO / 2026', 'استوديو التكنولوجيا الإبداعية / 2026')}</span>
           </motion.div>
 
           {/* Letter by Letter Animated Headline */}
           <div className="overflow-hidden">
             <h1
-              className={`text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.95] font-sans uppercase ${
-                theme === 'dark' ? 'text-[#ffffff]' : 'text-[#000000]'
-              }`}
+              className={`text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.95] uppercase ${
+                lang === 'AR' ? 'font-arabic' : 'font-sans'
+              } ${theme === 'dark' ? 'text-[#ffffff]' : 'text-[#000000]'}`}
             >
               {letters.map((char, index) => (
                 <motion.span
@@ -70,11 +73,15 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className={`text-sm sm:text-lg max-w-xl leading-relaxed font-sans font-medium ${
-              theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
-            }`}
+            className={`text-sm sm:text-lg max-w-xl leading-relaxed font-medium ${
+              lang === 'AR' ? 'font-arabic' : 'font-sans'
+            } ${theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'}`}
           >
-            Next Gen Devs is a creative technology team building modern websites, e-commerce experiences and digital products.
+            {t(
+              'hero.desc',
+              'Next Gen Devs is a creative technology team building modern websites, e-commerce experiences and digital products.',
+              'فريق "نكسست جين ديفز" استوديو تكنولوجي إبداعي متخصص في تطوير المواقع الفاخرة، المتاجر الإلكترونية العالمية، والحلول البرمجية المبتكرة.'
+            )}
           </motion.p>
 
           {/* CTAs */}
@@ -93,7 +100,7 @@ export const HeroSection: React.FC = () => {
               }`}
               data-cursor="CONTACT"
             >
-              <span>START A PROJECT</span>
+              <span>{t('hero.cta.start', 'START A PROJECT', 'ابدأ مشروعك الآن')}</span>
               <ArrowUpRight className="w-4 h-4 stroke-[3]" />
             </button>
 
@@ -106,14 +113,14 @@ export const HeroSection: React.FC = () => {
               }`}
               data-cursor="EXPLORE"
             >
-              <span>EXPLORE OUR WORK</span>
+              <span>{t('hero.cta.explore', 'EXPLORE OUR WORK', 'استكشف أعمالنا')}</span>
               <ArrowDown className="w-4 h-4" />
             </button>
           </motion.div>
 
         </div>
 
-        {/* Right Column: Interactive 3D Canvas Object */}
+        {/* Right Column: Dynamic Interactive Morphing 3D Robot Sculpture */}
         <div className="lg:col-span-5 flex items-center justify-center">
           <ThreeDScene />
         </div>
