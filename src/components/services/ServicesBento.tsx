@@ -1,5 +1,6 @@
 import React from 'react';
-import { Shirt, Utensils, ShoppingBag, Zap, CheckCircle2, ArrowLeft, Layers, Smartphone, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Shirt, Utensils, ShoppingBag, Zap, CheckCircle2, ArrowLeft, Layers, Sparkles } from 'lucide-react';
 
 export const ServicesBento: React.FC = () => {
   const scrollToSection = (id: string) => {
@@ -14,7 +15,13 @@ export const ServicesBento: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 space-y-12">
         
         {/* Section Title */}
-        <div className="text-center space-y-3 max-w-2xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center space-y-3 max-w-2xl mx-auto"
+        >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-black">
             <Layers className="w-3.5 h-3.5" />
             <span>تخصصاتنا الاستثنائية</span>
@@ -25,13 +32,20 @@ export const ServicesBento: React.FC = () => {
           <p className="text-xs sm:text-sm text-slate-400">
             سواء كنت تمتلك براند ملابس، كافيه، أو مطعم.. نقدم لك الحلول الأكثر تطوراً في السوق.
           </p>
-        </div>
+        </motion.div>
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           
           {/* Card 1: Fashion & Clothing (Span 2) */}
-          <div className="md:col-span-2 nexus-card p-8 relative overflow-hidden group hover:border-cyan-500/50 transition-all">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.5 }}
+            className="md:col-span-2 nexus-card p-8 relative overflow-hidden group hover:border-pink-500/50 transition-all shadow-xl"
+          >
             <div className="absolute top-0 left-0 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
             
             <div className="relative z-10 space-y-6">
@@ -70,10 +84,17 @@ export const ServicesBento: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 2: Cafes & Restaurants (Span 1) */}
-          <div className="nexus-card p-8 relative overflow-hidden group hover:border-amber-500/50 transition-all flex flex-col justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="nexus-card p-8 relative overflow-hidden group hover:border-amber-500/50 transition-all flex flex-col justify-between shadow-xl"
+          >
             <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="space-y-6 relative z-10">
@@ -116,10 +137,17 @@ export const ServicesBento: React.FC = () => {
               <span>احسب تكلفة مطعمك أو كافيهك</span>
               <ArrowLeft className="w-4 h-4" />
             </button>
-          </div>
+          </motion.div>
 
           {/* Card 3: Custom E-Commerce & Apps (Span 1) */}
-          <div className="nexus-card p-8 relative overflow-hidden group hover:border-cyan-500/50 transition-all flex flex-col justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="nexus-card p-8 relative overflow-hidden group hover:border-cyan-500/50 transition-all flex flex-col justify-between shadow-xl"
+          >
             <div className="space-y-6 relative z-10">
               <div className="w-14 h-14 rounded-2xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-lg shadow-cyan-950/40">
                 <ShoppingBag className="w-7 h-7" />
@@ -148,10 +176,17 @@ export const ServicesBento: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 4: Performance & SEO (Span 2) */}
-          <div className="md:col-span-2 nexus-card p-8 relative overflow-hidden group hover:border-emerald-500/50 transition-all flex flex-col justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="md:col-span-2 nexus-card p-8 relative overflow-hidden group hover:border-emerald-500/50 transition-all flex flex-col justify-between shadow-xl"
+          >
             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10 space-y-6">
@@ -192,7 +227,7 @@ export const ServicesBento: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
         </div>
 

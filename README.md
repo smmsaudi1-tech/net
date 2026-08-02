@@ -1,12 +1,12 @@
 ---
-title: NEXUS Personal Network Control Center
-emoji: 📡
+title: NextGen Devs Web Agency Studio
+emoji: 🚀
 colorFrom: blue
 colorTo: indigo
 sdk: static
 pinned: false
 ---
 
-# NEXUS — Personal Network Control Center
+# NextGen Devs — Web Agency Studio Platform
 
-Personal Network Control Center for local network management, live bandwidth traffic monitoring, QoS priorities, schedules, and smart automation rules.
+Ultra-modern, high-performance animated agency portfolio & client management CMS tailored for fashion/clothing brands, cafes, and restaurants.
