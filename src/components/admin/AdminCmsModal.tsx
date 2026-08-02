@@ -756,30 +756,130 @@ export const AdminCmsModal: React.FC = () => {
                             />
                           </div>
 
+                          {/* Subtitle / Tagline Field with Predefined Dropdown Choices */}
                           <div>
-                            <label className={`block mb-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Subtitle / Tagline</label>
-                            <input
-                              type="text"
-                              value={editingProject.subtitle || ''}
-                              onChange={(e) => setEditingProject({ ...editingProject, subtitle: e.target.value })}
-                              className={`w-full p-3 rounded-xl border focus:border-emerald-500 focus:outline-none ${
+                            <label className={`block mb-1 font-bold ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>Subtitle / Tagline</label>
+                            <select
+                              value={
+                                [
+                                  'Fashion / E-Commerce',
+                                  'E-Commerce / Retail Store',
+                                  'Apparel & Streetwear',
+                                  'Clothing & Fashion Brand',
+                                  'Digital Quran Platform',
+                                  'Brand Digital Experience',
+                                  'Commercial Digital Platform',
+                                  'Local Brand & E-Commerce'
+                                ].includes(editingProject.subtitle || '')
+                                  ? editingProject.subtitle
+                                  : 'custom'
+                              }
+                              onChange={(e) => {
+                                if (e.target.value !== 'custom') {
+                                  setEditingProject({ ...editingProject, subtitle: e.target.value });
+                                } else {
+                                  setEditingProject({ ...editingProject, subtitle: '' });
+                                }
+                              }}
+                              className={`w-full p-3 rounded-xl border font-mono text-xs focus:border-emerald-500 focus:outline-none ${
                                 theme === 'dark' ? 'bg-[#151520] border-zinc-800 text-white' : 'bg-[#f4f5f7] border-zinc-300 text-zinc-900'
                               }`}
-                              placeholder="e.g. Fashion & Luxury E-Commerce"
-                            />
+                            >
+                              <option value="Fashion / E-Commerce">Fashion / E-Commerce</option>
+                              <option value="E-Commerce / Retail Store">E-Commerce / Retail Store</option>
+                              <option value="Apparel & Streetwear">Apparel & Streetwear</option>
+                              <option value="Clothing & Fashion Brand">Clothing & Fashion Brand</option>
+                              <option value="Digital Quran Platform">Digital Quran Platform</option>
+                              <option value="Brand Digital Experience">Brand Digital Experience</option>
+                              <option value="Commercial Digital Platform">Commercial Digital Platform</option>
+                              <option value="Local Brand & E-Commerce">Local Brand & E-Commerce</option>
+                              <option value="custom">✍️ Custom Subtitle (Type Below)...</option>
+                            </select>
+
+                            {(!editingProject.subtitle ||
+                              ![
+                                'Fashion / E-Commerce',
+                                'E-Commerce / Retail Store',
+                                'Apparel & Streetwear',
+                                'Clothing & Fashion Brand',
+                                'Digital Quran Platform',
+                                'Brand Digital Experience',
+                                'Commercial Digital Platform',
+                                'Local Brand & E-Commerce'
+                              ].includes(editingProject.subtitle)) && (
+                              <input
+                                type="text"
+                                value={editingProject.subtitle || ''}
+                                onChange={(e) => setEditingProject({ ...editingProject, subtitle: e.target.value })}
+                                className={`w-full p-3 mt-2 rounded-xl border focus:border-emerald-500 focus:outline-none ${
+                                  theme === 'dark' ? 'bg-[#151520] border-zinc-800 text-white' : 'bg-[#f4f5f7] border-zinc-300 text-zinc-900'
+                                }`}
+                                placeholder="Write custom subtitle..."
+                              />
+                            )}
                           </div>
 
+                          {/* Category Field with Predefined Dropdown Choices */}
                           <div>
-                            <label className={`block mb-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Category</label>
-                            <input
-                              type="text"
-                              value={editingProject.category || ''}
-                              onChange={(e) => setEditingProject({ ...editingProject, category: e.target.value })}
-                              className={`w-full p-3 rounded-xl border focus:border-emerald-500 focus:outline-none ${
+                            <label className={`block mb-1 font-bold ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}>Category</label>
+                            <select
+                              value={
+                                [
+                                  'Fashion & Luxury E-Commerce',
+                                  'Fullstack Retail Platform',
+                                  'Apparel E-Commerce',
+                                  'Custom Brand Experience',
+                                  'Interactive Web Application',
+                                  'Digital Studio Showcase',
+                                  'Brand Showcase',
+                                  'Local Brand Store'
+                                ].includes(editingProject.category || '')
+                                  ? editingProject.category
+                                  : 'custom'
+                              }
+                              onChange={(e) => {
+                                if (e.target.value !== 'custom') {
+                                  setEditingProject({ ...editingProject, category: e.target.value });
+                                } else {
+                                  setEditingProject({ ...editingProject, category: '' });
+                                }
+                              }}
+                              className={`w-full p-3 rounded-xl border font-mono text-xs focus:border-emerald-500 focus:outline-none ${
                                 theme === 'dark' ? 'bg-[#151520] border-zinc-800 text-white' : 'bg-[#f4f5f7] border-zinc-300 text-zinc-900'
                               }`}
-                              placeholder="e.g. E-Commerce"
-                            />
+                            >
+                              <option value="Fashion & Luxury E-Commerce">Fashion & Luxury E-Commerce</option>
+                              <option value="Fullstack Retail Platform">Fullstack Retail Platform</option>
+                              <option value="Apparel E-Commerce">Apparel E-Commerce</option>
+                              <option value="Custom Brand Experience">Custom Brand Experience</option>
+                              <option value="Interactive Web Application">Interactive Web Application</option>
+                              <option value="Digital Studio Showcase">Digital Studio Showcase</option>
+                              <option value="Brand Showcase">Brand Showcase</option>
+                              <option value="Local Brand Store">Local Brand Store</option>
+                              <option value="custom">✍️ Custom Category (Type Below)...</option>
+                            </select>
+
+                            {(!editingProject.category ||
+                              ![
+                                'Fashion & Luxury E-Commerce',
+                                'Fullstack Retail Platform',
+                                'Apparel E-Commerce',
+                                'Custom Brand Experience',
+                                'Interactive Web Application',
+                                'Digital Studio Showcase',
+                                'Brand Showcase',
+                                'Local Brand Store'
+                              ].includes(editingProject.category)) && (
+                              <input
+                                type="text"
+                                value={editingProject.category || ''}
+                                onChange={(e) => setEditingProject({ ...editingProject, category: e.target.value })}
+                                className={`w-full p-3 mt-2 rounded-xl border focus:border-emerald-500 focus:outline-none ${
+                                  theme === 'dark' ? 'bg-[#151520] border-zinc-800 text-white' : 'bg-[#f4f5f7] border-zinc-300 text-zinc-900'
+                                }`}
+                                placeholder="Write custom category..."
+                              />
+                            )}
                           </div>
 
                           <div>
