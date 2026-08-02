@@ -57,7 +57,7 @@ const dictionary: Record<string, { en: string; ar: string }> = {
   'srv3.title': { en: 'WEB APPLICATIONS & AI CHATBOTS', ar: 'التطبيقات وشات بوت الذكاء الاصطناعي' },
   'srv3.desc': { en: 'Fullstack cloud web platforms, custom AI chatbots, digital menus with QR codes, and SaaS portals.', ar: 'منصات سحابية، شات بوت ذكاء اصطناعي تفاعلي، ومميزات المتاجر والمطاعم.' },
 
-  'srv4.title': { en: 'UI / UX DESIGN SYSTEMS', ar: 'تصميم الواجهات ونظم UI/UX', ar: 'تصميم الواجهات ونظم UI/UX' },
+  'srv4.title': { en: 'UI / UX DESIGN SYSTEMS', ar: 'تصميم الواجهات ونظم UI/UX' },
   'srv4.desc': { en: 'Human-centered minimalist luxury design systems, wireframing, and motion prototypes.', ar: 'أنظمة تصميم أنيقة، تجربة مستخدم سلسة، وأنيميشن متناسق.' },
 
   'srv5.title': { en: 'BRAND DIGITAL EXPERIENCE', ar: 'الهوية الرقمية الكاملة' },
