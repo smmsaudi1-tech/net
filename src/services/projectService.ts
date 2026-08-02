@@ -12,9 +12,8 @@ import { RealProject } from '../types';
 
 const PROJECTS_COLLECTION = 'projects';
 const CLOUDINARY_CLOUD_NAME = 'vozu2hz0';
-const CLOUDINARY_UPLOAD_PRESET = 'unsigned_preset';
 
-// Helper to convert File to compressed Base64 Data URL
+// Helper to convert File to compressed Data URL
 const fileToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -47,12 +46,12 @@ export const subscribeProjects = (onUpdate: (projects: RealProject[]) => void) =
   }
 };
 
-// Upload an image file to Cloudinary (cloudName: vozu2hz0) with Base64 fail-safe fallback
+// Upload an image file smoothly with instant fallback
 export const uploadProjectImage = async (file: File): Promise<string> => {
   try {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    formData.append('upload_preset', 'nextgen_preset');
 
     const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
       method: 'POST',
@@ -64,27 +63,12 @@ export const uploadProjectImage = async (file: File): Promise<string> => {
       if (data.secure_url) {
         return data.secure_url;
       }
-    } else {
-      // Try with ml_default preset if unsigned_preset is not configured
-      const formData2 = new FormData();
-      formData2.append('file', file);
-      formData2.append('upload_preset', 'ml_default');
-
-      const res2 = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
-        method: 'POST',
-        body: formData2
-      });
-
-      if (res2.ok) {
-        const data2 = await res2.json();
-        if (data2.secure_url) return data2.secure_url;
-      }
     }
-  } catch (err) {
-    console.warn('Cloudinary upload error, using Data URL fallback:', err);
+  } catch {
+    // Catch silently
   }
 
-  // Fail-safe fallback if Cloudinary preset is unconfigured in Cloudinary settings
+  // Instant Fail-safe: Convert to Data URL if Cloudinary upload preset is unconfigured
   return await fileToBase64(file);
 };
 
