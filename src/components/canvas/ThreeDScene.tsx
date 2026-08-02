@@ -11,8 +11,8 @@ export const ThreeDScene: React.FC = () => {
   const splineUrl = getText('hero.spline_url', '');
 
   useEffect(() => {
-    // If splineUrl is active and loaded via <spline-viewer>, we don't need Three.js fallback canvas
-    if (splineUrl && splineUrl !== 'undefined' && splineUrl !== '') return;
+    // If user provided a custom Spline model URL, render via <spline-viewer>
+    if (splineUrl && splineUrl.trim() !== '' && splineUrl !== 'undefined') return;
 
     const container = containerRef.current;
     if (!container) return;
@@ -20,7 +20,7 @@ export const ThreeDScene: React.FC = () => {
     const w = container.clientWidth || 500;
     const h = container.clientHeight || 500;
 
-    // 1. Three.js Scene, Camera, Renderer setup
+    // 1. Three.js Scene Setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 1000);
     camera.position.z = 6.5;
@@ -32,78 +32,130 @@ export const ThreeDScene: React.FC = () => {
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
-    // 2. Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, theme === 'dark' ? 0.9 : 1.4);
+    // 2. Dynamic Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, theme === 'dark' ? 1.0 : 1.5);
     scene.add(ambientLight);
 
-    const mainLight = new THREE.DirectionalLight(0xffffff, 3);
-    mainLight.position.set(5, 5, 5);
-    scene.add(mainLight);
+    const dirLight1 = new THREE.DirectionalLight(0x00f0ff, 3);
+    dirLight1.position.set(5, 5, 5);
+    scene.add(dirLight1);
 
-    const cyanLight = new THREE.PointLight(theme === 'dark' ? 0x00f0ff : 0x0066ff, 5, 20);
-    cyanLight.position.set(-4, 3, 3);
-    scene.add(cyanLight);
+    const dirLight2 = new THREE.DirectionalLight(0xff007f, 3);
+    dirLight2.position.set(-5, -5, -2);
+    scene.add(dirLight2);
 
-    const magentaLight = new THREE.PointLight(theme === 'dark' ? 0xff007f : 0xaa00ff, 4, 20);
-    magentaLight.position.set(4, -3, -2);
-    scene.add(magentaLight);
+    const mouseLight = new THREE.PointLight(0xffffff, 3, 20);
+    mouseLight.position.set(0, 0, 5);
+    scene.add(mouseLight);
 
-    // 3. Cyber Crystal Sculpture Group
-    const group = new THREE.Group();
-    scene.add(group);
+    // 3. Cybernetic 3D Core Group
+    const mainGroup = new THREE.Group();
+    scene.add(mainGroup);
 
-    const outerGeo = new THREE.IcosahedronGeometry(1.8, 1);
+    // Core 1: Outer Holographic Armor Wireframe
+    const outerGeo = new THREE.IcosahedronGeometry(1.8, 2);
     const outerMat = new THREE.MeshStandardMaterial({
       color: theme === 'dark' ? 0xffffff : 0x18181b,
       wireframe: true,
       transparent: true,
-      opacity: theme === 'dark' ? 0.35 : 0.45,
+      opacity: theme === 'dark' ? 0.4 : 0.5,
       metalness: 0.9,
       roughness: 0.1
     });
     const outerMesh = new THREE.Mesh(outerGeo, outerMat);
-    group.add(outerMesh);
+    mainGroup.add(outerMesh);
 
-    const innerGeo = new THREE.OctahedronGeometry(1.2, 2);
+    // Core 2: Inner Glossy Faceted Crystal
+    const innerGeo = new THREE.OctahedronGeometry(1.2, 3);
     const innerMat = new THREE.MeshPhysicalMaterial({
-      color: theme === 'dark' ? 0x111111 : 0xf4f4f5,
-      metalness: 0.9,
-      roughness: 0.1,
+      color: theme === 'dark' ? 0x0f0f15 : 0xf4f4f5,
+      metalness: 0.95,
+      roughness: 0.05,
       clearcoat: 1.0,
-      clearcoatRoughness: 0.1,
+      clearcoatRoughness: 0.05,
       reflectivity: 1.0,
-      transmission: 0.2,
-      ior: 1.5
+      transmission: 0.3,
+      ior: 1.6
     });
     const innerMesh = new THREE.Mesh(innerGeo, innerMat);
-    group.add(innerMesh);
+    mainGroup.add(innerMesh);
 
-    const ringGeo1 = new THREE.TorusGeometry(2.4, 0.02, 16, 100);
+    // Core 3: Dual Interlocking Neon Rings
+    const ringGeo1 = new THREE.TorusGeometry(2.5, 0.025, 16, 100);
     const ringMat1 = new THREE.MeshBasicMaterial({
       color: theme === 'dark' ? 0x00f0ff : 0x2563eb
     });
     const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
     ring1.rotation.x = Math.PI / 3;
-    group.add(ring1);
+    mainGroup.add(ring1);
 
-    const ringGeo2 = new THREE.TorusGeometry(2.8, 0.015, 16, 100);
+    const ringGeo2 = new THREE.TorusGeometry(2.9, 0.02, 16, 100);
     const ringMat2 = new THREE.MeshBasicMaterial({
       color: theme === 'dark' ? 0xff007f : 0xd946ef
     });
     const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
     ring2.rotation.y = Math.PI / 4;
-    group.add(ring2);
+    mainGroup.add(ring2);
+
+    // Core 4: Ambient Floating Particle Swarm
+    const particleCount = 150;
+    const particleGeo = new THREE.BufferGeometry();
+    const particlePositions = new Float32Array(particleCount * 3);
+
+    for (let i = 0; i < particleCount * 3; i += 3) {
+      particlePositions[i] = (Math.random() - 0.5) * 8;
+      particlePositions[i + 1] = (Math.random() - 0.5) * 8;
+      particlePositions[i + 2] = (Math.random() - 0.5) * 8;
+    }
+
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+    const particleMat = new THREE.PointsMaterial({
+      size: 0.035,
+      color: theme === 'dark' ? 0xffffff : 0x000000,
+      transparent: true,
+      opacity: 0.6
+    });
+    const particlePoints = new THREE.Points(particleGeo, particleMat);
+    mainGroup.add(particlePoints);
+
+    // Mouse Interaction
+    let targetRotX = 0;
+    let targetRotY = 0;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+
+      targetRotY = x * 0.7;
+      targetRotX = -y * 0.7;
+
+      mouseLight.position.x = x * 4;
+      mouseLight.position.y = y * 4;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
 
     let animationFrameId: number;
     let clock = new THREE.Clock();
 
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
+
       outerMesh.rotation.y = elapsedTime * 0.3;
       outerMesh.rotation.x = elapsedTime * 0.2;
+
       innerMesh.rotation.y = -elapsedTime * 0.4;
+      innerMesh.rotation.z = elapsedTime * 0.25;
+
       ring1.rotation.z = elapsedTime * 0.5;
       ring2.rotation.x = elapsedTime * 0.6;
+
+      particlePoints.rotation.y = elapsedTime * 0.05;
+
+      mainGroup.rotation.x += (targetRotX - mainGroup.rotation.x) * 0.05;
+      mainGroup.rotation.y += (targetRotY - mainGroup.rotation.y) * 0.05;
+
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -122,6 +174,7 @@ export const ThreeDScene: React.FC = () => {
     window.addEventListener('resize', handleResize);
 
     return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
       renderer.dispose();
@@ -130,7 +183,7 @@ export const ThreeDScene: React.FC = () => {
 
   return (
     <div className="relative w-full h-[420px] sm:h-[500px] flex items-center justify-center overflow-hidden">
-      {splineUrl && splineUrl !== 'undefined' && splineUrl !== '' ? (
+      {splineUrl && splineUrl.trim() !== '' && splineUrl !== 'undefined' ? (
         <spline-viewer
           url={splineUrl}
           loading-anim
