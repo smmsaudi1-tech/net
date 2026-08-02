@@ -24,81 +24,73 @@ export const ThreeDScene: React.FC = () => {
     container.appendChild(renderer.domElement);
 
     // 2. Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0xffffff, 4, 100);
-    pointLight.position.set(6, 6, 6);
-    scene.add(pointLight);
+    const mainLight = new THREE.PointLight(0xffffff, 4, 100);
+    mainLight.position.set(6, 6, 6);
+    scene.add(mainLight);
 
     const mouseLight = new THREE.PointLight(0xffffff, 3, 50);
     mouseLight.position.set(0, 0, 4);
     scene.add(mouseLight);
 
-    // 3. PROGRAMMING & CODE-THEMED 3D SCULPTURE
+    // 3. HOLOGRAPHIC QUANTUM GLOBE & DEVELOPER MATRIX SCULPTURE
     const mainGroup = new THREE.Group();
     scene.add(mainGroup);
 
-    // Outer Glass Code Cube Matrix
-    const cubeGeo = new THREE.BoxGeometry(2.2, 2.2, 2.2);
-    const cubeMat = new THREE.MeshStandardMaterial({
+    // Inner Metallic Globe Sphere
+    const globeGeo = new THREE.SphereGeometry(1.6, 32, 32);
+    const globeMat = new THREE.MeshStandardMaterial({
       color: 0x111111,
-      metalness: 0.9,
+      metalness: 0.95,
       roughness: 0.1,
-      wireframe: true
-    });
-    const codeCube = new THREE.Mesh(cubeGeo, cubeMat);
-    mainGroup.add(codeCube);
-
-    // Inner Glowing Core (Architectural Compiler Node)
-    const coreGeo = new THREE.OctahedronGeometry(1.2, 0);
-    const coreMat = new THREE.MeshStandardMaterial({
-      color: 0xffffff,
-      metalness: 1.0,
-      roughness: 0.05,
       wireframe: false
     });
-    const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-    mainGroup.add(coreMesh);
+    const globeMesh = new THREE.Mesh(globeGeo, globeMat);
+    mainGroup.add(globeMesh);
 
-    // Orbiting Binary Ring 1 (Horizontal Code Stream)
-    const ringGeo1 = new THREE.TorusGeometry(2.8, 0.03, 16, 100);
-    const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x525252, wireframe: true });
-    const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
-    ring1.rotation.x = Math.PI / 3;
-    mainGroup.add(ring1);
+    // Holographic Lattice Outer Wireframe Shell
+    const shellGeo = new THREE.IcosahedronGeometry(2.1, 2);
+    const shellMat = new THREE.MeshBasicMaterial({
+      color: 0x525252,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.4
+    });
+    const shellMesh = new THREE.Mesh(shellGeo, shellMat);
+    mainGroup.add(shellMesh);
 
-    // Orbiting Binary Ring 2 (Vertical Code Stream)
-    const ringGeo2 = new THREE.TorusGeometry(3.2, 0.02, 16, 100);
-    const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xa3a3a3, wireframe: true });
-    const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
-    ring2.rotation.y = Math.PI / 4;
-    mainGroup.add(ring2);
+    // Equatorial Binary Orbit Ring
+    const ringGeo = new THREE.TorusGeometry(2.7, 0.02, 16, 100);
+    const ringMat = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
+    const orbitRing = new THREE.Mesh(ringGeo, ringMat);
+    orbitRing.rotation.x = Math.PI / 2.5;
+    mainGroup.add(orbitRing);
 
-    // Orbiting Code Brackets & Syntax Bits (< />, { }, 01)
-    const syntaxNodes: THREE.Mesh[] = [];
-    const nodeGeo = new THREE.BoxGeometry(0.25, 0.25, 0.25);
-    const nodeMat = new THREE.MeshStandardMaterial({
+    // Orbiting Satellite Nodes (Representing Live Productions)
+    const satellites: THREE.Mesh[] = [];
+    const satGeo = new THREE.BoxGeometry(0.28, 0.28, 0.28);
+    const satMat = new THREE.MeshStandardMaterial({
       color: 0xffffff,
       metalness: 1.0,
-      roughness: 0.1
+      roughness: 0.05
     });
 
-    for (let i = 0; i < 24; i++) {
-      const node = new THREE.Mesh(nodeGeo, nodeMat);
-      const radius = 3.2 + Math.random() * 0.8;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(Math.random() * 2 - 1);
+    for (let i = 0; i < 12; i++) {
+      const sat = new THREE.Mesh(satGeo, satMat);
+      const angle = (i / 12) * Math.PI * 2;
+      const radius = 3.1;
 
-      node.position.x = radius * Math.sin(phi) * Math.cos(theta);
-      node.position.y = radius * Math.sin(phi) * Math.sin(theta);
-      node.position.z = radius * Math.cos(phi);
+      sat.position.x = radius * Math.cos(angle);
+      sat.position.z = radius * Math.sin(angle);
+      sat.position.y = Math.sin(angle * 2) * 0.5;
 
-      mainGroup.add(node);
-      syntaxNodes.push(node);
+      mainGroup.add(sat);
+      satellites.push(sat);
     }
 
-    // 4. Mouse & Scroll Interaction Physics
+    // 4. Mouse Tracking Physics
     let targetX = 0;
     let targetY = 0;
 
@@ -130,21 +122,21 @@ export const ThreeDScene: React.FC = () => {
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
 
-      // Continuous 3D Code Cube Rotation
-      mainGroup.rotation.y = elapsedTime * 0.25 + targetX;
-      mainGroup.rotation.x = elapsedTime * 0.15 + targetY;
+      // Smooth Rotation
+      mainGroup.rotation.y = elapsedTime * 0.2 + targetX;
+      mainGroup.rotation.x = elapsedTime * 0.1 + targetY;
 
-      coreMesh.rotation.y = -elapsedTime * 0.4;
-      codeCube.rotation.z = elapsedTime * 0.1;
+      shellMesh.rotation.y = -elapsedTime * 0.15;
+      orbitRing.rotation.z = elapsedTime * 0.2;
 
-      ring1.rotation.z = elapsedTime * 0.2;
-      ring2.rotation.z = -elapsedTime * 0.25;
-
-      // Pulse Orbiting Nodes
-      syntaxNodes.forEach((node, idx) => {
-        node.rotation.x += 0.02;
-        node.rotation.y += 0.02;
-        node.position.y += Math.sin(elapsedTime * 2.5 + idx) * 0.004;
+      // Orbit Satellites
+      satellites.forEach((sat, idx) => {
+        sat.rotation.x += 0.02;
+        sat.rotation.y += 0.02;
+        const angle = elapsedTime * 0.5 + (idx / 12) * Math.PI * 2;
+        sat.position.x = 3.1 * Math.cos(angle);
+        sat.position.z = 3.1 * Math.sin(angle);
+        sat.position.y = Math.sin(angle * 3) * 0.6;
       });
 
       renderer.render(scene, camera);

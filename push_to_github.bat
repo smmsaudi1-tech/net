@@ -1,26 +1,26 @@
 @echo off
-title NEXT GEN DEVS - Push 3D Website Architect Skill Updates to GitHub
+title NEXT GEN DEVS - Push Holographic Globe 3D & GSAP Product Card Animations to GitHub
 color 0A
 
 echo ===================================================
-echo   🚀 NEXT GEN DEVS -- Auto Push Full 3D & Animation
+echo   🚀 NEXT GEN DEVS -- Auto Push Holographic Globe 3D
 echo ===================================================
 echo.
 
 cd /d "%~dp0"
 
-echo [1/3] Staging full 3D & Animation skill implementations...
+echo [1/3] Staging Holographic Quantum Globe 3D & product card GSAP animations...
 git add .
 
 echo [2/3] Committing updates...
-git commit -m "Apply full 3D Website Architect skill: 3D Code Compiler sculpture, GSAP kinetics, WebGL particles, and smooth scroll interpolation"
+git commit -m "Replace Hero 3D model with Holographic Quantum Globe with orbiting production satellites + add GSAP ScrollTrigger staggered entrance animations to product cards"
 
 echo [3/3] Pushing to GitHub main branch...
 git push -u origin main
 
 echo.
 echo ===================================================
-echo   ✅ Successfully Pushed 3D & Animation Skill to GitHub!
+echo   ✅ Successfully Pushed Holographic Globe to GitHub!
 echo   🚀 Vercel Auto-Deployment Complete!
 echo ===================================================
 echo.

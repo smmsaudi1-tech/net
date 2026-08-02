@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, ArrowUpRight, Eye, Sparkles } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ExternalLink, ArrowUpRight, Eye } from 'lucide-react';
 import { REAL_PROJECTS } from '../../data/projectsData';
 import { RealProject } from '../../types';
 import { soundEngine } from '../../utils/audioEngine';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export const EditorialCaseStudies: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>('ALL');
   const [activeModalProject, setActiveModalProject] = useState<RealProject | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   const categories = ['ALL', 'E-COMMERCE', 'BRANDS', 'APPS'];
 
@@ -22,15 +27,43 @@ export const EditorialCaseStudies: React.FC = () => {
     return true;
   });
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const cards = gsap.utils.toArray<HTMLElement>('.product-card-anim');
+
+      cards.forEach((card) => {
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 60, scale: 0.94, filter: 'blur(8px)' },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            filter: 'blur(0px)',
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse'
+            }
+          }
+        );
+      });
+    }, gridRef);
+
+    return () => ctx.revert();
+  }, [selectedFilter]);
+
   return (
-    <section id="work" className="py-24 bg-[#000000] relative border-b border-[#181818] text-left">
+    <section id="work" className="py-28 bg-[#000000] relative border-b border-[#181818] text-left">
       <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-12">
         
         {/* Section Header & Filter Tabs */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#181818] pb-8">
           <div>
             <p className="text-[10px] font-mono tracking-[0.4em] text-[#525252] uppercase mb-2">
-              // PORTFOLIO PRODUCTIONS
+              // GSAP SCROLL-ANIMATED PRODUCTIONS
             </p>
             <h2 className="text-4xl sm:text-6xl font-black text-[#ffffff] tracking-tighter uppercase font-sans">
               SELECTED WORK
@@ -58,21 +91,17 @@ export const EditorialCaseStudies: React.FC = () => {
           </div>
         </div>
 
-        {/* Compact & Sleek 2-Column Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* GSAP Scroll-Animated Compact Grid */}
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <AnimatePresence>
             {filteredProjects.map((proj, idx) => (
               <motion.div
                 key={proj.id}
                 layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className="group p-6 rounded-3xl bg-[#0d0d0d] border border-[#262626] hover:border-[#ffffff] transition-all duration-500 flex flex-col justify-between space-y-6 shadow-2xl relative"
+                className="product-card-anim group p-6 rounded-3xl bg-[#0d0d0d] border border-[#262626] hover:border-[#ffffff] transition-all duration-500 flex flex-col justify-between space-y-6 shadow-2xl relative"
                 data-cursor="VIEW"
               >
-                {/* Visual Image Banner (Compact height) */}
+                {/* Visual Image Banner */}
                 <div
                   onClick={() => {
                     soundEngine.playClick();
@@ -155,7 +184,7 @@ export const EditorialCaseStudies: React.FC = () => {
               </motion.div>
             ))}
           </AnimatePresence>
-        </motion.div>
+        </div>
 
       </div>
 
