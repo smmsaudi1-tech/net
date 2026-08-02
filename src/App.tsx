@@ -12,6 +12,8 @@ import { FloatingTechStack } from './components/tech/FloatingTechStack';
 import { AboutNextGen } from './components/about/AboutNextGen';
 import { BoldContact } from './components/contact/BoldContact';
 import { MinimalFooter } from './components/footer/MinimalFooter';
+import { ParticleField } from './components/effects/ParticleField';
+import { MarqueeStrip } from './components/effects/MarqueeStrip';
 
 export function App() {
   const [loaded, setLoaded] = useState(false);
@@ -25,6 +27,9 @@ export function App() {
       {/* Main Experience */}
       {loaded && (
         <>
+          {/* WebGL Atmosphere Particle Field Canvas */}
+          <ParticleField />
+
           {/* 12 — Custom Magnetic Cursor */}
           <MagneticCursor />
 
@@ -32,9 +37,12 @@ export function App() {
           <Navbar />
 
           {/* Core Sections */}
-          <main>
+          <main className="relative z-10">
             {/* 02 & 03 — Architectural Hero & 3D WebGL Signature */}
             <HeroSection />
+
+            {/* Kinetic Marquee Strip */}
+            <MarqueeStrip text="NEXT GEN DEVS // CREATIVE TECHNOLOGY STUDIO // WE BUILD WHAT’S NEXT // 2026 PRODUCTION //" />
 
             {/* 04 — Kinetic Brand Statement */}
             <BrandStatement />
@@ -50,6 +58,9 @@ export function App() {
 
             {/* 09 — Process Methodology */}
             <ProcessSection />
+
+            {/* Kinetic Marquee Strip */}
+            <MarqueeStrip text="HTML5 // CSS3 // REACT // NEXT.JS // THREE.JS // GSAP // TAILWIND // FIREBASE //" />
 
             {/* 10 — Floating Tech Stack */}
             <FloatingTechStack />
