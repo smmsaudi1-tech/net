@@ -1,38 +1,33 @@
-export type ProjectCategory = 'fashion' | 'cafe_restaurant' | 'ecommerce' | 'custom_app';
-
-export interface AgencyProject {
+export interface RealProject {
   id: string;
   title: string;
-  category: ProjectCategory;
-  clientName: string;
+  subtitle: string;
+  category: string;
   description: string;
   imageUrl: string;
   liveUrl: string;
   techStack: string[];
-  metrics: string; // e.g. "+350% زيادة مبيعات"
+  year: string;
   featured: boolean;
-  date: string;
 }
 
-export interface QuoteInquiry {
+export interface ServiceItem {
   id: string;
-  clientName: string;
-  businessType: string;
-  phone: string;
-  budgetRange: string;
-  featuresSelected: string[];
-  estimatedPrice: number;
-  date: string;
-  status: 'new' | 'contacted' | 'closed';
+  number: string;
+  title: string;
+  description: string;
+  tags: string[];
 }
 
-export interface AgencyService {
-  id: string;
+export interface ProcessItem {
+  number: string;
   title: string;
   subtitle: string;
-  category: ProjectCategory;
   description: string;
-  features: string[];
-  icon: string;
-  badge: string;
+}
+
+export interface TechItem {
+  name: string;
+  category: string;
+  depth: number;
 }
