@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ProcessItem } from '../../types';
 import { useTheme } from '../../context/ThemeContext';
+import { Sparkles, ArrowDownRight } from 'lucide-react';
 
 export const ProcessSection: React.FC = () => {
   const { theme } = useTheme();
@@ -42,17 +43,17 @@ export const ProcessSection: React.FC = () => {
   return (
     <section
       id="process"
-      className={`py-32 border-b transition-colors duration-500 relative text-left ${
+      className={`py-20 sm:py-32 border-b transition-colors duration-500 relative text-left ${
         theme === 'dark'
           ? 'bg-[#000000] text-[#ffffff] border-[#181818]'
           : 'bg-[#ffffff] text-[#000000] border-[#e4e4e7]'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-12 sm:space-y-20">
         
         {/* Title */}
         <div
-          className={`flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b pb-8 ${
+          className={`flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b pb-6 sm:pb-8 ${
             theme === 'dark' ? 'border-[#181818]' : 'border-[#e4e4e7]'
           }`}
         >
@@ -62,55 +63,64 @@ export const ProcessSection: React.FC = () => {
                 theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
               }`}
             >
-              // METHODOLOGY
+              // METHODOLOGY & WORKFLOW
             </p>
-            <h2 className="text-4xl sm:text-6xl font-black tracking-tighter uppercase font-sans">
+            <h2 className="text-3xl sm:text-6xl font-black tracking-tighter uppercase font-sans">
               OUR PROCESS
             </h2>
           </div>
           <p
-            className={`text-xs font-mono tracking-widest uppercase ${
+            className={`text-xs font-mono tracking-widest uppercase flex items-center gap-2 ${
               theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
             }`}
           >
-            [ PRECISION WORKFLOW ]
+            <Sparkles className="w-4 h-4 text-emerald-400 animate-pulse" />
+            [ PRECISION WORKFLOW // 5 STEPS ]
           </p>
         </div>
 
-        {/* Vertical Process Steps */}
-        <div className="space-y-16">
+        {/* Vertical Animated Process Steps with Scroll Reveal */}
+        <div className="space-y-10 sm:space-y-16">
           {processes.map((proc, idx) => (
             <motion.div
               key={proc.number}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className={`grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-b pb-12 group ${
-                theme === 'dark' ? 'border-[#181818]' : 'border-[#e4e4e7]'
+              initial={{ opacity: 0, y: 35, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ margin: '-40px', once: false }}
+              transition={{
+                duration: 0.7,
+                delay: idx * 0.08,
+                ease: [0.16, 1, 0.3, 1]
+              }}
+              className={`grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8 items-start border-b pb-8 sm:pb-12 group p-4 sm:p-6 rounded-3xl transition-all duration-500 ${
+                theme === 'dark'
+                  ? 'border-[#181818] hover:bg-[#0a0a10] hover:border-emerald-500/30'
+                  : 'border-[#e4e4e7] hover:bg-[#f8f9fa] hover:border-emerald-500/40'
               }`}
             >
-              {/* Huge Number */}
-              <div className="lg:col-span-3">
+              {/* Step Number with Animated Neon Glow Accent */}
+              <div className="lg:col-span-3 flex items-center justify-between lg:justify-start gap-4">
                 <span
-                  className={`text-6xl sm:text-8xl font-black font-mono transition-colors duration-500 ${
+                  className={`text-4xl sm:text-8xl font-black font-mono transition-colors duration-500 ${
                     theme === 'dark'
-                      ? 'text-[#262626] group-hover:text-[#ffffff]'
-                      : 'text-[#e4e4e7] group-hover:text-[#000000]'
+                      ? 'text-[#262626] group-hover:text-emerald-400'
+                      : 'text-[#d4d4d8] group-hover:text-emerald-600'
                   }`}
                 >
                   {proc.number}
                 </span>
+
+                <ArrowDownRight className="w-5 h-5 lg:hidden text-emerald-400 group-hover:rotate-45 transition-transform" />
               </div>
 
               {/* Title & Subtitle */}
-              <div className="lg:col-span-5 space-y-2">
-                <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight font-sans">
+              <div className="lg:col-span-5 space-y-1 sm:space-y-2">
+                <h3 className="text-xl sm:text-4xl font-black uppercase tracking-tight font-sans group-hover:text-emerald-400 transition-colors">
                   {proc.title}
                 </h3>
                 <p
-                  className={`text-xs font-mono uppercase tracking-widest ${
-                    theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
+                  className={`text-[10px] sm:text-xs font-mono uppercase tracking-widest font-bold ${
+                    theme === 'dark' ? 'text-emerald-500/90' : 'text-emerald-600'
                   }`}
                 >
                   {proc.subtitle}
