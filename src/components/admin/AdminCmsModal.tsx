@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import {
   X,
   Save,
@@ -16,12 +16,10 @@ import {
   ShieldAlert,
   Key,
   Search,
-  Layout,
-  Globe,
-  Sliders,
   CheckCircle,
   ExternalLink,
-  RefreshCw
+  Sun,
+  Moon
 } from 'lucide-react';
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged, User } from 'firebase/auth';
 import { auth, updateCustomFirebaseApiKey, firebaseConfig } from '../../lib/firebase';
@@ -43,7 +41,15 @@ const AUTHORIZED_ADMIN_EMAILS = [
 
 export const AdminCmsModal: React.FC = () => {
   const { isAdminOpen, setAdminOpen, content, saveAllContent } = useSiteContent();
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
+
+  // Mouse spring physics tracking for smooth custom cursor inside Admin
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+  const springConfig = { damping: 28, stiffness: 350 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
+  const [isCursorHovered, setIsCursorHovered] = useState(false);
 
   // Auth State
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -69,7 +75,6 @@ export const AdminCmsModal: React.FC = () => {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [isSavingProject, setIsSavingProject] = useState(false);
 
-  // Auth State Subscription
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
@@ -98,6 +103,12 @@ export const AdminCmsModal: React.FC = () => {
     currentUser.email &&
     (AUTHORIZED_ADMIN_EMAILS.includes(currentUser.email.toLowerCase()) ||
       AUTHORIZED_ADMIN_EMAILS.some((e) => e.toLowerCase() === currentUser.email?.toLowerCase()));
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    cursorX.set(e.clientX - rect.left);
+    cursorY.set(e.clientY - rect.top);
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -237,17 +248,48 @@ export const AdminCmsModal: React.FC = () => {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 md:p-8 bg-black/85 backdrop-blur-xl">
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 md:p-8 bg-black/80 backdrop-blur-xl">
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 10 }}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={() => setIsCursorHovered(true)}
+          onMouseLeave={() => setIsCursorHovered(false)}
+          initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.96, y: 10 }}
-          className="w-full max-w-6xl h-[88vh] rounded-3xl border border-zinc-800 bg-[#07070a]/95 text-white shadow-[0_20px_60px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden font-mono"
+          exit={{ opacity: 0, scale: 0.95, y: 15 }}
+          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+          className={`relative w-full max-w-6xl h-[88vh] rounded-3xl border flex flex-col overflow-hidden font-mono transition-colors duration-500 ${
+            theme === 'dark'
+              ? 'bg-[#07070a]/95 border-zinc-800 text-white shadow-[0_20px_60px_rgba(0,0,0,0.9)]'
+              : 'bg-[#ffffff]/98 border-zinc-200 text-zinc-900 shadow-[0_20px_60px_rgba(0,0,0,0.12)]'
+          }`}
         >
-          {/* Top Cybernetic Status Bar */}
-          <div className="px-6 py-4 border-b border-zinc-800/80 bg-[#0c0c12]/80 flex flex-wrap items-center justify-between gap-4">
+          {/* Custom Spring Mouse Cursor Ring inside Admin Modal */}
+          {isCursorHovered && (
+            <motion.div
+              style={{
+                x: cursorXSpring,
+                y: cursorYSpring
+              }}
+              className={`pointer-events-none absolute -top-4 -left-4 w-8 h-8 rounded-full border-2 z-50 transition-colors duration-300 ${
+                theme === 'dark' ? 'border-emerald-400 bg-emerald-400/20 shadow-[0_0_15px_#10b981]' : 'border-emerald-600 bg-emerald-600/10'
+              }`}
+            />
+          )}
+
+          {/* Top Status Bar with Theme Switcher */}
+          <div
+            className={`px-6 py-4 border-b flex flex-wrap items-center justify-between gap-4 transition-colors duration-500 ${
+              theme === 'dark' ? 'border-zinc-800/80 bg-[#0c0c12]/90' : 'border-zinc-200 bg-[#f8f9fa]'
+            }`}
+          >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500/20 via-cyan-500/20 to-indigo-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-lg">
+              <div
+                className={`w-10 h-10 rounded-2xl border flex items-center justify-center shadow-md transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-400'
+                    : 'bg-emerald-50 border-emerald-300 text-emerald-600'
+                }`}
+              >
                 <Sparkles className="w-5 h-5 animate-pulse" />
               </div>
               <div>
@@ -255,29 +297,53 @@ export const AdminCmsModal: React.FC = () => {
                   <h3 className="text-sm sm:text-base font-black tracking-widest uppercase font-sans">
                     NEXT GEN DEVS // CMS PORTAL
                   </h3>
-                  <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold uppercase">
+                  <span
+                    className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border ${
+                      theme === 'dark'
+                        ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                        : 'bg-emerald-100 border-emerald-300 text-emerald-700'
+                    }`}
+                  >
                     v3.0 LIVE
                   </span>
                 </div>
-                <p className="text-[11px] text-zinc-400 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                <p className={`text-[11px] flex items-center gap-2 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
                   {currentUser ? `Admin: ${currentUser.email}` : 'Firebase Authentication System'}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
+              {/* Light Mode / Dark Mode Theme Switcher inside Admin */}
+              <button
+                onClick={toggleTheme}
+                className={`p-2.5 rounded-full border transition-all cursor-pointer flex items-center justify-center ${
+                  theme === 'dark'
+                    ? 'bg-zinc-900 border-zinc-800 hover:bg-zinc-800 text-amber-400'
+                    : 'bg-white border-zinc-300 hover:bg-zinc-100 text-zinc-900 shadow-sm'
+                }`}
+                title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+              >
+                {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-900" />}
+              </button>
+
               {currentUser && (
                 <button
                   onClick={handleSignOut}
-                  className="px-4 py-2 rounded-full border border-rose-500/30 bg-rose-500/10 text-rose-400 text-xs font-bold uppercase flex items-center gap-1.5 hover:bg-rose-500 hover:text-white transition-all cursor-pointer shadow-md"
+                  className="px-4 py-2 rounded-full border border-rose-500/30 bg-rose-500/10 text-rose-500 text-xs font-bold uppercase flex items-center gap-1.5 hover:bg-rose-500 hover:text-white transition-all cursor-pointer shadow-md"
                 >
                   <LogOut className="w-3.5 h-3.5" /> Sign Out
                 </button>
               )}
+
               <button
                 onClick={() => setAdminOpen(false)}
-                className="p-2.5 rounded-full bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-zinc-300 transition-colors cursor-pointer"
+                className={`p-2.5 rounded-full border transition-colors cursor-pointer ${
+                  theme === 'dark'
+                    ? 'bg-zinc-900 border-zinc-800 hover:bg-zinc-800 text-zinc-300'
+                    : 'bg-zinc-100 border-zinc-300 hover:bg-zinc-200 text-zinc-700'
+                }`}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -291,12 +357,16 @@ export const AdminCmsModal: React.FC = () => {
                 /* Unauthorized Email View */
                 <div className="max-w-md p-8 rounded-3xl border border-rose-500/30 bg-rose-500/10 space-y-4 text-center">
                   <ShieldAlert className="w-12 h-12 text-rose-400 mx-auto" />
-                  <h4 className="text-lg font-bold text-white uppercase font-sans">ACCESS RESTRICTED</h4>
-                  <p className="text-xs text-rose-200 leading-relaxed font-sans">
-                    Logged in as <strong className="text-white">{currentUser.email}</strong>. This email is not on the admin authorization whitelist.
+                  <h4 className="text-lg font-bold uppercase font-sans">ACCESS RESTRICTED</h4>
+                  <p className="text-xs leading-relaxed font-sans">
+                    Logged in as <strong className="font-bold">{currentUser.email}</strong>. This email is not on the admin authorization whitelist.
                   </p>
-                  <div className="text-[11px] text-zinc-400 bg-black/60 p-3 rounded-2xl border border-zinc-800 text-left font-mono space-y-1">
-                    <p className="text-emerald-400 font-bold">Authorized Admins:</p>
+                  <div
+                    className={`text-[11px] p-3.5 rounded-2xl border text-left font-mono space-y-1 ${
+                      theme === 'dark' ? 'bg-black/60 border-zinc-800 text-zinc-400' : 'bg-white border-zinc-200 text-zinc-600'
+                    }`}
+                  >
+                    <p className="text-emerald-500 font-bold">Authorized Admins:</p>
                     <p>• mhamedwalid@gmail.com</p>
                     <p>• youssefosama@gmail.com</p>
                   </div>
@@ -312,48 +382,60 @@ export const AdminCmsModal: React.FC = () => {
                 <div className="w-full max-w-md space-y-4">
                   <form
                     onSubmit={handleLogin}
-                    className="p-8 rounded-3xl border border-zinc-800 bg-[#0c0c14]/90 space-y-5 text-left shadow-2xl backdrop-blur-xl relative overflow-hidden"
+                    className={`p-8 rounded-3xl border space-y-5 text-left shadow-2xl backdrop-blur-xl relative overflow-hidden transition-colors duration-500 ${
+                      theme === 'dark' ? 'bg-[#0c0c14]/90 border-zinc-800' : 'bg-white border-zinc-200'
+                    }`}
                   >
-                    <div className="flex items-center gap-3 border-b border-zinc-800/80 pb-4">
-                      <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                    <div className={`flex items-center gap-3 border-b pb-4 ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
+                      <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500">
                         <Lock className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="text-sm font-bold text-white uppercase tracking-wider font-sans">
+                        <h4 className="text-sm font-bold uppercase tracking-wider font-sans">
                           ADMIN PORTAL LOGIN
                         </h4>
-                        <p className="text-[11px] text-zinc-400 font-sans">Firebase Secure CMS Access</p>
+                        <p className={`text-[11px] font-sans ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                          Firebase Secure CMS Access
+                        </p>
                       </div>
                     </div>
 
                     {authError && (
-                      <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-sans leading-relaxed">
+                      <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-xs font-sans leading-relaxed">
                         {authError}
                       </div>
                     )}
 
                     <div className="space-y-4 text-xs font-mono">
                       <div>
-                        <label className="block text-zinc-400 mb-1.5 uppercase tracking-wider">Admin Email</label>
+                        <label className={`block mb-1.5 uppercase tracking-wider ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                          Admin Email
+                        </label>
                         <input
                           type="email"
                           required
                           value={loginEmail}
                           onChange={(e) => setLoginEmail(e.target.value)}
                           placeholder="mhamedwalid@gmail.com or youssefosama@gmail.com"
-                          className="w-full bg-[#13131c] border border-zinc-800 p-3 rounded-xl text-white focus:border-emerald-500 focus:outline-none transition-colors"
+                          className={`w-full p-3 rounded-xl border focus:border-emerald-500 focus:outline-none transition-colors ${
+                            theme === 'dark' ? 'bg-[#13131c] border-zinc-800 text-white' : 'bg-[#f4f5f7] border-zinc-300 text-zinc-900'
+                          }`}
                         />
                       </div>
 
                       <div>
-                        <label className="block text-zinc-400 mb-1.5 uppercase tracking-wider">Password</label>
+                        <label className={`block mb-1.5 uppercase tracking-wider ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                          Password
+                        </label>
                         <input
                           type="password"
                           required
                           value={loginPassword}
                           onChange={(e) => setLoginPassword(e.target.value)}
                           placeholder="••••••••"
-                          className="w-full bg-[#13131c] border border-zinc-800 p-3 rounded-xl text-white focus:border-emerald-500 focus:outline-none transition-colors"
+                          className={`w-full p-3 rounded-xl border focus:border-emerald-500 focus:outline-none transition-colors ${
+                            theme === 'dark' ? 'bg-[#13131c] border-zinc-800 text-white' : 'bg-[#f4f5f7] border-zinc-300 text-zinc-900'
+                          }`}
                         />
                       </div>
 
@@ -367,12 +449,12 @@ export const AdminCmsModal: React.FC = () => {
                       </button>
                     </div>
 
-                    <div className="pt-2 flex items-center justify-between text-[10px] text-zinc-500 font-mono border-t border-zinc-800/80">
+                    <div className={`pt-2 flex items-center justify-between text-[10px] font-mono border-t ${theme === 'dark' ? 'border-zinc-800 text-zinc-500' : 'border-zinc-200 text-zinc-500'}`}>
                       <span>Admins: mhamedwalid / youssefosama</span>
                       <button
                         type="button"
                         onClick={() => setShowApiKeyInput(!showApiKeyInput)}
-                        className="text-emerald-400 hover:underline flex items-center gap-1 cursor-pointer font-bold"
+                        className="text-emerald-500 hover:underline flex items-center gap-1 cursor-pointer font-bold"
                       >
                         <Key className="w-3 h-3" /> Config API Key
                       </button>
@@ -383,13 +465,15 @@ export const AdminCmsModal: React.FC = () => {
                   {showApiKeyInput && (
                     <form
                       onSubmit={handleSaveApiKey}
-                      className="p-6 rounded-3xl border border-amber-500/30 bg-[#161410] space-y-3 text-left shadow-xl"
+                      className={`p-6 rounded-3xl border space-y-3 text-left shadow-xl ${
+                        theme === 'dark' ? 'bg-[#161410] border-amber-500/30' : 'bg-amber-50/50 border-amber-300'
+                      }`}
                     >
-                      <div className="flex items-center gap-2 text-xs font-bold text-amber-400">
+                      <div className="flex items-center gap-2 text-xs font-bold text-amber-500">
                         <Key className="w-4 h-4" />
                         <span>Paste Firebase API Key (From Firebase Console)</span>
                       </div>
-                      <p className="text-[11px] text-zinc-400 font-sans leading-relaxed">
+                      <p className={`text-[11px] font-sans leading-relaxed ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
                         If Vercel environment variables are not configured yet, paste your real Firebase API Key below:
                       </p>
                       <input
@@ -398,7 +482,9 @@ export const AdminCmsModal: React.FC = () => {
                         value={customApiKey}
                         onChange={(e) => setCustomApiKey(e.target.value)}
                         placeholder="AIzaSy..."
-                        className="w-full bg-[#1c1a16] border border-amber-500/40 p-3 rounded-xl text-xs font-mono text-white focus:outline-none"
+                        className={`w-full p-3 rounded-xl text-xs font-mono border focus:outline-none ${
+                          theme === 'dark' ? 'bg-[#1c1a16] border-amber-500/40 text-white' : 'bg-white border-amber-300 text-zinc-900'
+                        }`}
                       />
                       <button
                         type="submit"
@@ -415,26 +501,34 @@ export const AdminCmsModal: React.FC = () => {
             /* Authorized Luxury Admin Portal Layout */
             <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
               {/* Sidebar Navigation */}
-              <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-zinc-800/80 bg-[#09090e] p-4 flex flex-col justify-between gap-4">
+              <div
+                className={`w-full md:w-64 border-b md:border-b-0 md:border-r p-4 flex flex-col justify-between gap-4 transition-colors duration-500 ${
+                  theme === 'dark' ? 'border-zinc-800/80 bg-[#09090e]' : 'border-zinc-200 bg-[#f8f9fa]'
+                }`}
+              >
                 <div className="space-y-4">
-                  <div className="px-3 py-2 text-[10px] font-mono tracking-widest text-zinc-500 uppercase font-bold">
+                  <div className={`px-3 py-2 text-[10px] font-mono tracking-widest uppercase font-bold ${theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'}`}>
                     // NAVIGATION MENU
                   </div>
 
-                  <div className="space-y-1">
+                  <div className="space-y-1.5">
                     <button
                       onClick={() => setActiveTab('content')}
                       className={`w-full px-4 py-3 rounded-2xl text-xs font-bold tracking-wider uppercase flex items-center justify-between transition-all cursor-pointer ${
                         activeTab === 'content'
-                          ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400'
-                          : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                          ? theme === 'dark'
+                            ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400'
+                            : 'bg-emerald-50 border border-emerald-300 text-emerald-700 shadow-sm'
+                          : theme === 'dark'
+                          ? 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                          : 'text-zinc-600 hover:bg-zinc-200/60 hover:text-zinc-900'
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <FileText className="w-4 h-4" />
                         <span>Site Texts</span>
                       </div>
-                      <span className="px-2 py-0.5 rounded-full bg-zinc-800 text-[10px]">
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : 'bg-zinc-200 text-zinc-700'}`}>
                         {Object.keys(localContent).length}
                       </span>
                     </button>
@@ -443,23 +537,33 @@ export const AdminCmsModal: React.FC = () => {
                       onClick={() => setActiveTab('projects')}
                       className={`w-full px-4 py-3 rounded-2xl text-xs font-bold tracking-wider uppercase flex items-center justify-between transition-all cursor-pointer ${
                         activeTab === 'projects'
-                          ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400'
-                          : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                          ? theme === 'dark'
+                            ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400'
+                            : 'bg-emerald-50 border border-emerald-300 text-emerald-700 shadow-sm'
+                          : theme === 'dark'
+                          ? 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                          : 'text-zinc-600 hover:bg-zinc-200/60 hover:text-zinc-900'
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <Database className="w-4 h-4" />
                         <span>Projects DB</span>
                       </div>
-                      <span className="px-2 py-0.5 rounded-full bg-zinc-800 text-[10px]">{projects.length}</span>
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : 'bg-zinc-200 text-zinc-700'}`}>
+                        {projects.length}
+                      </span>
                     </button>
 
                     <button
                       onClick={() => setActiveTab('config')}
                       className={`w-full px-4 py-3 rounded-2xl text-xs font-bold tracking-wider uppercase flex items-center gap-3 transition-all cursor-pointer ${
                         activeTab === 'config'
-                          ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400'
-                          : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                          ? theme === 'dark'
+                            ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400'
+                            : 'bg-emerald-50 border border-emerald-300 text-emerald-700 shadow-sm'
+                          : theme === 'dark'
+                          ? 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                          : 'text-zinc-600 hover:bg-zinc-200/60 hover:text-zinc-900'
                       }`}
                     >
                       <Key className="w-4 h-4" />
@@ -469,33 +573,47 @@ export const AdminCmsModal: React.FC = () => {
                 </div>
 
                 {/* Sidebar Footer Info */}
-                <div className="p-4 rounded-2xl border border-zinc-800/80 bg-[#0f0f16] space-y-2 text-[10px] text-zinc-400">
+                <div
+                  className={`p-4 rounded-2xl border space-y-2 text-[10px] transition-colors ${
+                    theme === 'dark' ? 'bg-[#0f0f16] border-zinc-800/80 text-zinc-400' : 'bg-white border-zinc-200 text-zinc-600 shadow-sm'
+                  }`}
+                >
                   <div className="flex items-center justify-between">
                     <span>STATUS</span>
-                    <span className="text-emerald-400 font-bold">● ONLINE</span>
+                    <span className="text-emerald-500 font-bold">● ONLINE</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>STORAGE</span>
-                    <span className="text-zinc-300">FIREBASE</span>
+                    <span className="font-bold">FIREBASE</span>
                   </div>
                 </div>
               </div>
 
               {/* Main CMS Work Area */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar bg-[#060609]">
+              <div
+                className={`flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar transition-colors duration-500 ${
+                  theme === 'dark' ? 'bg-[#060609]' : 'bg-[#f4f5f7]'
+                }`}
+              >
                 {/* TAB 1: WEBSITE TEXTS EDITOR */}
                 {activeTab === 'content' && (
                   <div className="space-y-6">
                     {/* Header Bar with Action & Filter Controls */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl border border-zinc-800 bg-[#0c0c14]">
+                    <div
+                      className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl border transition-colors ${
+                        theme === 'dark' ? 'bg-[#0c0c14] border-zinc-800' : 'bg-white border-zinc-200 shadow-sm'
+                      }`}
+                    >
                       <div className="flex items-center gap-3 flex-1">
-                        <Search className="w-4 h-4 text-zinc-400" />
+                        <Search className={`w-4 h-4 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`} />
                         <input
                           type="text"
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
                           placeholder="Search text keys or values..."
-                          className="bg-transparent border-none text-xs text-white placeholder-zinc-500 focus:outline-none w-full"
+                          className={`bg-transparent border-none text-xs placeholder-zinc-400 focus:outline-none w-full ${
+                            theme === 'dark' ? 'text-white' : 'text-zinc-900'
+                          }`}
                         />
                       </div>
 
@@ -503,7 +621,9 @@ export const AdminCmsModal: React.FC = () => {
                         <select
                           value={sectionFilter}
                           onChange={(e) => setSectionFilter(e.target.value)}
-                          className="bg-[#14141f] border border-zinc-700 text-xs font-mono text-zinc-300 rounded-xl px-3 py-2 focus:outline-none"
+                          className={`text-xs font-mono rounded-xl px-3 py-2 border focus:outline-none transition-colors ${
+                            theme === 'dark' ? 'bg-[#14141f] border-zinc-700 text-zinc-300' : 'bg-white border-zinc-300 text-zinc-800'
+                          }`}
                         >
                           <option value="all">All Sections</option>
                           <option value="hero">Hero Section</option>
@@ -536,13 +656,21 @@ export const AdminCmsModal: React.FC = () => {
                     {/* Text Cards Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {filteredContentKeys.map((key) => (
-                        <div
+                        <motion.div
                           key={key}
-                          className="p-4 rounded-2xl border border-zinc-800/80 bg-[#0d0d14] space-y-2 hover:border-zinc-700 transition-colors"
+                          layout
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+                          className={`p-4 rounded-2xl border space-y-2 transition-all ${
+                            theme === 'dark'
+                              ? 'bg-[#0d0d14] border-zinc-800/80 hover:border-zinc-700'
+                              : 'bg-white border-zinc-200 hover:border-emerald-400 shadow-sm'
+                          }`}
                         >
-                          <div className="flex items-center justify-between text-[10px] font-mono tracking-widest uppercase text-emerald-400 font-bold">
+                          <div className="flex items-center justify-between text-[10px] font-mono tracking-widest uppercase text-emerald-500 font-bold">
                             <span>{key}</span>
-                            <span className="text-zinc-600">FIREBASE</span>
+                            <span className={theme === 'dark' ? 'text-zinc-600' : 'text-zinc-400'}>FIREBASE</span>
                           </div>
 
                           {localContent[key]?.length > 60 ? (
@@ -550,17 +678,21 @@ export const AdminCmsModal: React.FC = () => {
                               rows={3}
                               value={localContent[key]}
                               onChange={(e) => handleContentChange(key, e.target.value)}
-                              className="w-full bg-[#14141e] border border-zinc-800 rounded-xl p-3 text-xs text-zinc-100 focus:border-emerald-500 focus:outline-none transition-colors"
+                              className={`w-full rounded-xl p-3 text-xs border focus:border-emerald-500 focus:outline-none transition-colors ${
+                                theme === 'dark' ? 'bg-[#14141e] border-zinc-800 text-zinc-100' : 'bg-[#f8f9fa] border-zinc-300 text-zinc-900'
+                              }`}
                             />
                           ) : (
                             <input
                               type="text"
                               value={localContent[key]}
                               onChange={(e) => handleContentChange(key, e.target.value)}
-                              className="w-full bg-[#14141e] border border-zinc-800 rounded-xl p-3 text-xs text-zinc-100 focus:border-emerald-500 focus:outline-none transition-colors"
+                              className={`w-full rounded-xl p-3 text-xs border focus:border-emerald-500 focus:outline-none transition-colors ${
+                                theme === 'dark' ? 'bg-[#14141e] border-zinc-800 text-zinc-100' : 'bg-[#f8f9fa] border-zinc-300 text-zinc-900'
+                              }`}
                             />
                           )}
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                   </div>
@@ -571,10 +703,12 @@ export const AdminCmsModal: React.FC = () => {
                   <div className="space-y-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="text-sm font-bold tracking-wider uppercase text-zinc-200">
+                        <h4 className="text-sm font-bold tracking-wider uppercase">
                           Firebase Portfolio Projects
                         </h4>
-                        <p className="text-xs text-zinc-500">Add, edit, or delete live projects displayed on the site</p>
+                        <p className={`text-xs ${theme === 'dark' ? 'text-zinc-500' : 'text-zinc-500'}`}>
+                          Add, edit, or delete live projects displayed on the site
+                        </p>
                       </div>
                       <button
                         onClick={handleCreateNewProject}
@@ -586,18 +720,22 @@ export const AdminCmsModal: React.FC = () => {
 
                     {/* Edit / Add Modal Form */}
                     {editingProject && (
-                      <form
+                      <motion.form
+                        initial={{ opacity: 0, scale: 0.96 }}
+                        animate={{ opacity: 1, scale: 1 }}
                         onSubmit={handleSaveProject}
-                        className="p-6 rounded-3xl border border-emerald-500/40 bg-[#0d0d15] space-y-4 shadow-2xl"
+                        className={`p-6 rounded-3xl border space-y-4 shadow-2xl ${
+                          theme === 'dark' ? 'bg-[#0d0d15] border-emerald-500/40' : 'bg-white border-emerald-400 shadow-md'
+                        }`}
                       >
-                        <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
-                          <h5 className="text-xs font-bold text-emerald-400 tracking-wider uppercase">
+                        <div className={`flex items-center justify-between border-b pb-3 ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
+                          <h5 className="text-xs font-bold text-emerald-500 tracking-wider uppercase">
                             {editingProject.id ? 'Edit Project' : 'Create New Project'}
                           </h5>
                           <button
                             type="button"
                             onClick={() => setEditingProject(null)}
-                            className="text-zinc-500 hover:text-white text-xs"
+                            className="text-zinc-500 hover:text-zinc-900 dark:hover:text-white text-xs cursor-pointer"
                           >
                             Close
                           </button>
@@ -605,79 +743,93 @@ export const AdminCmsModal: React.FC = () => {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                           <div>
-                            <label className="block text-zinc-400 mb-1">Project Title</label>
+                            <label className={`block mb-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Project Title</label>
                             <input
                               type="text"
                               required
                               value={editingProject.title || ''}
                               onChange={(e) => setEditingProject({ ...editingProject, title: e.target.value })}
-                              className="w-full bg-[#151520] border border-zinc-800 p-3 rounded-xl text-white focus:border-emerald-500 focus:outline-none"
+                              className={`w-full p-3 rounded-xl border focus:border-emerald-500 focus:outline-none ${
+                                theme === 'dark' ? 'bg-[#151520] border-zinc-800 text-white' : 'bg-[#f4f5f7] border-zinc-300 text-zinc-900'
+                              }`}
                               placeholder="e.g. NXT Brand"
                             />
                           </div>
 
                           <div>
-                            <label className="block text-zinc-400 mb-1">Subtitle / Tagline</label>
+                            <label className={`block mb-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Subtitle / Tagline</label>
                             <input
                               type="text"
                               value={editingProject.subtitle || ''}
                               onChange={(e) => setEditingProject({ ...editingProject, subtitle: e.target.value })}
-                              className="w-full bg-[#151520] border border-zinc-800 p-3 rounded-xl text-white focus:border-emerald-500 focus:outline-none"
+                              className={`w-full p-3 rounded-xl border focus:border-emerald-500 focus:outline-none ${
+                                theme === 'dark' ? 'bg-[#151520] border-zinc-800 text-white' : 'bg-[#f4f5f7] border-zinc-300 text-zinc-900'
+                              }`}
                               placeholder="e.g. Fashion & Luxury E-Commerce"
                             />
                           </div>
 
                           <div>
-                            <label className="block text-zinc-400 mb-1">Category</label>
+                            <label className={`block mb-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Category</label>
                             <input
                               type="text"
                               value={editingProject.category || ''}
                               onChange={(e) => setEditingProject({ ...editingProject, category: e.target.value })}
-                              className="w-full bg-[#151520] border border-zinc-800 p-3 rounded-xl text-white focus:border-emerald-500 focus:outline-none"
+                              className={`w-full p-3 rounded-xl border focus:border-emerald-500 focus:outline-none ${
+                                theme === 'dark' ? 'bg-[#151520] border-zinc-800 text-white' : 'bg-[#f4f5f7] border-zinc-300 text-zinc-900'
+                              }`}
                               placeholder="e.g. E-Commerce"
                             />
                           </div>
 
                           <div>
-                            <label className="block text-zinc-400 mb-1">Live URL</label>
+                            <label className={`block mb-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Live URL</label>
                             <input
                               type="url"
                               value={editingProject.liveUrl || ''}
                               onChange={(e) => setEditingProject({ ...editingProject, liveUrl: e.target.value })}
-                              className="w-full bg-[#151520] border border-zinc-800 p-3 rounded-xl text-white focus:border-emerald-500 focus:outline-none"
+                              className={`w-full p-3 rounded-xl border focus:border-emerald-500 focus:outline-none ${
+                                theme === 'dark' ? 'bg-[#151520] border-zinc-800 text-white' : 'bg-[#f4f5f7] border-zinc-300 text-zinc-900'
+                              }`}
                               placeholder="https://..."
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label className="block text-zinc-400 mb-1 text-xs">Description</label>
+                          <label className={`block mb-1 text-xs ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Description</label>
                           <textarea
                             rows={3}
                             value={editingProject.description || ''}
                             onChange={(e) => setEditingProject({ ...editingProject, description: e.target.value })}
-                            className="w-full bg-[#151520] border border-zinc-800 p-3 rounded-xl text-xs text-white focus:border-emerald-500 focus:outline-none"
+                            className={`w-full p-3 rounded-xl text-xs border focus:border-emerald-500 focus:outline-none ${
+                              theme === 'dark' ? 'bg-[#151520] border-zinc-800 text-white' : 'bg-[#f4f5f7] border-zinc-300 text-zinc-900'
+                            }`}
                           />
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                           <div>
-                            <label className="block text-zinc-400 mb-1">Upload Project Image File</label>
+                            <label className={`block mb-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Upload Project Image File</label>
                             <input
                               type="file"
                               accept="image/*"
                               onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-                              className="w-full bg-[#151520] border border-zinc-800 p-2.5 rounded-xl text-zinc-300 text-xs"
+                              className={`w-full p-2 rounded-xl text-xs border ${
+                                theme === 'dark' ? 'bg-[#151520] border-zinc-800 text-zinc-300' : 'bg-[#f4f5f7] border-zinc-300 text-zinc-800'
+                              }`}
                             />
                           </div>
 
                           <div>
-                            <label className="block text-zinc-400 mb-1">Or Direct Image URL</label>
+                            <label className={`block mb-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>Or Direct Image URL</label>
                             <input
                               type="text"
                               value={editingProject.imageUrl || ''}
                               onChange={(e) => setEditingProject({ ...editingProject, imageUrl: e.target.value })}
-                              className="w-full bg-[#151520] border border-zinc-800 p-3 rounded-xl text-white focus:border-emerald-500 focus:outline-none"
+                              className={`w-full p-3 rounded-xl border focus:border-emerald-500 focus:outline-none ${
+                                theme === 'dark' ? 'bg-[#151520] border-zinc-800 text-white' : 'bg-[#f4f5f7] border-zinc-300 text-zinc-900'
+                              }`}
                               placeholder="https://..."
                             />
                           </div>
@@ -687,7 +839,7 @@ export const AdminCmsModal: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => setEditingProject(null)}
-                            className="px-5 py-2.5 rounded-full border border-zinc-700 text-zinc-400 text-xs hover:bg-zinc-800 cursor-pointer"
+                            className="px-5 py-2.5 rounded-full border border-zinc-300 dark:border-zinc-700 text-xs hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer"
                           >
                             Cancel
                           </button>
@@ -700,29 +852,36 @@ export const AdminCmsModal: React.FC = () => {
                             {isSavingProject ? 'Saving to Firebase...' : 'Save Project'}
                           </button>
                         </div>
-                      </form>
+                      </motion.form>
                     )}
 
                     {/* Projects Grid List */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {projects.map((proj) => (
-                        <div
+                        <motion.div
                           key={proj.id}
-                          className="p-4 rounded-2xl border border-zinc-800 bg-[#0d0d14] flex gap-4 items-center hover:border-zinc-700 transition-colors"
+                          layout
+                          className={`p-4 rounded-2xl border flex gap-4 items-center transition-all ${
+                            theme === 'dark'
+                              ? 'bg-[#0d0d14] border-zinc-800 hover:border-zinc-700'
+                              : 'bg-white border-zinc-200 hover:border-emerald-400 shadow-sm'
+                          }`}
                         >
                           <img
                             src={proj.imageUrl}
                             alt={proj.title}
-                            className="w-20 h-20 object-cover rounded-xl border border-zinc-800"
+                            className="w-20 h-20 object-cover rounded-xl border border-zinc-200 dark:border-zinc-800"
                           />
                           <div className="flex-1 min-w-0">
-                            <h5 className="text-sm font-bold text-white truncate">{proj.title}</h5>
-                            <p className="text-xs text-emerald-400 truncate">{proj.category}</p>
+                            <h5 className="text-sm font-bold truncate">{proj.title}</h5>
+                            <p className="text-xs text-emerald-500 font-bold truncate">{proj.category}</p>
                             <a
                               href={proj.liveUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="text-[11px] text-zinc-400 underline truncate block mt-0.5"
+                              className={`text-[11px] underline truncate block mt-0.5 ${
+                                theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'
+                              }`}
                             >
                               {proj.liveUrl}
                             </a>
@@ -730,24 +889,28 @@ export const AdminCmsModal: React.FC = () => {
                           <div className="flex flex-col gap-2">
                             <button
                               onClick={() => setEditingProject(proj)}
-                              className="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white cursor-pointer transition-colors"
+                              className={`p-2 rounded-lg cursor-pointer transition-colors ${
+                                theme === 'dark' ? 'bg-zinc-800 hover:bg-zinc-700 text-white' : 'bg-zinc-100 hover:bg-zinc-200 text-zinc-800'
+                              }`}
                             >
                               <Edit3 className="w-4 h-4" />
                             </button>
                             <button
                               onClick={() => handleDeleteProject(proj.id)}
-                              className="p-2 rounded-lg bg-rose-500/20 hover:bg-rose-500/40 text-rose-400 cursor-pointer transition-colors"
+                              className="p-2 rounded-lg bg-rose-500/20 hover:bg-rose-500/40 text-rose-500 cursor-pointer transition-colors"
                             >
                               <Trash2 className="w-4 h-4" />
                             </button>
                           </div>
-                        </div>
+                        </motion.div>
                       ))}
 
                       {projects.length === 0 && (
-                        <div className="col-span-full p-12 text-center text-zinc-500 text-xs border border-dashed border-zinc-800 rounded-3xl space-y-2">
+                        <div className={`col-span-full p-12 text-center text-xs border border-dashed rounded-3xl space-y-2 ${
+                          theme === 'dark' ? 'border-zinc-800 text-zinc-500' : 'border-zinc-300 text-zinc-600'
+                        }`}>
                           <p>No projects currently in Firebase.</p>
-                          <p className="text-emerald-400 font-bold">Click "Add New Project" to add one!</p>
+                          <p className="text-emerald-500 font-bold">Click "Add New Project" to add one!</p>
                         </div>
                       )}
                     </div>
@@ -757,26 +920,28 @@ export const AdminCmsModal: React.FC = () => {
                 {/* TAB 3: FIREBASE CONFIG SETTINGS */}
                 {activeTab === 'config' && (
                   <div className="space-y-6 max-w-2xl">
-                    <div className="p-6 rounded-3xl border border-zinc-800 bg-[#0d0d14] space-y-4">
-                      <div className="flex items-center gap-3 border-b border-zinc-800 pb-3">
-                        <Key className="w-5 h-5 text-emerald-400" />
-                        <h4 className="text-sm font-bold text-white uppercase font-sans">
+                    <div className={`p-6 rounded-3xl border space-y-4 ${
+                      theme === 'dark' ? 'bg-[#0d0d14] border-zinc-800' : 'bg-white border-zinc-200 shadow-sm'
+                    }`}>
+                      <div className={`flex items-center gap-3 border-b pb-3 ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
+                        <Key className="w-5 h-5 text-emerald-500" />
+                        <h4 className="text-sm font-bold uppercase font-sans">
                           Firebase Credentials Info
                         </h4>
                       </div>
 
-                      <div className="space-y-2 text-xs font-mono text-zinc-300">
+                      <div className="space-y-2 text-xs font-mono">
                         <p>
-                          <strong className="text-zinc-500">PROJECT ID:</strong> {firebaseConfig.projectId}
+                          <strong className={theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'}>PROJECT ID:</strong> {firebaseConfig.projectId}
                         </p>
                         <p>
-                          <strong className="text-zinc-500">AUTH DOMAIN:</strong> {firebaseConfig.authDomain}
+                          <strong className={theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'}>AUTH DOMAIN:</strong> {firebaseConfig.authDomain}
                         </p>
                         <p>
-                          <strong className="text-zinc-500">STORAGE BUCKET:</strong> {firebaseConfig.storageBucket}
+                          <strong className={theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'}>STORAGE BUCKET:</strong> {firebaseConfig.storageBucket}
                         </p>
                         <p>
-                          <strong className="text-zinc-500">API KEY:</strong>{' '}
+                          <strong className={theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'}>API KEY:</strong>{' '}
                           {firebaseConfig.apiKey.slice(0, 10)}...
                         </p>
                       </div>
