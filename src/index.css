@@ -45,9 +45,13 @@
 /* Hide Built with Spline watermark logo badge */
 spline-viewer::part(logo),
 spline-viewer #logo,
-spline-viewer a[href*="spline"] {
+spline-viewer a,
+spline-viewer a[href*="spline"],
+spline-viewer .logo {
   display: none !important;
   opacity: 0 !important;
   pointer-events: none !important;
   visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
 }
