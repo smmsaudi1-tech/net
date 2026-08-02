@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../../context/ThemeContext';
-import { useLanguage } from '../../context/LanguageContext';
+import { useSiteContent } from '../../context/SiteContentContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,14 +10,14 @@ export const BrandStatement: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const wordsRef = useRef<HTMLHeadingElement[]>([]);
   const { theme } = useTheme();
-  const { t, lang } = useLanguage();
+  const { getText } = useSiteContent();
 
   const words = [
-    t('statement.w1', 'IDEAS', 'الأفكار'),
-    t('statement.w2', 'DESERVE', 'تستحق'),
-    t('statement.w3', 'BETTER', 'أفضل'),
-    t('statement.w4', 'DIGITAL', 'تجارب'),
-    t('statement.w5', 'EXPERIENCES.', 'رقمية.')
+    getText('statement.w1', 'IDEAS'),
+    getText('statement.w2', 'DESERVE'),
+    getText('statement.w3', 'BETTER'),
+    getText('statement.w4', 'DIGITAL'),
+    getText('statement.w5', 'EXPERIENCES.')
   ];
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export const BrandStatement: React.FC = () => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, [lang]);
+  }, [words]);
 
   return (
     <section
@@ -69,7 +69,7 @@ export const BrandStatement: React.FC = () => {
               theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
             }`}
           >
-            {t('statement.tag', '// OUR PHILOSOPHY', '// فلسفتنا وتوجهنا الإبداعي')}
+            {getText('statement.tag', '// OUR PHILOSOPHY')}
           </p>
 
           <div className="flex flex-col gap-3">
@@ -79,9 +79,7 @@ export const BrandStatement: React.FC = () => {
                 ref={(el) => {
                   if (el) wordsRef.current[idx] = el;
                 }}
-                className={`text-5xl sm:text-8xl lg:text-9xl font-black tracking-tighter uppercase origin-left transition-colors ${
-                  lang === 'AR' ? 'font-arabic' : 'font-sans'
-                } ${
+                className={`text-5xl sm:text-8xl lg:text-9xl font-black tracking-tighter uppercase origin-left font-sans transition-colors ${
                   idx === 3
                     ? 'text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500'
                     : theme === 'dark'

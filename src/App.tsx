@@ -15,14 +15,14 @@ import { MinimalFooter } from './components/footer/MinimalFooter';
 import { ParticleField } from './components/effects/ParticleField';
 import { MarqueeStrip } from './components/effects/MarqueeStrip';
 import { AiChatbotWidget } from './components/chat/AiChatbotWidget';
+import { AdminCmsModal } from './components/admin/AdminCmsModal';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
-import { LanguageProvider, useLanguage } from './context/LanguageContext';
+import { SiteContentProvider } from './context/SiteContentContext';
 import { smoothScroll } from './utils/smoothScroll';
 
 function MainAppContent() {
   const [loaded, setLoaded] = useState(false);
   const { theme } = useTheme();
-  const { lang } = useLanguage();
 
   useEffect(() => {
     smoothScroll.start();
@@ -33,7 +33,7 @@ function MainAppContent() {
     <div
       className={`min-h-screen font-sans selection:bg-[#ffffff] selection:text-[#000000] overflow-x-hidden relative transition-colors duration-500 ${
         theme === 'dark' ? 'bg-[#000000] text-[#ffffff]' : 'bg-[#ffffff] text-[#000000]'
-      } ${lang === 'AR' ? 'font-arabic' : ''}`}
+      }`}
     >
       {/* 01 — Cinematic Loader */}
       {!loaded && <CinematicLoader onComplete={() => setLoaded(true)} />}
@@ -47,6 +47,9 @@ function MainAppContent() {
           {/* Custom Magnetic Cursor */}
           <MagneticCursor />
 
+          {/* Firebase CMS & Project Manager Modal */}
+          <AdminCmsModal />
+
           {/* Interactive Floating AI Chatbot Assistant */}
           <AiChatbotWidget />
 
@@ -55,7 +58,7 @@ function MainAppContent() {
 
           {/* Core Sections */}
           <main className="relative z-10">
-            {/* 02 & 03 — Architectural Hero & Futuristic 3D Robot AI Agent Sculpture */}
+            {/* 02 & 03 — Architectural Hero & Futuristic 3D Cyber Crystal Sculpture */}
             <HeroSection />
 
             {/* Kinetic Marquee Strip */}
@@ -67,7 +70,7 @@ function MainAppContent() {
             {/* 05 — Experimental Vertical Services */}
             <ExperimentalServices />
 
-            {/* 06 & 07 — Editorial Case Studies Showcase */}
+            {/* 06 & 07 — Editorial Case Studies Showcase (Firebase Dynamic Projects) */}
             <EditorialCaseStudies />
 
             {/* 08 — GSAP ScrollTrigger Pinned Horizontal Section */}
@@ -100,9 +103,9 @@ function MainAppContent() {
 export function App() {
   return (
     <ThemeProvider>
-      <LanguageProvider>
+      <SiteContentProvider>
         <MainAppContent />
-      </LanguageProvider>
+      </SiteContentProvider>
     </ThemeProvider>
   );
 }

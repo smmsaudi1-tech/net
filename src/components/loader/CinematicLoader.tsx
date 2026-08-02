@@ -6,8 +6,8 @@ export const CinematicLoader: React.FC<{ onComplete: () => void }> = ({ onComple
 
   useEffect(() => {
     // Sequence Timings
-    const t1 = setTimeout(() => setStep(2), 1200); // Line expand & 2026 text
-    const t2 = setTimeout(() => setStep(3), 2600); // Exit mask reveal
+    const t1 = setTimeout(() => setStep(2), 1200);
+    const t2 = setTimeout(() => setStep(3), 2600);
     const t3 = setTimeout(() => {
       onComplete();
     }, 3400);
@@ -32,13 +32,20 @@ export const CinematicLoader: React.FC<{ onComplete: () => void }> = ({ onComple
           transition={{ duration: 1, ease: [0.77, 0, 0.175, 1] }}
           className="fixed inset-0 z-[10000] bg-[#000000] text-[#ffffff] flex flex-col items-center justify-center overflow-hidden font-mono selection:bg-none"
         >
-          {/* Centered Brand Title */}
+          {/* Centered Brand Title & Logo */}
           <motion.div
             initial={{ opacity: 0, y: 15, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-center space-y-4"
+            className="text-center space-y-4 flex flex-col items-center justify-center"
           >
+            {/* Brand Logo Image */}
+            <img
+              src="/2.png"
+              alt="Brand Logo"
+              className="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+            />
+
             <h1 className="text-xl sm:text-2xl font-black tracking-[0.35em] text-[#ffffff] uppercase">
               NEXT GEN DEVS
             </h1>

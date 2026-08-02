@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon, Globe } from 'lucide-react';
+import { Menu, X, Sun, Moon, Settings } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
-import { useLanguage } from '../../context/LanguageContext';
+import { useSiteContent } from '../../context/SiteContentContext';
 import { soundEngine } from '../../utils/audioEngine';
 
 export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
-  const { lang, toggleLanguage, t } = useLanguage();
+  const { getText, setAdminOpen } = useSiteContent();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,22 +42,27 @@ export const Navbar: React.FC = () => {
             : 'bg-transparent border border-transparent'
         }`}
       >
-        {/* Brand Logo Left */}
+        {/* Brand Logo & Name Left */}
         <div
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="cursor-pointer group flex items-center gap-3"
           data-cursor="HOME"
         >
+          <img
+            src="/2.png"
+            alt="Next Gen Devs Logo"
+            className="w-8 h-8 sm:w-9 sm:h-9 object-contain transition-transform group-hover:scale-110"
+          />
           <span
-            className={`font-black text-base sm:text-lg tracking-[0.25em] uppercase font-mono transition-colors ${
+            className={`font-black text-base sm:text-lg tracking-[0.2em] uppercase font-mono transition-colors ${
               theme === 'dark' ? 'text-[#ffffff]' : 'text-[#000000]'
             }`}
           >
-            NEXT GEN DEVS
+            {getText('brand.name', 'NEXT GEN DEVS')}
           </span>
         </div>
 
-        {/* Links & Switchers Right */}
+        {/* Links & Admin Controls Right */}
         <nav
           className={`hidden md:flex items-center gap-7 text-[11px] font-mono font-bold tracking-[0.2em] uppercase transition-colors ${
             theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
@@ -68,28 +73,28 @@ export const Navbar: React.FC = () => {
             className="hover:text-[#ffffff] dark:hover:text-[#ffffff] light:hover:text-[#000000] transition-colors cursor-pointer py-1"
             data-cursor="WORK"
           >
-            {t('WORK', 'المشاريع')}
+            {getText('nav.work', 'WORK')}
           </button>
           <button
             onClick={() => scrollToSection('services')}
             className="hover:text-[#ffffff] dark:hover:text-[#ffffff] light:hover:text-[#000000] transition-colors cursor-pointer py-1"
             data-cursor="SERVICES"
           >
-            {t('SERVICES', 'الخدمات')}
+            {getText('nav.services', 'SERVICES')}
           </button>
           <button
             onClick={() => scrollToSection('process')}
             className="hover:text-[#ffffff] dark:hover:text-[#ffffff] light:hover:text-[#000000] transition-colors cursor-pointer py-1"
             data-cursor="PROCESS"
           >
-            {t('PROCESS', 'خريطة العمل')}
+            {getText('nav.process', 'PROCESS')}
           </button>
           <button
             onClick={() => scrollToSection('about')}
             className="hover:text-[#ffffff] dark:hover:text-[#ffffff] light:hover:text-[#000000] transition-colors cursor-pointer py-1"
             data-cursor="ABOUT"
           >
-            {t('ABOUT', 'عن الفريق')}
+            {getText('nav.about', 'ABOUT')}
           </button>
           <button
             onClick={() => scrollToSection('contact')}
@@ -98,25 +103,21 @@ export const Navbar: React.FC = () => {
             }`}
             data-cursor="CONTACT"
           >
-            {t('CONTACT', 'تواصل معنا')}
+            {getText('nav.contact', 'CONTACT')}
           </button>
 
-          {/* BILINGUAL LANGUAGE SWITCHER BUTTON (EN / AR) */}
+          {/* FIREBASE CMS & ADMIN DRAWER TOGGLE */}
           <button
             onClick={() => {
               soundEngine.playClick();
-              toggleLanguage();
+              setAdminOpen(true);
             }}
-            className={`px-3 py-1.5 rounded-full border text-xs font-mono font-black transition-all flex items-center gap-1.5 cursor-pointer ${
-              theme === 'dark'
-                ? 'bg-[#181818] border-[#262626] text-[#ffffff] hover:border-[#ffffff]'
-                : 'bg-[#f4f4f5] border-[#e4e4e7] text-[#000000] hover:border-[#000000]'
-            }`}
-            data-cursor="LANG"
-            title="Switch Language / تغيير اللغة"
+            className={`px-3 py-1.5 rounded-full border text-[11px] font-mono font-bold transition-all flex items-center gap-1.5 cursor-pointer bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-black`}
+            data-cursor="ADMIN"
+            title="Firebase CMS & Project Manager"
           >
-            <Globe className="w-3.5 h-3.5" />
-            <span>{lang === 'EN' ? 'العربية 🇸🇦' : 'ENGLISH 🇬🇧'}</span>
+            <Settings className="w-3.5 h-3.5" />
+            <span>EDIT CMS</span>
           </button>
 
           {/* LIGHT MODE & DARK MODE TOGGLE BUTTON */}
@@ -142,15 +143,12 @@ export const Navbar: React.FC = () => {
           <button
             onClick={() => {
               soundEngine.playClick();
-              toggleLanguage();
+              setAdminOpen(true);
             }}
-            className={`px-2.5 py-1 rounded-full border text-[10px] font-mono font-bold ${
-              theme === 'dark'
-                ? 'bg-[#181818] border-[#262626] text-[#ffffff]'
-                : 'bg-[#f4f4f5] border-[#e4e4e7] text-[#000000]'
-            }`}
+            className="p-2 rounded-full border bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
+            title="Firebase CMS & Project Manager"
           >
-            {lang === 'EN' ? 'عربي' : 'EN'}
+            <Settings className="w-4 h-4" />
           </button>
 
           <button
@@ -196,19 +194,19 @@ export const Navbar: React.FC = () => {
           >
             <div className="flex flex-col gap-5 text-sm font-bold tracking-[0.25em] uppercase">
               <button onClick={() => scrollToSection('work')} className="py-2">
-                {t('WORK', 'المشاريع')}
+                {getText('nav.work', 'WORK')}
               </button>
               <button onClick={() => scrollToSection('services')} className="py-2">
-                {t('SERVICES', 'الخدمات')}
+                {getText('nav.services', 'SERVICES')}
               </button>
               <button onClick={() => scrollToSection('process')} className="py-2">
-                {t('PROCESS', 'خريطة العمل')}
+                {getText('nav.process', 'PROCESS')}
               </button>
               <button onClick={() => scrollToSection('about')} className="py-2">
-                {t('ABOUT', 'عن الفريق')}
+                {getText('nav.about', 'ABOUT')}
               </button>
               <button onClick={() => scrollToSection('contact')} className="py-2 font-black">
-                {t('CONTACT →', 'تواصل معنا ←')}
+                {getText('nav.contact', 'CONTACT')}
               </button>
             </div>
           </motion.div>

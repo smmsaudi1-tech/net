@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
+import { useSiteContent } from '../../context/SiteContentContext';
 
 const Counter: React.FC<{ value: number; suffix?: string }> = ({ value, suffix = '' }) => {
   const [count, setCount] = useState(0);
@@ -44,10 +45,11 @@ const Counter: React.FC<{ value: number; suffix?: string }> = ({ value, suffix =
 
 export const AboutNextGen: React.FC = () => {
   const { theme } = useTheme();
+  const { getText } = useSiteContent();
 
   const stats = [
-    { number: 20, suffix: '+', label: 'PROJECTS LAUNCHED' },
-    { number: 10, suffix: '+', label: 'BRANDS EMPOWERED' },
+    { number: 50, suffix: '+', label: getText('about.stat1_label', 'PROJECTS LAUNCHED') },
+    { number: 30, suffix: '+', label: getText('about.stat2_label', 'BRANDS EMPOWERED') },
     { number: 100, suffix: '%', label: 'PASSION & PRECISION' },
     { number: 24, suffix: '/7', label: 'CREATIVE ENERGY' }
   ];
@@ -70,11 +72,11 @@ export const AboutNextGen: React.FC = () => {
               theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
             }`}
           >
-            // ABOUT NEXT GEN DEVS
+            {getText('about.tag', '// ABOUT NEXT GEN DEVS')}
           </p>
 
           <h2 className="text-5xl sm:text-8xl font-black tracking-tighter uppercase font-sans leading-none">
-            WE ARE NEXT GEN.
+            {getText('about.title', 'WE ARE NEXT GEN.')}
           </h2>
 
           <p
@@ -82,7 +84,10 @@ export const AboutNextGen: React.FC = () => {
               theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
             }`}
           >
-            We are a young team of developers and designers focused on turning ambitious ideas into fast, modern and memorable digital experiences.
+            {getText(
+              'about.desc',
+              'We are a young team of developers and designers focused on turning ambitious ideas into fast, modern and memorable digital experiences.'
+            )}
           </p>
         </div>
 

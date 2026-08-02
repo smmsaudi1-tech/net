@@ -2,43 +2,43 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
-import { useLanguage } from '../../context/LanguageContext';
+import { useSiteContent } from '../../context/SiteContentContext';
 
 export const ExperimentalServices: React.FC = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const { theme } = useTheme();
-  const { t, lang } = useLanguage();
+  const { getText } = useSiteContent();
 
   const services = [
     {
       id: 'srv-1',
       number: '01',
-      title: t('srv1.title', 'WEBSITE DEVELOPMENT', 'تطوير المواقع الفاخرة'),
-      description: t('srv1.desc', 'Bespoke websites built with React 19, Next.js, and Three.js 3D WebGL scenes.', 'مواقع مخصصة بمهارة فائقة تقنياً باستخدام رياكت ونكست ثري دي.')
+      title: getText('srv1.title', 'WEBSITE DEVELOPMENT'),
+      description: getText('srv1.desc', 'Bespoke websites built with React, Next.js, and Three.js 3D WebGL scenes.')
     },
     {
       id: 'srv-2',
       number: '02',
-      title: t('srv2.title', 'E-COMMERCE STORES', 'تطوير المتاجر الإلكترونية'),
-      description: t('srv2.desc', 'Luxury digital storefronts, custom checkout flows, payment gateways, and inventory sync.', 'متاجر إلكترونية فاخرة، بوابات دفع سريعة، ومزامنة تلقائية للمخزون.')
+      title: getText('srv2.title', 'E-COMMERCE STORES'),
+      description: getText('srv2.desc', 'Luxury digital storefronts, custom checkout flows, payment gateways, and inventory sync.')
     },
     {
       id: 'srv-3',
       number: '03',
-      title: t('srv3.title', 'WEB APPLICATIONS & AI CHATBOTS', 'التطبيقات وشات بوت الذكاء الاصطناعي'),
-      description: t('srv3.desc', 'Fullstack cloud web platforms, custom AI chatbots, digital menus with QR codes, and SaaS portals.', 'منصات سحابية، شات بوت ذكاء اصطناعي تفاعلي، ومميزات المتاجر والمطاعم.')
+      title: getText('srv3.title', 'WEB APPLICATIONS & AI CHATBOTS'),
+      description: getText('srv3.desc', 'Fullstack cloud web platforms, custom AI chatbots, digital menus with QR codes, and SaaS portals.')
     },
     {
       id: 'srv-4',
       number: '04',
-      title: t('srv4.title', 'UI / UX DESIGN SYSTEMS', 'تصميم الواجهات ونظم UI/UX'),
-      description: t('srv4.desc', 'Human-centered minimalist luxury design systems, wireframing, and motion prototypes.', 'أنظمة تصميم أنيقة، تجربة مستخدم سلسة، وأنيميشن متناسق.')
+      title: getText('srv4.title', 'UI / UX DESIGN SYSTEMS'),
+      description: getText('srv4.desc', 'Human-centered minimalist luxury design systems, wireframing, and motion prototypes.')
     },
     {
       id: 'srv-5',
       number: '05',
-      title: t('srv5.title', 'BRAND DIGITAL EXPERIENCE', 'الهوية الرقمية الكاملة'),
-      description: t('srv5.desc', 'Complete brand positioning, 3D interactive showcases, sound design, and launch strategies.', 'بناء الهوية الرقمية، عروض 3D تفاعلية، واستراتيجيات إطلاق ناجحة.')
+      title: getText('srv5.title', 'BRAND DIGITAL EXPERIENCE'),
+      description: getText('srv5.desc', 'Complete brand positioning, 3D interactive showcases, sound design, and launch strategies.')
     }
   ];
 
@@ -65,14 +65,10 @@ export const ExperimentalServices: React.FC = () => {
                 theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
               }`}
             >
-              {t('services.tag', '// CORE CAPABILITIES', '// قدراتنا وخبراتنا الرئيسية')}
+              {getText('services.tag', '// CORE CAPABILITIES')}
             </p>
-            <h2
-              className={`text-4xl sm:text-6xl font-black tracking-tighter uppercase ${
-                lang === 'AR' ? 'font-arabic' : 'font-sans'
-              }`}
-            >
-              {t('services.title', 'WHAT WE BUILD', 'ما نقدمه لبراندك')}
+            <h2 className="text-4xl sm:text-6xl font-black tracking-tighter uppercase font-sans">
+              {getText('services.title', 'WHAT WE BUILD')}
             </h2>
           </div>
           <p
@@ -80,7 +76,7 @@ export const ExperimentalServices: React.FC = () => {
               theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
             }`}
           >
-            {t('services.count', '[ 05 SPECIALIZED DISCIPLINES ]', '[ 5 تخصصات برمجية استثنائية ]')}
+            {getText('services.count', '[ 05 SPECIALIZED DISCIPLINES ]')}
           </p>
         </div>
 
@@ -98,71 +94,22 @@ export const ExperimentalServices: React.FC = () => {
               >
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10 text-left">
                   
-                  {/* Number & Title */}
                   <div className="flex items-baseline gap-6">
-                    <span
-                      className={`font-mono text-sm sm:text-base font-bold transition-all duration-300 ${
-                        isHovered
-                          ? theme === 'dark'
-                            ? 'text-[#ffffff] translate-x-2'
-                            : 'text-[#000000] translate-x-2'
-                          : 'text-[#525252]'
-                      }`}
-                    >
-                      {srv.number} —
-                    </span>
-
-                    <h3
-                      className={`text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight uppercase transition-all duration-300 ${
-                        lang === 'AR' ? 'font-arabic' : 'font-sans'
-                      } ${
-                        isHovered
-                          ? theme === 'dark'
-                            ? 'text-[#ffffff] scale-105'
-                            : 'text-[#000000] scale-105'
-                          : 'text-[#a3a3a3]'
-                      }`}
-                    >
+                    <span className="font-mono text-xs font-bold text-zinc-500">{srv.number}</span>
+                    <h3 className="text-2xl sm:text-4xl font-black uppercase font-sans tracking-tight">
                       {srv.title}
                     </h3>
                   </div>
 
-                  {/* Expand Description & Arrow */}
-                  <div className="flex items-center gap-6">
-                    <p
-                      className={`text-xs max-w-sm hidden sm:block ${
-                        lang === 'AR' ? 'font-arabic' : 'font-sans'
-                      } ${theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'}`}
-                    >
-                      {srv.description}
-                    </p>
+                  <p className="text-xs sm:text-sm max-w-md text-zinc-400 font-sans leading-relaxed">
+                    {srv.description}
+                  </p>
 
-                    <div
-                      className={`p-4 rounded-full border transition-all duration-300 ${
-                        isHovered
-                          ? theme === 'dark'
-                            ? 'bg-[#ffffff] text-[#000000] border-[#ffffff]'
-                            : 'bg-[#000000] text-[#ffffff] border-[#000000]'
-                          : theme === 'dark'
-                          ? 'bg-[#0d0d0d] text-[#525252] border-[#262626]'
-                          : 'bg-[#f4f4f5] text-[#525252] border-[#e4e4e7]'
-                      }`}
-                    >
-                      <ArrowUpRight className="w-5 h-5" />
-                    </div>
+                  <div className="p-3 rounded-full border border-zinc-700 group-hover:bg-white group-hover:text-black transition-all">
+                    <ArrowUpRight className="w-5 h-5" />
                   </div>
 
                 </div>
-
-                {/* Animated Line */}
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: isHovered ? 1 : 0 }}
-                  transition={{ duration: 0.4 }}
-                  className={`absolute bottom-0 left-0 right-0 h-[2px] origin-left ${
-                    theme === 'dark' ? 'bg-[#ffffff]' : 'bg-[#000000]'
-                  }`}
-                />
               </div>
             );
           })}

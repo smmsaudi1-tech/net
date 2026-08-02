@@ -13,10 +13,10 @@ export const ThreeDScene: React.FC = () => {
     const w = container.clientWidth || 500;
     const h = container.clientHeight || 500;
 
-    // 1. Scene, Camera, Renderer
+    // 1. Scene, Camera, Renderer setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 1000);
-    camera.position.z = 7;
+    camera.position.z = 6.5;
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(w, h);
@@ -25,156 +25,169 @@ export const ThreeDScene: React.FC = () => {
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
-    // 2. Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, theme === 'dark' ? 0.7 : 1.2);
+    // 2. Dynamic Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, theme === 'dark' ? 0.9 : 1.4);
     scene.add(ambientLight);
 
-    const pointLight1 = new THREE.PointLight(0xffffff, 5, 100);
-    pointLight1.position.set(6, 6, 6);
-    scene.add(pointLight1);
+    const mainLight = new THREE.DirectionalLight(0xffffff, 3);
+    mainLight.position.set(5, 5, 5);
+    scene.add(mainLight);
 
-    const pointLight2 = new THREE.PointLight(theme === 'dark' ? 0x00f0ff : 0x0066ff, 4, 50);
-    pointLight2.position.set(-6, -6, 4);
-    scene.add(pointLight2);
+    const cyanLight = new THREE.PointLight(theme === 'dark' ? 0x00f0ff : 0x0066ff, 5, 20);
+    cyanLight.position.set(-4, 3, 3);
+    scene.add(cyanLight);
 
-    const mouseLight = new THREE.PointLight(0xffffff, 3, 30);
+    const magentaLight = new THREE.PointLight(theme === 'dark' ? 0xff007f : 0xaa00ff, 4, 20);
+    magentaLight.position.set(4, -3, -2);
+    scene.add(magentaLight);
+
+    // Mouse tracker light
+    const mouseLight = new THREE.PointLight(0xffffff, 2, 15);
     mouseLight.position.set(0, 0, 4);
     scene.add(mouseLight);
 
-    // 3. BRAND-NEW 3D SCULPTURE: CYBERNETIC HELIX MONOLITH & INTERLOCKING RINGS
-    const mainGroup = new THREE.Group();
-    scene.add(mainGroup);
+    // 3. Futuristic 3D Cyber Crystal Core Group
+    const group = new THREE.Group();
+    scene.add(group);
 
-    // Central Double-Stranded Quantum Helix
-    const helixGeo = new THREE.TorusKnotGeometry(1.6, 0.28, 140, 20, 3, 5);
-    const helixMat = new THREE.MeshStandardMaterial({
-      color: theme === 'dark' ? 0x262626 : 0x18181b,
-      metalness: 0.95,
-      roughness: 0.08,
-      wireframe: false
+    // Core 1: Outer Icosahedron Wireframe Armor
+    const outerGeo = new THREE.IcosahedronGeometry(1.8, 1);
+    const outerMat = new THREE.MeshStandardMaterial({
+      color: theme === 'dark' ? 0xffffff : 0x18181b,
+      wireframe: true,
+      transparent: true,
+      opacity: theme === 'dark' ? 0.35 : 0.45,
+      metalness: 0.9,
+      roughness: 0.1
     });
-    const helixMesh = new THREE.Mesh(helixGeo, helixMat);
-    mainGroup.add(helixMesh);
+    const outerMesh = new THREE.Mesh(outerGeo, outerMat);
+    group.add(outerMesh);
 
-    // Ring 1 (X-Axis Interlocking Armor)
-    const ringGeo1 = new THREE.TorusGeometry(2.6, 0.03, 16, 100);
+    // Core 2: Inner Glossy Faceted Gem Crystal
+    const innerGeo = new THREE.OctahedronGeometry(1.2, 2);
+    const innerMat = new THREE.MeshPhysicalMaterial({
+      color: theme === 'dark' ? 0x111111 : 0xf4f4f5,
+      metalness: 0.9,
+      roughness: 0.1,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.1,
+      reflectivity: 1.0,
+      transmission: 0.2,
+      ior: 1.5
+    });
+    const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+    group.add(innerMesh);
+
+    // Core 3: Orbital Cyber Ring 1 (X-Y Plane)
+    const ringGeo1 = new THREE.TorusGeometry(2.4, 0.02, 16, 100);
     const ringMat1 = new THREE.MeshBasicMaterial({
-      color: theme === 'dark' ? 0xa3a3a3 : 0x525252,
-      wireframe: true
+      color: theme === 'dark' ? 0x00f0ff : 0x2563eb,
+      wireframe: false
     });
     const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
     ring1.rotation.x = Math.PI / 3;
-    mainGroup.add(ring1);
+    group.add(ring1);
 
-    // Ring 2 (Y-Axis Interlocking Armor)
-    const ringGeo2 = new THREE.TorusGeometry(3.0, 0.025, 16, 100);
+    // Core 4: Orbital Cyber Ring 2 (Y-Z Plane)
+    const ringGeo2 = new THREE.TorusGeometry(2.8, 0.015, 16, 100);
     const ringMat2 = new THREE.MeshBasicMaterial({
-      color: theme === 'dark' ? 0x525252 : 0x71717a,
-      wireframe: true
+      color: theme === 'dark' ? 0xff007f : 0xd946ef,
+      wireframe: false
     });
     const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
     ring2.rotation.y = Math.PI / 4;
-    mainGroup.add(ring2);
+    group.add(ring2);
 
-    // Ring 3 (Z-Axis Outer Perimeter)
-    const ringGeo3 = new THREE.TorusGeometry(3.4, 0.02, 16, 100);
-    const ringMat3 = new THREE.MeshBasicMaterial({
-      color: theme === 'dark' ? 0x737373 : 0xa1a1aa,
-      wireframe: true
-    });
-    const ring3 = new THREE.Mesh(ringGeo3, ringMat3);
-    ring3.rotation.z = Math.PI / 6;
-    mainGroup.add(ring3);
+    // Core 5: Floating Floating Quantum Particles Swarm
+    const particleCount = 120;
+    const particleGeo = new THREE.BufferGeometry();
+    const particlePositions = new Float32Array(particleCount * 3);
 
-    // Orbiting Floating Micro-Nodes
-    const nodes: THREE.Mesh[] = [];
-    const nodeGeo = new THREE.IcosahedronGeometry(0.22, 0);
-    const nodeMat = new THREE.MeshStandardMaterial({
-      color: theme === 'dark' ? 0xffffff : 0x000000,
-      metalness: 1.0,
-      roughness: 0.05
-    });
-
-    for (let i = 0; i < 18; i++) {
-      const node = new THREE.Mesh(nodeGeo, nodeMat);
-      const angle = (i / 18) * Math.PI * 2;
-      node.position.set(3.5 * Math.cos(angle), Math.sin(angle * 2) * 0.7, 3.5 * Math.sin(angle));
-      mainGroup.add(node);
-      nodes.push(node);
+    for (let i = 0; i < particleCount * 3; i += 3) {
+      particlePositions[i] = (Math.random() - 0.5) * 7;
+      particlePositions[i + 1] = (Math.random() - 0.5) * 7;
+      particlePositions[i + 2] = (Math.random() - 0.5) * 7;
     }
 
-    // 4. Mouse Tracking Physics
-    let targetX = 0;
-    let targetY = 0;
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+    const particleMat = new THREE.PointsMaterial({
+      size: 0.04,
+      color: theme === 'dark' ? 0xffffff : 0x000000,
+      transparent: true,
+      opacity: 0.6
+    });
+    const particlePoints = new THREE.Points(particleGeo, particleMat);
+    group.add(particlePoints);
 
-    const onMouseMove = (e: MouseEvent) => {
-      const windowHalfX = window.innerWidth / 2;
-      const windowHalfY = window.innerHeight / 2;
-      targetX = (e.clientX - windowHalfX) * 0.0018;
-      targetY = (e.clientY - windowHalfY) * 0.0018;
+    // 4. Mouse Interactive Parallax & Animation Loop
+    let targetRotX = 0;
+    let targetRotY = 0;
 
-      mouseLight.position.x = (e.clientX / window.innerWidth) * 10 - 5;
-      mouseLight.position.y = -(e.clientY / window.innerHeight) * 10 + 5;
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+
+      targetRotY = x * 0.8;
+      targetRotX = -y * 0.8;
+
+      mouseLight.position.x = x * 3;
+      mouseLight.position.y = y * 3;
     };
 
-    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mousemove', handleMouseMove);
 
-    const onResize = () => {
-      if (!container) return;
-      const nw = container.clientWidth || 500;
-      const nh = container.clientHeight || 500;
-      camera.aspect = nw / nh;
-      camera.updateProjectionMatrix();
-      renderer.setSize(nw, nh);
-    };
-
-    window.addEventListener('resize', onResize);
-
-    // 5. Animation Loop
-    let animId: number;
-    const clock = new THREE.Clock();
+    let animationFrameId: number;
+    let clock = new THREE.Clock();
 
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
 
-      // Continuous Dynamic Rotations
-      mainGroup.rotation.y = elapsedTime * 0.2 + targetX;
-      mainGroup.rotation.x = elapsedTime * 0.12 + targetY;
+      // Continuous rotation
+      outerMesh.rotation.y = elapsedTime * 0.3;
+      outerMesh.rotation.x = elapsedTime * 0.2;
 
-      helixMesh.rotation.z = elapsedTime * 0.2;
-      ring1.rotation.z = elapsedTime * 0.3;
-      ring2.rotation.z = -elapsedTime * 0.25;
-      ring3.rotation.x = elapsedTime * 0.15;
+      innerMesh.rotation.y = -elapsedTime * 0.4;
+      innerMesh.rotation.z = elapsedTime * 0.25;
 
-      nodes.forEach((node, idx) => {
-        node.rotation.x += 0.02;
-        node.rotation.y += 0.02;
-        const angle = elapsedTime * 0.45 + (idx / 18) * Math.PI * 2;
-        node.position.x = 3.5 * Math.cos(angle);
-        node.position.z = 3.5 * Math.sin(angle);
-        node.position.y = Math.sin(angle * 3) * 0.8;
-      });
+      ring1.rotation.z = elapsedTime * 0.5;
+      ring2.rotation.x = elapsedTime * 0.6;
+
+      particlePoints.rotation.y = elapsedTime * 0.05;
+
+      // Smooth mouse lerping
+      group.rotation.x += (targetRotX - group.rotation.x) * 0.05;
+      group.rotation.y += (targetRotY - group.rotation.y) * 0.05;
 
       renderer.render(scene, camera);
-      animId = requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     animate();
 
+    // Resize handler
+    const handleResize = () => {
+      if (!container) return;
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    };
+
+    window.addEventListener('resize', handleResize);
+
     return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('resize', onResize);
-      cancelAnimationFrame(animId);
-      if (container) {
-        container.innerHTML = '';
-      }
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationFrameId);
+      renderer.dispose();
     };
   }, [theme]);
 
   return (
-    <div
-      ref={containerRef}
-      className="w-full h-[450px] sm:h-[580px] relative overflow-hidden pointer-events-none flex items-center justify-center min-h-[400px]"
-    />
+    <div className="relative w-full h-[420px] sm:h-[500px] flex items-center justify-center">
+      <div ref={containerRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
+    </div>
   );
 };
