@@ -7,6 +7,22 @@
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="NEXT GEN DEVS — Award-winning creative technology studio building modern 3D websites, e-commerce platforms, and high-performance digital products." />
     
+    <script>
+      // Filter benign internal Spline viewer timeline warnings
+      (function() {
+        const origWarn = console.warn;
+        const origLog = console.log;
+        console.warn = function(...args) {
+          if (args[0] && typeof args[0] === 'string' && (args[0].includes('Missing property') || args[0].includes('buildTimeline'))) return;
+          origWarn.apply(console, args);
+        };
+        console.log = function(...args) {
+          if (args[0] && typeof args[0] === 'string' && args[0].includes('Missing property')) return;
+          origLog.apply(console, args);
+        };
+      })();
+    </script>
+
     <!-- Google Fonts: Inter, Space Grotesk, Cairo, Tajawal, Readex Pro -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

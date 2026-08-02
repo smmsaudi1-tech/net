@@ -46,7 +46,7 @@ export const HeroSection: React.FC = () => {
           {/* Letter by Letter Animated Headline */}
           <div className="overflow-hidden">
             <h1
-              className={`text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.95] uppercase font-sans ${
+              className={`text-4xl sm:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.95] uppercase font-sans ${
                 theme === 'dark' ? 'text-[#ffffff]' : 'text-[#000000]'
               }`}
             >

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, X, Send, Loader2 } from 'lucide-react';
+import { Bot, X, Send, Loader2, MessageCircle, ExternalLink } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useSiteContent } from '../../context/SiteContentContext';
 import { subscribeProjects } from '../../services/projectService';
@@ -12,6 +12,7 @@ interface ChatMessage {
   sender: 'bot' | 'user';
   text: string;
   time: string;
+  showWaBtn?: boolean;
 }
 
 export const AiChatbotWidget: React.FC = () => {
@@ -26,8 +27,9 @@ export const AiChatbotWidget: React.FC = () => {
     {
       id: '1',
       sender: 'bot',
-      text: 'أهلاً بك! أنا مساعد الذكاء الاصطناعي لشركة Next Gen Devs 🤖. كيف يمكنني مساعدتك في مشروعك الرقمي اليوم؟',
-      time: 'Just now'
+      text: 'أهلاً بك! أنا مساعد الذكاء الاصطناعي لشركة Next Gen Devs 🤖. كيف يمكنني مساعدتك في تطوير مشروعك الرقمي اليوم؟\n\n📱 رقم الواتساب: 01020451206\n🔗 رابط التواصل المباشر: https://wa.me/201020451206',
+      time: 'Just now',
+      showWaBtn: true
     }
   ]);
 
@@ -44,9 +46,10 @@ export const AiChatbotWidget: React.FC = () => {
   }, []);
 
   // Intelligent Firebase Context Response Generator (Bilingual Arabic & English)
-  const generateDynamicFirebaseReply = (userQuery: string): string => {
+  const generateDynamicFirebaseReply = (userQuery: string): { reply: string; showWaBtn: boolean } => {
     const query = userQuery.toLowerCase();
     const isArabic = /[\u0600-\u06FF]/.test(userQuery);
+    const phone = content['contact.phone'] || '01020451206';
 
     // 1. Check for Services
     if (query.includes('خدمة') || query.includes('خدمات') || query.includes('تعملوا ايه') || query.includes('بتعملوا') || query.includes('service') || query.includes('offer')) {
@@ -54,9 +57,15 @@ export const AiChatbotWidget: React.FC = () => {
       const srv2 = content['srv2.title'] || 'E-COMMERCE STORES';
       const srv3 = content['srv3.title'] || 'CUSTOM AI & SaaS PLATFORMS';
       if (isArabic) {
-        return `نحن في Next Gen Devs نقدم الخدمات الرقمية التالية:\n• ${srv1}\n• ${srv2}\n• ${srv3}\n• تصميم أنظمة الواجهات UI/UX والتطبيقات الذكية.`;
+        return {
+          reply: `نحن في Next Gen Devs نقدم الخدمات الرقمية التالية:\n• ${srv1}\n• ${srv2}\n• ${srv3}\n• تصميم أنظمة الواجهات UI/UX والتطبيقات الذكية.\n\n📱 رقم الواتساب: ${phone}\n🔗 رابط التواصل المباشر: https://wa.me/201020451206`,
+          showWaBtn: true
+        };
       }
-      return `At Next Gen Devs we offer:\n• ${srv1}\n• ${srv2}\n• ${srv3}\n• Custom UI/UX Design Systems & AI Automations.`;
+      return {
+        reply: `At Next Gen Devs we offer:\n• ${srv1}\n• ${srv2}\n• ${srv3}\n• Custom UI/UX Design Systems & AI Automations.\n\n📱 WhatsApp: ${phone}\n🔗 Direct Chat: https://wa.me/201020451206`,
+        showWaBtn: true
+      };
     }
 
     // 2. Check for Projects / Portfolio
@@ -64,38 +73,67 @@ export const AiChatbotWidget: React.FC = () => {
       if (projects.length > 0) {
         const titles = projects.map(p => `• ${p.title} (${p.category})`).join('\n');
         if (isArabic) {
-          return `إليك المشاريع الحالية المتاحة في معارضنا:\n${titles}\nيمكنك تصفحها بالكامل في قسم SELECTED WORK.`;
+          return {
+            reply: `إليك المشاريع الحالية المتاحة في معارضنا:\n${titles}\nيمكنك تصفحها بالكامل في قسم SELECTED WORK.\n\n📱 رقم الواتساب: ${phone}\n🔗 رابط التواصل المباشر: https://wa.me/201020451206`,
+            showWaBtn: true
+          };
         }
-        return `Here are our live projects:\n${titles}\nYou can explore them in our Selected Work section.`;
+        return {
+          reply: `Here are our live projects:\n${titles}\nYou can explore them in our Selected Work section.\n\n📱 WhatsApp: ${phone}\n🔗 Direct Chat: https://wa.me/201020451206`,
+          showWaBtn: true
+        };
       }
       if (isArabic) {
-        return 'جميع مشاريعنا يتم تحديثها ومزامنتها حياً من الفيربيز في قسم SELECTED WORK!';
+        return {
+          reply: `جميع مشاريعنا يتم تحديثها ومزامنتها حياً من الفيربيز في قسم SELECTED WORK!\n\n📱 رقم الواتساب: ${phone}\n🔗 رابط التواصل المباشر: https://wa.me/201020451206`,
+          showWaBtn: true
+        };
       }
-      return 'Our live portfolio projects are continuously updated in our Selected Work section!';
+      return {
+        reply: `Our live portfolio projects are continuously updated in our Selected Work section!\n\n📱 WhatsApp: ${phone}\n🔗 Direct Chat: https://wa.me/201020451206`,
+        showWaBtn: true
+      };
     }
 
     // 3. Check for Contact / Starting a Project / Phone
     if (query.includes('تواصل') || query.includes('رقم') || query.includes('واتس') || query.includes('سعر') || query.includes('تكلفة') || query.includes('شغل') || query.includes('contact') || query.includes('start') || query.includes('phone')) {
-      const phone = content['contact.phone'] || '01020451206';
       if (isArabic) {
-        return `يمكنك التواصل معنا فوراً لبدء مشروعك:\n📞 الاتصال أو الواتساب: ${phone}\nأو اضغط على زر "START A PROJECT" لتعبئة نموذج طلب المشروع.`;
+        return {
+          reply: `يمكنك التواصل معنا فوراً لبدء مشروعك:\n📱 رقم الواتساب: 01020451206\n🔗 رابط التواصل المباشر: https://wa.me/201020451206`,
+          showWaBtn: true
+        };
       }
-      return `You can reach out to us directly:\n📞 Call / WhatsApp: ${phone}\nOr click "START A PROJECT" to submit your project brief!`;
+      return {
+        reply: `You can reach out to us directly:\n📱 WhatsApp: 01020451206\n🔗 Direct Chat: https://wa.me/201020451206`,
+        showWaBtn: true
+      };
     }
 
     // 4. Greetings
     if (query.includes('ازيك') || query.includes('السلام') || query.includes('مرحبا') || query.includes('أهلا') || query.includes('اهلين') || query.includes('hi') || query.includes('hello') || query.includes('hey')) {
       if (isArabic) {
-        return 'أهلاً وسهلاً بك! الحمد لله بكل خير. كيف يمكنني مساعدتك في تطوير موقعك أو متجرك الإلكتروني مع Next Gen Devs اليوم؟';
+        return {
+          reply: `أهلاً وسهلاً بك يا فنان! الحمد لله بكل خير. كيف يمكنني مساعدتك في تطوير موقعك أو متجرك الإلكتروني مع Next Gen Devs اليوم؟\n\n📱 رقم الواتساب: 01020451206\n🔗 رابط التواصل المباشر: https://wa.me/201020451206`,
+          showWaBtn: true
+        };
       }
-      return 'Hello! How can I assist you with building your web project with Next Gen Devs today?';
+      return {
+        reply: `Hello! How can I assist you with building your web project with Next Gen Devs today?\n\n📱 WhatsApp: 01020451206\n🔗 Direct Chat: https://wa.me/201020451206`,
+        showWaBtn: true
+      };
     }
 
     // Default polite response
     if (isArabic) {
-      return `أنا مساعد الذكاء الاصطناعي الخاص بـ Next Gen Devs 🤖. يسعدني مساعدتك في الاستفسار عن خدماتنا، مشاريعنا، أو الاتصال بنا مباشرة على رقم الواتساب: 01020451206.`;
+      return {
+        reply: `أنا مساعد الذكاء الاصطناعي الخاص بـ Next Gen Devs 🤖. يسعدني مساعدتك في الاستفسار عن خدماتنا ومشاريعنا:\n\n📱 رقم الواتساب: 01020451206\n🔗 رابط التواصل المباشر: https://wa.me/201020451206`,
+        showWaBtn: true
+      };
     }
-    return `I am the AI Assistant for Next Gen Devs Studio 🤖. I can assist you with our services, portfolio projects, or connecting with us directly via WhatsApp: 01020451206.`;
+    return {
+      reply: `I am the AI Assistant for Next Gen Devs Studio 🤖. How can I assist you today?\n\n📱 WhatsApp: 01020451206\n🔗 Direct Chat: https://wa.me/201020451206`,
+      showWaBtn: true
+    };
   };
 
   const handleSend = async (userText: string) => {
@@ -115,7 +153,6 @@ export const AiChatbotWidget: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Send request to Val.town Gemini server
       const res = await fetch(valTownUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -128,25 +165,27 @@ export const AiChatbotWidget: React.FC = () => {
 
       if (res.ok) {
         const data = await res.json();
+        const replyText = data.reply || data.text || generateDynamicFirebaseReply(userText).reply;
         const botMsg: ChatMessage = {
           id: (Date.now() + 1).toString(),
           sender: 'bot',
-          text: data.reply || generateDynamicFirebaseReply(userText),
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          text: replyText,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          showWaBtn: replyText.includes('wa.me') || replyText.includes('01020451206') || true
         };
         setMessages((prev) => [...prev, botMsg]);
       } else {
         throw new Error('Val.town offline');
       }
     } catch (err) {
-      // Dynamic Intelligent Firebase Response if Val.town server is updating
       setTimeout(() => {
-        const botReply = generateDynamicFirebaseReply(userText);
+        const generated = generateDynamicFirebaseReply(userText);
         const botMsg: ChatMessage = {
           id: (Date.now() + 1).toString(),
           sender: 'bot',
-          text: botReply,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          text: generated.reply,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          showWaBtn: generated.showWaBtn
         };
         setMessages((prev) => [...prev, botMsg]);
       }, 400);
@@ -186,7 +225,7 @@ export const AiChatbotWidget: React.FC = () => {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className={`absolute bottom-16 right-0 w-[340px] sm:w-[400px] h-[480px] rounded-3xl border shadow-2xl flex flex-col overflow-hidden backdrop-blur-2xl ${
+            className={`absolute bottom-16 right-0 w-[340px] sm:w-[400px] h-[500px] rounded-3xl border shadow-2xl flex flex-col overflow-hidden backdrop-blur-2xl ${
               theme === 'dark'
                 ? 'bg-[#0d0d0d]/95 border-[#262626] text-[#ffffff]'
                 : 'bg-[#ffffff]/95 border-[#e4e4e7] text-[#000000]'
@@ -222,14 +261,14 @@ export const AiChatbotWidget: React.FC = () => {
             </div>
 
             {/* Messages Scroll Area */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-3 scrollbar-none text-xs">
+            <div className="flex-1 p-4 overflow-y-auto space-y-4 scrollbar-none text-xs">
               {messages.map((msg) => (
                 <div
                   key={msg.id}
                   className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
                 >
                   <div
-                    className={`max-w-[85%] p-3.5 rounded-2xl ${
+                    className={`max-w-[88%] p-3.5 rounded-2xl space-y-3 ${
                       msg.sender === 'user'
                         ? theme === 'dark'
                           ? 'bg-[#ffffff] text-[#000000] rounded-tr-none font-bold'
@@ -240,6 +279,20 @@ export const AiChatbotWidget: React.FC = () => {
                     }`}
                   >
                     <p className="leading-relaxed font-sans whitespace-pre-line">{msg.text}</p>
+
+                    {/* Interactive WhatsApp CTA Button */}
+                    {msg.sender === 'bot' && msg.showWaBtn && (
+                      <a
+                        href="https://wa.me/201020451206"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 w-full py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer font-mono"
+                      >
+                        <MessageCircle className="w-4 h-4 fill-black" />
+                        <span>محادثة مباشرة على WhatsApp</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    )}
                   </div>
                   <span className="text-[8px] text-[#71717a] mt-1 font-mono">{msg.time}</span>
                 </div>
@@ -253,7 +306,7 @@ export const AiChatbotWidget: React.FC = () => {
               )}
             </div>
 
-            {/* Input Bar (No fixed question chips) */}
+            {/* Input Bar */}
             <form
               onSubmit={(e) => {
                 e.preventDefault();

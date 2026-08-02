@@ -16,7 +16,6 @@ export const ThreeDScene: React.FC = () => {
     const purgeSplineBadge = () => {
       const viewer = containerRef.current?.querySelector('spline-viewer');
       if (viewer && viewer.shadowRoot) {
-        // Inject shadow DOM style tag
         if (!viewer.shadowRoot.querySelector('#hide-spline-badge-style')) {
           const style = document.createElement('style');
           style.id = 'hide-spline-badge-style';
@@ -56,10 +55,10 @@ export const ThreeDScene: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[450px] sm:h-[550px] flex items-center justify-center overflow-hidden rounded-3xl"
+      className="relative w-full h-[320px] sm:h-[450px] md:h-[550px] flex items-center justify-center overflow-hidden rounded-3xl touch-pan-y"
     >
-      {/* Scaled & Clipped Viewer wrapper so bottom-right badge is physically cut off */}
-      <div className="w-[110%] h-[110%] -translate-x-[2%] -translate-y-[2%] relative overflow-hidden pointer-events-auto">
+      {/* Scaled & Clipped Viewer wrapper (pointer-events disabled on touch/mobile to guarantee smooth page scroll) */}
+      <div className="w-[110%] h-[110%] -translate-x-[2%] -translate-y-[2%] relative overflow-hidden pointer-events-none md:pointer-events-auto">
         <spline-viewer
           url={splineUrl || 'https://prod.spline.design/r60kLlhxPc0YkOJC/scene.splinecode'}
           loading-anim
@@ -67,7 +66,10 @@ export const ThreeDScene: React.FC = () => {
         />
       </div>
 
-      {/* Bottom right overlay patch matching active Theme background (Dark / Light mode) */}
+      {/* Transparent overlay on mobile to guarantee smooth touch scrolling */}
+      <div className="absolute inset-0 z-20 md:hidden pointer-events-none" />
+
+      {/* Bottom right overlay patch matching active Theme background */}
       <div
         className={`absolute bottom-0 right-0 w-48 h-20 pointer-events-none z-30 transition-colors duration-500 ${
           theme === 'dark' ? 'bg-[#000000]' : 'bg-[#ffffff]'

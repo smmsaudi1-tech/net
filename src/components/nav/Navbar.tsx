@@ -54,7 +54,7 @@ export const Navbar: React.FC = () => {
             className="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover border border-white/20 shadow-md transition-transform group-hover:scale-110"
           />
           <span
-            className={`font-black text-base sm:text-lg tracking-[0.2em] uppercase font-mono transition-colors ${
+            className={`font-black text-xs sm:text-base tracking-[0.15em] sm:tracking-[0.2em] uppercase font-mono transition-colors truncate ${
               theme === 'dark' ? 'text-[#ffffff]' : 'text-[#000000]'
             }`}
           >
