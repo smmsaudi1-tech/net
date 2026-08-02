@@ -2,6 +2,31 @@
 
 class SoundEngine {
   private ctx: AudioContext | null = null;
+  private isUnlocked = false;
+
+  constructor() {
+    if (typeof window !== 'undefined') {
+      const unlock = () => {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+          if (AudioCtx) {
+            this.ctx = new AudioCtx();
+          }
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume().then(() => {
+            this.isUnlocked = true;
+          }).catch(() => {});
+        } else if (this.ctx && this.ctx.state === 'running') {
+          this.isUnlocked = true;
+        }
+      };
+
+      window.addEventListener('click', unlock, { once: false, capture: true });
+      window.addEventListener('pointerdown', unlock, { once: false, capture: true });
+      window.addEventListener('keydown', unlock, { once: false, capture: true });
+    }
+  }
 
   private initCtx() {
     if (!this.ctx && typeof window !== 'undefined') {
@@ -10,9 +35,6 @@ class SoundEngine {
         this.ctx = new AudioCtx();
       }
     }
-    if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume();
-    }
   }
 
   // Subtle High-Tech Click Sound
@@ -20,6 +42,10 @@ class SoundEngine {
     try {
       this.initCtx();
       if (!this.ctx) return;
+      if (this.ctx.state === 'suspended') {
+        this.ctx.resume().catch(() => {});
+      }
+      if (this.ctx.state !== 'running') return;
 
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
@@ -41,11 +67,10 @@ class SoundEngine {
     }
   }
 
-  // Subtle Hover Micro-Tick
+  // Subtle Hover Micro-Tick (Only plays after user has interacted with the page)
   playHover() {
     try {
-      this.initCtx();
-      if (!this.ctx) return;
+      if (!this.ctx || this.ctx.state !== 'running') return;
 
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
