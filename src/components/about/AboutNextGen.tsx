@@ -1,16 +1,50 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
+
+const Counter: React.FC<{ value: number; suffix?: string }> = ({ value, suffix = '' }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    let start = 0;
+    const end = value;
+    const duration = 1500;
+    const increment = Math.ceil(end / (duration / 16));
+
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) {
+        setCount(end);
+        clearInterval(timer);
+      } else {
+        setCount(start);
+      }
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [isInView, value]);
+
+  return (
+    <span ref={ref} className="font-mono font-black text-4xl sm:text-7xl text-[#ffffff]">
+      {count}
+      {suffix}
+    </span>
+  );
+};
 
 export const AboutNextGen: React.FC = () => {
   const stats = [
-    { number: '20+', label: 'PROJECTS LAUNCHED' },
-    { number: '10+', label: 'BRANDS EMPOWERED' },
-    { number: '100%', label: 'PASSION & PRECISION' },
-    { number: '24/7', label: 'CREATIVE ENERGY' }
+    { number: 20, suffix: '+', label: 'PROJECTS LAUNCHED' },
+    { number: 10, suffix: '+', label: 'BRANDS EMPOWERED' },
+    { number: 100, suffix: '%', label: 'PASSION & PRECISION' },
+    { number: 24, suffix: '/7', label: 'CREATIVE ENERGY' }
   ];
 
   return (
-    <section id="about" className="py-32 bg-[#000000] border-b border-[#181818] relative text-left">
+    <section id="about" className="py-36 bg-[#000000] border-b border-[#181818] relative text-left">
       <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-20">
         
         {/* Editorial Text */}
@@ -28,24 +62,15 @@ export const AboutNextGen: React.FC = () => {
           </p>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 pt-10 border-t border-[#181818]">
+        {/* Stats Grid with Animated Counter Triggers */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 pt-12 border-t border-[#181818]">
           {stats.map((stat, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="space-y-2"
-            >
-              <h3 className="text-4xl sm:text-6xl font-black font-mono text-[#ffffff]">
-                {stat.number}
-              </h3>
-              <p className="text-[11px] font-mono text-[#525252] tracking-widest uppercase">
+            <div key={idx} className="space-y-2 group">
+              <Counter value={stat.number} suffix={stat.suffix} />
+              <p className="text-[11px] font-mono text-[#525252] tracking-widest uppercase group-hover:text-[#ffffff] transition-colors">
                 {stat.label}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CinematicLoader } from './components/loader/CinematicLoader';
 import { MagneticCursor } from './components/cursor/MagneticCursor';
 import { Navbar } from './components/nav/Navbar';
@@ -14,9 +14,15 @@ import { BoldContact } from './components/contact/BoldContact';
 import { MinimalFooter } from './components/footer/MinimalFooter';
 import { ParticleField } from './components/effects/ParticleField';
 import { MarqueeStrip } from './components/effects/MarqueeStrip';
+import { smoothScroll } from './utils/smoothScroll';
 
 export function App() {
   const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    smoothScroll.start();
+    return () => smoothScroll.stop();
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#000000] text-[#ffffff] font-sans selection:bg-[#ffffff] selection:text-[#000000] overflow-x-hidden relative">
@@ -44,7 +50,7 @@ export function App() {
             {/* Kinetic Marquee Strip */}
             <MarqueeStrip text="NEXT GEN DEVS // CREATIVE TECHNOLOGY STUDIO // WE BUILD WHAT’S NEXT // 2026 PRODUCTION //" />
 
-            {/* 04 — Kinetic Brand Statement */}
+            {/* 04 — GSAP ScrollTrigger Kinetic Brand Statement */}
             <BrandStatement />
 
             {/* 05 — Experimental Vertical Services */}
@@ -65,7 +71,7 @@ export function App() {
             {/* 10 — Floating Tech Stack */}
             <FloatingTechStack />
 
-            {/* 11 — About Next Gen Devs & Stats */}
+            {/* 11 — About Next Gen Devs & Stats Counter */}
             <AboutNextGen />
 
             {/* 15 — Bold Contact Section */}
