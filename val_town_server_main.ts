@@ -9,9 +9,14 @@ export default async function(req: Request): Promise<Response> {
     return new Response(null, { headers: corsHeaders });
   }
 
+  // Display Live Server Endpoint URL when opening GET request
   if (req.method === "GET") {
+    const currentUrl = req.url;
     return new Response(
-      "NEXT GEN DEVS // AI SERVER ONLINE (Gemini 1.5 + Firebase)",
+      "🚀 NEXT GEN DEVS AI SERVER ONLINE (Gemini 1.5 + Firebase)\n\n" +
+      "📌 SERVER URL ENDPOINT:\n" +
+      currentUrl + "\n\n" +
+      "Status: Operational and listening for POST requests.",
       { headers: { ...corsHeaders, "Content-Type": "text/plain; charset=utf-8" } }
     );
   }

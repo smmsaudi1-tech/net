@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, Phone, MessageSquare, Video } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useSiteContent } from '../../context/SiteContentContext';
 import { soundEngine } from '../../utils/audioEngine';
@@ -13,16 +13,20 @@ export const BoldContact: React.FC = () => {
   const { theme } = useTheme();
   const { getText } = useSiteContent();
 
+  const phoneNum = getText('contact.phone', '01020451206');
+  const waUrl = getText('contact.whatsapp_url', 'https://wa.me/201020451206');
+  const tiktokUrl = getText('contact.tiktok_url', 'https://www.tiktok.com/@nextgen.devs?_r=1&_t=ZS-98YLToHbraS');
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     soundEngine.playClick();
     setSubmitted(true);
 
     const waMsg = `Hi Next Gen Devs!%0AFrom: ${name}%0AContact: ${email}%0AIdea: ${idea}`;
-    const waUrl = `https://wa.me/201099887766?text=${waMsg}`;
+    const targetUrl = `https://wa.me/201020451206?text=${waMsg}`;
 
     setTimeout(() => {
-      window.open(waUrl, '_blank');
+      window.open(targetUrl, '_blank');
     }, 600);
   };
 
@@ -37,7 +41,7 @@ export const BoldContact: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-16">
         
-        {/* Huge Bold Headline */}
+        {/* Headline */}
         <div className="space-y-6 max-w-5xl">
           <p
             className={`text-[10px] font-mono tracking-[0.4em] uppercase ${
@@ -101,7 +105,7 @@ export const BoldContact: React.FC = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="john@example.com / +2010..."
+                  placeholder="01020451206 / john@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -162,15 +166,50 @@ export const BoldContact: React.FC = () => {
 
           {/* Direct Details */}
           <div className="lg:col-span-4 space-y-8 font-mono text-xs">
-            <div className="p-8 rounded-3xl border border-[#262626] bg-[#0d0d0d] space-y-4">
+            <div className="p-8 rounded-3xl border border-[#262626] bg-[#0d0d0d] space-y-6">
               <span className="text-[10px] text-emerald-400 tracking-widest uppercase">DIRECT CONTACT</span>
               <h4 className="text-xl font-bold text-white font-sans">Next Gen Devs Studio</h4>
               <p className="text-zinc-400 leading-relaxed">
-                We build modern digital experiences for clients worldwide. Reach out to start your project.
+                Reach out directly via Call, WhatsApp, or TikTok to start your project.
               </p>
-              <div className="pt-2 text-zinc-300 space-y-1">
-                <p>⚡ Email: contact@nextgendevs.studio</p>
-                <p>💬 WhatsApp: +20 109 988 7766</p>
+              
+              <div className="pt-2 text-zinc-200 space-y-4 font-mono">
+                <a
+                  href={`tel:${phoneNum}`}
+                  className="flex items-center gap-3 p-3 rounded-2xl bg-zinc-900/80 border border-zinc-800 hover:border-emerald-500/50 hover:text-emerald-400 transition-all"
+                >
+                  <Phone className="w-4 h-4 text-emerald-400" />
+                  <div>
+                    <div className="text-[10px] text-zinc-500 uppercase">CALL NUMBER</div>
+                    <div className="font-bold">{phoneNum}</div>
+                  </div>
+                </a>
+
+                <a
+                  href={waUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-3 rounded-2xl bg-zinc-900/80 border border-zinc-800 hover:border-emerald-500/50 hover:text-emerald-400 transition-all"
+                >
+                  <MessageSquare className="w-4 h-4 text-emerald-400" />
+                  <div>
+                    <div className="text-[10px] text-zinc-500 uppercase">WHATSAPP</div>
+                    <div className="font-bold">{phoneNum}</div>
+                  </div>
+                </a>
+
+                <a
+                  href={tiktokUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-3 rounded-2xl bg-zinc-900/80 border border-zinc-800 hover:border-cyan-500/50 hover:text-cyan-400 transition-all"
+                >
+                  <Video className="w-4 h-4 text-cyan-400" />
+                  <div>
+                    <div className="text-[10px] text-zinc-500 uppercase">TIKTOK OFFICIAL</div>
+                    <div className="font-bold">@nextgendevs</div>
+                  </div>
+                </a>
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAgency } from '../../store/agencyContext';
-import { Code2, Heart, Shield } from 'lucide-react';
+import { Code2, Shield } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const { setIsAdminOpen } = useAgency();
@@ -24,18 +24,18 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Social Links */}
+        {/* Social Links: TikTok, WhatsApp, Call 01020451206 */}
         <div className="flex items-center gap-4 font-bold text-slate-300">
-          <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
+          <a href="https://www.tiktok.com/@nextgen.devs?_r=1&_t=ZS-98YLToHbraS" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
             TikTok
           </a>
           <span>•</span>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
-            Instagram
+          <a href="https://wa.me/201020451206" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">
+            WhatsApp (01020451206)
           </a>
           <span>•</span>
-          <a href="https://wa.me/+201099887766" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
-            WhatsApp
+          <a href="tel:01020451206" className="hover:text-emerald-400 transition-colors">
+            اتصال: 01020451206
           </a>
         </div>
 

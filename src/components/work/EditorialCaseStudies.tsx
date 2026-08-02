@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ExternalLink, ArrowUpRight, Eye, Plus } from 'lucide-react';
-import { REAL_PROJECTS } from '../../data/projectsData';
+import { ExternalLink, ArrowUpRight, Eye, Sparkles } from 'lucide-react';
 import { RealProject } from '../../types';
 import { soundEngine } from '../../utils/audioEngine';
 import { useTheme } from '../../context/ThemeContext';
@@ -13,21 +12,20 @@ import { subscribeProjects } from '../../services/projectService';
 gsap.registerPlugin(ScrollTrigger);
 
 export const EditorialCaseStudies: React.FC = () => {
-  const [projects, setProjects] = useState<RealProject[]>(REAL_PROJECTS);
+  // Initialize ONLY with live Firebase projects (no hardcoded old dummy projects)
+  const [projects, setProjects] = useState<RealProject[]>([]);
   const [selectedFilter, setSelectedFilter] = useState<string>('ALL');
   const [activeModalProject, setActiveModalProject] = useState<RealProject | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
-  const { getText, setAdminOpen } = useSiteContent();
+  const { getText } = useSiteContent();
 
   const categories = ['ALL', 'E-COMMERCE', 'BRANDS', 'APPS'];
 
   useEffect(() => {
-    // Subscribe to live Firebase Firestore projects
+    // Subscribe to live Firebase Firestore projects strictly
     const unsub = subscribeProjects((fetchedProjects) => {
-      if (fetchedProjects && fetchedProjects.length > 0) {
-        setProjects(fetchedProjects);
-      }
+      setProjects(fetchedProjects || []);
     });
 
     return () => unsub();
@@ -44,6 +42,8 @@ export const EditorialCaseStudies: React.FC = () => {
   });
 
   useEffect(() => {
+    if (projects.length === 0) return;
+
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray<HTMLElement>('.product-card-anim');
 
@@ -94,14 +94,14 @@ export const EditorialCaseStudies: React.FC = () => {
                 theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
               }`}
             >
-              {getText('work.tag', '// GSAP SCROLL-ANIMATED PRODUCTIONS')}
+              {getText('work.tag', '// FIREBASE LIVE PORTFOLIO')}
             </p>
             <h2 className="text-4xl sm:text-6xl font-black tracking-tighter uppercase font-sans">
               {getText('work.title', 'SELECTED WORK')}
             </h2>
           </div>
 
-          {/* Category Filter Tabs & Add Project Button */}
+          {/* Category Filter Tabs */}
           <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
             {categories.map((cat) => (
               <button
@@ -127,81 +127,94 @@ export const EditorialCaseStudies: React.FC = () => {
         </div>
 
         {/* Dynamic Project Showcase Grid */}
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="product-card-anim group relative rounded-3xl overflow-hidden border transition-all duration-500 hover:-translate-y-2 cursor-pointer flex flex-col justify-between"
-              style={{
-                backgroundColor: theme === 'dark' ? '#0d0d0d' : '#f9f9fb',
-                borderColor: theme === 'dark' ? '#1c1c1e' : '#e4e4e7'
-              }}
-              onClick={() => setActiveModalProject(project)}
-            >
-              {/* Project Card Header & Image */}
-              <div className="relative aspect-[16/10] overflow-hidden bg-zinc-900">
-                <img
-                  src={project.imageUrl}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
+        {filteredProjects.length > 0 ? (
+          <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map((project) => (
+              <div
+                key={project.id}
+                className="product-card-anim group relative rounded-3xl overflow-hidden border transition-all duration-500 hover:-translate-y-2 cursor-pointer flex flex-col justify-between"
+                style={{
+                  backgroundColor: theme === 'dark' ? '#0d0d0d' : '#f9f9fb',
+                  borderColor: theme === 'dark' ? '#1c1c1e' : '#e4e4e7'
+                }}
+                onClick={() => setActiveModalProject(project)}
+              >
+                {/* Project Image */}
+                <div className="relative aspect-[16/10] overflow-hidden bg-zinc-900">
+                  <img
+                    src={project.imageUrl}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
 
-                {/* Live Badge */}
-                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-mono tracking-widest text-emerald-400 font-bold uppercase flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>{project.category}</span>
-                </div>
-
-                <div className="absolute bottom-4 right-4 p-3 rounded-full bg-white text-black opacity-0 group-hover:opacity-100 transition-all duration-300 scale-75 group-hover:scale-100 shadow-2xl">
-                  <Eye className="w-4 h-4" />
-                </div>
-              </div>
-
-              {/* Project Card Info */}
-              <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400">
-                    <span>{project.subtitle}</span>
-                    <span>{project.year || '2026'}</span>
+                  <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-mono tracking-widest text-emerald-400 font-bold uppercase flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>{project.category}</span>
                   </div>
-                  <h3 className="text-2xl font-black uppercase tracking-tight font-sans">
-                    {project.title}
-                  </h3>
-                  <p className="text-xs line-clamp-2 text-zinc-400 leading-relaxed font-sans">
-                    {project.description}
-                  </p>
+
+                  <div className="absolute bottom-4 right-4 p-3 rounded-full bg-white text-black opacity-0 group-hover:opacity-100 transition-all duration-300 scale-75 group-hover:scale-100 shadow-2xl">
+                    <Eye className="w-4 h-4" />
+                  </div>
                 </div>
 
-                {/* Card Footer: Tech Stack Tags & Action Button */}
-                <div className="pt-4 border-t border-zinc-800/40 flex items-center justify-between gap-2">
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.techStack?.slice(0, 3).map((tech, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2 py-0.5 rounded-md bg-zinc-800/60 text-[10px] font-mono text-zinc-300"
+                {/* Project Info */}
+                <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400">
+                      <span>{project.subtitle}</span>
+                      <span>{project.year || '2026'}</span>
+                    </div>
+                    <h3 className="text-2xl font-black uppercase tracking-tight font-sans">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs line-clamp-2 text-zinc-400 leading-relaxed font-sans">
+                      {project.description}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-zinc-800/40 flex items-center justify-between gap-2">
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.techStack?.slice(0, 3).map((tech, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2 py-0.5 rounded-md bg-zinc-800/60 text-[10px] font-mono text-zinc-300"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="p-2 rounded-full border border-zinc-700 hover:border-white hover:bg-white hover:text-black transition-all"
                       >
-                        {tech}
-                      </span>
-                    ))}
+                        <ArrowUpRight className="w-4 h-4" />
+                      </a>
+                    )}
                   </div>
-
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="p-2 rounded-full border border-zinc-700 hover:border-white hover:bg-white hover:text-black transition-all"
-                  >
-                    <ArrowUpRight className="w-4 h-4" />
-                  </a>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          /* Empty State when no projects exist in Firebase yet */
+          <div className="p-16 text-center border border-dashed border-zinc-800 rounded-3xl space-y-4 font-mono">
+            <Sparkles className="w-10 h-10 text-emerald-400 mx-auto animate-pulse" />
+            <h3 className="text-lg font-bold text-white uppercase font-sans">
+              [ FIREBASE LIVE PORTFOLIO READY ]
+            </h3>
+            <p className="text-xs text-zinc-400 max-w-md mx-auto leading-relaxed">
+              No live projects added yet. Open the Admin CMS (URL ending with <code className="text-emerald-400">#admin</code> or press <code className="text-emerald-400">Ctrl+Shift+A</code>) to upload your projects directly!
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Project Detail Modal Overlay */}
@@ -242,15 +255,17 @@ export const EditorialCaseStudies: React.FC = () => {
                     </h2>
                   </div>
 
-                  <a
-                    href={activeModalProject.liveUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-6 py-3.5 rounded-full bg-white text-black font-mono text-xs font-bold tracking-widest uppercase flex items-center gap-2 hover:scale-105 transition-all shadow-xl"
-                  >
-                    <span>VISIT LIVE SITE</span>
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
+                  {activeModalProject.liveUrl && (
+                    <a
+                      href={activeModalProject.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-6 py-3.5 rounded-full bg-white text-black font-mono text-xs font-bold tracking-widest uppercase flex items-center gap-2 hover:scale-105 transition-all shadow-xl"
+                    >
+                      <span>VISIT LIVE SITE</span>
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
                 </div>
 
                 <p className="text-sm leading-relaxed text-zinc-400 font-sans">

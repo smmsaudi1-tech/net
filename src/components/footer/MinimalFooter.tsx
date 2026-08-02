@@ -6,6 +6,10 @@ export const MinimalFooter: React.FC = () => {
   const { theme } = useTheme();
   const { getText } = useSiteContent();
 
+  const phoneNum = getText('contact.phone', '01020451206');
+  const waUrl = getText('contact.whatsapp_url', 'https://wa.me/201020451206');
+  const tiktokUrl = getText('contact.tiktok_url', 'https://www.tiktok.com/@nextgen.devs?_r=1&_t=ZS-98YLToHbraS');
+
   return (
     <footer
       className={`py-16 border-t font-mono text-left transition-colors duration-500 ${
@@ -37,38 +41,36 @@ export const MinimalFooter: React.FC = () => {
           </div>
         </div>
 
-        {/* Center Social Links */}
+        {/* Center TikTok & Phone & WhatsApp Links */}
         <div
           className={`flex flex-wrap items-center gap-6 text-xs uppercase font-bold tracking-widest ${
             theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
           }`}
         >
           <a
-            href="https://instagram.com"
+            href={tiktokUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:opacity-70 transition-opacity"
-            data-cursor="INSTAGRAM"
+            className="hover:text-cyan-400 transition-colors"
+            data-cursor="TIKTOK"
           >
-            Instagram
+            TikTok
           </a>
           <a
-            href="https://github.com"
+            href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:opacity-70 transition-opacity"
-            data-cursor="GITHUB"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://wa.me/201099887766"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:opacity-70 transition-opacity"
+            className="hover:text-emerald-400 transition-colors"
             data-cursor="WHATSAPP"
           >
-            WhatsApp
+            WhatsApp ({phoneNum})
+          </a>
+          <a
+            href={`tel:${phoneNum}`}
+            className="hover:text-emerald-400 transition-colors"
+            data-cursor="CALL"
+          >
+            Call: {phoneNum}
           </a>
         </div>
 

@@ -75,7 +75,9 @@ export const DEFAULT_SITE_CONTENT: Record<string, string> = {
   'contact.h1_1': 'LET’S BUILD',
   'contact.h1_2': 'WHAT’S NEXT.',
   'contact.desc': 'Have an idea? Let’s turn it into something people remember.',
-  'contact.submit': 'START A PROJECT →',
+  'contact.phone': '01020451206',
+  'contact.whatsapp_url': 'https://wa.me/201020451206',
+  'contact.tiktok_url': 'https://www.tiktok.com/@nextgen.devs?_r=1&_t=ZS-98YLToHbraS',
   'footer.sub': 'WE BUILD WHAT’S NEXT.',
   'footer.rights': '© 2026 NEXT GEN DEVS. ALL RIGHTS RESERVED.'
 };
