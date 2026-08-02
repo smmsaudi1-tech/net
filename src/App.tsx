@@ -14,10 +14,12 @@ import { BoldContact } from './components/contact/BoldContact';
 import { MinimalFooter } from './components/footer/MinimalFooter';
 import { ParticleField } from './components/effects/ParticleField';
 import { MarqueeStrip } from './components/effects/MarqueeStrip';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { smoothScroll } from './utils/smoothScroll';
 
-export function App() {
+function MainAppContent() {
   const [loaded, setLoaded] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     smoothScroll.start();
@@ -25,8 +27,11 @@ export function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#000000] text-[#ffffff] font-sans selection:bg-[#ffffff] selection:text-[#000000] overflow-x-hidden relative">
-      
+    <div
+      className={`min-h-screen font-sans selection:bg-[#ffffff] selection:text-[#000000] overflow-x-hidden relative transition-colors duration-500 ${
+        theme === 'dark' ? 'bg-[#000000] text-[#ffffff]' : 'bg-[#ffffff] text-[#000000]'
+      }`}
+    >
       {/* 01 — Cinematic Loader */}
       {!loaded && <CinematicLoader onComplete={() => setLoaded(true)} />}
 
@@ -44,7 +49,7 @@ export function App() {
 
           {/* Core Sections */}
           <main className="relative z-10">
-            {/* 02 & 03 — Architectural Hero & 3D WebGL Signature */}
+            {/* 02 & 03 — Architectural Hero & Bespoke 3D Crystal Sculpture */}
             <HeroSection />
 
             {/* Kinetic Marquee Strip */}
@@ -82,8 +87,15 @@ export function App() {
           <MinimalFooter />
         </>
       )}
-
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <ThemeProvider>
+      <MainAppContent />
+    </ThemeProvider>
   );
 }
 

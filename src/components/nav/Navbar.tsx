@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
+import { soundEngine } from '../../utils/audioEngine';
 
 export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,7 +34,9 @@ export const Navbar: React.FC = () => {
       <div
         className={`max-w-7xl mx-auto flex items-center justify-between px-6 py-3.5 rounded-full transition-all duration-500 ${
           scrolled
-            ? 'bg-[#0d0d0d]/80 backdrop-blur-2xl border border-[#262626] shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
+            ? theme === 'dark'
+              ? 'bg-[#0d0d0d]/80 backdrop-blur-2xl border border-[#262626] shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
+              : 'bg-[#ffffff]/80 backdrop-blur-2xl border border-[#e5e5e5] shadow-[0_10px_30px_rgba(0,0,0,0.1)]'
             : 'bg-transparent border border-transparent'
         }`}
       >
@@ -41,55 +46,100 @@ export const Navbar: React.FC = () => {
           className="cursor-pointer group flex items-center gap-3"
           data-cursor="HOME"
         >
-          <span className="font-black text-base sm:text-lg tracking-[0.25em] text-[#ffffff] uppercase font-mono group-hover:opacity-80 transition-opacity">
+          <span
+            className={`font-black text-base sm:text-lg tracking-[0.25em] uppercase font-mono transition-colors ${
+              theme === 'dark' ? 'text-[#ffffff]' : 'text-[#000000]'
+            }`}
+          >
             NEXT GEN DEVS
           </span>
         </div>
 
         {/* Links Right */}
-        <nav className="hidden md:flex items-center gap-8 text-[11px] font-mono font-bold tracking-[0.2em] text-[#a3a3a3] uppercase">
+        <nav
+          className={`hidden md:flex items-center gap-8 text-[11px] font-mono font-bold tracking-[0.2em] uppercase transition-colors ${
+            theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
+          }`}
+        >
           <button
             onClick={() => scrollToSection('work')}
-            className="hover:text-[#ffffff] transition-colors cursor-pointer py-1"
+            className="hover:text-[#ffffff] dark:hover:text-[#ffffff] light:hover:text-[#000000] transition-colors cursor-pointer py-1"
             data-cursor="WORK"
           >
             WORK
           </button>
           <button
             onClick={() => scrollToSection('services')}
-            className="hover:text-[#ffffff] transition-colors cursor-pointer py-1"
+            className="hover:text-[#ffffff] dark:hover:text-[#ffffff] light:hover:text-[#000000] transition-colors cursor-pointer py-1"
             data-cursor="SERVICES"
           >
             SERVICES
           </button>
           <button
             onClick={() => scrollToSection('process')}
-            className="hover:text-[#ffffff] transition-colors cursor-pointer py-1"
+            className="hover:text-[#ffffff] dark:hover:text-[#ffffff] light:hover:text-[#000000] transition-colors cursor-pointer py-1"
             data-cursor="PROCESS"
           >
             PROCESS
           </button>
           <button
             onClick={() => scrollToSection('about')}
-            className="hover:text-[#ffffff] transition-colors cursor-pointer py-1"
+            className="hover:text-[#ffffff] dark:hover:text-[#ffffff] light:hover:text-[#000000] transition-colors cursor-pointer py-1"
             data-cursor="ABOUT"
           >
             ABOUT
           </button>
           <button
             onClick={() => scrollToSection('contact')}
-            className="hover:text-[#ffffff] transition-colors cursor-pointer py-1 text-[#ffffff]"
+            className={`transition-colors cursor-pointer py-1 font-black ${
+              theme === 'dark' ? 'text-[#ffffff]' : 'text-[#000000]'
+            }`}
             data-cursor="CONTACT"
           >
             CONTACT
           </button>
+
+          {/* LIGHT MODE & DARK MODE TOGGLE BUTTON */}
+          <button
+            onClick={() => {
+              soundEngine.playClick();
+              toggleTheme();
+            }}
+            className={`p-2 rounded-full border transition-all duration-300 flex items-center justify-center cursor-pointer ${
+              theme === 'dark'
+                ? 'bg-[#181818] text-[#ffffff] border-[#262626] hover:bg-[#262626]'
+                : 'bg-[#f4f4f5] text-[#000000] border-[#e4e4e7] hover:bg-[#e4e4e7]'
+            }`}
+            title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+            data-cursor="THEME"
+          >
+            {theme === 'dark' ? <Sun className="w-4 h-4 text-[#eab308]" /> : <Moon className="w-4 h-4 text-[#18181b]" />}
+          </button>
         </nav>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu & Theme Button */}
         <div className="flex md:hidden items-center gap-3">
           <button
+            onClick={() => {
+              soundEngine.playClick();
+              toggleTheme();
+            }}
+            className={`p-2 rounded-full border transition-all ${
+              theme === 'dark'
+                ? 'bg-[#181818] text-[#ffffff] border-[#262626]'
+                : 'bg-[#f4f4f5] text-[#000000] border-[#e4e4e7]'
+            }`}
+          >
+            {theme === 'dark' ? <Sun className="w-4 h-4 text-[#eab308]" /> : <Moon className="w-4 h-4 text-[#18181b]" />}
+          </button>
+
+          <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="px-3 py-1.5 rounded-full bg-[#181818] border border-[#262626] text-[#ffffff] text-xs font-mono tracking-widest uppercase flex items-center gap-2"
+            className={`px-3 py-1.5 rounded-full border text-xs font-mono tracking-widest uppercase flex items-center gap-2 ${
+              theme === 'dark'
+                ? 'bg-[#181818] border-[#262626] text-[#ffffff]'
+                : 'bg-[#f4f4f5] border-[#e4e4e7] text-[#000000]'
+            }`}
           >
             <span>{menuOpen ? 'CLOSE' : 'MENU'}</span>
             {menuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -104,22 +154,26 @@ export const Navbar: React.FC = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden fixed inset-x-4 top-20 bg-[#0d0d0d] border border-[#262626] rounded-3xl p-8 space-y-6 text-center shadow-2xl backdrop-blur-2xl z-50 font-mono"
+            className={`md:hidden fixed inset-x-4 top-20 border rounded-3xl p-8 space-y-6 text-center shadow-2xl backdrop-blur-2xl z-50 font-mono ${
+              theme === 'dark'
+                ? 'bg-[#0d0d0d] border-[#262626] text-[#ffffff]'
+                : 'bg-[#ffffff] border-[#e5e5e5] text-[#000000]'
+            }`}
           >
-            <div className="flex flex-col gap-5 text-sm font-bold tracking-[0.25em] text-[#a3a3a3] uppercase">
-              <button onClick={() => scrollToSection('work')} className="hover:text-[#ffffff] py-2">
+            <div className="flex flex-col gap-5 text-sm font-bold tracking-[0.25em] uppercase">
+              <button onClick={() => scrollToSection('work')} className="py-2">
                 WORK
               </button>
-              <button onClick={() => scrollToSection('services')} className="hover:text-[#ffffff] py-2">
+              <button onClick={() => scrollToSection('services')} className="py-2">
                 SERVICES
               </button>
-              <button onClick={() => scrollToSection('process')} className="hover:text-[#ffffff] py-2">
+              <button onClick={() => scrollToSection('process')} className="py-2">
                 PROCESS
               </button>
-              <button onClick={() => scrollToSection('about')} className="hover:text-[#ffffff] py-2">
+              <button onClick={() => scrollToSection('about')} className="py-2">
                 ABOUT
               </button>
-              <button onClick={() => scrollToSection('contact')} className="text-[#ffffff] py-2">
+              <button onClick={() => scrollToSection('contact')} className="py-2 font-black">
                 CONTACT →
               </button>
             </div>

@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { useTheme } from '../../context/ThemeContext';
 
 export const ThreeDScene: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const container = containerRef.current;
@@ -24,70 +26,70 @@ export const ThreeDScene: React.FC = () => {
     container.appendChild(renderer.domElement);
 
     // 2. Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    const ambientLight = new THREE.AmbientLight(0xffffff, theme === 'dark' ? 0.6 : 0.8);
     scene.add(ambientLight);
 
-    const mainLight = new THREE.PointLight(0xffffff, 4, 100);
+    const mainLight = new THREE.PointLight(0xffffff, 4.5, 100);
     mainLight.position.set(6, 6, 6);
     scene.add(mainLight);
 
-    const mouseLight = new THREE.PointLight(0xffffff, 3, 50);
+    const mouseLight = new THREE.PointLight(
+      theme === 'dark' ? 0xffffff : 0x111111,
+      3,
+      50
+    );
     mouseLight.position.set(0, 0, 4);
     scene.add(mouseLight);
 
-    // 3. HOLOGRAPHIC QUANTUM GLOBE & DEVELOPER MATRIX SCULPTURE
+    // 3. BESPOKE 3D DEVELOPER CRYSTAL PRISM & TORUS KNOT SCULPTURE
     const mainGroup = new THREE.Group();
     scene.add(mainGroup);
 
-    // Inner Metallic Globe Sphere
-    const globeGeo = new THREE.SphereGeometry(1.6, 32, 32);
-    const globeMat = new THREE.MeshStandardMaterial({
-      color: 0x111111,
+    // Central Multifaceted Quantum Crystal Prism
+    const crystalGeo = new THREE.OctahedronGeometry(1.6, 1);
+    const crystalMat = new THREE.MeshStandardMaterial({
+      color: theme === 'dark' ? 0x1a1a1a : 0xe5e5e5,
       metalness: 0.95,
       roughness: 0.1,
       wireframe: false
     });
-    const globeMesh = new THREE.Mesh(globeGeo, globeMat);
-    mainGroup.add(globeMesh);
+    const crystalMesh = new THREE.Mesh(crystalGeo, crystalMat);
+    mainGroup.add(crystalMesh);
 
-    // Holographic Lattice Outer Wireframe Shell
-    const shellGeo = new THREE.IcosahedronGeometry(2.1, 2);
-    const shellMat = new THREE.MeshBasicMaterial({
-      color: 0x525252,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.4
+    // Outer Double-Helix Torus Knot Wireframe
+    const knotGeo = new THREE.TorusKnotGeometry(2.2, 0.08, 120, 16, 2, 3);
+    const knotMat = new THREE.MeshStandardMaterial({
+      color: theme === 'dark' ? 0x737373 : 0x262626,
+      metalness: 0.8,
+      roughness: 0.2,
+      wireframe: true
     });
-    const shellMesh = new THREE.Mesh(shellGeo, shellMat);
-    mainGroup.add(shellMesh);
+    const knotMesh = new THREE.Mesh(knotGeo, knotMat);
+    mainGroup.add(knotMesh);
 
-    // Equatorial Binary Orbit Ring
-    const ringGeo = new THREE.TorusGeometry(2.7, 0.02, 16, 100);
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
-    const orbitRing = new THREE.Mesh(ringGeo, ringMat);
-    orbitRing.rotation.x = Math.PI / 2.5;
-    mainGroup.add(orbitRing);
-
-    // Orbiting Satellite Nodes (Representing Live Productions)
-    const satellites: THREE.Mesh[] = [];
-    const satGeo = new THREE.BoxGeometry(0.28, 0.28, 0.28);
-    const satMat = new THREE.MeshStandardMaterial({
-      color: 0xffffff,
+    // Orbiting Geometric Shards
+    const shards: THREE.Mesh[] = [];
+    const shardGeo = new THREE.TetrahedronGeometry(0.3, 0);
+    const shardMat = new THREE.MeshStandardMaterial({
+      color: theme === 'dark' ? 0xffffff : 0x000000,
       metalness: 1.0,
       roughness: 0.05
     });
 
-    for (let i = 0; i < 12; i++) {
-      const sat = new THREE.Mesh(satGeo, satMat);
-      const angle = (i / 12) * Math.PI * 2;
-      const radius = 3.1;
+    for (let i = 0; i < 16; i++) {
+      const shard = new THREE.Mesh(shardGeo, shardMat);
+      const angle = (i / 16) * Math.PI * 2;
+      const radius = 3.2;
 
-      sat.position.x = radius * Math.cos(angle);
-      sat.position.z = radius * Math.sin(angle);
-      sat.position.y = Math.sin(angle * 2) * 0.5;
+      shard.position.x = radius * Math.cos(angle);
+      shard.position.z = radius * Math.sin(angle);
+      shard.position.y = Math.sin(angle * 2) * 0.6;
 
-      mainGroup.add(sat);
-      satellites.push(sat);
+      shard.rotation.x = Math.random() * Math.PI;
+      shard.rotation.y = Math.random() * Math.PI;
+
+      mainGroup.add(shard);
+      shards.push(shard);
     }
 
     // 4. Mouse Tracking Physics
@@ -122,21 +124,22 @@ export const ThreeDScene: React.FC = () => {
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
 
-      // Smooth Rotation
-      mainGroup.rotation.y = elapsedTime * 0.2 + targetX;
-      mainGroup.rotation.x = elapsedTime * 0.1 + targetY;
+      // Rotation & Tilt
+      mainGroup.rotation.y = elapsedTime * 0.25 + targetX;
+      mainGroup.rotation.x = elapsedTime * 0.15 + targetY;
 
-      shellMesh.rotation.y = -elapsedTime * 0.15;
-      orbitRing.rotation.z = elapsedTime * 0.2;
+      crystalMesh.rotation.y = -elapsedTime * 0.3;
+      knotMesh.rotation.z = elapsedTime * 0.2;
+      knotMesh.rotation.x = elapsedTime * 0.1;
 
-      // Orbit Satellites
-      satellites.forEach((sat, idx) => {
-        sat.rotation.x += 0.02;
-        sat.rotation.y += 0.02;
-        const angle = elapsedTime * 0.5 + (idx / 12) * Math.PI * 2;
-        sat.position.x = 3.1 * Math.cos(angle);
-        sat.position.z = 3.1 * Math.sin(angle);
-        sat.position.y = Math.sin(angle * 3) * 0.6;
+      // Orbit Shards
+      shards.forEach((shard, idx) => {
+        shard.rotation.x += 0.02;
+        shard.rotation.y += 0.02;
+        const angle = elapsedTime * 0.4 + (idx / 16) * Math.PI * 2;
+        shard.position.x = 3.2 * Math.cos(angle);
+        shard.position.z = 3.2 * Math.sin(angle);
+        shard.position.y = Math.sin(angle * 3) * 0.7;
       });
 
       renderer.render(scene, camera);
@@ -153,7 +156,7 @@ export const ThreeDScene: React.FC = () => {
         container.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [theme]);
 
   return (
     <div
