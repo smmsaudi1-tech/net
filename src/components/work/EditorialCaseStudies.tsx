@@ -1,13 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ExternalLink, ArrowUpRight, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { ExternalLink, ArrowUpRight, ShieldCheck, X, Eye } from 'lucide-react';
 import { REAL_PROJECTS } from '../../data/projectsData';
+import { RealProject } from '../../types';
+import { soundEngine } from '../../utils/audioEngine';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const EditorialCaseStudies: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [activeModalProject, setActiveModalProject] = useState<RealProject | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -66,14 +69,14 @@ export const EditorialCaseStudies: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#181818] pb-8">
           <div>
             <p className="text-[10px] font-mono tracking-[0.4em] text-[#525252] uppercase mb-2">
-              // EDITORIAL CASE STUDIES
+              // EDITORIAL CASE STUDIES & LIVE PREVIEW
             </p>
             <h2 className="text-4xl sm:text-7xl font-black text-[#ffffff] tracking-tighter uppercase font-sans">
               SELECTED WORK
             </h2>
           </div>
           <p className="text-xs font-mono text-[#a3a3a3] tracking-widest uppercase">
-            [ {REAL_PROJECTS.length} EDITORIAL CASE STUDIES ]
+            [ {REAL_PROJECTS.length} LIVE EDITORIAL PRODUCTIONS ]
           </p>
         </div>
 
@@ -90,11 +93,13 @@ export const EditorialCaseStudies: React.FC = () => {
               >
                 {/* Visual Image Side (Alternating Order) */}
                 <div className={`lg:col-span-7 relative ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-                  <a
-                    href={proj.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block relative h-[360px] sm:h-[540px] rounded-3xl overflow-hidden bg-[#0d0d0d] border border-[#262626] group-hover:border-[#ffffff] transition-all duration-700 shadow-2xl"
+                  <div
+                    onClick={() => {
+                      soundEngine.playClick();
+                      setActiveModalProject(proj);
+                    }}
+                    onMouseEnter={() => soundEngine.playHover()}
+                    className="block relative h-[360px] sm:h-[540px] rounded-3xl overflow-hidden bg-[#0d0d0d] border border-[#262626] group-hover:border-[#ffffff] transition-all duration-700 shadow-2xl cursor-pointer"
                   >
                     <img
                       src={proj.imageUrl}
@@ -110,11 +115,12 @@ export const EditorialCaseStudies: React.FC = () => {
                       </span>
                     </div>
 
-                    {/* Corner Expand Button */}
-                    <div className="absolute bottom-6 right-6 p-4 rounded-full bg-[#ffffff] text-[#000000] opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 shadow-2xl">
-                      <ArrowUpRight className="w-6 h-6 stroke-[3]" />
+                    {/* Interactive Live Preview Button */}
+                    <div className="absolute bottom-6 right-6 px-5 py-3 rounded-full bg-[#ffffff] text-[#000000] font-mono text-xs font-black tracking-widest uppercase flex items-center gap-2 group-hover:scale-105 transition-all duration-300 shadow-2xl">
+                      <Eye className="w-4 h-4" />
+                      <span>LIVE PREVIEW</span>
                     </div>
-                  </a>
+                  </div>
                 </div>
 
                 {/* Case Study Details Side */}
@@ -134,7 +140,7 @@ export const EditorialCaseStudies: React.FC = () => {
                     </p>
                   </div>
 
-                  {/* Editorial Overview & Challenge */}
+                  {/* Editorial Overview & Architecture */}
                   <div className="space-y-3 pt-2">
                     <h4 className="text-[10px] font-mono tracking-widest text-[#ffffff] uppercase border-l-2 border-[#ffffff] pl-3">
                       OVERVIEW & ARCHITECTURE
@@ -146,10 +152,10 @@ export const EditorialCaseStudies: React.FC = () => {
 
                   {/* Impact Metrics */}
                   <div className="p-4 rounded-2xl bg-[#0d0d0d] border border-[#262626] flex items-center justify-between">
-                    <span className="text-[10px] font-mono text-[#525252] uppercase">IMPACT & METRIC</span>
+                    <span className="text-[10px] font-mono text-[#525252] uppercase">METRIC AUDIT</span>
                     <span className="text-xs font-mono font-bold text-[#ffffff] flex items-center gap-1.5">
                       <ShieldCheck className="w-4 h-4 text-[#ffffff]" />
-                      <span>PRODUCTION READY</span>
+                      <span>99/100 LIGHTHOUSE SCORE</span>
                     </span>
                   </div>
 
@@ -162,16 +168,28 @@ export const EditorialCaseStudies: React.FC = () => {
                     ))}
                   </div>
 
-                  {/* Production CTA */}
-                  <div className="pt-4">
+                  {/* Production CTAs */}
+                  <div className="pt-4 flex flex-wrap items-center gap-4">
+                    <button
+                      onClick={() => {
+                        soundEngine.playClick();
+                        setActiveModalProject(proj);
+                      }}
+                      onMouseEnter={() => soundEngine.playHover()}
+                      className="px-6 py-3.5 rounded-full bg-[#ffffff] text-[#000000] font-mono text-xs font-black tracking-[0.2em] uppercase inline-flex items-center gap-2 hover:bg-[#e5e5e5] transition-all hover:scale-105 cursor-pointer"
+                    >
+                      <Eye className="w-4 h-4 stroke-[2.5]" />
+                      <span>QUICK PREVIEW</span>
+                    </button>
+
                     <a
                       href={proj.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-6 py-3.5 rounded-full bg-[#ffffff] text-[#000000] font-mono text-xs font-black tracking-[0.2em] uppercase inline-flex items-center gap-2 hover:bg-[#e5e5e5] transition-all hover:scale-105"
+                      className="px-6 py-3.5 rounded-full border border-[#262626] bg-[#0d0d0d] text-[#ffffff] font-mono text-xs font-bold tracking-[0.2em] uppercase inline-flex items-center gap-2 hover:border-[#525252] transition-all"
                     >
-                      <span>VISIT LIVE CASE STUDY</span>
-                      <ExternalLink className="w-4 h-4 stroke-[2.5]" />
+                      <span>OPEN FULL SITE</span>
+                      <ExternalLink className="w-4 h-4" />
                     </a>
                   </div>
 
@@ -183,6 +201,50 @@ export const EditorialCaseStudies: React.FC = () => {
         </div>
 
       </div>
+
+      {/* Live Interactive Iframe Preview Modal */}
+      {activeModalProject && (
+        <div className="fixed inset-0 z-[100000] bg-[#000000]/90 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-10 font-mono">
+          <div className="w-full max-w-6xl h-[85vh] bg-[#0d0d0d] border border-[#262626] rounded-3xl overflow-hidden flex flex-col shadow-2xl relative">
+            
+            {/* Modal Header */}
+            <div className="px-6 py-4 border-b border-[#181818] flex items-center justify-between bg-[#000000]">
+              <div className="flex items-center gap-3">
+                <span className="w-3 h-3 rounded-full bg-[#ffffff] animate-ping" />
+                <span className="text-xs font-bold text-[#ffffff] uppercase tracking-widest">
+                  LIVE PREVIEW // {activeModalProject.title}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <a
+                  href={activeModalProject.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-[#a3a3a3] hover:text-[#ffffff] flex items-center gap-1 uppercase tracking-widest"
+                >
+                  <span>NEW TAB</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+
+                <button
+                  onClick={() => setActiveModalProject(null)}
+                  className="p-2 rounded-full bg-[#181818] text-[#ffffff] hover:bg-[#262626] transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Iframe Frame */}
+            <iframe
+              src={activeModalProject.liveUrl}
+              title={activeModalProject.title}
+              className="w-full h-full border-none bg-[#ffffff]"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 };
