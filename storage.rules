@@ -1,0 +1,21 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Helper function checking if user is an authorized admin email
+    function isAdmin() {
+      return request.auth != null && 
+             request.auth.token.email != null &&
+             (request.auth.token.email.toLowerCase() == 'mhamedwalid@gmail.com' ||
+              request.auth.token.email.toLowerCase() == 'youssefosama@gmail.com');
+    }
+
+    // Public read access for visitors to see uploaded project images
+    // Strict write/upload/delete access LOCKED STRICTLY to authorized admin emails ONLY
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+  }
+}

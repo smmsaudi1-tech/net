@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper function checking if user is an authorized admin email
+    function isAdmin() {
+      return request.auth != null && 
+             request.auth.token.email != null &&
+             (request.auth.token.email.toLowerCase() == 'mhamedwalid@gmail.com' ||
+              request.auth.token.email.toLowerCase() == 'youssefosama@gmail.com');
+    }
+
+    // Public read access for visitors to see website texts & projects
+    // Strict write/update/delete access LOCKED STRICTLY to authorized admin emails ONLY
+    match /{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+  }
+}

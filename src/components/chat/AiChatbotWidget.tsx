@@ -195,7 +195,13 @@ export const AiChatbotWidget: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[99999] font-mono text-left">
+    <motion.div
+      drag
+      dragMomentum={false}
+      dragElastic={0.1}
+      whileDrag={{ scale: 1.08, cursor: 'grabbing' }}
+      className="fixed bottom-6 right-6 z-[99999] font-mono text-left touch-none select-none cursor-grab"
+    >
       {/* Floating Toggle Button */}
       <button
         onClick={() => {
@@ -336,6 +342,6 @@ export const AiChatbotWidget: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 };
