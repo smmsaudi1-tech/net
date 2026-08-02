@@ -123,15 +123,6 @@ export const EditorialCaseStudies: React.FC = () => {
                 {cat}
               </button>
             ))}
-
-            <button
-              onClick={() => setAdminOpen(true)}
-              className="px-4 py-2.5 rounded-full border border-emerald-500/50 bg-emerald-500/10 text-emerald-400 font-bold uppercase tracking-widest cursor-pointer hover:bg-emerald-500 hover:text-black transition-all flex items-center gap-1.5"
-              title="Add or Manage Projects in Firebase"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>MANAGE FIREBASE</span>
-            </button>
           </div>
         </div>
 

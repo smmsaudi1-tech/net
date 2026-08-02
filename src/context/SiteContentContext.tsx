@@ -32,6 +32,42 @@ export const SiteContentProvider: React.FC<{ children: React.ReactNode }> = ({ c
     return () => unsubscribe();
   }, []);
 
+  // Listen to URL hash or query params to auto-open admin modal via link (#admin or ?admin=true or /admin)
+  useEffect(() => {
+    const checkAdminUrl = () => {
+      const hash = window.location.hash;
+      const search = window.location.search;
+      const pathname = window.location.pathname;
+
+      if (
+        hash === '#admin' ||
+        search.includes('admin=true') ||
+        pathname.endsWith('/admin')
+      ) {
+        setAdminOpen(true);
+      }
+    };
+
+    checkAdminUrl();
+    window.addEventListener('hashchange', checkAdminUrl);
+    window.addEventListener('popstate', checkAdminUrl);
+
+    // Hidden Keyboard Shortcut (Ctrl + Shift + A) for secret admin access
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        setAdminOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('hashchange', checkAdminUrl);
+      window.removeEventListener('popstate', checkAdminUrl);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   const getText = (key: string, fallback?: string): string => {
     if (content[key] !== undefined && content[key] !== '') {
       return content[key];

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon, Settings } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useSiteContent } from '../../context/SiteContentContext';
 import { soundEngine } from '../../utils/audioEngine';
@@ -9,7 +9,7 @@ export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
-  const { getText, setAdminOpen } = useSiteContent();
+  const { getText } = useSiteContent();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,7 +51,7 @@ export const Navbar: React.FC = () => {
           <img
             src="/2.png"
             alt="Next Gen Devs Logo"
-            className="w-8 h-8 sm:w-9 sm:h-9 object-contain transition-transform group-hover:scale-110"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover border border-white/20 shadow-md transition-transform group-hover:scale-110"
           />
           <span
             className={`font-black text-base sm:text-lg tracking-[0.2em] uppercase font-mono transition-colors ${
@@ -62,7 +62,7 @@ export const Navbar: React.FC = () => {
           </span>
         </div>
 
-        {/* Links & Admin Controls Right */}
+        {/* Links Right */}
         <nav
           className={`hidden md:flex items-center gap-7 text-[11px] font-mono font-bold tracking-[0.2em] uppercase transition-colors ${
             theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
@@ -106,20 +106,6 @@ export const Navbar: React.FC = () => {
             {getText('nav.contact', 'CONTACT')}
           </button>
 
-          {/* FIREBASE CMS & ADMIN DRAWER TOGGLE */}
-          <button
-            onClick={() => {
-              soundEngine.playClick();
-              setAdminOpen(true);
-            }}
-            className={`px-3 py-1.5 rounded-full border text-[11px] font-mono font-bold transition-all flex items-center gap-1.5 cursor-pointer bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-black`}
-            data-cursor="ADMIN"
-            title="Firebase CMS & Project Manager"
-          >
-            <Settings className="w-3.5 h-3.5" />
-            <span>EDIT CMS</span>
-          </button>
-
           {/* LIGHT MODE & DARK MODE TOGGLE BUTTON */}
           <button
             onClick={() => {
@@ -140,17 +126,6 @@ export const Navbar: React.FC = () => {
 
         {/* Mobile Controls */}
         <div className="flex md:hidden items-center gap-2">
-          <button
-            onClick={() => {
-              soundEngine.playClick();
-              setAdminOpen(true);
-            }}
-            className="p-2 rounded-full border bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
-            title="Firebase CMS & Project Manager"
-          >
-            <Settings className="w-4 h-4" />
-          </button>
-
           <button
             onClick={() => {
               soundEngine.playClick();

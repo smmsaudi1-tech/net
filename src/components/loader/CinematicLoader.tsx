@@ -32,23 +32,32 @@ export const CinematicLoader: React.FC<{ onComplete: () => void }> = ({ onComple
           transition={{ duration: 1, ease: [0.77, 0, 0.175, 1] }}
           className="fixed inset-0 z-[10000] bg-[#000000] text-[#ffffff] flex flex-col items-center justify-center overflow-hidden font-mono selection:bg-none"
         >
-          {/* Centered Brand Title & Logo */}
+          {/* Centered Brand Title & Circular Logo */}
           <motion.div
             initial={{ opacity: 0, y: 15, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="text-center space-y-4 flex flex-col items-center justify-center"
           >
-            {/* Brand Logo Image */}
-            <img
-              src="/2.png"
-              alt="Brand Logo"
-              className="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]"
-            />
+            {/* Circular Brand Logo Image */}
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-white/20 p-1 shadow-[0_0_30px_rgba(255,255,255,0.3)] bg-black overflow-hidden flex items-center justify-center">
+              <img
+                src="/2.png"
+                alt="Brand Logo"
+                className="w-full h-full rounded-full object-cover"
+              />
+            </div>
 
-            <h1 className="text-xl sm:text-2xl font-black tracking-[0.35em] text-[#ffffff] uppercase">
-              NEXT GEN DEVS
-            </h1>
+            <div className="flex items-center justify-center gap-3">
+              <img
+                src="/2.png"
+                alt="Title Icon"
+                className="w-6 h-6 rounded-full object-cover border border-white/30"
+              />
+              <h1 className="text-xl sm:text-2xl font-black tracking-[0.35em] text-[#ffffff] uppercase font-mono">
+                NEXT GEN DEVS
+              </h1>
+            </div>
 
             {/* Thin Horizontal Expanding Line */}
             <div className="w-64 sm:w-80 h-[1px] bg-[#262626] relative overflow-hidden mx-auto">
@@ -72,8 +81,9 @@ export const CinematicLoader: React.FC<{ onComplete: () => void }> = ({ onComple
           </motion.div>
 
           {/* Corner Branding Details */}
-          <div className="absolute bottom-8 left-8 text-[10px] text-[#525252] tracking-widest uppercase">
-            CREATIVE TECHNOLOGY STUDIO
+          <div className="absolute bottom-8 left-8 text-[10px] text-[#525252] tracking-widest uppercase flex items-center gap-2">
+            <img src="/2.png" alt="Logo" className="w-3.5 h-3.5 rounded-full object-cover" />
+            <span>CREATIVE TECHNOLOGY STUDIO</span>
           </div>
           <div className="absolute bottom-8 right-8 text-[10px] text-[#525252] tracking-widest uppercase font-mono">
             SYS.INIT // OK
