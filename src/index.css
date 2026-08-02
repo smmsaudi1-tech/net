@@ -41,3 +41,13 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Hide Built with Spline watermark logo badge */
+spline-viewer::part(logo),
+spline-viewer #logo,
+spline-viewer a[href*="spline"] {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
