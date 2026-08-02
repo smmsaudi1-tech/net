@@ -21,8 +21,7 @@ export const ThreeDScene: React.FC = () => {
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(w, h);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    
-    // Clear any previous canvas
+
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
@@ -34,58 +33,87 @@ export const ThreeDScene: React.FC = () => {
     mainLight.position.set(6, 6, 6);
     scene.add(mainLight);
 
-    const mouseLight = new THREE.PointLight(
-      theme === 'dark' ? 0xffffff : 0x000000,
-      3,
-      50
-    );
-    mouseLight.position.set(0, 0, 4);
-    scene.add(mouseLight);
+    const eyeLight = new THREE.PointLight(theme === 'dark' ? 0xffffff : 0x000000, 4, 30);
+    eyeLight.position.set(0, 0.3, 3);
+    scene.add(eyeLight);
 
-    // 3. BESPOKE 3D DEVELOPER CRYSTAL PRISM & TORUS KNOT SCULPTURE
-    const mainGroup = new THREE.Group();
-    scene.add(mainGroup);
+    // 3. FUTURISTIC 3D ROBOT / HUMANOID AI AGENT HEAD & TORSO SCULPTURE
+    const robotGroup = new THREE.Group();
+    scene.add(robotGroup);
 
-    // Central Multifaceted Quantum Crystal Prism
-    const crystalGeo = new THREE.OctahedronGeometry(1.6, 1);
-    const crystalMat = new THREE.MeshStandardMaterial({
-      color: theme === 'dark' ? 0x262626 : 0x18181b,
-      metalness: 0.9,
+    // Head Base Sphere
+    const headGeo = new THREE.SphereGeometry(1.3, 32, 32);
+    const headMat = new THREE.MeshStandardMaterial({
+      color: theme === 'dark' ? 0x18181b : 0xe4e4e7,
+      metalness: 0.95,
       roughness: 0.1,
       wireframe: false
     });
-    const crystalMesh = new THREE.Mesh(crystalGeo, crystalMat);
-    mainGroup.add(crystalMesh);
+    const headMesh = new THREE.Mesh(headGeo, headMat);
+    headMesh.scale.set(1, 1.25, 1);
+    robotGroup.add(headMesh);
 
-    // Outer Double-Helix Torus Knot Wireframe
-    const knotGeo = new THREE.TorusKnotGeometry(2.2, 0.08, 120, 16, 2, 3);
-    const knotMat = new THREE.MeshBasicMaterial({
-      color: theme === 'dark' ? 0xa3a3a3 : 0x525252,
+    // Cybernetic Optical Visor / Eyes
+    const visorGeo = new THREE.CylinderGeometry(0.85, 0.85, 0.25, 32);
+    const visorMat = new THREE.MeshStandardMaterial({
+      color: theme === 'dark' ? 0xffffff : 0x09090b,
+      metalness: 1.0,
+      roughness: 0.05
+    });
+    const visorMesh = new THREE.Mesh(visorGeo, visorMat);
+    visorMesh.rotation.x = Math.PI / 2;
+    visorMesh.position.set(0, 0.25, 0.95);
+    robotGroup.add(visorMesh);
+
+    // Neck Connector
+    const neckGeo = new THREE.CylinderGeometry(0.5, 0.65, 0.6, 32);
+    const neckMat = new THREE.MeshStandardMaterial({
+      color: theme === 'dark' ? 0x27272a : 0x71717a,
+      metalness: 0.8,
+      roughness: 0.2,
       wireframe: true
     });
-    const knotMesh = new THREE.Mesh(knotGeo, knotMat);
-    mainGroup.add(knotMesh);
+    const neckMesh = new THREE.Mesh(neckGeo, neckMat);
+    neckMesh.position.set(0, -1.5, 0);
+    robotGroup.add(neckMesh);
 
-    // Orbiting Geometric Shards
-    const shards: THREE.Mesh[] = [];
-    const shardGeo = new THREE.TetrahedronGeometry(0.28, 0);
-    const shardMat = new THREE.MeshStandardMaterial({
+    // Shoulders / Torso Base
+    const torsoGeo = new THREE.CylinderGeometry(1.8, 1.2, 0.8, 32);
+    const torsoMat = new THREE.MeshStandardMaterial({
+      color: theme === 'dark' ? 0x18181b : 0xd4d4d8,
+      metalness: 0.9,
+      roughness: 0.15
+    });
+    const torsoMesh = new THREE.Mesh(torsoGeo, torsoMat);
+    torsoMesh.position.set(0, -2.1, 0);
+    robotGroup.add(torsoMesh);
+
+    // Outer Wireframe Brain Lattice Halo
+    const haloGeo = new THREE.IcosahedronGeometry(2.3, 2);
+    const haloMat = new THREE.MeshBasicMaterial({
+      color: theme === 'dark' ? 0x71717a : 0xa1a1aa,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.35
+    });
+    const haloMesh = new THREE.Mesh(haloGeo, haloMat);
+    robotGroup.add(haloMesh);
+
+    // Orbiting Data Satellites
+    const satellites: THREE.Mesh[] = [];
+    const satGeo = new THREE.OctahedronGeometry(0.2, 0);
+    const satMat = new THREE.MeshStandardMaterial({
       color: theme === 'dark' ? 0xffffff : 0x000000,
       metalness: 1.0,
       roughness: 0.05
     });
 
-    for (let i = 0; i < 16; i++) {
-      const shard = new THREE.Mesh(shardGeo, shardMat);
-      const angle = (i / 16) * Math.PI * 2;
-      const radius = 3.1;
-
-      shard.position.x = radius * Math.cos(angle);
-      shard.position.z = radius * Math.sin(angle);
-      shard.position.y = Math.sin(angle * 2) * 0.6;
-
-      mainGroup.add(shard);
-      shards.push(shard);
+    for (let i = 0; i < 14; i++) {
+      const sat = new THREE.Mesh(satGeo, satMat);
+      const angle = (i / 14) * Math.PI * 2;
+      sat.position.set(3.0 * Math.cos(angle), Math.sin(angle * 2) * 0.5, 3.0 * Math.sin(angle));
+      robotGroup.add(sat);
+      satellites.push(sat);
     }
 
     // 4. Mouse Tracking Physics
@@ -98,8 +126,8 @@ export const ThreeDScene: React.FC = () => {
       targetX = (e.clientX - windowHalfX) * 0.0018;
       targetY = (e.clientY - windowHalfY) * 0.0018;
 
-      mouseLight.position.x = (e.clientX / window.innerWidth) * 10 - 5;
-      mouseLight.position.y = -(e.clientY / window.innerHeight) * 10 + 5;
+      eyeLight.position.x = (e.clientX / window.innerWidth) * 6 - 3;
+      eyeLight.position.y = -(e.clientY / window.innerHeight) * 6 + 3;
     };
 
     window.addEventListener('mousemove', onMouseMove);
@@ -122,19 +150,20 @@ export const ThreeDScene: React.FC = () => {
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
 
-      mainGroup.rotation.y = elapsedTime * 0.25 + targetX;
-      mainGroup.rotation.x = elapsedTime * 0.15 + targetY;
+      // Robot Head Tracking & Breathing Movement
+      robotGroup.rotation.y = elapsedTime * 0.15 + targetX;
+      robotGroup.rotation.x = Math.sin(elapsedTime * 1.5) * 0.05 + targetY;
 
-      crystalMesh.rotation.y = -elapsedTime * 0.3;
-      knotMesh.rotation.z = elapsedTime * 0.2;
+      haloMesh.rotation.y = -elapsedTime * 0.2;
+      visorMesh.rotation.z = Math.sin(elapsedTime * 2) * 0.1;
 
-      shards.forEach((shard, idx) => {
-        shard.rotation.x += 0.02;
-        shard.rotation.y += 0.02;
-        const angle = elapsedTime * 0.4 + (idx / 16) * Math.PI * 2;
-        shard.position.x = 3.1 * Math.cos(angle);
-        shard.position.z = 3.1 * Math.sin(angle);
-        shard.position.y = Math.sin(angle * 3) * 0.7;
+      satellites.forEach((sat, idx) => {
+        sat.rotation.x += 0.02;
+        sat.rotation.y += 0.02;
+        const angle = elapsedTime * 0.4 + (idx / 14) * Math.PI * 2;
+        sat.position.x = 3.0 * Math.cos(angle);
+        sat.position.z = 3.0 * Math.sin(angle);
+        sat.position.y = Math.sin(angle * 3) * 0.6;
       });
 
       renderer.render(scene, camera);
@@ -156,7 +185,7 @@ export const ThreeDScene: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="w-full h-[450px] sm:h-[550px] relative overflow-hidden pointer-events-none flex items-center justify-center min-h-[400px]"
+      className="w-full h-[450px] sm:h-[580px] relative overflow-hidden pointer-events-none flex items-center justify-center min-h-[400px]"
     />
   );
 };

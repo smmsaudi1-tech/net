@@ -14,6 +14,7 @@ import { BoldContact } from './components/contact/BoldContact';
 import { MinimalFooter } from './components/footer/MinimalFooter';
 import { ParticleField } from './components/effects/ParticleField';
 import { MarqueeStrip } from './components/effects/MarqueeStrip';
+import { AiChatbotWidget } from './components/chat/AiChatbotWidget';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { smoothScroll } from './utils/smoothScroll';
 
@@ -41,15 +42,18 @@ function MainAppContent() {
           {/* WebGL Atmosphere Particle Field Canvas */}
           <ParticleField />
 
-          {/* 12 — Custom Magnetic Cursor */}
+          {/* Custom Magnetic Cursor */}
           <MagneticCursor />
 
-          {/* 14 — Minimal Translucent Navbar */}
+          {/* Interactive Floating AI Chatbot Assistant */}
+          <AiChatbotWidget />
+
+          {/* Minimal Translucent Navbar */}
           <Navbar />
 
           {/* Core Sections */}
           <main className="relative z-10">
-            {/* 02 & 03 — Architectural Hero & Bespoke 3D Crystal Sculpture */}
+            {/* 02 & 03 — Architectural Hero & Futuristic 3D Robot AI Agent Sculpture */}
             <HeroSection />
 
             {/* Kinetic Marquee Strip */}
