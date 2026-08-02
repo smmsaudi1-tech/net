@@ -29,76 +29,78 @@ export const ThreeDScene: React.FC = () => {
     const ambientLight = new THREE.AmbientLight(0xffffff, theme === 'dark' ? 0.7 : 1.2);
     scene.add(ambientLight);
 
-    const mainLight = new THREE.PointLight(0xffffff, 5, 100);
-    mainLight.position.set(6, 6, 6);
-    scene.add(mainLight);
+    const pointLight1 = new THREE.PointLight(0xffffff, 5, 100);
+    pointLight1.position.set(6, 6, 6);
+    scene.add(pointLight1);
 
-    const eyeLight = new THREE.PointLight(theme === 'dark' ? 0x00f0ff : 0x0066ff, 4, 30);
-    eyeLight.position.set(0, 0.2, 3);
-    scene.add(eyeLight);
+    const pointLight2 = new THREE.PointLight(theme === 'dark' ? 0x00f0ff : 0x0066ff, 4, 50);
+    pointLight2.position.set(-6, -6, 4);
+    scene.add(pointLight2);
 
-    // 3. MECHANICAL ROBOTIC ANDROID SCULPTURE
-    const robotGroup = new THREE.Group();
-    scene.add(robotGroup);
+    const mouseLight = new THREE.PointLight(0xffffff, 3, 30);
+    mouseLight.position.set(0, 0, 4);
+    scene.add(mouseLight);
 
-    // Main Robotic Head Chassis
-    const headGeo = new THREE.SphereGeometry(1.3, 32, 32);
-    const headMat = new THREE.MeshStandardMaterial({
-      color: theme === 'dark' ? 0x18181b : 0xe4e4e7,
+    // 3. BRAND-NEW 3D SCULPTURE: CYBERNETIC HELIX MONOLITH & INTERLOCKING RINGS
+    const mainGroup = new THREE.Group();
+    scene.add(mainGroup);
+
+    // Central Double-Stranded Quantum Helix
+    const helixGeo = new THREE.TorusKnotGeometry(1.6, 0.28, 140, 20, 3, 5);
+    const helixMat = new THREE.MeshStandardMaterial({
+      color: theme === 'dark' ? 0x262626 : 0x18181b,
       metalness: 0.95,
-      roughness: 0.1
+      roughness: 0.08,
+      wireframe: false
     });
-    const headMesh = new THREE.Mesh(headGeo, headMat);
-    headMesh.scale.set(1, 1.2, 1);
-    robotGroup.add(headMesh);
+    const helixMesh = new THREE.Mesh(helixGeo, helixMat);
+    mainGroup.add(helixMesh);
 
-    // Optical Laser Sensor Visor
-    const visorGeo = new THREE.CylinderGeometry(0.85, 0.85, 0.2, 32);
-    const visorMat = new THREE.MeshStandardMaterial({
-      color: theme === 'dark' ? 0x09090b : 0x18181b,
-      metalness: 1.0,
-      roughness: 0.05
-    });
-    const visorMesh = new THREE.Mesh(visorGeo, visorMat);
-    visorMesh.rotation.x = Math.PI / 2;
-    visorMesh.position.set(0, 0.2, 0.95);
-    robotGroup.add(visorMesh);
-
-    // Mechanical Gear Ring 1 (Horizontal)
-    const gearGeo1 = new THREE.TorusGeometry(2.2, 0.04, 16, 100);
-    const gearMat1 = new THREE.MeshBasicMaterial({
+    // Ring 1 (X-Axis Interlocking Armor)
+    const ringGeo1 = new THREE.TorusGeometry(2.6, 0.03, 16, 100);
+    const ringMat1 = new THREE.MeshBasicMaterial({
       color: theme === 'dark' ? 0xa3a3a3 : 0x525252,
       wireframe: true
     });
-    const gearRing1 = new THREE.Mesh(gearGeo1, gearMat1);
-    gearRing1.rotation.x = Math.PI / 3;
-    robotGroup.add(gearRing1);
+    const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
+    ring1.rotation.x = Math.PI / 3;
+    mainGroup.add(ring1);
 
-    // Mechanical Gear Ring 2 (Vertical)
-    const gearGeo2 = new THREE.TorusGeometry(2.6, 0.03, 16, 100);
-    const gearMat2 = new THREE.MeshBasicMaterial({
-      color: theme === 'dark' ? 0x525252 : 0xa3a3a3,
+    // Ring 2 (Y-Axis Interlocking Armor)
+    const ringGeo2 = new THREE.TorusGeometry(3.0, 0.025, 16, 100);
+    const ringMat2 = new THREE.MeshBasicMaterial({
+      color: theme === 'dark' ? 0x525252 : 0x71717a,
       wireframe: true
     });
-    const gearRing2 = new THREE.Mesh(gearGeo2, gearMat2);
-    gearRing2.rotation.y = Math.PI / 4;
-    robotGroup.add(gearRing2);
+    const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
+    ring2.rotation.y = Math.PI / 4;
+    mainGroup.add(ring2);
 
-    // Orbiting Mechanical Circuit Satellites
-    const satellites: THREE.Mesh[] = [];
-    const satGeo = new THREE.BoxGeometry(0.25, 0.25, 0.25);
-    const satMat = new THREE.MeshStandardMaterial({
+    // Ring 3 (Z-Axis Outer Perimeter)
+    const ringGeo3 = new THREE.TorusGeometry(3.4, 0.02, 16, 100);
+    const ringMat3 = new THREE.MeshBasicMaterial({
+      color: theme === 'dark' ? 0x737373 : 0xa1a1aa,
+      wireframe: true
+    });
+    const ring3 = new THREE.Mesh(ringGeo3, ringMat3);
+    ring3.rotation.z = Math.PI / 6;
+    mainGroup.add(ring3);
+
+    // Orbiting Floating Micro-Nodes
+    const nodes: THREE.Mesh[] = [];
+    const nodeGeo = new THREE.IcosahedronGeometry(0.22, 0);
+    const nodeMat = new THREE.MeshStandardMaterial({
       color: theme === 'dark' ? 0xffffff : 0x000000,
       metalness: 1.0,
       roughness: 0.05
     });
 
-    for (let i = 0; i < 16; i++) {
-      const sat = new THREE.Mesh(satGeo, satMat);
-      const angle = (i / 16) * Math.PI * 2;
-      sat.position.set(3.1 * Math.cos(angle), Math.sin(angle * 2) * 0.5, 3.1 * Math.sin(angle));
-      robotGroup.add(sat);
-      satellites.push(sat);
+    for (let i = 0; i < 18; i++) {
+      const node = new THREE.Mesh(nodeGeo, nodeMat);
+      const angle = (i / 18) * Math.PI * 2;
+      node.position.set(3.5 * Math.cos(angle), Math.sin(angle * 2) * 0.7, 3.5 * Math.sin(angle));
+      mainGroup.add(node);
+      nodes.push(node);
     }
 
     // 4. Mouse Tracking Physics
@@ -111,8 +113,8 @@ export const ThreeDScene: React.FC = () => {
       targetX = (e.clientX - windowHalfX) * 0.0018;
       targetY = (e.clientY - windowHalfY) * 0.0018;
 
-      eyeLight.position.x = (e.clientX / window.innerWidth) * 6 - 3;
-      eyeLight.position.y = -(e.clientY / window.innerHeight) * 6 + 3;
+      mouseLight.position.x = (e.clientX / window.innerWidth) * 10 - 5;
+      mouseLight.position.y = -(e.clientY / window.innerHeight) * 10 + 5;
     };
 
     window.addEventListener('mousemove', onMouseMove);
@@ -135,19 +137,22 @@ export const ThreeDScene: React.FC = () => {
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
 
-      robotGroup.rotation.y = elapsedTime * 0.2 + targetX;
-      robotGroup.rotation.x = Math.sin(elapsedTime * 1.5) * 0.05 + targetY;
+      // Continuous Dynamic Rotations
+      mainGroup.rotation.y = elapsedTime * 0.2 + targetX;
+      mainGroup.rotation.x = elapsedTime * 0.12 + targetY;
 
-      gearRing1.rotation.z = elapsedTime * 0.25;
-      gearRing2.rotation.z = -elapsedTime * 0.3;
+      helixMesh.rotation.z = elapsedTime * 0.2;
+      ring1.rotation.z = elapsedTime * 0.3;
+      ring2.rotation.z = -elapsedTime * 0.25;
+      ring3.rotation.x = elapsedTime * 0.15;
 
-      satellites.forEach((sat, idx) => {
-        sat.rotation.x += 0.02;
-        sat.rotation.y += 0.02;
-        const angle = elapsedTime * 0.4 + (idx / 16) * Math.PI * 2;
-        sat.position.x = 3.1 * Math.cos(angle);
-        sat.position.z = 3.1 * Math.sin(angle);
-        sat.position.y = Math.sin(angle * 3) * 0.6;
+      nodes.forEach((node, idx) => {
+        node.rotation.x += 0.02;
+        node.rotation.y += 0.02;
+        const angle = elapsedTime * 0.45 + (idx / 18) * Math.PI * 2;
+        node.position.x = 3.5 * Math.cos(angle);
+        node.position.z = 3.5 * Math.sin(angle);
+        node.position.y = Math.sin(angle * 3) * 0.8;
       });
 
       renderer.render(scene, camera);

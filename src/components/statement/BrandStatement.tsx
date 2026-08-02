@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../../context/ThemeContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,8 +10,15 @@ export const BrandStatement: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const wordsRef = useRef<HTMLHeadingElement[]>([]);
   const { theme } = useTheme();
+  const { t, lang } = useLanguage();
 
-  const words = ['IDEAS', 'DESERVE', 'BETTER', 'DIGITAL', 'EXPERIENCES.'];
+  const words = [
+    t('statement.w1', 'IDEAS', 'الأفكار'),
+    t('statement.w2', 'DESERVE', 'تستحق'),
+    t('statement.w3', 'BETTER', 'أفضل'),
+    t('statement.w4', 'DIGITAL', 'تجارب'),
+    t('statement.w5', 'EXPERIENCES.', 'رقمية.')
+  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -42,7 +50,7 @@ export const BrandStatement: React.FC = () => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [lang]);
 
   return (
     <section
@@ -61,7 +69,7 @@ export const BrandStatement: React.FC = () => {
               theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
             }`}
           >
-            // OUR PHILOSOPHY
+            {t('statement.tag', '// OUR PHILOSOPHY', '// فلسفتنا وتوجهنا الإبداعي')}
           </p>
 
           <div className="flex flex-col gap-3">
@@ -71,7 +79,9 @@ export const BrandStatement: React.FC = () => {
                 ref={(el) => {
                   if (el) wordsRef.current[idx] = el;
                 }}
-                className={`text-5xl sm:text-8xl lg:text-9xl font-black tracking-tighter uppercase font-sans origin-left transition-colors ${
+                className={`text-5xl sm:text-8xl lg:text-9xl font-black tracking-tighter uppercase origin-left transition-colors ${
+                  lang === 'AR' ? 'font-arabic' : 'font-sans'
+                } ${
                   idx === 3
                     ? 'text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500'
                     : theme === 'dark'

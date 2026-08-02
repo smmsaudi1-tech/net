@@ -1,48 +1,44 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import { ServiceItem } from '../../types';
 import { useTheme } from '../../context/ThemeContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const ExperimentalServices: React.FC = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const { theme } = useTheme();
+  const { t, lang } = useLanguage();
 
-  const services: ServiceItem[] = [
+  const services = [
     {
       id: 'srv-1',
       number: '01',
-      title: 'WEBSITE DEVELOPMENT',
-      description: 'Bespoke websites built with React 19, Next.js, and Three.js 3D WebGL scenes.',
-      tags: ['React', 'Next.js', 'WebGL', 'SEO']
+      title: t('srv1.title', 'WEBSITE DEVELOPMENT', 'تطوير المواقع الفاخرة'),
+      description: t('srv1.desc', 'Bespoke websites built with React 19, Next.js, and Three.js 3D WebGL scenes.', 'مواقع مخصصة بمهارة فائقة تقنياً باستخدام رياكت ونكست ثري دي.')
     },
     {
       id: 'srv-2',
       number: '02',
-      title: 'E-COMMERCE STORES',
-      description: 'Luxury digital storefronts, custom checkout flows, payment gateways, and inventory sync.',
-      tags: ['Stripe', 'Paymob', 'Shopify Custom', 'Framer Motion']
+      title: t('srv2.title', 'E-COMMERCE STORES', 'تطوير المتاجر الإلكترونية'),
+      description: t('srv2.desc', 'Luxury digital storefronts, custom checkout flows, payment gateways, and inventory sync.', 'متاجر إلكترونية فاخرة، بوابات دفع سريعة، ومزامنة تلقائية للمخزون.')
     },
     {
       id: 'srv-3',
       number: '03',
-      title: 'WEB APPLICATIONS & AI CHATBOTS',
-      description: 'Fullstack cloud web platforms, custom AI chatbots, digital menus with QR codes, and SaaS portals.',
-      tags: ['Node.js', 'Firebase', 'AI SDK', 'APIs']
+      title: t('srv3.title', 'WEB APPLICATIONS & AI CHATBOTS', 'التطبيقات وشات بوت الذكاء الاصطناعي'),
+      description: t('srv3.desc', 'Fullstack cloud web platforms, custom AI chatbots, digital menus with QR codes, and SaaS portals.', 'منصات سحابية، شات بوت ذكاء اصطناعي تفاعلي، ومميزات المتاجر والمطاعم.')
     },
     {
       id: 'srv-4',
       number: '04',
-      title: 'UI / UX DESIGN SYSTEMS',
-      description: 'Human-centered minimalist luxury design systems, wireframing, and motion prototypes.',
-      tags: ['Figma', 'Prototyping', 'Design Systems', 'Micro-physics']
+      title: t('srv4.title', 'UI / UX DESIGN SYSTEMS', 'تصميم الواجهات ونظم UI/UX'),
+      description: t('srv4.desc', 'Human-centered minimalist luxury design systems, wireframing, and motion prototypes.', 'أنظمة تصميم أنيقة، تجربة مستخدم سلسة، وأنيميشن متناسق.')
     },
     {
       id: 'srv-5',
       number: '05',
-      title: 'BRAND DIGITAL EXPERIENCE',
-      description: 'Complete brand positioning, 3D interactive showcases, sound design, and launch strategies.',
-      tags: ['3D Branding', 'Identity', 'Kinetic Type', 'Strategy']
+      title: t('srv5.title', 'BRAND DIGITAL EXPERIENCE', 'الهوية الرقمية الكاملة'),
+      description: t('srv5.desc', 'Complete brand positioning, 3D interactive showcases, sound design, and launch strategies.', 'بناء الهوية الرقمية، عروض 3D تفاعلية، واستراتيجيات إطلاق ناجحة.')
     }
   ];
 
@@ -69,10 +65,14 @@ export const ExperimentalServices: React.FC = () => {
                 theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
               }`}
             >
-              // CORE CAPABILITIES
+              {t('services.tag', '// CORE CAPABILITIES', '// قدراتنا وخبراتنا الرئيسية')}
             </p>
-            <h2 className="text-4xl sm:text-6xl font-black tracking-tighter uppercase font-sans">
-              WHAT WE BUILD
+            <h2
+              className={`text-4xl sm:text-6xl font-black tracking-tighter uppercase ${
+                lang === 'AR' ? 'font-arabic' : 'font-sans'
+              }`}
+            >
+              {t('services.title', 'WHAT WE BUILD', 'ما نقدمه لبراندك')}
             </h2>
           </div>
           <p
@@ -80,7 +80,7 @@ export const ExperimentalServices: React.FC = () => {
               theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
             }`}
           >
-            [ 05 SPECIALIZED DISCIPLINES ]
+            {t('services.count', '[ 05 SPECIALIZED DISCIPLINES ]', '[ 5 تخصصات برمجية استثنائية ]')}
           </p>
         </div>
 
@@ -113,7 +113,9 @@ export const ExperimentalServices: React.FC = () => {
                     </span>
 
                     <h3
-                      className={`text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight uppercase transition-all duration-300 font-sans ${
+                      className={`text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight uppercase transition-all duration-300 ${
+                        lang === 'AR' ? 'font-arabic' : 'font-sans'
+                      } ${
                         isHovered
                           ? theme === 'dark'
                             ? 'text-[#ffffff] scale-105'
@@ -128,9 +130,9 @@ export const ExperimentalServices: React.FC = () => {
                   {/* Expand Description & Arrow */}
                   <div className="flex items-center gap-6">
                     <p
-                      className={`text-xs max-w-sm font-sans hidden sm:block ${
-                        theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
-                      }`}
+                      className={`text-xs max-w-sm hidden sm:block ${
+                        lang === 'AR' ? 'font-arabic' : 'font-sans'
+                      } ${theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'}`}
                     >
                       {srv.description}
                     </p>
