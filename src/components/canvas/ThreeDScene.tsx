@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { useSiteContent } from '../../context/SiteContentContext';
+import { useTheme } from '../../context/ThemeContext';
 
 export const ThreeDScene: React.FC = () => {
   const { getText } = useSiteContent();
+  const { theme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const splineUrl = getText(
@@ -65,8 +67,12 @@ export const ThreeDScene: React.FC = () => {
         />
       </div>
 
-      {/* Bottom right black overlay patch to guarantee 100% coverage */}
-      <div className="absolute bottom-0 right-0 w-48 h-20 bg-black pointer-events-none z-30" />
+      {/* Bottom right overlay patch matching active Theme background (Dark / Light mode) */}
+      <div
+        className={`absolute bottom-0 right-0 w-48 h-20 pointer-events-none z-30 transition-colors duration-500 ${
+          theme === 'dark' ? 'bg-[#000000]' : 'bg-[#ffffff]'
+        }`}
+      />
     </div>
   );
 };

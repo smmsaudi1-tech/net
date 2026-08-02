@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, X, Send, Sparkles, MessageSquare } from 'lucide-react';
+import { Bot, X, Send, Sparkles, Loader2 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
+import { useSiteContent } from '../../context/SiteContentContext';
+import { subscribeProjects } from '../../services/projectService';
+import { RealProject } from '../../types';
 import { soundEngine } from '../../utils/audioEngine';
 
 interface ChatMessage {
@@ -14,8 +17,11 @@ interface ChatMessage {
 export const AiChatbotWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { theme } = useTheme();
+  const { content } = useSiteContent();
 
+  const [projects, setProjects] = useState<RealProject[]>([]);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
@@ -25,6 +31,18 @@ export const AiChatbotWidget: React.FC = () => {
     }
   ]);
 
+  // Live Val.town Gemini Server Endpoint URL
+  const valTownUrl =
+    (import.meta as any).env?.VITE_VAL_TOWN_URL ||
+    'https://jomo--3a45db048e9711f18da61607ee4eb77e.web.val.run';
+
+  useEffect(() => {
+    const unsub = subscribeProjects((fetched) => {
+      setProjects(fetched);
+    });
+    return () => unsub();
+  }, []);
+
   const quickQuestions = [
     'What services do you offer?',
     'Show me your portfolio projects',
@@ -32,8 +50,8 @@ export const AiChatbotWidget: React.FC = () => {
     'What is your tech stack?'
   ];
 
-  const handleSend = (userText: string) => {
-    if (!userText.trim()) return;
+  const handleSend = async (userText: string) => {
+    if (!userText.trim() || isLoading) return;
 
     soundEngine.playClick();
 
@@ -46,31 +64,56 @@ export const AiChatbotWidget: React.FC = () => {
 
     setMessages((prev) => [...prev, userMsg]);
     setInput('');
+    setIsLoading(true);
 
-    // AI Bot Reply Logic
-    setTimeout(() => {
-      let botReply = "That's awesome! Let's connect directly on WhatsApp or schedule a project briefing with our team.";
-      const lower = userText.toLowerCase();
+    try {
+      // Call Val.town Server with Gemini AI & Live Firebase Context
+      const res = await fetch(valTownUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: userText,
+          siteContent: content,
+          projects: projects
+        })
+      });
 
-      if (lower.includes('service') || lower.includes('what we build')) {
-        botReply = 'We build Websites, E-Commerce Stores, Custom Web Applications, UI/UX Design Systems, and AI Chatbots & Automations!';
-      } else if (lower.includes('project') || lower.includes('portfolio') || lower.includes('work')) {
-        botReply = 'Check out our Selected Work section featuring NXT Brand, Eldeeb Shop, iCloth Fashion, Yaqeen Al-Quran, and El Toufan!';
-      } else if (lower.includes('start') || lower.includes('contact') || lower.includes('price') || lower.includes('cost')) {
-        botReply = "Great! You can fill out our 'START A PROJECT' form below or click the WhatsApp button to start immediately.";
-      } else if (lower.includes('tech') || lower.includes('stack') || lower.includes('react')) {
-        botReply = 'Our stack includes React 19, Next.js, Three.js 3D WebGL, GSAP ScrollTrigger, Tailwind CSS, Node.js, and Firebase.';
+      if (res.ok) {
+        const data = await res.json();
+        const botMsg: ChatMessage = {
+          id: (Date.now() + 1).toString(),
+          sender: 'bot',
+          text: data.reply || "Thank you for contacting Next Gen Devs! How else can I assist you?",
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        setMessages((prev) => [...prev, botMsg]);
+      } else {
+        throw new Error('Val.town response not ok');
       }
+    } catch (err) {
+      setTimeout(() => {
+        let botReply = "That's awesome! Let's connect directly on WhatsApp or fill out our project form to get started!";
+        const lower = userText.toLowerCase();
 
-      const botMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
-        sender: 'bot',
-        text: botReply,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
+        if (lower.includes('service') || lower.includes('what we build')) {
+          botReply = 'We build Websites, E-Commerce Stores, Custom Web Applications, UI/UX Design Systems, and AI Chatbots & Automations!';
+        } else if (lower.includes('project') || lower.includes('portfolio') || lower.includes('work')) {
+          botReply = `Check out our Selected Work section featuring ${projects.slice(0, 3).map(p => p.title).join(', ') || 'NXT Brand, Eldeeb Shop, iCloth Fashion'}!`;
+        } else if (lower.includes('start') || lower.includes('contact') || lower.includes('price')) {
+          botReply = "Great! You can fill out our 'START A PROJECT' form below or click the WhatsApp button to start immediately.";
+        }
 
-      setMessages((prev) => [...prev, botMsg]);
-    }, 600);
+        const botMsg: ChatMessage = {
+          id: (Date.now() + 1).toString(),
+          sender: 'bot',
+          text: botReply,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        setMessages((prev) => [...prev, botMsg]);
+      }, 400);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -124,7 +167,10 @@ export const AiChatbotWidget: React.FC = () => {
                   <h4 className="text-xs font-black tracking-widest uppercase font-sans">
                     NEXT GEN AI AGENT
                   </h4>
-                  <p className="text-[9px] text-[#a1a1aa] uppercase">ONLINE // READY TO HELP</p>
+                  <p className="text-[9px] text-[#a1a1aa] uppercase flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    VAL.TOWN ONLINE // GEMINI AI
+                  </p>
                 </div>
               </div>
 
@@ -159,6 +205,13 @@ export const AiChatbotWidget: React.FC = () => {
                   <span className="text-[8px] text-[#71717a] mt-1 font-mono">{msg.time}</span>
                 </div>
               ))}
+
+              {isLoading && (
+                <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Consulting Gemini AI & Firebase...</span>
+                </div>
+              )}
             </div>
 
             {/* Quick Question Chips */}
@@ -199,7 +252,8 @@ export const AiChatbotWidget: React.FC = () => {
               />
               <button
                 type="submit"
-                className="p-2.5 rounded-full bg-[#ffffff] text-[#000000] hover:bg-[#e5e5e5] transition-all cursor-pointer shadow-lg"
+                disabled={isLoading}
+                className="p-2.5 rounded-full bg-[#ffffff] text-[#000000] hover:bg-[#e5e5e5] transition-all cursor-pointer shadow-lg disabled:opacity-50"
               >
                 <Send className="w-4 h-4 stroke-[2.5]" />
               </button>
