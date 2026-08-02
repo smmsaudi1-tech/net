@@ -1,21 +1,30 @@
 import {
   collection,
-  getDocs,
   addDoc,
   updateDoc,
   deleteDoc,
   doc,
   query,
-  onSnapshot,
-  orderBy
+  onSnapshot
 } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../lib/firebase';
+import { db } from '../lib/firebase';
 import { RealProject } from '../types';
 
 const PROJECTS_COLLECTION = 'projects';
+const CLOUDINARY_CLOUD_NAME = 'vozu2hz0';
+const CLOUDINARY_UPLOAD_PRESET = 'unsigned_preset';
 
-// Fetch all projects live with Firestore onSnapshot subscription or getDocs
+// Helper to convert File to compressed Base64 Data URL
+const fileToBase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
+};
+
+// Fetch all projects live with Firestore onSnapshot subscription
 export const subscribeProjects = (onUpdate: (projects: RealProject[]) => void) => {
   try {
     const q = query(collection(db, PROJECTS_COLLECTION));
@@ -29,7 +38,7 @@ export const subscribeProjects = (onUpdate: (projects: RealProject[]) => void) =
         onUpdate(list);
       },
       (error) => {
-        console.warn('Firestore real-time subscription error, fallback used:', error);
+        console.warn('Firestore real-time subscription error:', error);
       }
     );
   } catch (err) {
@@ -38,17 +47,45 @@ export const subscribeProjects = (onUpdate: (projects: RealProject[]) => void) =
   }
 };
 
-// Upload an image file to Firebase Storage and get its downloadable URL
+// Upload an image file to Cloudinary (cloudName: vozu2hz0) with Base64 fail-safe fallback
 export const uploadProjectImage = async (file: File): Promise<string> => {
   try {
-    const storageRef = ref(storage, `projects/${Date.now()}_${file.name}`);
-    const snapshot = await uploadBytes(storageRef, file);
-    const downloadUrl = await getDownloadURL(snapshot.ref);
-    return downloadUrl;
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+      method: 'POST',
+      body: formData
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      if (data.secure_url) {
+        return data.secure_url;
+      }
+    } else {
+      // Try with ml_default preset if unsigned_preset is not configured
+      const formData2 = new FormData();
+      formData2.append('file', file);
+      formData2.append('upload_preset', 'ml_default');
+
+      const res2 = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+        method: 'POST',
+        body: formData2
+      });
+
+      if (res2.ok) {
+        const data2 = await res2.json();
+        if (data2.secure_url) return data2.secure_url;
+      }
+    }
   } catch (err) {
-    console.error('Error uploading image to Firebase Storage:', err);
-    throw err;
+    console.warn('Cloudinary upload error, using Data URL fallback:', err);
   }
+
+  // Fail-safe fallback if Cloudinary preset is unconfigured in Cloudinary settings
+  return await fileToBase64(file);
 };
 
 // Add a new project to Firestore
