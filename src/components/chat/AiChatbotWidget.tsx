@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, X, Send, Sparkles, Loader2 } from 'lucide-react';
+import { Bot, X, Send, Loader2 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useSiteContent } from '../../context/SiteContentContext';
 import { subscribeProjects } from '../../services/projectService';
@@ -26,29 +26,77 @@ export const AiChatbotWidget: React.FC = () => {
     {
       id: '1',
       sender: 'bot',
-      text: 'Hello! I am the Next Gen Devs AI Assistant 🤖. How can I help you build your digital project today?',
+      text: 'أهلاً بك! أنا مساعد الذكاء الاصطناعي لشركة Next Gen Devs 🤖. كيف يمكنني مساعدتك في مشروعك الرقمي اليوم؟',
       time: 'Just now'
     }
   ]);
 
-  // Live Val.town Gemini Server Endpoint URL
+  // Live Val.town Server Endpoint URL
   const valTownUrl =
     (import.meta as any).env?.VITE_VAL_TOWN_URL ||
     'https://jomo--3a45db048e9711f18da61607ee4eb77e.web.val.run';
 
   useEffect(() => {
     const unsub = subscribeProjects((fetched) => {
-      setProjects(fetched);
+      setProjects(fetched || []);
     });
     return () => unsub();
   }, []);
 
-  const quickQuestions = [
-    'What services do you offer?',
-    'Show me your portfolio projects',
-    'How do I start a project?',
-    'What is your tech stack?'
-  ];
+  // Intelligent Firebase Context Response Generator (Bilingual Arabic & English)
+  const generateDynamicFirebaseReply = (userQuery: string): string => {
+    const query = userQuery.toLowerCase();
+    const isArabic = /[\u0600-\u06FF]/.test(userQuery);
+
+    // 1. Check for Services
+    if (query.includes('خدمة') || query.includes('خدمات') || query.includes('تعملوا ايه') || query.includes('بتعملوا') || query.includes('service') || query.includes('offer')) {
+      const srv1 = content['srv1.title'] || 'WEB DEVELOPMENT';
+      const srv2 = content['srv2.title'] || 'E-COMMERCE STORES';
+      const srv3 = content['srv3.title'] || 'CUSTOM AI & SaaS PLATFORMS';
+      if (isArabic) {
+        return `نحن في Next Gen Devs نقدم الخدمات الرقمية التالية:\n• ${srv1}\n• ${srv2}\n• ${srv3}\n• تصميم أنظمة الواجهات UI/UX والتطبيقات الذكية.`;
+      }
+      return `At Next Gen Devs we offer:\n• ${srv1}\n• ${srv2}\n• ${srv3}\n• Custom UI/UX Design Systems & AI Automations.`;
+    }
+
+    // 2. Check for Projects / Portfolio
+    if (query.includes('مشروع') || query.includes('مشاريع') || query.includes('اعمال') || query.includes('سابق') || query.includes('project') || query.includes('work') || query.includes('portfolio')) {
+      if (projects.length > 0) {
+        const titles = projects.map(p => `• ${p.title} (${p.category})`).join('\n');
+        if (isArabic) {
+          return `إليك المشاريع الحالية المتاحة في معارضنا:\n${titles}\nيمكنك تصفحها بالكامل في قسم SELECTED WORK.`;
+        }
+        return `Here are our live projects:\n${titles}\nYou can explore them in our Selected Work section.`;
+      }
+      if (isArabic) {
+        return 'جميع مشاريعنا يتم تحديثها ومزامنتها حياً من الفيربيز في قسم SELECTED WORK!';
+      }
+      return 'Our live portfolio projects are continuously updated in our Selected Work section!';
+    }
+
+    // 3. Check for Contact / Starting a Project / Phone
+    if (query.includes('تواصل') || query.includes('رقم') || query.includes('واتس') || query.includes('سعر') || query.includes('تكلفة') || query.includes('شغل') || query.includes('contact') || query.includes('start') || query.includes('phone')) {
+      const phone = content['contact.phone'] || '01020451206';
+      if (isArabic) {
+        return `يمكنك التواصل معنا فوراً لبدء مشروعك:\n📞 الاتصال أو الواتساب: ${phone}\nأو اضغط على زر "START A PROJECT" لتعبئة نموذج طلب المشروع.`;
+      }
+      return `You can reach out to us directly:\n📞 Call / WhatsApp: ${phone}\nOr click "START A PROJECT" to submit your project brief!`;
+    }
+
+    // 4. Greetings
+    if (query.includes('ازيك') || query.includes('السلام') || query.includes('مرحبا') || query.includes('أهلا') || query.includes('اهلين') || query.includes('hi') || query.includes('hello') || query.includes('hey')) {
+      if (isArabic) {
+        return 'أهلاً وسهلاً بك! الحمد لله بكل خير. كيف يمكنني مساعدتك في تطوير موقعك أو متجرك الإلكتروني مع Next Gen Devs اليوم؟';
+      }
+      return 'Hello! How can I assist you with building your web project with Next Gen Devs today?';
+    }
+
+    // Default polite response
+    if (isArabic) {
+      return `أنا مساعد الذكاء الاصطناعي الخاص بـ Next Gen Devs 🤖. يسعدني مساعدتك في الاستفسار عن خدماتنا، مشاريعنا، أو الاتصال بنا مباشرة على رقم الواتساب: 01020451206.`;
+    }
+    return `I am the AI Assistant for Next Gen Devs Studio 🤖. I can assist you with our services, portfolio projects, or connecting with us directly via WhatsApp: 01020451206.`;
+  };
 
   const handleSend = async (userText: string) => {
     if (!userText.trim() || isLoading) return;
@@ -67,7 +115,7 @@ export const AiChatbotWidget: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Call Val.town Server with Gemini AI & Live Firebase Context
+      // Send request to Val.town Gemini server
       const res = await fetch(valTownUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -83,26 +131,17 @@ export const AiChatbotWidget: React.FC = () => {
         const botMsg: ChatMessage = {
           id: (Date.now() + 1).toString(),
           sender: 'bot',
-          text: data.reply || "Thank you for contacting Next Gen Devs! How else can I assist you?",
+          text: data.reply || generateDynamicFirebaseReply(userText),
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
         setMessages((prev) => [...prev, botMsg]);
       } else {
-        throw new Error('Val.town response not ok');
+        throw new Error('Val.town offline');
       }
     } catch (err) {
+      // Dynamic Intelligent Firebase Response if Val.town server is updating
       setTimeout(() => {
-        let botReply = "That's awesome! Let's connect directly on WhatsApp or fill out our project form to get started!";
-        const lower = userText.toLowerCase();
-
-        if (lower.includes('service') || lower.includes('what we build')) {
-          botReply = 'We build Websites, E-Commerce Stores, Custom Web Applications, UI/UX Design Systems, and AI Chatbots & Automations!';
-        } else if (lower.includes('project') || lower.includes('portfolio') || lower.includes('work')) {
-          botReply = `Check out our Selected Work section featuring ${projects.slice(0, 3).map(p => p.title).join(', ') || 'NXT Brand, Eldeeb Shop, iCloth Fashion'}!`;
-        } else if (lower.includes('start') || lower.includes('contact') || lower.includes('price')) {
-          botReply = "Great! You can fill out our 'START A PROJECT' form below or click the WhatsApp button to start immediately.";
-        }
-
+        const botReply = generateDynamicFirebaseReply(userText);
         const botMsg: ChatMessage = {
           id: (Date.now() + 1).toString(),
           sender: 'bot',
@@ -169,14 +208,14 @@ export const AiChatbotWidget: React.FC = () => {
                   </h4>
                   <p className="text-[9px] text-[#a1a1aa] uppercase flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    VAL.TOWN ONLINE // GEMINI AI
+                    FIREBASE TRAINED AI
                   </p>
                 </div>
               </div>
 
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-full hover:bg-[#262626] transition-colors"
+                className="p-1.5 rounded-full hover:bg-[#262626] transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -190,7 +229,7 @@ export const AiChatbotWidget: React.FC = () => {
                   className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
                 >
                   <div
-                    className={`max-w-[80%] p-3.5 rounded-2xl ${
+                    className={`max-w-[85%] p-3.5 rounded-2xl ${
                       msg.sender === 'user'
                         ? theme === 'dark'
                           ? 'bg-[#ffffff] text-[#000000] rounded-tr-none font-bold'
@@ -200,7 +239,7 @@ export const AiChatbotWidget: React.FC = () => {
                         : 'bg-[#f4f4f5] text-[#18181b] border border-[#e4e4e7] rounded-tl-none'
                     }`}
                   >
-                    <p className="leading-relaxed font-sans">{msg.text}</p>
+                    <p className="leading-relaxed font-sans whitespace-pre-line">{msg.text}</p>
                   </div>
                   <span className="text-[8px] text-[#71717a] mt-1 font-mono">{msg.time}</span>
                 </div>
@@ -209,29 +248,12 @@ export const AiChatbotWidget: React.FC = () => {
               {isLoading && (
                 <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono">
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Consulting Gemini AI & Firebase...</span>
+                  <span>Next Gen AI is thinking...</span>
                 </div>
               )}
             </div>
 
-            {/* Quick Question Chips */}
-            <div className="px-4 py-2 flex flex-wrap gap-1.5 border-t border-b border-[#181818] bg-[#000000]/50">
-              {quickQuestions.map((q, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handleSend(q)}
-                  className={`text-[9px] px-2.5 py-1 rounded-full border transition-all ${
-                    theme === 'dark'
-                      ? 'border-[#262626] bg-[#181818] text-[#a1a1aa] hover:border-[#ffffff] hover:text-[#ffffff]'
-                      : 'border-[#e4e4e7] bg-[#f4f4f5] text-[#525252] hover:border-[#000000] hover:text-[#000000]'
-                  }`}
-                >
-                  {q}
-                </button>
-              ))}
-            </div>
-
-            {/* Input Bar */}
+            {/* Input Bar (No fixed question chips) */}
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -241,7 +263,7 @@ export const AiChatbotWidget: React.FC = () => {
             >
               <input
                 type="text"
-                placeholder="Ask about our services, projects..."
+                placeholder="تحدث معي أو اسأل عن خدماتنا ومشاريعنا..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 className={`flex-1 px-4 py-2.5 rounded-full text-xs font-mono border focus:outline-none ${
