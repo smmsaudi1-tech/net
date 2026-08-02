@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ExternalLink, ArrowUpRight, Eye, Sparkles } from 'lucide-react';
+import { ExternalLink, ArrowUpRight, X, Sparkles } from 'lucide-react';
 import { RealProject } from '../../types';
 import { soundEngine } from '../../utils/audioEngine';
 import { useTheme } from '../../context/ThemeContext';
@@ -12,7 +12,6 @@ import { subscribeProjects } from '../../services/projectService';
 gsap.registerPlugin(ScrollTrigger);
 
 export const EditorialCaseStudies: React.FC = () => {
-  // Initialize ONLY with live Firebase projects (no hardcoded old dummy projects)
   const [projects, setProjects] = useState<RealProject[]>([]);
   const [selectedFilter, setSelectedFilter] = useState<string>('ALL');
   const [activeModalProject, setActiveModalProject] = useState<RealProject | null>(null);
@@ -23,86 +22,55 @@ export const EditorialCaseStudies: React.FC = () => {
   const categories = ['ALL', 'E-COMMERCE', 'BRANDS', 'APPS'];
 
   useEffect(() => {
-    // Subscribe to live Firebase Firestore projects strictly
-    const unsub = subscribeProjects((fetchedProjects) => {
-      setProjects(fetchedProjects || []);
+    const unsub = subscribeProjects((fetched) => {
+      setProjects(fetched || []);
     });
-
     return () => unsub();
   }, []);
 
-  const filteredProjects = projects.filter((proj) => {
+  const filteredProjects = projects.filter((p) => {
     if (selectedFilter === 'ALL') return true;
-    const cat = proj.category?.toLowerCase() || '';
-    const sub = proj.subtitle?.toLowerCase() || '';
-    if (selectedFilter === 'E-COMMERCE') return cat.includes('e-commerce') || sub.includes('fashion') || cat.includes('store');
-    if (selectedFilter === 'BRANDS') return cat.includes('brand') || cat.includes('studio');
-    if (selectedFilter === 'APPS') return cat.includes('app') || cat.includes('platform');
+    if (selectedFilter === 'E-COMMERCE') {
+      return (
+        p.category?.toUpperCase().includes('E-COMMERCE') ||
+        p.subtitle?.toUpperCase().includes('E-COMMERCE') ||
+        p.category?.toUpperCase().includes('RETAIL')
+      );
+    }
+    if (selectedFilter === 'BRANDS') {
+      return (
+        p.category?.toUpperCase().includes('BRAND') ||
+        p.category?.toUpperCase().includes('LUXURY') ||
+        p.subtitle?.toUpperCase().includes('BRAND')
+      );
+    }
+    if (selectedFilter === 'APPS') {
+      return (
+        p.category?.toUpperCase().includes('APP') ||
+        p.category?.toUpperCase().includes('WEB') ||
+        p.category?.toUpperCase().includes('STUDIO')
+      );
+    }
     return true;
   });
 
-  useEffect(() => {
-    if (projects.length === 0) return;
-
-    const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>('.product-card-anim');
-
-      cards.forEach((card) => {
-        gsap.fromTo(
-          card,
-          { opacity: 0, y: 60, scale: 0.94, filter: 'blur(8px)' },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            filter: 'blur(0px)',
-            duration: 0.8,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse'
-            }
-          }
-        );
-      });
-    }, gridRef);
-
-    return () => ctx.revert();
-  }, [selectedFilter, projects]);
-
   return (
-    <section
-      id="work"
-      className={`py-28 border-b transition-colors duration-500 relative text-left ${
-        theme === 'dark'
-          ? 'bg-[#000000] text-[#ffffff] border-[#181818]'
-          : 'bg-[#ffffff] text-[#000000] border-[#e4e4e7]'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-12">
+    <section id="case-studies" className="py-24 relative border-b border-[#181818]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-16">
         
-        {/* Section Header & Filter Tabs */}
-        <div
-          className={`flex flex-col md:flex-row md:items-end justify-between gap-6 border-b pb-8 ${
-            theme === 'dark' ? 'border-[#181818]' : 'border-[#e4e4e7]'
-          }`}
-        >
+        {/* Header Bar */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#181818] pb-8 text-left">
           <div>
-            <p
-              className={`text-[10px] font-mono tracking-[0.4em] uppercase mb-2 ${
-                theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
-              }`}
-            >
-              {getText('work.tag', '// FIREBASE LIVE PORTFOLIO')}
+            <p className="text-[10px] font-mono tracking-[0.4em] text-[#525252] uppercase mb-2">
+              // PORTFOLIO DIRECTORY
             </p>
-            <h2 className="text-4xl sm:text-6xl font-black tracking-tighter uppercase font-sans">
-              {getText('work.title', 'SELECTED WORK')}
+            <h2 className="text-4xl sm:text-6xl font-black tracking-tight uppercase font-sans">
+              {getText('work.h1', 'SELECTED WORK')}
             </h2>
           </div>
 
-          {/* Category Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
+          {/* Filter Pills */}
+          <div className="flex flex-wrap gap-2">
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -110,14 +78,14 @@ export const EditorialCaseStudies: React.FC = () => {
                   soundEngine.playClick();
                   setSelectedFilter(cat);
                 }}
-                className={`px-5 py-2.5 rounded-full border transition-all duration-300 font-bold uppercase tracking-widest cursor-pointer ${
+                className={`px-4 py-2 rounded-full text-xs font-mono tracking-widest uppercase transition-all cursor-pointer ${
                   selectedFilter === cat
                     ? theme === 'dark'
-                      ? 'bg-[#ffffff] text-[#000000] border-[#ffffff]'
-                      : 'bg-[#000000] text-[#ffffff] border-[#000000]'
+                      ? 'bg-[#ffffff] text-[#000000] font-black'
+                      : 'bg-[#000000] text-[#ffffff] font-black'
                     : theme === 'dark'
-                    ? 'bg-[#0d0d0d] text-[#a3a3a3] border-[#262626] hover:border-[#525252]'
-                    : 'bg-[#f4f4f5] text-[#525252] border-[#e4e4e7] hover:border-[#a1a1aa]'
+                    ? 'bg-[#121212] border border-[#262626] text-[#a3a3a3] hover:text-[#ffffff]'
+                    : 'bg-[#f4f4f5] border border-[#e4e4e7] text-[#525252] hover:text-[#000000]'
                 }`}
               >
                 {cat}
@@ -126,66 +94,54 @@ export const EditorialCaseStudies: React.FC = () => {
           </div>
         </div>
 
-        {/* Dynamic Project Showcase Grid */}
+        {/* Projects Grid */}
         {filteredProjects.length > 0 ? (
-          <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
             {filteredProjects.map((project) => (
               <div
                 key={project.id}
-                className="product-card-anim group relative rounded-3xl overflow-hidden border transition-all duration-500 hover:-translate-y-2 cursor-pointer flex flex-col justify-between"
-                style={{
-                  backgroundColor: theme === 'dark' ? '#0d0d0d' : '#f9f9fb',
-                  borderColor: theme === 'dark' ? '#1c1c1e' : '#e4e4e7'
+                onClick={() => {
+                  soundEngine.playClick();
+                  setActiveModalProject(project);
                 }}
-                onClick={() => setActiveModalProject(project)}
+                className={`group relative rounded-3xl border overflow-hidden p-6 sm:p-8 flex flex-col justify-between h-[420px] sm:h-[480px] transition-all duration-500 cursor-pointer ${
+                  theme === 'dark'
+                    ? 'bg-[#0d0d0d] border-[#262626] hover:border-[#525252]'
+                    : 'bg-[#ffffff] border-[#e5e5e5] hover:border-[#a3a3a3] shadow-lg'
+                }`}
+                data-cursor="VIEW DETAILS"
               >
-                {/* Project Image */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-zinc-900">
+                {/* Background Image */}
+                <div className="absolute inset-0 z-0 overflow-hidden">
                   <img
                     src={project.imageUrl}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
+                    className="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 opacity-40 group-hover:opacity-60"
                   />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-
-                  <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-mono tracking-widest text-emerald-400 font-bold uppercase flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span>{project.category}</span>
-                  </div>
-
-                  <div className="absolute bottom-4 right-4 p-3 rounded-full bg-white text-black opacity-0 group-hover:opacity-100 transition-all duration-300 scale-75 group-hover:scale-100 shadow-2xl">
-                    <Eye className="w-4 h-4" />
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/60 to-transparent opacity-90" />
                 </div>
 
-                {/* Project Info */}
-                <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400">
-                      <span>{project.subtitle}</span>
-                      <span>{project.year || '2026'}</span>
-                    </div>
-                    <h3 className="text-2xl font-black uppercase tracking-tight font-sans">
+                {/* Top Info */}
+                <div className="relative z-10 flex items-center justify-between">
+                  <span className="px-3.5 py-1 rounded-full bg-[#000000]/80 border border-[#333333] text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-widest backdrop-blur-md">
+                    {project.category}
+                  </span>
+                  <span className="text-xs font-mono text-[#a3a3a3]">{project.year || '2026'}</span>
+                </div>
+
+                {/* Bottom Title & Actions */}
+                <div className="relative z-10 space-y-4">
+                  <div className="space-y-1">
+                    <p className="text-xs font-mono text-[#a3a3a3] uppercase">{project.subtitle}</p>
+                    <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white font-sans">
                       {project.title}
                     </h3>
-                    <p className="text-xs line-clamp-2 text-zinc-400 leading-relaxed font-sans">
-                      {project.description}
-                    </p>
                   </div>
 
-                  <div className="pt-4 border-t border-zinc-800/40 flex items-center justify-between gap-2">
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.techStack?.slice(0, 3).map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="px-2 py-0.5 rounded-md bg-zinc-800/60 text-[10px] font-mono text-zinc-300"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="flex items-center justify-between pt-2">
+                    <span className="text-xs font-mono text-emerald-400 font-bold uppercase flex items-center gap-1.5">
+                      <span>CLICK TO VIEW DETAILS</span>
+                    </span>
 
                     {project.liveUrl && (
                       <a
@@ -193,9 +149,9 @@ export const EditorialCaseStudies: React.FC = () => {
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="p-2 rounded-full border border-zinc-700 hover:border-white hover:bg-white hover:text-black transition-all"
+                        className="p-2.5 rounded-full bg-white text-black hover:bg-emerald-400 transition-all shadow-lg"
                       >
-                        <ArrowUpRight className="w-4 h-4" />
+                        <ArrowUpRight className="w-4 h-4 stroke-[3]" />
                       </a>
                     )}
                   </div>
@@ -217,26 +173,33 @@ export const EditorialCaseStudies: React.FC = () => {
         )}
       </div>
 
-      {/* Project Detail Modal Overlay */}
+      {/* Project Detail Modal Overlay with Click Outside to Close & Prominent Close Button */}
       <AnimatePresence>
         {activeModalProject && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10 bg-black/80 backdrop-blur-xl">
+          <div
+            onClick={() => setActiveModalProject(null)}
+            className="fixed inset-0 z-[100000] flex items-center justify-center p-4 sm:p-6 md:p-10 bg-black/85 backdrop-blur-xl overflow-y-auto cursor-pointer"
+          >
             <motion.div
+              onClick={(e) => e.stopPropagation()}
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className={`w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl border p-6 sm:p-10 space-y-6 shadow-2xl relative ${
+              className={`w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl border p-6 sm:p-10 space-y-6 shadow-2xl relative my-auto cursor-default ${
                 theme === 'dark' ? 'bg-[#0d0d0d] border-[#262626] text-[#ffffff]' : 'bg-[#ffffff] border-[#e5e5e5] text-[#000000]'
               }`}
             >
+              {/* Prominent High-Visibility Close Button */}
               <button
                 onClick={() => setActiveModalProject(null)}
-                className="absolute top-6 right-6 p-3 rounded-full bg-zinc-800 hover:bg-zinc-700 text-white transition-colors cursor-pointer"
+                className="sticky top-0 float-right z-50 p-3 rounded-full bg-rose-500 hover:bg-rose-600 text-white shadow-2xl transition-all cursor-pointer flex items-center justify-center gap-1.5 font-mono text-xs font-bold uppercase"
+                title="Close Window (X)"
               >
-                <Eye className="w-5 h-5" />
+                <X className="w-5 h-5 stroke-[2.5]" />
+                <span className="hidden sm:inline">CLOSE</span>
               </button>
 
-              <div className="aspect-video w-full rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800">
+              <div className="aspect-video w-full rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 clear-both">
                 <img
                   src={activeModalProject.imageUrl}
                   alt={activeModalProject.title}
@@ -244,7 +207,7 @@ export const EditorialCaseStudies: React.FC = () => {
                 />
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-4 text-left">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div>
                     <span className="text-xs font-mono text-emerald-400 font-bold uppercase tracking-widest">
@@ -260,7 +223,7 @@ export const EditorialCaseStudies: React.FC = () => {
                       href={activeModalProject.liveUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="px-6 py-3.5 rounded-full bg-white text-black font-mono text-xs font-bold tracking-widest uppercase flex items-center gap-2 hover:scale-105 transition-all shadow-xl"
+                      className="px-6 py-3.5 rounded-full bg-white text-black font-mono text-xs font-bold tracking-widest uppercase flex items-center gap-2 hover:bg-emerald-400 hover:scale-105 transition-all shadow-xl"
                     >
                       <span>VISIT LIVE SITE</span>
                       <ExternalLink className="w-4 h-4" />
