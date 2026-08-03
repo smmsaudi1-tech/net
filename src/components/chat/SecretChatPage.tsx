@@ -123,8 +123,10 @@ export const SecretChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => 
     setIsLoading(true);
 
     try {
+      // Slice to last 8 messages to stay well within Groq Free Tier TPM limits (12,000 TPM)
       const conversationHistory = messages
-        .filter((m) => m.role === 'user' || m.role === 'assistant')
+        .filter((m) => (m.role === 'user' || m.role === 'assistant') && m.content.trim())
+        .slice(-8)
         .map((m) => ({ role: m.role, content: m.content }));
 
       const apiPayload = {
@@ -135,7 +137,7 @@ export const SecretChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => 
           { role: 'user', content: query }
         ],
         temperature: temperature,
-        max_tokens: 4096,
+        max_tokens: 2048,
         stream: true
       };
 
