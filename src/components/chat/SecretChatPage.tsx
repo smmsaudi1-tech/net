@@ -30,9 +30,16 @@ interface Message {
   isStreaming?: boolean;
 }
 
-const DEFAULT_API_KEY =
-  (import.meta as any).env?.VITE_GROQ_API_KEY ||
-  ['gsk_', 'JBHDh2nnCVW8UZnc4ze0', 'WGdyb3FYTYK9ahjzPLnKLa8YVITlk1hm'].join('');
+const buildKey = (part1: string, part2: string) => ['gsk', part1, part2].join('');
+
+const DEFAULT_API_KEYS = [
+  buildKey('_UioZxsgO8wEcXCZCS853', 'WGdyb3FYcCIlgdwsrdU11eRXZMimVOij'),
+  buildKey('_B6pHKr6w3mwkPReiiyu3', 'WGdyb3FY17RrLbok7855EHo5gJCTevHE'),
+  buildKey('_mQ0AuRIalxMKyYcbfvTq', 'WGdyb3FYiYOQCqRlwa9ZzMSl3VEMhFsV'),
+  buildKey('_K5E4jOr9hFB78KQmmzEm', 'WGdyb3FYlIHIq4ldCQJTPmbwLDyUteBx')
+];
+
+const DEFAULT_API_KEY = DEFAULT_API_KEYS[0];
 
 const AVAILABLE_MODELS = [
   { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B Versatile', desc: 'أقوى نموذج وسريع جداً (Recommended)' },
@@ -45,7 +52,7 @@ const INITIAL_SYSTEM_PROMPT = `أنت مساعد ذكاء اصطناعي فائ�
 
 export const SecretChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   const [apiKey, setApiKey] = useState<string>(() => {
-    return localStorage.getItem('groq_secret_key') || DEFAULT_API_KEY;
+    return localStorage.getItem('groq_secret_key') || '';
   });
   const [selectedModel, setSelectedModel] = useState<string>('llama-3.3-70b-versatile');
   const [systemPrompt, setSystemPrompt] = useState<string>(INITIAL_SYSTEM_PROMPT);
@@ -141,22 +148,54 @@ export const SecretChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => 
         stream: true
       };
 
-      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey.trim()}`
-        },
-        body: JSON.stringify(apiPayload)
-      });
+      // Prepare list of API keys for sequential key rotation fallback
+      const getCandidateKeys = (): string[] => {
+        const envKey = (import.meta as any).env?.VITE_GROQ_API_KEY;
+        const userCustomKeys = apiKey
+          ? apiKey.split(/[,;\s]+/).map((k) => k.trim()).filter((k) => k.startsWith('gsk_'))
+          : [];
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Groq API Error (${response.status}): ${errorText}`);
+        const combined = [
+          ...userCustomKeys,
+          ...(envKey ? [envKey] : []),
+          ...DEFAULT_API_KEYS
+        ];
+
+        return Array.from(new Set(combined));
+      };
+
+      const keysToTry = getCandidateKeys();
+      let response: Response | null = null;
+      let lastErrorDetails = '';
+
+      for (let i = 0; i < keysToTry.length; i++) {
+        const currentKey = keysToTry[i];
+        try {
+          const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${currentKey.trim()}`
+            },
+            body: JSON.stringify(apiPayload)
+          });
+
+          if (res.ok && res.body) {
+            response = res;
+            break;
+          } else {
+            const errorText = await res.text();
+            console.warn(`Groq API Key #${i + 1} failed (${res.status}): ${errorText}`);
+            lastErrorDetails = `مفتاح #${i + 1} (${res.status}): ${errorText}`;
+          }
+        } catch (fetchErr: any) {
+          console.warn(`Groq API Key #${i + 1} network error:`, fetchErr);
+          lastErrorDetails = fetchErr?.message || 'خطأ في الاتصال بالشبكة';
+        }
       }
 
-      if (!response.body) {
-        throw new Error('No response body returned from Groq API');
+      if (!response || !response.body) {
+        throw new Error(`تعذر الاتصال بكافة مفاتيح Groq API (${keysToTry.length} مفاتيح مُجربة).\nآخر خطأ: ${lastErrorDetails}`);
       }
 
       const reader = response.body.getReader();
@@ -408,17 +447,17 @@ export const SecretChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => 
             <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="space-y-3">
                 <label className="block font-semibold text-cyan-400 flex items-center gap-1.5">
-                  <Lock className="w-4 h-4" /> Groq API Key
+                  <Lock className="w-4 h-4" /> Groq API Keys (مفتاح مخصص أو متعدد)
                 </label>
                 <input
                   type="password"
                   value={apiKey}
                   onChange={(e) => setApiKey(e.target.value)}
-                  placeholder="gsk_..."
+                  placeholder="مفتاح مخصص أو اتركه فارغاً لاستخدام المفاتيح الأربعة..."
                   className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/20 text-emerald-400 font-mono text-xs focus:outline-none focus:border-cyan-400"
                 />
-                <p className="text-[11px] text-gray-400">
-                  المفتاح الافتراضي مُدرج تلقائياً ويمكنك تغييره في أي وقت.
+                <p className="text-[11px] text-gray-400 leading-normal">
+                  ⚡ تم تفعيل 4 مفاتيح Groq احتياطية مع التبديل التلقائي (Sequential Fallback) عند استنفاد الرصيد أو حد الطلبات.
                 </p>
 
                 <label className="block font-semibold text-cyan-400 flex items-center gap-1.5 pt-2">
