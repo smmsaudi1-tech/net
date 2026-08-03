@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useSiteContent } from '../../context/SiteContentContext';
+import { soundEngine } from '../../utils/audioEngine';
 
 export const ExperimentalServices: React.FC = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
@@ -45,13 +46,13 @@ export const ExperimentalServices: React.FC = () => {
   return (
     <section
       id="services"
-      className={`py-32 border-b transition-colors duration-500 relative text-left ${
+      className={`py-24 sm:py-32 border-b transition-colors duration-500 relative text-left ${
         theme === 'dark'
           ? 'bg-[#000000] text-[#ffffff] border-[#181818]'
           : 'bg-[#ffffff] text-[#000000] border-[#e4e4e7]'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-12 sm:space-y-16">
         
         {/* Title */}
         <div
@@ -67,50 +68,76 @@ export const ExperimentalServices: React.FC = () => {
             >
               {getText('services.tag', '// CORE CAPABILITIES')}
             </p>
-            <h2 className="text-4xl sm:text-6xl font-black tracking-tighter uppercase font-sans">
+            <h2 className="text-3xl sm:text-6xl font-black tracking-tighter uppercase font-sans">
               {getText('services.title', 'WHAT WE BUILD')}
             </h2>
           </div>
           <p
-            className={`text-xs font-mono tracking-widest uppercase ${
+            className={`text-xs font-mono tracking-widest uppercase flex items-center gap-2 ${
               theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
             }`}
           >
+            <Sparkles className="w-4 h-4 text-emerald-400 animate-pulse" />
             {getText('services.count', '[ 05 SPECIALIZED DISCIPLINES ]')}
           </p>
         </div>
 
-        {/* Vertical Interactive List */}
-        <div className={`divide-y ${theme === 'dark' ? 'divide-[#181818]' : 'divide-[#e4e4e7]'}`}>
+        {/* Vertical Animated Interactive List with Scroll Reveal */}
+        <div className="space-y-4">
           {services.map((srv, idx) => {
             const isHovered = hoveredIdx === idx;
             return (
-              <div
+              <motion.div
                 key={srv.id}
-                onMouseEnter={() => setHoveredIdx(idx)}
+                initial={{ opacity: 0, y: 30, scale: 0.98 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ margin: '-40px', once: false }}
+                transition={{
+                  duration: 0.6,
+                  delay: idx * 0.08,
+                  ease: [0.16, 1, 0.3, 1]
+                }}
+                onMouseEnter={() => {
+                  soundEngine.playHover();
+                  setHoveredIdx(idx);
+                }}
                 onMouseLeave={() => setHoveredIdx(null)}
-                className="py-10 group cursor-pointer transition-all duration-500 relative overflow-hidden"
+                className={`p-6 sm:p-8 rounded-3xl border transition-all duration-500 relative overflow-hidden group cursor-pointer ${
+                  theme === 'dark'
+                    ? 'bg-[#0a0a10]/80 border-[#1f1f2e] hover:border-emerald-500/60 hover:bg-[#10101c]'
+                    : 'bg-[#fafafa] border-[#e4e4e7] hover:border-emerald-500/60 hover:bg-[#ffffff] shadow-md'
+                }`}
                 data-cursor="EXPLORE"
               >
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10 text-left">
                   
-                  <div className="flex items-baseline gap-6">
-                    <span className="font-mono text-xs font-bold text-zinc-500">{srv.number}</span>
-                    <h3 className="text-2xl sm:text-4xl font-black uppercase font-sans tracking-tight">
+                  <div className="flex items-baseline gap-4 sm:gap-6">
+                    <span className="font-mono text-xs font-bold text-emerald-400">{srv.number}</span>
+                    <h3 className="text-xl sm:text-3xl lg:text-4xl font-black uppercase font-sans tracking-tight group-hover:text-emerald-400 transition-colors">
                       {srv.title}
                     </h3>
                   </div>
 
-                  <p className="text-xs sm:text-sm max-w-md text-zinc-400 font-sans leading-relaxed">
+                  <p
+                    className={`text-xs sm:text-sm max-w-md font-sans leading-relaxed transition-colors ${
+                      theme === 'dark' ? 'text-zinc-400 group-hover:text-zinc-200' : 'text-zinc-600 group-hover:text-zinc-900'
+                    }`}
+                  >
                     {srv.description}
                   </p>
 
-                  <div className="p-3 rounded-full border border-zinc-700 group-hover:bg-white group-hover:text-black transition-all">
-                    <ArrowUpRight className="w-5 h-5" />
+                  <div
+                    className={`p-3 rounded-full border transition-all self-start lg:self-auto ${
+                      theme === 'dark'
+                        ? 'border-zinc-800 group-hover:bg-emerald-400 group-hover:text-black group-hover:border-emerald-400'
+                        : 'border-zinc-300 group-hover:bg-emerald-500 group-hover:text-black group-hover:border-emerald-500'
+                    }`}
+                  >
+                    <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform stroke-[2.5]" />
                   </div>
 
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

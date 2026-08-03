@@ -81,6 +81,14 @@ export const MinimalFooter: React.FC = () => {
           }`}
         >
           {getText('footer.rights', '© 2026 NEXT GEN DEVS. ALL RIGHTS RESERVED.')}
+          <span className="mx-2 opacity-30">|</span>
+          <a
+            href="#secret-chat"
+            className="hover:text-cyan-400 text-cyan-500/80 transition-colors opacity-80 text-[10px] font-mono tracking-widest uppercase inline-flex items-center gap-1"
+            title="Groq Secret AI Chatbot (ShortCut: Ctrl+Shift+K)"
+          >
+            <span>🤖 Secret AI</span>
+          </a>
         </div>
 
       </div>

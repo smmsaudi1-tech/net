@@ -9,18 +9,21 @@ echo.
 
 cd /d "%~dp0"
 
-echo [1/3] Staging fixed LanguageContext.tsx...
+echo [1/4] Cleaning local git commit history...
+git reset origin/main
+
+echo [2/4] Staging updated clean files...
 git add .
 
-echo [2/3] Committing updates...
-git commit -m "Fix duplicate key TS1117 syntax error in LanguageContext.tsx for 100% clean Vercel build"
+echo [3/4] Creating single clean commit...
+git commit -m "Add Groq AI Chatbot Secret Page"
 
-echo [3/3] Pushing to GitHub main branch...
+echo [4/4] Pushing cleanly to GitHub main branch...
 git push -u origin main
 
 echo.
 echo ===================================================
-echo   ✅ Successfully Fixed & Pushed to GitHub!
+echo   ✅ Successfully Fixed and Pushed to GitHub!
 echo   🚀 Vercel Auto-Deployment Complete!
 echo ===================================================
 echo.
