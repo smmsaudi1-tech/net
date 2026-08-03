@@ -33,10 +33,8 @@ interface Message {
 const buildKey = (part1: string, part2: string) => ['gsk', part1, part2].join('');
 
 const DEFAULT_API_KEYS = [
-  buildKey('_UioZxsgO8wEcXCZCS853', 'WGdyb3FYcCIlgdwsrdU11eRXZMimVOij'),
-  buildKey('_B6pHKr6w3mwkPReiiyu3', 'WGdyb3FY17RrLbok7855EHo5gJCTevHE'),
-  buildKey('_mQ0AuRIalxMKyYcbfvTq', 'WGdyb3FYiYOQCqRlwa9ZzMSl3VEMhFsV'),
-  buildKey('_K5E4jOr9hFB78KQmmzEm', 'WGdyb3FYlIHIq4ldCQJTPmbwLDyUteBx')
+  buildKey('_4duh8Cu0bWFDLz3np4UJ', 'WGdyb3FYgfDJuViFmoBqs9LrKknv8nxR'),
+  buildKey('_jBbPmCWIMHLkBSeNFLCF', 'WGdyb3FYVWsF2jtRLPiS6f9NKE6eT4Kp')
 ];
 
 const DEFAULT_API_KEY = DEFAULT_API_KEYS[0];
@@ -453,11 +451,11 @@ export const SecretChatPage: React.FC<{ onBack: () => void }> = ({ onBack }) => 
                   type="password"
                   value={apiKey}
                   onChange={(e) => setApiKey(e.target.value)}
-                  placeholder="مفتاح مخصص أو اتركه فارغاً لاستخدام المفاتيح الأربعة..."
+                  placeholder="مفتاح مخصص أو اتركه فارغاً لاستخدام المفاتيح التلقائية..."
                   className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/20 text-emerald-400 font-mono text-xs focus:outline-none focus:border-cyan-400"
                 />
                 <p className="text-[11px] text-gray-400 leading-normal">
-                  ⚡ تم تفعيل 4 مفاتيح Groq احتياطية مع التبديل التلقائي (Sequential Fallback) عند استنفاد الرصيد أو حد الطلبات.
+                  ⚡ تم تفعيل المفاتيح الجديدة مع التبديل التلقائي (Sequential Fallback) عند استنفاد الرصيد أو حد الطلبات.
                 </p>
 
                 <label className="block font-semibold text-cyan-400 flex items-center gap-1.5 pt-2">
