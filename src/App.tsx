@@ -14,48 +14,21 @@ import { BoldContact } from './components/contact/BoldContact';
 import { MinimalFooter } from './components/footer/MinimalFooter';
 import { ParticleField } from './components/effects/ParticleField';
 import { MarqueeStrip } from './components/effects/MarqueeStrip';
+import { HdCinematicFilter } from './components/effects/HdCinematicFilter';
 import { AiChatbotWidget } from './components/chat/AiChatbotWidget';
 import { AdminCmsModal } from './components/admin/AdminCmsModal';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { SiteContentProvider } from './context/SiteContentContext';
 import { smoothScroll } from './utils/smoothScroll';
 
-import { SecretChatPage } from './components/chat/SecretChatPage';
-
 function MainAppContent() {
   const [loaded, setLoaded] = useState(false);
-  const [isSecretChat, setIsSecretChat] = useState<boolean>(() => {
-    return window.location.hash === '#secret-chat' || window.location.search.includes('secret=chat');
-  });
   const { theme } = useTheme();
 
   useEffect(() => {
     smoothScroll.start();
     return () => smoothScroll.stop();
   }, []);
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      setIsSecretChat(window.location.hash === '#secret-chat' || window.location.search.includes('secret=chat'));
-    };
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        window.location.hash = window.location.hash === '#secret-chat' ? '' : '#secret-chat';
-      }
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
-
-  if (isSecretChat) {
-    return <SecretChatPage onBack={() => { window.location.hash = ''; setIsSecretChat(false); }} />;
-  }
 
   return (
     <div
@@ -69,6 +42,9 @@ function MainAppContent() {
       {/* Main Experience */}
       {loaded && (
         <>
+          {/* 4K Ultra-HD Cinematic Noise & Vignette Atmosphere Filter */}
+          <HdCinematicFilter />
+
           {/* WebGL Atmosphere Particle Field Canvas */}
           <ParticleField />
 
