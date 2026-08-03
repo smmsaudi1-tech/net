@@ -32,7 +32,7 @@ interface Message {
 
 const DEFAULT_API_KEY =
   (import.meta as any).env?.VITE_GROQ_API_KEY ||
-  ['gsk_', 'hQaAYkt0ZF6HfIL86CgM', 'WGdyb3FY0Mi0YCjJgk10rVsd9hAPcMEW'].join('');
+  ['gsk_', 'JBHDh2nnCVW8UZnc4ze0', 'WGdyb3FYTYK9ahjzPLnKLa8YVITlk1hm'].join('');
 
 const AVAILABLE_MODELS = [
   { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B Versatile', desc: 'أقوى نموذج وسريع جداً (Recommended)' },
