@@ -59,29 +59,26 @@ export const HorizontalScrollSection: React.FC = () => {
     if (!container || !target) return;
 
     const ctx = gsap.context(() => {
-      // Calculate total translate distance including generous end padding
       const totalTranslate = target.scrollWidth - window.innerWidth;
-      // Add extra hold-pin buffer distance so the last card remains pinned while being read
-      const holdDistance = Math.max(700, window.innerHeight * 0.85);
-      const totalPinDuration = totalTranslate + holdDistance;
+      const holdDistance = Math.min(600, window.innerHeight * 0.6);
+      const totalPin = totalTranslate + holdDistance;
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container,
           start: 'top top',
-          end: () => `+=${totalPinDuration}`,
+          end: () => `+=${totalPin}`,
           pin: true,
-          scrub: 1.2, // Ultra fluid scrub physics with smooth inertia
+          scrub: 1, // Fluid response with zero lag
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const rawProgress = self.progress;
-            const translateRatio = totalTranslate / totalPinDuration;
+            const translateRatio = totalTranslate / totalPin;
             const horizProgress = Math.min(1, rawProgress / translateRatio);
 
             setProgressPercent(Math.round(horizProgress * 100));
 
-            // Calculate active step index smoothly
             const calculatedIndex = Math.min(
               steps.length - 1,
               Math.floor(horizProgress * steps.length)
@@ -91,14 +88,14 @@ export const HorizontalScrollSection: React.FC = () => {
         }
       });
 
-      // 1. Horizontal translate across totalTranslate distance
+      // Linear translation phase
       tl.to(target, {
         x: -totalTranslate,
-        ease: 'power1.out',
+        ease: 'none',
         duration: totalTranslate
       });
 
-      // 2. Hold phase: Section remains pinned stationary at the end so user can read card 05
+      // Smooth hold phase
       tl.to({}, { duration: holdDistance });
     }, container);
 
@@ -111,6 +108,9 @@ export const HorizontalScrollSection: React.FC = () => {
     if (!container || !target) return;
 
     const totalTranslate = target.scrollWidth - window.innerWidth;
+    const holdDistance = Math.min(600, window.innerHeight * 0.6);
+    const totalPin = totalTranslate + holdDistance;
+
     const stepRatio = index / (steps.length - 1);
     const targetY = container.offsetTop + stepRatio * totalTranslate;
 
@@ -210,11 +210,11 @@ export const HorizontalScrollSection: React.FC = () => {
               <div
                 key={step.number}
                 onClick={() => scrollToStep(idx)}
-                className={`w-[300px] sm:w-[460px] h-[350px] sm:h-[410px] p-8 sm:p-10 rounded-3xl border cursor-pointer transition-all duration-500 flex flex-col justify-between group shadow-2xl flex-shrink-0 relative overflow-hidden ${
+                className={`w-[300px] sm:w-[460px] h-[350px] sm:h-[410px] p-8 sm:p-10 rounded-3xl border cursor-pointer transition-all duration-300 flex flex-col justify-between group shadow-2xl flex-shrink-0 relative overflow-hidden ${
                   isActive
                     ? theme === 'dark'
-                      ? 'bg-[#121212] border-cyan-500/60 shadow-cyan-950/20 scale-[1.02]'
-                      : 'bg-white border-cyan-600/60 shadow-xl scale-[1.02]'
+                      ? 'bg-[#121212] border-cyan-500/60 shadow-cyan-950/20'
+                      : 'bg-white border-cyan-600/60 shadow-xl'
                     : theme === 'dark'
                     ? 'bg-[#0d0d0d] border-[#262626] hover:border-[#404040] opacity-80 hover:opacity-100'
                     : 'bg-[#ffffff] border-[#e4e4e7] hover:border-[#a1a1aa] opacity-85 hover:opacity-100'
@@ -318,7 +318,7 @@ export const HorizontalScrollSection: React.FC = () => {
                   className={`transition-all font-mono ${
                     activeStep === index
                       ? 'text-cyan-400 font-bold scale-125 underline underline-offset-4'
-                      : 'hover:text-white opacity-60 hover:opacity-100'
+                      : 'hover:text-[#ffffff] opacity-60 hover:opacity-100'
                   }`}
                 >
                   {step.number}

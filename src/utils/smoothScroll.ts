@@ -1,66 +1,35 @@
-// High-End Smooth Scroll Engine with Velocity Interpolation & Momentum Dampening
+// High-End Non-Intrusive Smooth Scroll Observer for GSAP & Velocity Tracking
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export class SmoothScrollEngine {
   private currentY = 0;
-  private targetY = 0;
   private velocity = 0;
-  private ease = 0.1;
   private animId: number | null = null;
   private isRunning = false;
-  private isWheelScrolling = false;
-  private wheelTimeout: ReturnType<typeof setTimeout> | null = null;
 
   start() {
     if (this.isRunning) return;
     this.isRunning = true;
-    this.targetY = window.scrollY;
     this.currentY = window.scrollY;
 
-    const onScroll = () => {
-      if (!this.isWheelScrolling) {
-        this.targetY = window.scrollY;
-      }
-    };
-
-    const onWheel = (e: WheelEvent) => {
-      // Allow Ctrl+wheel for zooming
-      if (e.ctrlKey) return;
-      
-      this.isWheelScrolling = true;
-      if (this.wheelTimeout) clearTimeout(this.wheelTimeout);
-      this.wheelTimeout = setTimeout(() => {
-        this.isWheelScrolling = false;
-      }, 400);
-
-      // Smooth target calculation with wheel momentum
-      const delta = e.deltaY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      this.targetY = Math.min(Math.max(0, this.targetY + delta * 1.1), maxScroll);
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('wheel', onWheel, { passive: true });
-
     const update = () => {
-      if (this.isWheelScrolling) {
-        const diff = this.targetY - window.scrollY;
-        if (Math.abs(diff) > 0.5) {
-          const nextY = window.scrollY + diff * this.ease;
-          window.scrollTo({ top: nextY, behavior: 'instant' as ScrollBehavior });
-          ScrollTrigger.update();
-        }
-      }
-
+      const actualY = window.scrollY;
       const prevY = this.currentY;
-      this.currentY += (window.scrollY - this.currentY) * 0.15;
-      this.velocity = this.currentY - prevY;
+      
+      // Interpolate current velocity smoothly
+      this.currentY += (actualY - this.currentY) * 0.2;
+      this.velocity = actualY - prevY;
 
-      // Update scroll velocity CSS variable for GSAP & UI elements
+      // Update scroll velocity CSS variable for UI dynamics
       document.documentElement.style.setProperty(
         '--scroll-velocity',
         (Math.abs(this.velocity) * 0.1).toFixed(3)
       );
+
+      // Keep GSAP ScrollTrigger perfectly in sync on frame update
+      if (Math.abs(this.velocity) > 0.01) {
+        ScrollTrigger.update();
+      }
 
       this.animId = requestAnimationFrame(update);
     };
@@ -70,8 +39,10 @@ export class SmoothScrollEngine {
 
   stop() {
     this.isRunning = false;
-    if (this.animId) cancelAnimationFrame(this.animId);
-    if (this.wheelTimeout) clearTimeout(this.wheelTimeout);
+    if (this.animId) {
+      cancelAnimationFrame(this.animId);
+      this.animId = null;
+    }
   }
 }
 

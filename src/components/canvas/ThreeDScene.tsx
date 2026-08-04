@@ -13,7 +13,7 @@ export const ThreeDScene: React.FC = () => {
   );
 
   useEffect(() => {
-    const purgeSplineBadge = () => {
+    const applyBadgeHideStyle = () => {
       const viewer = containerRef.current?.querySelector('spline-viewer');
       if (viewer && viewer.shadowRoot) {
         if (!viewer.shadowRoot.querySelector('#hide-spline-badge-style')) {
@@ -27,28 +27,24 @@ export const ThreeDScene: React.FC = () => {
               pointer-events: none !important;
               width: 0 !important;
               height: 0 !important;
-              transform: scale(0) !important;
+              position: absolute !important;
+              clip: rect(0,0,0,0) !important;
             }
           `;
           viewer.shadowRoot.appendChild(style);
         }
-
-        const logoElements = viewer.shadowRoot.querySelectorAll('#logo, a[href*="spline"], .logo, a');
-        logoElements.forEach((el) => {
-          (el as HTMLElement).style.setProperty('display', 'none', 'important');
-          (el as HTMLElement).style.setProperty('opacity', '0', 'important');
-          (el as HTMLElement).style.setProperty('visibility', 'hidden', 'important');
-          el.remove();
-        });
       }
     };
 
-    const interval = setInterval(purgeSplineBadge, 30);
-    const timeout = setTimeout(() => clearInterval(interval), 10000);
+    // Run styling safely without removing DOM nodes to preserve Spline timeline integrity
+    const timer1 = setTimeout(applyBadgeHideStyle, 100);
+    const timer2 = setTimeout(applyBadgeHideStyle, 1000);
+    const timer3 = setTimeout(applyBadgeHideStyle, 3000);
 
     return () => {
-      clearInterval(interval);
-      clearTimeout(timeout);
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
     };
   }, [splineUrl]);
 
@@ -78,3 +74,5 @@ export const ThreeDScene: React.FC = () => {
     </div>
   );
 };
+
+export default ThreeDScene;
