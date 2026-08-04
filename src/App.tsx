@@ -14,7 +14,6 @@ import { BoldContact } from './components/contact/BoldContact';
 import { MinimalFooter } from './components/footer/MinimalFooter';
 import { ParticleField } from './components/effects/ParticleField';
 import { MarqueeStrip } from './components/effects/MarqueeStrip';
-import { HdCinematicFilter } from './components/effects/HdCinematicFilter';
 import { AiChatbotWidget } from './components/chat/AiChatbotWidget';
 import { AdminCmsModal } from './components/admin/AdminCmsModal';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
@@ -42,9 +41,6 @@ function MainAppContent() {
       {/* Main Experience */}
       {loaded && (
         <>
-          {/* 4K Ultra-HD Cinematic Noise & Vignette Atmosphere Filter */}
-          <HdCinematicFilter />
-
           {/* WebGL Atmosphere Particle Field Canvas */}
           <ParticleField />
 
