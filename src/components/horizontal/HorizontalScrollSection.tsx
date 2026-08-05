@@ -21,11 +21,12 @@ export interface StepData {
 export const HorizontalScrollSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const bgRef = useRef<HTMLDivElement>(null);
+  const progressFillRef = useRef<HTMLDivElement>(null);
+  const progressTextRef = useRef<HTMLSpanElement>(null);
+  const activeStepRef = useRef<number>(0);
+  
   const { theme } = useTheme();
-
   const [activeStep, setActiveStep] = useState(0);
-  const [progressPercent, setProgressPercent] = useState(0);
 
   const steps: StepData[] = [
     {
@@ -91,11 +92,10 @@ export const HorizontalScrollSection: React.FC = () => {
 
     if (!container || !track) return;
 
-    // Reset scroll triggers and GSAP state cleanly
     const ctx = gsap.context(() => {
       const getScrollAmount = () => track.scrollWidth - window.innerWidth;
 
-      const animation = gsap.to(track, {
+      gsap.to(track, {
         x: () => -getScrollAmount(),
         ease: 'none',
         scrollTrigger: {
@@ -104,18 +104,30 @@ export const HorizontalScrollSection: React.FC = () => {
           end: () => `+=${getScrollAmount()}`,
           pin: true,
           pinSpacing: true,
-          scrub: 0.2, // Ultra responsive, zero lag scrub
+          scrub: 0.1, // Near-instant 1:1 scrub to eliminate boundary lag
           anticipatePin: 1,
+          fastScrollEnd: true,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const p = self.progress;
-            setProgressPercent(Math.round(p * 100));
+            
+            // Direct DOM update for 60fps progress line & text without React re-render thrashing
+            if (progressFillRef.current) {
+              progressFillRef.current.style.width = `${Math.min(100, Math.max(0, p * 100))}%`;
+            }
+            if (progressTextRef.current) {
+              progressTextRef.current.textContent = `${Math.round(p * 100)}%`;
+            }
 
-            const idx = Math.min(
+            // Only trigger React state update when active step index actually changes
+            const newIdx = Math.min(
               steps.length - 1,
-              Math.floor(p * steps.length)
+              Math.max(0, Math.floor(p * steps.length))
             );
-            setActiveStep(idx);
+            if (newIdx !== activeStepRef.current) {
+              activeStepRef.current = newIdx;
+              setActiveStep(newIdx);
+            }
           }
         }
       });
@@ -149,20 +161,16 @@ export const HorizontalScrollSection: React.FC = () => {
           ? 'bg-[#050505] text-[#ffffff] border-b border-[#141414]'
           : 'bg-[#f4f4f7] text-[#000000] border-b border-[#e4e4e7]'
       }`}
-      style={{ willChange: 'transform' }}
     >
       {/* SCOPED PROGRAMMING CODE BACKGROUND LAYER */}
-      <div
-        ref={bgRef}
-        className="absolute inset-0 pointer-events-none z-0 overflow-hidden"
-      >
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Code Visual Matrix Background Overlay */}
         {steps.map((step, idx) => {
           const isActive = activeStep === idx;
           return (
             <div
               key={step.number}
-              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+              className={`absolute inset-0 transition-opacity duration-500 ease-out ${
                 isActive ? 'opacity-30' : 'opacity-0'
               }`}
             >
@@ -171,12 +179,11 @@ export const HorizontalScrollSection: React.FC = () => {
                 alt={step.title}
                 className="w-full h-full object-cover filter contrast-125 saturate-150 transform scale-105"
               />
-              {/* Dark Code Matrix Overlay Mask */}
               <div
                 className={`absolute inset-0 ${
                   theme === 'dark'
-                    ? 'bg-gradient-to-t from-[#050505] via-[#050505]/70 to-[#050505]'
-                    : 'bg-gradient-to-t from-[#f4f4f7] via-[#f4f4f7]/70 to-[#f4f4f7]'
+                    ? 'bg-gradient-to-t from-[#050505] via-[#050505]/75 to-[#050505]'
+                    : 'bg-gradient-to-t from-[#f4f4f7] via-[#f4f4f7]/75 to-[#f4f4f7]'
                 }`}
               />
             </div>
@@ -185,7 +192,7 @@ export const HorizontalScrollSection: React.FC = () => {
 
         {/* Ambient Glowing Programming Accent Aura */}
         <div
-          className="absolute inset-0 transition-all duration-700 opacity-20 pointer-events-none"
+          className="absolute inset-0 transition-all duration-500 opacity-20 pointer-events-none"
           style={{
             background: `radial-gradient(ellipse 70% 50% at 50% 50%, ${currentStep.accent} 0%, transparent 70%)`
           }}
@@ -273,11 +280,11 @@ export const HorizontalScrollSection: React.FC = () => {
           </div>
         </div>
 
-        {/* HORIZONTAL CARDS TRACK (Smooth Translation without CSS Transitions) */}
+        {/* HORIZONTAL CARDS TRACK (Strict width alignment without overscroll padding) */}
         <div className="relative w-full my-auto overflow-hidden">
           <div
             ref={trackRef}
-            className="flex items-center gap-6 sm:gap-8 pl-2 pr-[35vw] py-4"
+            className="flex items-center gap-6 sm:gap-8 px-6 sm:px-12 py-4"
             style={{ willChange: 'transform', transform: 'translate3d(0, 0, 0)' }}
           >
             {steps.map((step, idx) => {
@@ -286,7 +293,7 @@ export const HorizontalScrollSection: React.FC = () => {
                 <div
                   key={step.number}
                   onClick={() => scrollToStep(idx)}
-                  className={`w-[320px] sm:w-[480px] h-[360px] sm:h-[420px] p-6 sm:p-8 rounded-2xl border cursor-pointer transition-colors duration-300 flex flex-col justify-between flex-shrink-0 relative overflow-hidden shadow-2xl ${
+                  className={`w-[300px] sm:w-[450px] h-[360px] sm:h-[420px] p-6 sm:p-8 rounded-2xl border cursor-pointer transition-colors duration-300 flex flex-col justify-between flex-shrink-0 relative overflow-hidden shadow-2xl ${
                     isActive
                       ? theme === 'dark'
                         ? 'bg-[#0a0a0d] border-cyan-500/80 shadow-cyan-950/40'
@@ -409,11 +416,11 @@ export const HorizontalScrollSection: React.FC = () => {
             }`}
           >
             <div
+              ref={progressFillRef}
               className="h-full"
               style={{
-                width: `${progressPercent}%`,
-                backgroundColor: currentStep.accent,
-                transition: 'width 0.1s linear'
+                width: '0%',
+                backgroundColor: currentStep.accent
               }}
             />
           </div>
@@ -428,7 +435,7 @@ export const HorizontalScrollSection: React.FC = () => {
                 className="w-1.5 h-1.5 rounded-full animate-pulse"
                 style={{ backgroundColor: currentStep.accent }}
               />
-              DEV PIPELINE EXECUTION ({progressPercent}%)
+              DEV PIPELINE EXECUTION (<span ref={progressTextRef}>0%</span>)
             </span>
 
             {/* Clickable Step Dots */}

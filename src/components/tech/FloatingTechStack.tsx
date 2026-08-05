@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
-import { Sparkles, Code, Cpu, Layers, Zap, Database, ShieldCheck, Flame, Box } from 'lucide-react';
+import { Sparkles, Code, Cpu, Layers, Zap, Flame, Box, ShieldCheck } from 'lucide-react';
 
 export const FloatingTechStack: React.FC = () => {
   const { theme } = useTheme();
@@ -28,13 +28,13 @@ export const FloatingTechStack: React.FC = () => {
     { name: 'NODE.JS', category: 'Backend Systems', code: 'express.listen()', icon: Code, color: 'text-green-400' }
   ];
 
-  // Double array for seamless 100% infinite marquee loop
-  const marqueeRow1 = [...techNodesRow1, ...techNodesRow1, ...techNodesRow1];
-  const marqueeRow2 = [...techNodesRow2, ...techNodesRow2, ...techNodesRow2];
+  // Exact 2x array duplication so -50% translation matches 1 full set perfectly for 100% seamless 60FPS loop
+  const marqueeRow1 = [...techNodesRow1, ...techNodesRow1];
+  const marqueeRow2 = [...techNodesRow2, ...techNodesRow2];
 
   return (
     <section
-      className={`py-32 border-b transition-colors duration-500 relative overflow-hidden text-left ${
+      className={`py-28 border-b transition-colors duration-500 relative overflow-hidden text-left ${
         theme === 'dark'
           ? 'bg-[#000000] text-[#ffffff] border-[#181818]'
           : 'bg-[#f4f4f5] text-[#000000] border-[#e4e4e7]'
@@ -70,24 +70,25 @@ export const FloatingTechStack: React.FC = () => {
         </div>
       </div>
 
-      {/* Marquee Row 1 (Moving Left) */}
+      {/* Marquee Row 1 (Moving Left - Perfectly Seamless 60FPS Loop) */}
       <div className="relative w-full overflow-hidden py-4 mt-8 flex">
         <motion.div
           animate={{ x: ['0%', '-50%'] }}
           transition={{
             repeat: Infinity,
             repeatType: 'loop',
-            duration: 25,
+            duration: 35,
             ease: 'linear'
           }}
-          className="flex gap-6 shrink-0"
+          className="flex gap-6 shrink-0 will-change-transform"
+          style={{ transform: 'translate3d(0, 0, 0)' }}
         >
           {marqueeRow1.map((tech, idx) => {
             const IconComponent = tech.icon;
             return (
               <div
                 key={idx}
-                className={`w-[300px] p-6 rounded-3xl border transition-all duration-500 flex flex-col justify-between h-44 shrink-0 cursor-pointer shadow-xl backdrop-blur-md group hover:scale-105 ${
+                className={`w-[300px] p-6 rounded-3xl border flex flex-col justify-between h-44 shrink-0 cursor-pointer shadow-xl backdrop-blur-md group hover:scale-[1.03] transition-transform duration-300 ${
                   theme === 'dark'
                     ? 'bg-[#0c0c12]/90 border-[#222230] hover:border-emerald-500 hover:shadow-[0_0_30px_rgba(16,185,129,0.3)]'
                     : 'bg-[#ffffff]/90 border-[#e4e4e7] hover:border-emerald-500 hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)]'
@@ -96,7 +97,7 @@ export const FloatingTechStack: React.FC = () => {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <IconComponent className={`w-5 h-5 ${tech.color} group-hover:scale-110 transition-transform`} />
+                    <IconComponent className={`w-5 h-5 ${tech.color} group-hover:scale-110 transition-transform duration-300`} />
                     <span
                       className={`text-[10px] font-mono tracking-widest uppercase font-bold ${
                         theme === 'dark' ? 'text-[#71717a]' : 'text-[#525252]'
@@ -117,7 +118,7 @@ export const FloatingTechStack: React.FC = () => {
                 </div>
 
                 <div className="space-y-1 text-left">
-                  <h3 className="text-2xl font-black font-mono uppercase group-hover:text-emerald-400 transition-colors">
+                  <h3 className="text-2xl font-black font-mono uppercase group-hover:text-emerald-400 transition-colors duration-300">
                     {tech.name}
                   </h3>
                   <p
@@ -135,24 +136,25 @@ export const FloatingTechStack: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Marquee Row 2 (Moving Right in Opposite Direction) */}
+      {/* Marquee Row 2 (Moving Right - Perfectly Seamless 60FPS Loop) */}
       <div className="relative w-full overflow-hidden py-4 flex">
         <motion.div
           animate={{ x: ['-50%', '0%'] }}
           transition={{
             repeat: Infinity,
             repeatType: 'loop',
-            duration: 28,
+            duration: 38,
             ease: 'linear'
           }}
-          className="flex gap-6 shrink-0"
+          className="flex gap-6 shrink-0 will-change-transform"
+          style={{ transform: 'translate3d(0, 0, 0)' }}
         >
           {marqueeRow2.map((tech, idx) => {
             const IconComponent = tech.icon;
             return (
               <div
                 key={idx}
-                className={`w-[300px] p-6 rounded-3xl border transition-all duration-500 flex flex-col justify-between h-44 shrink-0 cursor-pointer shadow-xl backdrop-blur-md group hover:scale-105 ${
+                className={`w-[300px] p-6 rounded-3xl border flex flex-col justify-between h-44 shrink-0 cursor-pointer shadow-xl backdrop-blur-md group hover:scale-[1.03] transition-transform duration-300 ${
                   theme === 'dark'
                     ? 'bg-[#0c0c12]/90 border-[#222230] hover:border-cyan-500 hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]'
                     : 'bg-[#ffffff]/90 border-[#e4e4e7] hover:border-cyan-500 hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)]'
@@ -161,7 +163,7 @@ export const FloatingTechStack: React.FC = () => {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <IconComponent className={`w-5 h-5 ${tech.color} group-hover:scale-110 transition-transform`} />
+                    <IconComponent className={`w-5 h-5 ${tech.color} group-hover:scale-110 transition-transform duration-300`} />
                     <span
                       className={`text-[10px] font-mono tracking-widest uppercase font-bold ${
                         theme === 'dark' ? 'text-[#71717a]' : 'text-[#525252]'
@@ -182,7 +184,7 @@ export const FloatingTechStack: React.FC = () => {
                 </div>
 
                 <div className="space-y-1 text-left">
-                  <h3 className="text-2xl font-black font-mono uppercase group-hover:text-cyan-400 transition-colors">
+                  <h3 className="text-2xl font-black font-mono uppercase group-hover:text-cyan-400 transition-colors duration-300">
                     {tech.name}
                   </h3>
                   <p
