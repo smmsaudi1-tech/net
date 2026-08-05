@@ -79,7 +79,7 @@ export const DEFAULT_SITE_CONTENT: Record<string, string> = {
   'contact.whatsapp_url': 'https://wa.me/201020451206',
   'contact.tiktok_url': 'https://www.tiktok.com/@nextgen.devs?_r=1&_t=ZS-98YLToHbraS',
   'footer.sub': 'WE BUILD WHAT’S NEXT.',
-  'footer.rights': '© 2026 NEXT GEN DEVS. ALL RIGHTS RESERVED.'
+  'footer.rights': 'BY NEXT GEN DEVS'
 };
 
 // Real-time listener for site content changes from Firebase

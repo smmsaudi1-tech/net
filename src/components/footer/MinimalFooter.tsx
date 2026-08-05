@@ -80,7 +80,7 @@ export const MinimalFooter: React.FC = () => {
             theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
           }`}
         >
-          {getText('footer.rights', '© 2026 NEXT GEN DEVS. ALL RIGHTS RESERVED.')}
+          {getText('footer.rights', `BY ${getText('brand.name', 'NEXT GEN DEVS')}`)}
         </div>
 
       </div>

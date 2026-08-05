@@ -14,26 +14,29 @@ export const HeroSection: React.FC = () => {
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (el) {
+      const topOffset = el.getBoundingClientRect().top + window.scrollY - 70;
+      window.scrollTo({ top: topOffset, behavior: 'smooth' });
+    }
   };
 
   return (
     <section
       id="hero"
-      className={`relative min-h-[100dvh] pt-28 pb-16 flex items-center justify-center overflow-hidden transition-colors duration-500 ${
+      className={`relative min-h-[100dvh] pt-24 sm:pt-28 pb-12 sm:pb-16 flex items-center justify-center overflow-hidden transition-colors duration-500 select-none ${
         theme === 'dark' ? 'bg-[#000000] text-[#ffffff]' : 'bg-[#ffffff] text-[#000000]'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center relative z-10">
         
         {/* Left Column: Headline & Action Buttons */}
-        <div className="lg:col-span-7 space-y-8 text-left">
+        <div className="lg:col-span-7 space-y-5 sm:space-y-8 text-left">
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-[10px] font-mono tracking-[0.3em] uppercase ${
+            className={`inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full border text-[9px] sm:text-[10px] font-mono tracking-[0.2em] sm:tracking-[0.3em] uppercase ${
               theme === 'dark'
                 ? 'border-[#262626] bg-[#0d0d0d] text-[#a3a3a3]'
                 : 'border-[#e4e4e7] bg-[#f4f4f5] text-[#525252]'
@@ -46,7 +49,7 @@ export const HeroSection: React.FC = () => {
           {/* Letter by Letter Animated Headline */}
           <div className="overflow-hidden">
             <h1
-              className={`text-4xl sm:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.95] uppercase font-sans ${
+              className={`text-3xl sm:text-7xl lg:text-8xl font-black tracking-tighter leading-[1.0] sm:leading-[0.95] uppercase font-sans ${
                 theme === 'dark' ? 'text-[#ffffff]' : 'text-[#000000]'
               }`}
             >
@@ -73,7 +76,7 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className={`text-sm sm:text-lg max-w-xl leading-relaxed font-medium font-sans ${
+            className={`text-xs sm:text-lg max-w-xl leading-relaxed font-medium font-sans ${
               theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
             }`}
           >
@@ -88,11 +91,11 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2 sm:pt-4"
           >
             <button
               onClick={() => scrollToSection('contact')}
-              className={`px-8 py-4 rounded-full font-mono text-xs font-black tracking-[0.2em] uppercase flex items-center justify-center gap-2 transition-all hover:scale-105 cursor-pointer shadow-2xl ${
+              className={`w-full sm:w-auto px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-mono text-xs font-black tracking-[0.2em] uppercase flex items-center justify-center gap-2 transition-all hover:scale-[1.02] cursor-pointer shadow-2xl ${
                 theme === 'dark'
                   ? 'bg-[#ffffff] text-[#000000] hover:bg-[#e5e5e5]'
                   : 'bg-[#000000] text-[#ffffff] hover:bg-[#18181b]'
@@ -105,7 +108,7 @@ export const HeroSection: React.FC = () => {
 
             <button
               onClick={() => scrollToSection('work')}
-              className={`px-8 py-4 rounded-full border font-mono text-xs font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-2 transition-all cursor-pointer ${
+              className={`w-full sm:w-auto px-7 sm:px-8 py-3.5 sm:py-4 rounded-full border font-mono text-xs font-bold tracking-[0.2em] uppercase flex items-center justify-center gap-2 transition-all cursor-pointer ${
                 theme === 'dark'
                   ? 'border-[#262626] bg-[#0d0d0d] text-[#ffffff] hover:border-[#525252]'
                   : 'border-[#e4e4e7] bg-[#f4f4f5] text-[#000000] hover:border-[#a1a1aa]'
@@ -120,8 +123,10 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Right Column: 3D Cyber Crystal Sculpture */}
-        <div className="lg:col-span-5 flex items-center justify-center">
-          <ThreeDScene />
+        <div className="lg:col-span-5 flex items-center justify-center w-full">
+          <div className="w-full h-[250px] sm:h-[400px] lg:h-[450px]">
+            <ThreeDScene />
+          </div>
         </div>
 
       </div>

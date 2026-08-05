@@ -102,18 +102,18 @@ export const ExperimentalServices: React.FC = () => {
                   setHoveredIdx(idx);
                 }}
                 onMouseLeave={() => setHoveredIdx(null)}
-                className={`p-6 sm:p-8 rounded-3xl border transition-all duration-500 relative overflow-hidden group cursor-pointer ${
+                className={`p-4 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-500 relative overflow-hidden group cursor-pointer ${
                   theme === 'dark'
                     ? 'bg-[#0a0a10]/80 border-[#1f1f2e] hover:border-emerald-500/60 hover:bg-[#10101c]'
                     : 'bg-[#fafafa] border-[#e4e4e7] hover:border-emerald-500/60 hover:bg-[#ffffff] shadow-md'
                 }`}
                 data-cursor="EXPLORE"
               >
-                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10 text-left">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-6 relative z-10 text-left">
                   
-                  <div className="flex items-baseline gap-4 sm:gap-6">
+                  <div className="flex items-baseline gap-3 sm:gap-6">
                     <span className="font-mono text-xs font-bold text-emerald-400">{srv.number}</span>
-                    <h3 className="text-xl sm:text-3xl lg:text-4xl font-black uppercase font-sans tracking-tight group-hover:text-emerald-400 transition-colors">
+                    <h3 className="text-base sm:text-3xl lg:text-4xl font-black uppercase font-sans tracking-tight group-hover:text-emerald-400 transition-colors">
                       {srv.title}
                     </h3>
                   </div>
@@ -127,13 +127,13 @@ export const ExperimentalServices: React.FC = () => {
                   </p>
 
                   <div
-                    className={`p-3 rounded-full border transition-all self-start lg:self-auto ${
+                    className={`p-2.5 sm:p-3 rounded-full border transition-all self-end lg:self-auto ${
                       theme === 'dark'
                         ? 'border-zinc-800 group-hover:bg-emerald-400 group-hover:text-black group-hover:border-emerald-400'
                         : 'border-zinc-300 group-hover:bg-emerald-500 group-hover:text-black group-hover:border-emerald-500'
                     }`}
                   >
-                    <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform stroke-[2.5]" />
+                    <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform stroke-[2.5]" />
                   </div>
 
                 </div>

@@ -55,7 +55,7 @@ export const EditorialCaseStudies: React.FC = () => {
   });
 
   return (
-    <section id="case-studies" className="py-24 relative border-b border-[#181818]">
+    <section id="work" className="py-24 relative border-b border-[#181818]">
       <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-16">
         
         {/* Header Bar */}

@@ -70,7 +70,7 @@ export const BoldContact: React.FC = () => {
   return (
     <section
       id="contact"
-      className={`py-32 border-b transition-colors duration-500 relative text-left overflow-hidden select-none ${
+      className={`py-20 sm:py-32 border-b transition-colors duration-500 relative text-left overflow-hidden select-none ${
         theme === 'dark'
           ? 'bg-[#000000] text-[#ffffff] border-[#181818]'
           : 'bg-[#f4f4f7] text-[#000000] border-[#e4e4e7]'
@@ -114,15 +114,15 @@ export const BoldContact: React.FC = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.2 }}
-        className="max-w-7xl mx-auto px-4 sm:px-10 space-y-16 relative z-10"
+        className="max-w-7xl mx-auto px-4 sm:px-10 space-y-10 sm:space-y-16 relative z-10"
       >
         
         {/* Headline Header */}
-        <div className="space-y-6 max-w-5xl">
+        <div className="space-y-4 sm:space-y-6 max-w-5xl">
           <motion.div variants={itemVariants} className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-emerald-400 animate-pulse" />
             <p
-              className={`text-[10px] font-mono tracking-[0.4em] uppercase ${
+              className={`text-[10px] font-mono tracking-[0.3em] sm:tracking-[0.4em] uppercase ${
                 theme === 'dark' ? 'text-[#71717a]' : 'text-[#71717a]'
               }`}
             >
@@ -130,7 +130,7 @@ export const BoldContact: React.FC = () => {
             </p>
           </motion.div>
 
-          <motion.h2 variants={itemVariants} className="text-5xl sm:text-8xl lg:text-9xl font-black tracking-tighter uppercase font-sans leading-none">
+          <motion.h2 variants={itemVariants} className="text-3xl sm:text-8xl lg:text-9xl font-black tracking-tighter uppercase font-sans leading-none">
             {getText('contact.h1_1', 'LET’S BUILD')} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500">
               {getText('contact.h1_2', 'WHAT’S NEXT.')}
@@ -139,7 +139,7 @@ export const BoldContact: React.FC = () => {
 
           <motion.p
             variants={itemVariants}
-            className={`text-base sm:text-2xl font-sans font-medium max-w-2xl ${
+            className={`text-xs sm:text-2xl font-sans font-medium max-w-2xl ${
               theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
             }`}
           >
@@ -269,26 +269,6 @@ export const BoldContact: React.FC = () => {
               <div className="absolute -top-24 -right-24 w-52 h-52 rounded-full bg-[#25D366]/15 blur-3xl pointer-events-none group-hover/card:bg-[#25D366]/25 transition-all duration-700" />
               <div className="absolute -bottom-24 -left-24 w-52 h-52 rounded-full bg-[#ff0050]/15 blur-3xl pointer-events-none group-hover/card:bg-[#ff0050]/25 transition-all duration-700" />
 
-              {/* Card Header & Live Status Badges */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] font-mono text-[10px] font-bold uppercase shadow-[0_0_15px_rgba(37,211,102,0.2)]">
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>DIRECT FOUNDER LINE</span>
-                </div>
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[9px] font-bold">
-                  <span className="w-2 h-2 rounded-full bg-[#25D366] animate-ping" />
-                  <span>RESPONSE &lt; 5 MINS</span>
-                </div>
-              </div>
-
-              {/* Main Title */}
-              <div className="space-y-1.5">
-                <h4 className="text-2xl font-black font-sans tracking-tight">Next Gen Devs Studio</h4>
-                <p className={`text-xs leading-relaxed ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
-                  Connect instantly via official WhatsApp, direct phone call, or TikTok.
-                </p>
-              </div>
-
               {/* AUTHENTIC BRAND ACTION BUTTONS */}
               <div className="space-y-4 pt-1">
                 
@@ -402,15 +382,6 @@ export const BoldContact: React.FC = () => {
                   </div>
                 </motion.a>
 
-              </div>
-
-              {/* Bottom Guarantee Note */}
-              <div className="pt-3 flex items-center justify-between text-[10px] font-mono text-zinc-500 border-t border-white/10">
-                <span className="flex items-center gap-1.5 text-[#25D366] font-bold">
-                  <Zap className="w-3.5 h-3.5 animate-pulse" />
-                  FREE CONSULTATION & QUOTE
-                </span>
-                <span>NO COMMITMENT</span>
               </div>
             </div>
           </motion.div>

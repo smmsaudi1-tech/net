@@ -27,18 +27,19 @@ export const Navbar: React.FC = () => {
     setMenuOpen(false);
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      const topOffset = el.getBoundingClientRect().top + window.scrollY - 70;
+      window.scrollTo({ top: topOffset, behavior: 'smooth' });
     }
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-10 py-5 transition-all duration-500">
+    <header className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-10 py-3 sm:py-5 transition-all duration-500">
       <div
-        className={`max-w-7xl mx-auto flex items-center justify-between px-6 py-3.5 rounded-full transition-all duration-500 ${
+        className={`max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-full transition-all duration-500 ${
           scrolled
             ? theme === 'dark'
-              ? 'bg-[#0d0d0d]/80 backdrop-blur-2xl border border-[#262626] shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
-              : 'bg-[#ffffff]/80 backdrop-blur-2xl border border-[#e5e5e5] shadow-[0_10px_30px_rgba(0,0,0,0.1)]'
+              ? 'bg-[#0d0d0d]/85 backdrop-blur-2xl border border-[#262626] shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
+              : 'bg-[#ffffff]/85 backdrop-blur-2xl border border-[#e5e5e5] shadow-[0_10px_30px_rgba(0,0,0,0.1)]'
             : 'bg-transparent border border-transparent'
         }`}
       >

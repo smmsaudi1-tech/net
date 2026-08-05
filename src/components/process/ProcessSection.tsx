@@ -92,7 +92,7 @@ export const ProcessSection: React.FC = () => {
                 delay: idx * 0.08,
                 ease: [0.16, 1, 0.3, 1]
               }}
-              className={`grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8 items-start border-b pb-8 sm:pb-12 group p-4 sm:p-6 rounded-3xl transition-all duration-500 ${
+              className={`grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-8 items-start border-b pb-6 sm:pb-12 group p-4 sm:p-6 rounded-2xl sm:rounded-3xl transition-all duration-500 ${
                 theme === 'dark'
                   ? 'border-[#181818] hover:bg-[#0a0a10] hover:border-emerald-500/30'
                   : 'border-[#e4e4e7] hover:bg-[#f8f9fa] hover:border-emerald-500/40'
@@ -101,25 +101,25 @@ export const ProcessSection: React.FC = () => {
               {/* Step Number with Animated Neon Glow Accent */}
               <div className="lg:col-span-3 flex items-center justify-between lg:justify-start gap-4">
                 <span
-                  className={`text-4xl sm:text-8xl font-black font-mono transition-colors duration-500 ${
+                  className={`text-3xl sm:text-8xl font-black font-mono transition-colors duration-500 ${
                     theme === 'dark'
-                      ? 'text-[#262626] group-hover:text-emerald-400'
+                      ? 'text-[#33333e] group-hover:text-emerald-400'
                       : 'text-[#d4d4d8] group-hover:text-emerald-600'
                   }`}
                 >
                   {proc.number}
                 </span>
 
-                <ArrowDownRight className="w-5 h-5 lg:hidden text-emerald-400 group-hover:rotate-45 transition-transform" />
+                <ArrowDownRight className="w-4 h-4 lg:hidden text-emerald-400 group-hover:rotate-45 transition-transform" />
               </div>
 
               {/* Title & Subtitle */}
               <div className="lg:col-span-5 space-y-1 sm:space-y-2">
-                <h3 className="text-xl sm:text-4xl font-black uppercase tracking-tight font-sans group-hover:text-emerald-400 transition-colors">
+                <h3 className="text-lg sm:text-4xl font-black uppercase tracking-tight font-sans group-hover:text-emerald-400 transition-colors">
                   {proc.title}
                 </h3>
                 <p
-                  className={`text-[10px] sm:text-xs font-mono uppercase tracking-widest font-bold ${
+                  className={`text-[9px] sm:text-xs font-mono uppercase tracking-widest font-bold ${
                     theme === 'dark' ? 'text-emerald-500/90' : 'text-emerald-600'
                   }`}
                 >

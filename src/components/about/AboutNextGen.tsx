@@ -57,30 +57,30 @@ export const AboutNextGen: React.FC = () => {
   return (
     <section
       id="about"
-      className={`py-36 border-b transition-colors duration-500 relative text-left ${
+      className={`py-20 sm:py-36 border-b transition-colors duration-500 relative text-left ${
         theme === 'dark'
-          ? 'bg-[#000000] text-[#ffffff] border-[#181818]'
-          : 'bg-[#ffffff] text-[#000000] border-[#e4e4e7]'
+          ? 'bg-[#000000] text-[#ffffff]'
+          : 'bg-[#ffffff] text-[#000000]'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-10 space-y-12 sm:space-y-20">
         
         {/* Editorial Text */}
-        <div className="space-y-8 max-w-5xl">
+        <div className="space-y-4 sm:space-y-8 max-w-5xl">
           <p
-            className={`text-[10px] font-mono tracking-[0.4em] uppercase ${
+            className={`text-[10px] font-mono tracking-[0.3em] sm:tracking-[0.4em] uppercase ${
               theme === 'dark' ? 'text-[#525252]' : 'text-[#a1a1aa]'
             }`}
           >
             {getText('about.tag', '// ABOUT NEXT GEN DEVS')}
           </p>
 
-          <h2 className="text-5xl sm:text-8xl font-black tracking-tighter uppercase font-sans leading-none">
+          <h2 className="text-3xl sm:text-8xl font-black tracking-tighter uppercase font-sans leading-none">
             {getText('about.title', 'WE ARE NEXT GEN.')}
           </h2>
 
           <p
-            className={`text-lg sm:text-2xl leading-relaxed font-sans font-medium max-w-4xl ${
+            className={`text-xs sm:text-2xl leading-relaxed font-sans font-medium max-w-4xl ${
               theme === 'dark' ? 'text-[#a3a3a3]' : 'text-[#525252]'
             }`}
           >
