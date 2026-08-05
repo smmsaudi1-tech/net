@@ -104,14 +104,13 @@ export const HorizontalScrollSection: React.FC = () => {
           end: () => `+=${getScrollAmount()}`,
           pin: true,
           pinSpacing: true,
-          scrub: 0.1, // Near-instant 1:1 scrub to eliminate boundary lag
+          scrub: 0.1,
           anticipatePin: 1,
           fastScrollEnd: true,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const p = self.progress;
             
-            // Direct DOM update for 60fps progress line & text without React re-render thrashing
             if (progressFillRef.current) {
               progressFillRef.current.style.width = `${Math.min(100, Math.max(0, p * 100))}%`;
             }
@@ -119,7 +118,6 @@ export const HorizontalScrollSection: React.FC = () => {
               progressTextRef.current.textContent = `${Math.round(p * 100)}%`;
             }
 
-            // Only trigger React state update when active step index actually changes
             const newIdx = Math.min(
               steps.length - 1,
               Math.max(0, Math.floor(p * steps.length))
@@ -202,12 +200,12 @@ export const HorizontalScrollSection: React.FC = () => {
         <div className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:3rem_3rem]" />
       </div>
 
-      {/* PINNED VIEWPORT CONTAINER (100vh) */}
-      <div className="h-[100dvh] flex flex-col justify-between py-6 sm:py-10 px-6 sm:px-12 relative z-10 box-border overflow-hidden">
+      {/* PINNED VIEWPORT CONTAINER (100vh with Top Padding for Fixed Floating Navbar) */}
+      <div className="h-[100dvh] flex flex-col justify-between pt-24 sm:pt-28 pb-6 px-6 sm:px-12 relative z-10 box-border overflow-hidden">
         
         {/* Top Header Controls */}
         <div
-          className={`flex items-center justify-between border-b pb-4 max-w-7xl mx-auto w-full ${
+          className={`flex items-center justify-between border-b pb-3 max-w-7xl mx-auto w-full ${
             theme === 'dark' ? 'border-[#1a1a1a]' : 'border-[#e4e4e7]'
           }`}
         >
@@ -227,7 +225,7 @@ export const HorizontalScrollSection: React.FC = () => {
                 // DEV ROADMAP PIPELINE
               </p>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-black tracking-tighter uppercase font-mono">
+            <h2 className="text-xl sm:text-3xl font-black tracking-tighter uppercase font-mono">
               FROM IDEA TO DIGITAL
             </h2>
           </div>
@@ -280,11 +278,11 @@ export const HorizontalScrollSection: React.FC = () => {
           </div>
         </div>
 
-        {/* HORIZONTAL CARDS TRACK (Strict width alignment without overscroll padding) */}
+        {/* HORIZONTAL CARDS TRACK */}
         <div className="relative w-full my-auto overflow-hidden">
           <div
             ref={trackRef}
-            className="flex items-center gap-6 sm:gap-8 px-6 sm:px-12 py-4"
+            className="flex items-center gap-6 sm:gap-8 px-6 sm:px-12 py-3"
             style={{ willChange: 'transform', transform: 'translate3d(0, 0, 0)' }}
           >
             {steps.map((step, idx) => {
@@ -293,7 +291,7 @@ export const HorizontalScrollSection: React.FC = () => {
                 <div
                   key={step.number}
                   onClick={() => scrollToStep(idx)}
-                  className={`w-[300px] sm:w-[450px] h-[360px] sm:h-[420px] p-6 sm:p-8 rounded-2xl border cursor-pointer transition-colors duration-300 flex flex-col justify-between flex-shrink-0 relative overflow-hidden shadow-2xl ${
+                  className={`w-[290px] sm:w-[430px] h-[340px] sm:h-[390px] p-5 sm:p-7 rounded-2xl border cursor-pointer transition-colors duration-300 flex flex-col justify-between flex-shrink-0 relative overflow-hidden shadow-2xl ${
                     isActive
                       ? theme === 'dark'
                         ? 'bg-[#0a0a0d] border-cyan-500/80 shadow-cyan-950/40'
@@ -328,7 +326,7 @@ export const HorizontalScrollSection: React.FC = () => {
                       {step.detail}
                     </span>
                     <span
-                      className="text-3xl font-mono font-black"
+                      className="text-2xl font-mono font-black"
                       style={{
                         color: isActive ? step.accent : undefined
                       }}
@@ -338,9 +336,9 @@ export const HorizontalScrollSection: React.FC = () => {
                   </div>
 
                   {/* Body Info */}
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div
-                      className="inline-block px-2.5 py-0.5 rounded text-[10px] font-mono tracking-widest uppercase border"
+                      className="inline-block px-2 py-0.5 rounded text-[10px] font-mono tracking-widest uppercase border"
                       style={{
                         backgroundColor: `${step.accent}15`,
                         color: step.accent,
@@ -351,7 +349,7 @@ export const HorizontalScrollSection: React.FC = () => {
                     </div>
 
                     <h3
-                      className="text-2xl sm:text-3xl font-black tracking-tight uppercase font-mono"
+                      className="text-xl sm:text-2xl font-black tracking-tight uppercase font-mono"
                       style={{
                         color: isActive ? step.accent : undefined
                       }}
@@ -360,7 +358,7 @@ export const HorizontalScrollSection: React.FC = () => {
                     </h3>
 
                     <p
-                      className={`text-xs sm:text-sm leading-relaxed font-sans ${
+                      className={`text-xs sm:text-sm leading-snug font-sans ${
                         theme === 'dark' ? 'text-[#a1a1aa]' : 'text-[#52525b]'
                       }`}
                     >
@@ -370,7 +368,7 @@ export const HorizontalScrollSection: React.FC = () => {
 
                   {/* Code Terminal Output Block */}
                   <div
-                    className={`p-3 rounded-lg border font-mono text-[11px] overflow-hidden whitespace-nowrap text-ellipsis ${
+                    className={`p-2.5 rounded-lg border font-mono text-[10px] sm:text-[11px] overflow-hidden whitespace-nowrap text-ellipsis ${
                       theme === 'dark'
                         ? 'bg-[#030305] border-[#1f1f26] text-emerald-400/90'
                         : 'bg-[#18181b] border-[#27272a] text-emerald-400'
@@ -382,7 +380,7 @@ export const HorizontalScrollSection: React.FC = () => {
 
                   {/* Card Footer */}
                   <div
-                    className={`pt-3 border-t flex items-center justify-between text-[10px] font-mono uppercase ${
+                    className={`pt-2 border-t flex items-center justify-between text-[10px] font-mono uppercase ${
                       theme === 'dark' ? 'border-[#1a1a20] text-[#71717a]' : 'border-[#f4f4f5] text-[#a1a1aa]'
                     }`}
                   >
@@ -395,7 +393,7 @@ export const HorizontalScrollSection: React.FC = () => {
                       {isActive ? 'CURRENT RUNTIME PHASE' : 'CLICK TO NAVIGATE'}
                     </span>
                     <ArrowUpRight
-                      className={`w-4 h-4 transition-transform ${
+                      className={`w-3.5 h-3.5 transition-transform ${
                         isActive ? 'translate-x-0.5 -translate-y-0.5' : ''
                       }`}
                       style={{ color: isActive ? step.accent : undefined }}
