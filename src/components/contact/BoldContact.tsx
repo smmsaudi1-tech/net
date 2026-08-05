@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, CheckCircle2, Phone, MessageSquare, Video, Sparkles, Send, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, Phone, Sparkles, Send, ShieldCheck, Zap } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useSiteContent } from '../../context/SiteContentContext';
 import { soundEngine } from '../../utils/audioEngine';
+
+// Authentic WhatsApp SVG Brand Logo
+const WhatsAppLogo: React.FC<{ className?: string }> = ({ className = "w-6 h-6" }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.572-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413" />
+  </svg>
+);
+
+// Authentic TikTok Chromatic Offset SVG Brand Logo
+const TikTokLogo: React.FC<{ className?: string }> = ({ className = "w-6 h-6" }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64c.29 0 .56.04.82.12V9.4a6.27 6.27 0 00-1-.08A6.34 6.34 0 003 15.66a6.34 6.34 0 0010.82 4.48 6.23 6.23 0 001.82-4.48V9.28a8.26 8.26 0 004.95 1.62v-3.45a4.85 4.85 0 01-1-.76z" />
+  </svg>
+);
 
 export const BoldContact: React.FC = () => {
   const [name, setName] = useState('');
@@ -92,7 +106,6 @@ export const BoldContact: React.FC = () => {
           }}
           className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-indigo-500/20 via-cyan-500/15 to-emerald-500/10 blur-[120px]"
         />
-        {/* Subtle Cyber Grid Lines */}
         <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       </div>
 
@@ -240,45 +253,46 @@ export const BoldContact: React.FC = () => {
             </motion.button>
           </motion.form>
 
-          {/* ULTRA MAGNETIC DIRECT CONTACT CARD */}
+          {/* ULTRA AUTHENTIC DIRECT CONTACT HUB CARD */}
           <motion.div variants={itemVariants} className="lg:col-span-5 space-y-6 font-mono text-xs">
             <div
               className={`p-8 rounded-[2.5rem] border transition-all duration-500 space-y-6 shadow-2xl relative overflow-hidden backdrop-blur-2xl group/card ${
                 theme === 'dark'
-                  ? 'bg-gradient-to-b from-[#0e0e14] via-[#09090e] to-[#040406] border-[#222232] shadow-[0_20px_50px_rgba(0,0,0,0.8)]'
-                  : 'bg-gradient-to-b from-white via-slate-50 to-slate-100 border-[#e2e8f0] shadow-xl'
+                  ? 'bg-[#0a0a10] border-[#222238] shadow-[0_25px_60px_rgba(0,0,0,0.9)]'
+                  : 'bg-white border-[#e2e8f0] shadow-2xl'
               }`}
             >
-              {/* Animated Top Gradient Glow Bar */}
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-400 via-cyan-400 to-purple-500 animate-gradient-x" />
+              {/* Top Dynamic Brand Bar */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#25D366] via-[#06b6d4] to-[#ff0050]" />
               
-              {/* Subtle Corner Glow Accent */}
-              <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none group-hover/card:bg-emerald-500/20 transition-all duration-700" />
+              {/* Ambient Glows */}
+              <div className="absolute -top-24 -right-24 w-52 h-52 rounded-full bg-[#25D366]/15 blur-3xl pointer-events-none group-hover/card:bg-[#25D366]/25 transition-all duration-700" />
+              <div className="absolute -bottom-24 -left-24 w-52 h-52 rounded-full bg-[#ff0050]/15 blur-3xl pointer-events-none group-hover/card:bg-[#ff0050]/25 transition-all duration-700" />
 
-              {/* Card Header & Live Status */}
+              {/* Card Header & Live Status Badges */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-[10px] font-bold uppercase">
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] font-mono text-[10px] font-bold uppercase shadow-[0_0_15px_rgba(37,211,102,0.2)]">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>DIRECT FOUNDER LINE</span>
                 </div>
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-[9px] font-bold">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[9px] font-bold">
+                  <span className="w-2 h-2 rounded-full bg-[#25D366] animate-ping" />
                   <span>RESPONSE &lt; 5 MINS</span>
                 </div>
               </div>
 
-              {/* Card Main Title */}
-              <div className="space-y-2">
+              {/* Main Title */}
+              <div className="space-y-1.5">
                 <h4 className="text-2xl font-black font-sans tracking-tight">Next Gen Devs Studio</h4>
                 <p className={`text-xs leading-relaxed ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
-                  Connect directly with our lead creative tech engineer. We reply instantly via WhatsApp & Call.
+                  Connect instantly via official WhatsApp, direct phone call, or TikTok.
                 </p>
               </div>
 
-              {/* MAGNETIC CONTACT ACTION BUTTONS */}
-              <div className="space-y-4 pt-2">
+              {/* AUTHENTIC BRAND ACTION BUTTONS */}
+              <div className="space-y-4 pt-1">
                 
-                {/* 01 — WHATSAPP BUTTON (HIGH CONVERSION) */}
+                {/* 01 — AUTHENTIC WHATSAPP BRAND BUTTON */}
                 <motion.a
                   whileHover={{ y: -4, scale: 1.025 }}
                   whileTap={{ scale: 0.98 }}
@@ -287,68 +301,70 @@ export const BoldContact: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   data-cursor="WHATSAPP"
-                  className="flex items-center justify-between p-4 rounded-2xl border transition-all duration-300 bg-gradient-to-r from-emerald-950/40 via-emerald-900/30 to-emerald-950/40 border-emerald-500/30 hover:border-emerald-400 shadow-[0_0_25px_rgba(16,185,129,0.15)] hover:shadow-[0_0_35px_rgba(16,185,129,0.35)] group/btn"
+                  className="flex items-center justify-between p-4 rounded-2xl border transition-all duration-300 bg-[#0d1f16]/90 border-[#25D366]/40 hover:border-[#25D366] shadow-[0_0_25px_rgba(37,211,102,0.15)] hover:shadow-[0_0_40px_rgba(37,211,102,0.4)] group/btn"
                 >
                   <div className="flex items-center gap-3.5">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400 group-hover/btn:scale-110 transition-transform">
-                      <MessageSquare className="w-5 h-5 fill-emerald-400/20" />
+                    {/* Authentic WhatsApp Green Badge */}
+                    <div className="w-12 h-12 rounded-2xl bg-[#25D366] text-white flex items-center justify-center shadow-lg shadow-[#25D366]/30 group-hover/btn:scale-110 transition-transform">
+                      <WhatsAppLogo className="w-7 h-7 fill-white" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-[9px] font-mono font-bold tracking-widest text-emerald-400 uppercase">
-                          WHATSAPP CHAT
+                        <span className="text-[10px] font-mono font-bold tracking-widest text-[#25D366] uppercase">
+                          WHATSAPP OFFICIAL
                         </span>
-                        <span className="text-[8px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">
-                          INSTANT
+                        <span className="text-[8px] font-mono px-1.5 py-0.5 rounded bg-[#25D366]/20 text-[#25D366] border border-[#25D366]/40 font-bold">
+                          ONLINE
                         </span>
                       </div>
-                      <div className="font-bold text-sm text-white group-hover/btn:text-emerald-300 transition-colors">
+                      <div className="font-bold text-base text-white group-hover/btn:text-[#25D366] transition-colors">
                         {phoneNum}
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1 text-[11px] font-bold text-emerald-400 group-hover/btn:translate-x-1 transition-transform">
+                  <div className="px-3.5 py-2 rounded-xl bg-[#25D366] text-black font-bold text-[11px] flex items-center gap-1 shadow-md shadow-[#25D366]/20 group-hover/btn:scale-105 transition-all">
                     <span>CHAT NOW</span>
-                    <ArrowUpRight className="w-4 h-4" />
+                    <ArrowUpRight className="w-4 h-4 stroke-[3]" />
                   </div>
                 </motion.a>
 
-                {/* 02 — DIRECT PHONE CALL BUTTON */}
+                {/* 02 — AUTHENTIC PHONE CALL BRAND BUTTON */}
                 <motion.a
                   whileHover={{ y: -4, scale: 1.025 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => soundEngine.playClick()}
                   href={`tel:${phoneNum}`}
                   data-cursor="CALL"
-                  className="flex items-center justify-between p-4 rounded-2xl border transition-all duration-300 bg-gradient-to-r from-cyan-950/40 via-cyan-900/30 to-cyan-950/40 border-cyan-500/30 hover:border-cyan-400 shadow-[0_0_25px_rgba(6,182,212,0.15)] hover:shadow-[0_0_35px_rgba(6,182,212,0.35)] group/btn"
+                  className="flex items-center justify-between p-4 rounded-2xl border transition-all duration-300 bg-[#0b1c24]/90 border-cyan-500/40 hover:border-cyan-400 shadow-[0_0_25px_rgba(6,182,212,0.15)] hover:shadow-[0_0_40px_rgba(6,182,212,0.4)] group/btn"
                 >
                   <div className="flex items-center gap-3.5">
-                    <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400 group-hover/btn:scale-110 transition-transform">
-                      <Phone className="w-5 h-5 fill-cyan-400/20" />
+                    {/* Authentic Cyan Phone Badge */}
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 text-white flex items-center justify-center shadow-lg shadow-cyan-500/30 group-hover/btn:scale-110 transition-transform">
+                      <Phone className="w-6 h-6 fill-white stroke-none" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-[9px] font-mono font-bold tracking-widest text-cyan-400 uppercase">
-                          24/7 CALL LINE
+                        <span className="text-[10px] font-mono font-bold tracking-widest text-cyan-400 uppercase">
+                          24/7 DIRECT CALL
                         </span>
-                        <span className="text-[8px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-bold">
+                        <span className="text-[8px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold">
                           VOICE
                         </span>
                       </div>
-                      <div className="font-bold text-sm text-white group-hover/btn:text-cyan-300 transition-colors">
+                      <div className="font-bold text-base text-white group-hover/btn:text-cyan-300 transition-colors">
                         {phoneNum}
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1 text-[11px] font-bold text-cyan-400 group-hover/btn:translate-x-1 transition-transform">
+                  <div className="px-3.5 py-2 rounded-xl bg-cyan-400 text-black font-bold text-[11px] flex items-center gap-1 shadow-md shadow-cyan-500/20 group-hover/btn:scale-105 transition-all">
                     <span>CALL NOW</span>
-                    <ArrowUpRight className="w-4 h-4" />
+                    <ArrowUpRight className="w-4 h-4 stroke-[3]" />
                   </div>
                 </motion.a>
 
-                {/* 03 — TIKTOK OFFICIAL SHOWCASE BUTTON */}
+                {/* 03 — AUTHENTIC TIKTOK BRAND BUTTON */}
                 <motion.a
                   whileHover={{ y: -4, scale: 1.025 }}
                   whileTap={{ scale: 0.98 }}
@@ -357,38 +373,40 @@ export const BoldContact: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   data-cursor="TIKTOK"
-                  className="flex items-center justify-between p-4 rounded-2xl border transition-all duration-300 bg-gradient-to-r from-purple-950/40 via-pink-900/30 to-purple-950/40 border-pink-500/30 hover:border-pink-400 shadow-[0_0_25px_rgba(236,72,153,0.15)] hover:shadow-[0_0_35px_rgba(236,72,153,0.35)] group/btn"
+                  className="flex items-center justify-between p-4 rounded-2xl border transition-all duration-300 bg-[#1e0a14]/90 border-pink-500/40 hover:border-pink-400 shadow-[0_0_25px_rgba(255,0,80,0.15)] hover:shadow-[0_0_40px_rgba(255,0,80,0.4)] group/btn"
                 >
                   <div className="flex items-center gap-3.5">
-                    <div className="w-10 h-10 rounded-xl bg-pink-500/20 border border-pink-400/40 flex items-center justify-center text-pink-400 group-hover/btn:scale-110 transition-transform">
-                      <Video className="w-5 h-5 fill-pink-400/20" />
+                    {/* Authentic Black/Pink/Cyan TikTok Badge */}
+                    <div className="w-12 h-12 rounded-2xl bg-black border border-zinc-800 text-white flex items-center justify-center shadow-lg shadow-pink-500/30 group-hover/btn:scale-110 transition-transform relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#ff0050]/20 to-[#00f2fe]/20" />
+                      <TikTokLogo className="w-6 h-6 fill-white relative z-10 filter drop-shadow-[2px_0_0_#ff0050] drop-shadow-[-2px_0_0_#00f2fe]" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-[9px] font-mono font-bold tracking-widest text-pink-400 uppercase">
+                        <span className="text-[10px] font-mono font-bold tracking-widest text-pink-400 uppercase">
                           TIKTOK OFFICIAL
                         </span>
-                        <span className="text-[8px] font-mono px-1.5 py-0.5 rounded bg-pink-500/20 text-pink-300 border border-pink-500/30 font-bold">
+                        <span className="text-[8px] font-mono px-1.5 py-0.5 rounded bg-pink-500/20 text-pink-300 border border-pink-500/40 font-bold">
                           DEMOS
                         </span>
                       </div>
-                      <div className="font-bold text-sm text-white group-hover/btn:text-pink-300 transition-colors">
+                      <div className="font-bold text-base text-white group-hover/btn:text-pink-300 transition-colors">
                         @nextgendevs
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1 text-[11px] font-bold text-pink-400 group-hover/btn:translate-x-1 transition-transform">
+                  <div className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#ff0050] to-[#00f2fe] text-white font-bold text-[11px] flex items-center gap-1 shadow-md shadow-pink-500/20 group-hover/btn:scale-105 transition-all">
                     <span>EXPLORE</span>
-                    <ArrowUpRight className="w-4 h-4" />
+                    <ArrowUpRight className="w-4 h-4 stroke-[3]" />
                   </div>
                 </motion.a>
 
               </div>
 
               {/* Bottom Guarantee Note */}
-              <div className="pt-2 flex items-center justify-between text-[10px] font-mono text-zinc-500 border-t border-white/5">
-                <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
+              <div className="pt-3 flex items-center justify-between text-[10px] font-mono text-zinc-500 border-t border-white/10">
+                <span className="flex items-center gap-1.5 text-[#25D366] font-bold">
                   <Zap className="w-3.5 h-3.5 animate-pulse" />
                   FREE CONSULTATION & QUOTE
                 </span>
