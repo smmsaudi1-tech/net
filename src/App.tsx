@@ -4,7 +4,6 @@ import { MagneticCursor } from './components/cursor/MagneticCursor';
 import { Navbar } from './components/nav/Navbar';
 import { HeroSection } from './components/hero/HeroSection';
 import { BrandStatement } from './components/statement/BrandStatement';
-import { ScrollWorldSection } from './components/scrollworld/ScrollWorldSection';
 import { ExperimentalServices } from './components/services/ExperimentalServices';
 import { EditorialCaseStudies } from './components/work/EditorialCaseStudies';
 import { HorizontalScrollSection } from './components/horizontal/HorizontalScrollSection';
@@ -67,9 +66,6 @@ function MainAppContent() {
 
             {/* 04 — GSAP ScrollTrigger Kinetic Brand Statement */}
             <BrandStatement />
-
-            {/* 04.5 — Scroll World Immersive 3D Flight Experience */}
-            <ScrollWorldSection />
 
             {/* 05 — Experimental Vertical Services */}
             <ExperimentalServices />
