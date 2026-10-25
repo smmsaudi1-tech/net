@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NextGen Sales Agent | اعثر على العملاء الذين يحتاجون موقعاً أو متجراً</title>
+<meta name="description" content="أداة ذكية تبحث في خرائط جوجل والسوشيال ميديا، تتحقق من أرقام الموبايل، تقيّم كل نشاط، وتجهّز له تصميماً مبدئياً ورسالة واتساب مخصصة. تعمل على جهازك بأمان تام.">
+<meta name="theme-color" content="#0b1b2b">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NextGen Sales Agent | صائد العملاء المؤهلين">
+<meta property="og:description" content="اكتشف الأنشطة التي تحتاج موقعاً أو متجراً، وجهّز لها ديمو ورسالة واتساب في دقائق.">
+<meta property="og:locale" content="ar_AR">
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"NextGen Sales Agent","applicationCategory":"BusinessApplication","description":"أداة لاكتشاف الأنشطة التجارية التي تحتاج موقعاً أو متجراً وتجهيز ديمو ورسائل واتساب مخصصة لها.","inLanguage":"ar","publisher":{"@type":"Organization","name":"NextGen Devs"}}</script>
+<style>
+:root{
+  --ink:#091624;
+  --ink-2:#1e2f42;
+  --mut:#586a7e;
+  --mut-l:#8fa1b4;
+  --paper:#f7f6f2;
+  --card:#ffffff;
+  --line:#e4dfd3;
+  --line-d:#1d3448;
+  --teal:#0d7a71;
+  --teal-d:#085952;
+  --teal-l:#e6f5f3;
+  --teal-t:#4fd1c5;
+  --teal-glow:rgba(13,122,113,0.18);
+  --amber:#b45309;
+  --amber-l:#fef3c7;
+  --wa:#16a34a;
+  --wa-d:#15803d;
+  --wa-l:#dcfce7;
+  --bad:#dc2626;
+  --bad-l:#fee2e2;
+  --indigo:#4f46e5;
+  --indigo-l:#e0e7ff;
+  --r:16px;
+  --wrap:1180px;
+  --shadow-sm:0 2px 8px rgba(9,22,36,0.04);
+  --shadow-md:0 12px 32px -8px rgba(9,22,36,0.08),0 2px 8px rgba(9,22,36,0.04);
+  --shadow-lg:0 28px 64px -16px rgba(9,22,36,0.18),0 6px 16px rgba(9,22,36,0.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
+body{
+  font-family:'IBM Plex Sans Arabic','Segoe UI',system-ui,Tahoma,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  font-size:17px;
+  line-height:1.8;
+  overflow-wrap:anywhere;
+  font-variant-numeric:tabular-nums;
+  position:relative;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:8px}
+.skip{position:absolute;inset-inline-start:16px;top:-60px;background:var(--ink);color:#fff;padding:10px 18px;border-radius:8px;z-index:100;text-decoration:none;transition:top .2s}
+.skip:focus{top:12px}
+.i{width:22px;height:22px;flex:none}
+.wrap{width:min(100% - 40px,var(--wrap));margin-inline:auto}
+section{padding:clamp(60px,8vw,110px) 0;position:relative}
+
+/* Ambient Background Blobs */
+.bg-ambient{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:0;
+}
+.ambient-glow{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(80px);
+  opacity:.5;
+}
+.glow-1{width:460px;height:460px;background:radial-gradient(circle,#bbf7d0,transparent 70%);top:-120px;inset-inline-end:-100px}
+.glow-2{width:400px;height:400px;background:radial-gradient(circle,#99f6e4,transparent 70%);bottom:40px;inset-inline-start:-80px;opacity:.35}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:13.5px;
+  font-weight:700;
+  color:var(--teal);
+  background:var(--teal-l);
+  padding:5px 14px;
+  border-radius:99px;
+  letter-spacing:.3px;
+  margin-bottom:16px;
+  border:1px solid rgba(13,122,113,.15);
+}
+.dark .eyebrow{color:var(--teal-t);background:rgba(79,209,197,.12);border-color:rgba(79,209,197,.25)}
+h1,h2,h3{line-height:1.35;font-weight:700;letter-spacing:-.2px}
+h2{font-size:clamp(1.85rem,3.4vw,2.65rem);max-width:24em}
+.lead{color:var(--mut);font-size:clamp(1.05rem,1.6vw,1.22rem);max-width:42em;margin-top:16px}
+.dark .lead{color:#9fb5cc}
+.sec-head{margin-bottom:clamp(36px,5vw,60px)}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:50px;
+  padding:12px 28px;
+  border-radius:12px;
+  border:1.5px solid transparent;
+  font-weight:600;
+  font-size:16px;
+  text-decoration:none;
+  cursor:pointer;
+  transition:all .2s cubic-bezier(.16,1,.3,1);
+  white-space:nowrap;
+  position:relative;
+}
+.btn .i{width:20px;height:20px}
+.btn.pri{
+  background:linear-gradient(135deg,var(--teal),var(--teal-d));
+  color:#fff;
+  box-shadow:0 4px 16px var(--teal-glow);
+}
+.btn.pri:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px var(--teal-glow);
+}
+.btn.wa{
+  background:linear-gradient(135deg,#16a34a,#15803d);
+  color:#fff;
+  box-shadow:0 6px 20px rgba(22,163,74,0.28);
+}
+.btn.wa:hover{
+  background:linear-gradient(135deg,#15803d,#166534);
+  transform:translateY(-2px);
+  box-shadow:0 10px 28px rgba(22,163,74,0.36);
+}
+.btn.line{
+  background:var(--card);
+  border-color:var(--line);
+  color:var(--ink-2);
+  box-shadow:var(--shadow-sm);
+}
+.btn.line:hover{
+  background:var(--ink);
+  color:#fff;
+  border-color:var(--ink);
+  transform:translateY(-2px);
+}
+.dark .btn.line{
+  background:rgba(255,255,255,.05);
+  border-color:rgba(255,255,255,.16);
+  color:#fff;
+}
+.dark .btn.line:hover{
+  background:#fff;
+  color:var(--ink);
+  border-color:#fff;
+  transform:translateY(-2px);
+}
+.btn.block{width:100%}
+.dark .plan .btn.line{
+  background:#fff;
+  border-color:var(--line);
+  color:var(--ink);
+}
+.dark .plan .btn.line:hover{
+  background:var(--ink);
+  color:#fff;
+  border-color:var(--ink);
+}
+
+/* ---------- header ---------- */
+header.top{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(247,246,242,.92);
+  border-bottom:1px solid rgba(228,223,211,.85);
+  backdrop-filter:saturate(1.4) blur(12px);
+  -webkit-backdrop-filter:saturate(1.4) blur(12px);
+  transition:box-shadow .2s;
+}
+.bar{display:flex;align-items:center;gap:28px;flex-wrap:wrap;min-height:74px}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:18.5px;
+  letter-spacing:-.3px;
+  color:var(--ink);
+}
+.logo-img{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  object-fit:cover;
+  box-shadow:0 4px 14px rgba(0,0,0,0.12);
+  flex:none;
+}
+.nav{display:flex;align-items:center;gap:24px;margin-inline-start:auto}
+.nav a{
+  text-decoration:none;
+  font-size:15px;
+  font-weight:500;
+  color:var(--ink-2);
+  padding:6px 4px;
+  border-radius:6px;
+  transition:color .15s;
+}
+.nav a:hover{color:var(--teal)}
+.nav .btn{min-height:42px;padding:8px 22px;font-size:14.5px;color:#fff}
+.nav .btn:hover{color:#fff}
+.burger{
+  display:none;
+  margin-inline-start:auto;
+  width:46px;
+  height:46px;
+  border:1.5px solid var(--line);
+  border-radius:12px;
+  background:var(--card);
+  cursor:pointer;
+  place-items:center;
+  box-shadow:var(--shadow-sm);
+}
+
+/* ---------- hero ---------- */
+.hero{
+  padding:clamp(48px,7vw,92px) 0 clamp(64px,8vw,110px);
+  background:
+    radial-gradient(circle at 85% 15%,rgba(13,122,113,.08) 0%,transparent 50%),
+    radial-gradient(circle at 10% 80%,rgba(180,83,9,.05) 0%,transparent 45%),
+    linear-gradient(to left,rgba(11,27,43,.03) 1px,transparent 1px) 0 0/60px 60px,
+    linear-gradient(to bottom,rgba(11,27,43,.03) 1px,transparent 1px) 0 0/60px 60px,
+    var(--paper);
+  position:relative;
+  overflow:hidden;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+  gap:clamp(36px,5vw,76px);
+  align-items:center;
+  position:relative;
+  z-index:1;
+}
+.hero h1{
+  font-size:clamp(2.2rem,4.5vw,3.6rem);
+  line-height:1.24;
+  font-weight:700;
+  color:var(--ink);
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--teal),#059669);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  display:inline-block;
+  position:relative;
+}
+.hero h1 em::after{
+  content:"";
+  position:absolute;
+  inset-inline:0;
+  bottom:4px;
+  height:6px;
+  background:var(--teal-l);
+  z-index:-1;
+  border-radius:4px;
+}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.hero-note{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 24px;
+  margin-top:32px;
+  color:var(--mut);
+  font-size:14.5px;
+  padding-top:20px;
+  border-top:1px dashed var(--line);
+}
+.hero-note span{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-weight:500;
+}
+.hero-note .i{width:18px;height:18px;color:var(--teal)}
+
+/* ---------- Hero Product Mockup Card ---------- */
+.mock-wrap{position:relative}
+.mock-float-badge{
+  position:absolute;
+  top:-16px;
+  inset-inline-start:-18px;
+  background:#ffffff;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-md);
+  padding:8px 14px;
+  border-radius:99px;
+  font-size:13px;
+  font-weight:700;
+  color:var(--wa-d);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  z-index:10;
+  animation:float 4s ease-in-out infinite;
+}
+.pulse-dot{
+  width:9px;
+  height:9px;
+  background:var(--wa);
+  border-radius:50%;
+  box-shadow:0 0 0 4px rgba(22,163,74,.25);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.4)}
+  70%{box-shadow:0 0 0 8px rgba(22,163,74,0)}
+  100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+
+.mock{
+  background:var(--card);
+  border:1px solid rgba(228,223,211,.9);
+  border-radius:20px;
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+  min-width:0;
+  position:relative;
+  transition:transform .3s;
+}
+.mock:hover{transform:translateY(-3px)}
+.mock-window-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 18px;
+  border-bottom:1px solid var(--line);
+  background:#faf8f5;
+}
+.mock-dots{display:flex;gap:7px;align-items:center}
+.mock-dot{width:10px;height:10px;border-radius:50%}
+.mock-dot.r{background:#ff5f56;border:1px solid #e0443e}
+.mock-dot.y{background:#ffbd2e;border:1px solid #dea123}
+.mock-dot.g{background:#27c93f;border:1px solid #1aab29}
+.mock-search-pill{
+  font-size:12px;
+  color:var(--mut);
+  background:#fff;
+  border:1px solid var(--line);
+  padding:3px 14px;
+  border-radius:99px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-weight:500;
+}
+.mock-status-pill{
+  font-size:12px;
+  font-weight:600;
+  color:var(--teal);
+  background:var(--teal-l);
+  padding:3px 10px;
+  border-radius:99px;
+}
+.mock-body{padding:20px}
+.m-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.m-stat{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px 14px;
+  background:#faf9f6;
+  position:relative;
+  overflow:hidden;
+}
+.m-stat::before{
+  content:"";
+  position:absolute;
+  inset-inline-start:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:var(--teal);
+}
+.m-stat:nth-child(2)::before{background:var(--amber)}
+.m-stat:nth-child(3)::before{background:var(--bad)}
+.m-stat span{display:block;font-size:12.5px;color:var(--mut);font-weight:500}
+.m-stat b{font-size:24px;line-height:1.2;font-weight:700;color:var(--ink);margin-top:2px;display:block}
+
+.m-rows{display:grid;gap:10px}
+.m-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 110px;
+  gap:14px;
+  align-items:center;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:11px 14px;
+  background:#fff;
+  transition:all .18s ease;
+}
+.m-row:hover{
+  border-color:var(--teal);
+  background:#fcfffe;
+  box-shadow:0 4px 12px rgba(13,122,113,.06);
+}
+.m-row-info{display:flex;align-items:center;gap:10px}
+.m-row-icon{
+  width:32px;
+  height:32px;
+  border-radius:8px;
+  background:var(--teal-l);
+  color:var(--teal);
+  display:grid;
+  place-items:center;
+  flex:none;
+}
+.m-row b{display:block;font-size:14.5px;line-height:1.4;color:var(--ink)}
+.tag{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  font-size:11.5px;
+  font-weight:600;
+  padding:1px 9px;
+  border-radius:99px;
+  background:var(--amber-l);
+  color:var(--amber);
+  margin-top:2px;
+}
+.tag.g{background:#e6e9ee;color:var(--mut)}
+.tag.bad{background:var(--bad-l);color:var(--bad)}
+.sc{display:flex;align-items:center;gap:8px}
+.sc b{font-size:13.5px;width:24px;text-align:center;font-weight:700}
+.sc i{display:block;flex:1;height:7px;border-radius:99px;background:#e8e5dc;position:relative;overflow:hidden}
+.sc i::after{
+  content:"";
+  position:absolute;
+  inset-block:0;
+  inset-inline-start:0;
+  width:var(--w);
+  background:linear-gradient(90deg,var(--teal-t),var(--teal));
+  border-radius:99px;
+}
+
+/* Chat bubble inside mock */
+.bubble{
+  margin-top:16px;
+  background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+  border:1px solid #bbf7d0;
+  border-radius:14px;
+  border-start-start-radius:3px;
+  padding:14px 16px;
+  font-size:14px;
+  line-height:1.75;
+  color:#14532d;
+  box-shadow:0 2px 8px rgba(20,83,45,.05);
+}
+.bubble-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:6px;
+  padding-bottom:6px;
+  border-bottom:1px solid rgba(22,163,74,.15);
+}
+.bubble-head-title{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-weight:700;
+  font-size:12.5px;
+  color:#15803d;
+}
+.bubble-head small{
+  color:#166534;
+  font-size:11.5px;
+  background:#fff;
+  padding:1px 8px;
+  border-radius:99px;
+  border:1px solid #bbf7d0;
+}
+.caption{margin-top:14px;font-size:13px;color:var(--mut);text-align:center}
+
+/* ---------- facts strip ---------- */
+.facts{
+  background:linear-gradient(180deg,#091624,#0e2235);
+  color:#fff;
+  padding:0;
+  border-top:1px solid var(--line-d);
+  border-bottom:1px solid var(--line-d);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+}
+.facts ul{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.facts li{
+  padding:32px 24px;
+  border-inline-start:1px solid rgba(255,255,255,.07);
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+  transition:background .2s;
+}
+.facts li:hover{background:rgba(255,255,255,.02)}
+.facts li:first-child{border-inline-start:0}
+.fact-icon-wrap{
+  width:46px;
+  height:46px;
+  border-radius:12px;
+  background:rgba(79,209,197,.12);
+  border:1px solid rgba(79,209,197,.2);
+  display:grid;
+  place-items:center;
+  flex:none;
+  color:var(--teal-t);
+}
+.facts b{display:block;font-size:16.5px;line-height:1.4;font-weight:700;color:#f0fdf4}
+.facts span{display:block;font-size:14px;color:#a0b4c8;line-height:1.6;margin-top:4px}
+
+/* ---------- problem ---------- */
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.pain{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:32px 28px;
+  box-shadow:var(--shadow-sm);
+  transition:all .25s ease;
+  position:relative;
+  overflow:hidden;
+}
+.pain:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-md);
+  border-color:rgba(180,83,9,.3);
+}
+.pain::before{
+  content:"";
+  position:absolute;
+  inset-inline-start:0;
+  top:0;
+  bottom:0;
+  width:4px;
+  background:linear-gradient(180deg,#f59e0b,#d97706);
+}
+.pain-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.pain .n{
+  font-size:13px;
+  font-weight:700;
+  color:var(--amber);
+  background:var(--amber-l);
+  padding:3px 12px;
+  border-radius:99px;
+  display:inline-block;
+}
+.pain-icon{
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  background:#fff7ed;
+  color:#ea580c;
+  display:grid;
+  place-items:center;
+}
+.pain h3{font-size:20px;margin-bottom:10px;color:var(--ink)}
+.pain p{color:var(--mut);font-size:15.5px;line-height:1.8}
+
+/* ---------- steps (dark) ---------- */
+.dark{
+  background:radial-gradient(ellipse at 50% 0%,#11293e 0%,#091624 75%);
+  color:#fff;
+  border-top:1px solid var(--line-d);
+  border-bottom:1px solid var(--line-d);
+  position:relative;
+}
+.steps{
+  list-style:none;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:24px;
+  counter-reset:s;
+  position:relative;
+}
+.steps li{
+  counter-increment:s;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:18px;
+  padding:30px 24px;
+  position:relative;
+  transition:all .25s ease;
+}
+.steps li:hover{
+  background:rgba(255,255,255,.05);
+  border-color:rgba(79,209,197,.3);
+  transform:translateY(-3px);
+}
+.steps li::before{
+  content:counter(s,decimal-leading-zero);
+  display:inline-block;
+  font-size:32px;
+  font-weight:700;
+  color:var(--teal-t);
+  line-height:1;
+  margin-bottom:16px;
+  background:linear-gradient(135deg,var(--teal-t),#38bdf8);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.steps h3{font-size:19.5px;margin-bottom:10px;color:#fff}
+.steps p{color:#a9bbcc;font-size:15.5px;line-height:1.75}
+
+/* ---------- features ---------- */
+.feat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.f{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:28px 24px;
+  box-shadow:var(--shadow-sm);
+  transition:all .2s cubic-bezier(.16,1,.3,1);
+  display:flex;
+  flex-direction:column;
+}
+.f:hover{
+  border-color:var(--teal);
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-md);
+}
+.f .ico{
+  width:50px;
+  height:50px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  margin-bottom:18px;
+  box-shadow:0 4px 12px rgba(0,0,0,.03);
+}
+.f.c-teal .ico{background:var(--teal-l);color:var(--teal)}
+.f.c-indigo .ico{background:var(--indigo-l);color:var(--indigo)}
+.f.c-amber .ico{background:var(--amber-l);color:var(--amber)}
+.f.c-wa .ico{background:var(--wa-l);color:var(--wa)}
+.f.c-blue .ico{background:#e0f2fe;color:#0284c7}
+.f.c-rose .ico{background:#ffe4e6;color:#e11d48}
+.f h3{font-size:18px;margin-bottom:8px;color:var(--ink)}
+.f p{color:var(--mut);font-size:15px;line-height:1.75;flex:1}
+
+/* ---------- showcase ---------- */
+.show{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,5vw,76px);align-items:center}
+.ticks{list-style:none;margin-top:26px;display:grid;gap:14px}
+.ticks li{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  color:var(--ink-2);
+  background:rgba(255,255,255,.6);
+  padding:10px 14px;
+  border-radius:10px;
+  border:1px solid rgba(228,223,211,.6);
+}
+.ticks .i{color:var(--teal);width:22px;height:22px;margin-top:2px;flex:none}
+.browser{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:var(--shadow-lg);
+  transition:transform .3s;
+}
+.browser:hover{transform:translateY(-3px)}
+.url-bar{
+  padding:12px 16px;
+  border-bottom:1px solid var(--line);
+  background:#faf8f5;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.url{
+  flex:1;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:5px 12px;
+  font-size:12.5px;
+  color:var(--mut);
+  direction:ltr;
+  text-align:left;
+  font-family:ui-monospace,Consolas,monospace;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.url svg{width:13px;height:13px;color:var(--wa)}
+.d-hero{
+  background:linear-gradient(135deg,#c2410c,#ea580c);
+  color:#fff;
+  text-align:center;
+  padding:38px 24px;
+  position:relative;
+}
+.d-hero-badge{
+  display:inline-block;
+  background:rgba(0,0,0,.25);
+  font-size:12px;
+  padding:2px 10px;
+  border-radius:99px;
+  margin-bottom:8px;
+}
+.d-hero b{display:block;font-size:26px;line-height:1.3;font-weight:700}
+.d-hero small{display:block;opacity:.92;margin-top:4px;font-size:14.5px}
+.d-hero span{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:16px;
+  background:#fed7aa;
+  color:#7c2d12;
+  font-weight:700;
+  padding:8px 24px;
+  border-radius:10px;
+  font-size:14.5px;
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+.d-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:20px;background:#fffaf5}
+.d-card{
+  background:#fff;
+  border:1px solid #fed7aa;
+  border-radius:12px;
+  padding:12px 10px;
+  font-size:13px;
+  font-weight:600;
+  text-align:center;
+  box-shadow:var(--shadow-sm);
+}
+.d-card-img{
+  height:58px;
+  border-radius:8px;
+  background:linear-gradient(135deg,#fed7aa,#ffedd5);
+  margin-bottom:8px;
+  display:grid;
+  place-items:center;
+  font-size:22px;
+}
+
+/* ---------- responsible ---------- */
+.resp{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,5vw,76px);align-items:start}
+.rules{display:grid;gap:16px}
+.rule{
+  display:flex;
+  gap:18px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:22px 24px;
+  box-shadow:var(--shadow-sm);
+  transition:all .2s;
+}
+.rule:hover{
+  border-color:var(--teal);
+  transform:translateX(-3px);
+  box-shadow:var(--shadow-md);
+}
+.rule .ico{
+  width:46px;
+  height:46px;
+  border-radius:12px;
+  background:var(--amber-l);
+  color:var(--amber);
+  display:grid;
+  place-items:center;
+  flex:none;
+}
+.rule h3{font-size:17.5px;margin-bottom:4px;color:var(--ink)}
+.rule p{color:var(--mut);font-size:15px;line-height:1.7}
+.warn{
+  margin-top:24px;
+  padding:18px 20px;
+  border-radius:14px;
+  background:#fffbeb;
+  color:#78350f;
+  font-size:15px;
+  line-height:1.75;
+  border:1px solid #fde68a;
+  box-shadow:var(--shadow-sm);
+}
+.warn b{color:#92400e;display:block;margin-bottom:4px;font-size:15.5px}
+
+/* ---------- pricing ---------- */
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:stretch}
+.plan{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:22px;
+  padding:34px 30px;
+  display:flex;
+  flex-direction:column;
+  box-shadow:var(--shadow-sm);
+  transition:all .25s ease;
+  position:relative;
+}
+.plan:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-lg);
+}
+.plan.hl{
+  border:2px solid var(--teal-t);
+  background:linear-gradient(180deg,#ffffff,#f0fdfa);
+  box-shadow:0 20px 48px -12px rgba(13,122,113,.25);
+  transform:scale(1.02);
+}
+.plan.hl:hover{
+  transform:scale(1.02) translateY(-4px);
+}
+.plan-badge{
+  position:absolute;
+  top:-14px;
+  inset-inline-start:50%;
+  transform:translateX(50%);
+  background:linear-gradient(135deg,var(--teal),#047857);
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+  padding:4px 16px;
+  border-radius:99px;
+  box-shadow:0 4px 12px var(--teal-glow);
+  white-space:nowrap;
+}
+.plan h3{font-size:22px;color:var(--ink)}
+.plan .dur{color:var(--mut);font-size:15px;margin-top:3px}
+.price{
+  font-size:clamp(1.6rem,2.6vw,2.1rem);
+  font-weight:700;
+  margin:22px 0 6px;
+  line-height:1.3;
+  color:var(--ink);
+}
+.price small{font-size:14px;font-weight:500;color:var(--mut)}
+.plan ul{list-style:none;margin:24px 0 30px;display:grid;gap:12px;font-size:15.5px;flex:1}
+.plan li{display:flex;gap:10px;align-items:flex-start;color:var(--ink-2)}
+.plan li .i{color:var(--teal);width:20px;height:20px;margin-top:3px;flex:none}
+.plan-note{margin-top:24px;color:var(--mut);font-size:15px;text-align:center}
+
+/* ---------- activation ---------- */
+.act{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.act div{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:var(--r);
+  padding:30px 26px;
+  transition:all .2s;
+}
+.act div:hover{
+  background:rgba(255,255,255,.06);
+  border-color:rgba(79,209,197,.3);
+  transform:translateY(-2px);
+}
+.act b{
+  display:grid;
+  place-items:center;
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-d));
+  color:#fff;
+  font-size:17px;
+  font-weight:700;
+  margin-bottom:16px;
+  box-shadow:0 4px 12px var(--teal-glow);
+}
+.act h3{font-size:19px;margin-bottom:8px;color:#fff}
+.act p{color:#a9bbcc;font-size:15.5px;line-height:1.75}
+
+/* ---------- faq ---------- */
+.faq{max-width:860px;margin-inline:auto;display:grid;gap:14px}
+details{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:14px;
+  transition:all .2s;
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+}
+details:hover{border-color:var(--teal)}
+details[open]{border-color:var(--teal);box-shadow:var(--shadow-md)}
+summary{
+  list-style:none;
+  cursor:pointer;
+  padding:20px 24px;
+  font-weight:600;
+  font-size:17px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  min-height:64px;
+  color:var(--ink);
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:"";
+  width:10px;
+  height:10px;
+  border-inline-end:2.5px solid var(--teal);
+  border-bottom:2.5px solid var(--teal);
+  transform:rotate(45deg);
+  transition:transform .25s ease;
+  flex:none;
+  margin-bottom:3px;
+}
+details[open] summary::after{transform:rotate(-135deg);margin-bottom:-4px}
+details p{
+  padding:0 24px 22px;
+  color:var(--mut);
+  font-size:16px;
+  line-height:1.8;
+  border-top:1px dashed var(--line);
+  margin-top:4px;
+  padding-top:16px;
+}
+
+/* ---------- final cta + footer ---------- */
+.final{text-align:center;padding:clamp(70px,9vw,120px) 0}
+.final h2{margin-inline:auto}
+.final .lead{margin-inline:auto}
+.final .cta-row{justify-content:center}
+footer{
+  background:#050c14;
+  color:#94a3b8;
+  padding:38px 0;
+  font-size:14.5px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.foot{display:flex;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;align-items:center}
+.foot a{color:#cbd5e1;text-decoration:none;transition:color .15s}
+.foot a:hover{color:#fff}
+
+/* ---------- Floating WhatsApp Widget ---------- */
+.wa-floating-btn{
+  position:fixed;
+  bottom:26px;
+  inset-inline-start:26px;
+  z-index:99;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:linear-gradient(135deg,#16a34a,#15803d);
+  color:#fff;
+  padding:12px 20px;
+  border-radius:99px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:15px;
+  box-shadow:0 12px 28px rgba(22,163,74,.4),0 2px 8px rgba(0,0,0,.1);
+  transition:all .25s cubic-bezier(.16,1,.3,1);
+}
+.wa-floating-btn:hover{
+  transform:translateY(-3px) scale(1.03);
+  box-shadow:0 16px 36px rgba(22,163,74,.5);
+  color:#fff;
+}
+.wa-floating-icon{
+  width:26px;
+  height:26px;
+  flex:none;
+  animation:waBounce 2.5s infinite;
+}
+@keyframes waBounce{
+  0%,20%,50%,80%,100%{transform:translateY(0)}
+  40%{transform:translateY(-4px)}
+  60%{transform:translateY(-2px)}
+}
+
+/* ---------- responsive ---------- */
+@media(max-width:1040px){
+  .hero-grid,.show,.resp{grid-template-columns:minmax(0,1fr)}
+  .feat{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facts ul{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facts li:nth-child(3){border-inline-start:0}
+  .facts li:nth-child(n+3){border-top:1px solid rgba(255,255,255,.07)}
+  .mock{max-width:580px;margin-inline:auto}.browser{max-width:580px;margin-inline:auto}
+  .mock-float-badge{inset-inline-start:0;top:-12px}
+}
+@media(max-width:860px){
+  .burger{display:grid}
+  .nav{display:none;flex-basis:100%;flex-direction:column;align-items:stretch;gap:0;margin:0;padding:8px 0 18px}
+  .nav.open{display:flex}
+  .nav a{padding:14px 6px;border-bottom:1px solid var(--line);font-size:16px}
+  .nav .btn{margin-top:14px;min-height:50px;padding:12px 26px;border-bottom:1.5px solid transparent}
+  .cols3,.plans,.act{grid-template-columns:minmax(0,1fr)}
+  .plans{max-width:480px;margin-inline:auto}
+  .plan.hl{transform:none}
+  .plan.hl:hover{transform:translateY(-4px)}
+}
+@media(max-width:600px){
+  body{font-size:16px}
+  .wrap{width:min(100% - 28px,var(--wrap))}
+  .feat,.steps,.facts ul{grid-template-columns:minmax(0,1fr)}
+  .facts li{border-inline-start:0;border-top:1px solid rgba(255,255,255,.07);padding:22px 4px}
+  .facts li:first-child{border-top:0}
+  .cta-row .btn{width:100%}
+  .m-row{grid-template-columns:minmax(0,1fr) 88px}
+  .d-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.d-grid .d-card:last-child{display:none}
+  .plan{padding:28px 22px}
+  .wa-floating-btn span{display:none}
+  .wa-floating-btn{padding:14px;border-radius:50%;bottom:18px;inset-inline-start:18px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">تخطَّ إلى المحتوى</a>
+
+<!-- SVG Symbol Definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="logo" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#0d7a71"/><path d="M18 48V16h6l16 22V16h6v32h-6L24 26v22z" fill="#fff"/><circle cx="46" cy="18" r="4" fill="#4fd1c5"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+<symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+<symbol id="i-gauge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
+<symbol id="i-layout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/><rect width="5" height="7" x="16" y="14" rx="1"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+<symbol id="i-ban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></symbol>
+<symbol id="i-laptop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="12" x="3" y="4" rx="2"/><path d="M2 20h20"/></symbol>
+<symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></symbol>
+<symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+</defs></svg>
+
+<!-- Header -->
+<header class="top">
+  <div class="wrap bar">
+    <a class="logo" href="#top" aria-label="NextGen Sales Agent">
+      <img src="logo.png" alt="NextGen Logo" class="logo-img">
+      <span>NextGen Sales Agent</span>
+    </a>
+    <button class="burger" id="burger" aria-label="القائمة" aria-expanded="false" aria-controls="nav"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <nav class="nav" id="nav" aria-label="التنقل الرئيسي">
+      <a href="#how">كيف تعمل</a>
+      <a href="#features">المميزات</a>
+      <a href="#safe">الاستخدام الآمن</a>
+      <a href="#pricing">الاشتراك</a>
+      <a href="#faq">الأسئلة الشائعة</a>
+      <a class="btn wa" href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span>اطلب النسخة</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<div class="hero" id="top">
+  <div class="bg-ambient">
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+  </div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><svg class="i" style="width:16px;height:16px"><use href="#i-sparkles"/></svg> لشركات ومستقلي تطوير المواقع والمتاجر الإلكترونية</span>
+      <h1>اعثر على الأنشطة التي <em>تحتاج موقعاً</em>، وافتح معها محادثة واتساب جاهزة</h1>
+      <p class="lead">تبحث الأداة في خرائط جوجل والسوشيال ميديا، وتتحقق من أرقام الموبايل، وتقيّم كل نشاط، وتجهّز له تصميماً مبدئياً ورسالة مخصصة. كل ذلك من جهازك، وبياناتك تبقى عندك بأمان.</p>
+      <div class="cta-row">
+        <a class="btn wa" href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span>اطلب النسخة عبر واتساب</span></a>
+        <a class="btn line" href="#how"><span>شاهد كيف تعمل</span><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="hero-note">
+        <span><svg class="i" aria-hidden="true"><use href="#i-laptop"/></svg>تعمل محلياً على جهازك</span>
+        <span><svg class="i" aria-hidden="true"><use href="#i-key"/></svg>ترخيص مرتبط بجهازك</span>
+        <span><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg>بياناتك محمية تماماً</span>
+        <span><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>دعم فني عبر واتساب</span>
+      </div>
+    </div>
+
+    <!-- Product Mockup Card -->
+    <div class="mock-wrap">
+      <div class="mock-float-badge">
+        <span class="pulse-dot"></span>
+        <span>تم فحص 34 عميلاً مؤهلاً اليوم</span>
+      </div>
+
+      <div class="mock" role="img" aria-label="معاينة تفاعلية للوحة العملاء داخل الأداة">
+        <div class="mock-window-head">
+          <div class="mock-dots">
+            <span class="mock-dot r"></span>
+            <span class="mock-dot y"></span>
+            <span class="mock-dot g"></span>
+          </div>
+          <div class="mock-search-pill">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <span>مطاعم وكافيهات • القاهرة • 24 نتيجة</span>
+          </div>
+          <span class="mock-status-pill">● متصل بالذكاء الاصطناعي</span>
+        </div>
+
+        <div class="mock-body">
+          <div class="m-stats">
+            <div class="m-stat"><span>أنشطة محفوظة</span><b>24</b></div>
+            <div class="m-stat"><span>أولوية عالية</span><b>9</b></div>
+            <div class="m-stat"><span>بدون موقع</span><b>17</b></div>
+          </div>
+
+          <div class="m-rows">
+            <div class="m-row">
+              <div class="m-row-info">
+                <div class="m-row-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                <div>
+                  <b>كافيه المثال الراقي</b>
+                  <span class="tag">بدون موقع • موبايل مؤكد</span>
+                </div>
+              </div>
+              <div class="sc"><b>88</b><i style="--w:88%"></i></div>
+            </div>
+
+            <div class="m-row">
+              <div class="m-row-info">
+                <div class="m-row-icon" style="background:#e0f2fe;color:#0284c7"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></div>
+                <div>
+                  <b>عيادة النور التخصصية</b>
+                  <span class="tag">بدون موقع • واتساب متاح</span>
+                </div>
+              </div>
+              <div class="sc"><b>81</b><i style="--w:81%"></i></div>
+            </div>
+
+            <div class="m-row">
+              <div class="m-row-info">
+                <div class="m-row-icon" style="background:#fce7f3;color:#db2777"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></div>
+                <div>
+                  <b>براند أزياء واستيل مودرن</b>
+                  <span class="tag" style="background:#fce7f3;color:#be185d">سوشيال فقط</span>
+                </div>
+              </div>
+              <div class="sc"><b>76</b><i style="--w:76%"></i></div>
+            </div>
+
+            <div class="m-row">
+              <div class="m-row-info">
+                <div class="m-row-icon" style="background:#f1f5f9;color:#64748b"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
+                <div>
+                  <b>مطعم السرايا</b>
+                  <span class="tag g">لديه موقع إلكتروني</span>
+                </div>
+              </div>
+              <div class="sc"><b>52</b><i style="--w:52%"></i></div>
+            </div>
+          </div>
+
+          <div class="bubble">
+            <div class="bubble-head">
+              <span class="bubble-head-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+                الرسالة الذكية المجهّزة لكافيه المثال
+              </span>
+              <small>لهجة مصرية • رابط ديمو جاهز</small>
+            </div>
+            السلام عليكم فريق كافيه المثال، شفت نشاطكم على جوجل ماب وتقييماتكم الممتازة. بنصمم منيو إلكتروني سريع بـ QR وصفحة طلبات توصلكم فوري على واتساب. جهّزنا لكم نموذج مبدئي باسمكم تقدروا تشوفوه وتجربوه بضغطة واحدة من هنا!
+          </div>
+        </div>
+      </div>
+      <p class="caption">معاينة واقعية لشاشة البحث والتقييم وصياغة الرسائل التلقائية.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= FACTS ================= -->
+<div class="facts">
+  <div class="wrap">
+    <ul>
+      <li>
+        <div class="fact-icon-wrap"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg></div>
+        <div><b>مصادر متعددة موثوقة</b><span>خرائط جوجل، OpenStreetMap، وإنستجرام وفيسبوك وتيك توك ولينكتري</span></div>
+      </li>
+      <li>
+        <div class="fact-icon-wrap"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></div>
+        <div><b>أرقام موبايل صالحة فقط</b><span>فلترة ذكية تستبعد الخطوط الأرضية والأرقام غير المتاحة على واتساب</span></div>
+      </li>
+      <li>
+        <div class="fact-icon-wrap"><svg class="i" aria-hidden="true"><use href="#i-db"/></svg></div>
+        <div><b>بياناتك على جهازك 100%</b><span>قاعدة بيانات SQLite محلية، لا نشارك ولا نرفع عملاءك لأي خادم خارجي</span></div>
+      </li>
+      <li>
+        <div class="fact-icon-wrap"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></div>
+        <div><b>حدود يومية وقائمة حظر</b><span>فواصل زمنية عشوائية ذكية لحماية رقمك وسمعتك أثناء التواصل</span></div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= PROBLEM ================= -->
+<section aria-labelledby="h-problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-ban"/></svg> المشكلة التي ننهيها تماماً</span>
+      <h2 id="h-problem">البحث اليدوي عن عملاء يستهلك طاقتك ووقتك الثمين قبل أن يبدأ البيع</h2>
+      <p class="lead">بناء وكالة أو عمل مستقل ناجح يتطلب قضاء وقتك في التفاوض والإغلاق والبرمجة، وليس في البحث اليدوي الشاق وتجميع الأرقام.</p>
+    </div>
+    <div class="cols3">
+      <div class="pain">
+        <div class="pain-top">
+          <span class="n">المعاناة الأولى</span>
+          <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        </div>
+        <h3>ساعات طويلة من التصفح اليدوي</h3>
+        <p>تنقّل ممل بين الخرائط والصفحات لنسخ الأسماء والأرقام، ثم اكتشاف أن نصف الأرقام خطوط أرضية، أو مغلقة، أو غير موجودة على واتساب.</p>
+      </div>
+
+      <div class="pain">
+        <div class="pain-top">
+          <span class="n">المعاناة الثانية</span>
+          <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        </div>
+        <h3>رسائل عامة وباردة بلا رد</h3>
+        <p>الرسائل المنسوخة (Copy-Paste) تبدو آلية ومزعجة. صاحب النشاط يتجاهلها لأنه لا يرى ما الذي ستقدمه له تحديداً وما قيمته المضافة.</p>
+      </div>
+
+      <div class="pain">
+        <div class="pain-top">
+          <span class="n">المعاناة الثالثة</span>
+          <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 3 18 18"/><path d="M12 2a10 10 0 0 1 10 10c0 2.22-.72 4.27-1.94 5.94"/><path d="M2 12A10 10 0 0 1 12 2"/></svg></div>
+        </div>
+        <h3>فوضى وانعدام المتابعة المنظمة</h3>
+        <p>من راسلت أمس؟ ومن يستحق تذكيراً مهذباً اليوم؟ بدون سجل ذكي ومتابعات آلية، تضيع أهم الصفقات التي كانت على وشك الإغلاق.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW ================= -->
+<section class="dark" id="how" aria-labelledby="h-how">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">آلية العمل</span>
+      <h2 id="h-how">من اختيار المدينة إلى أول محادثة بيعية في أربع خطوات سريعة</h2>
+      <p class="lead">بضع دقائق فقط تفصلك عن قائمة عملاء عالية الجودة ومجهزة بالكامل لبدء التواصل الفعال.</p>
+    </div>
+    <ol class="steps">
+      <li>
+        <h3>حدّد النطاق والهدف</h3>
+        <p>اختر الدولة والمدينة ونوع النشاط بدقة: مطاعم، كافيهات، براندات ملابس، عيادات طبية، صالات جيم، صالونات تجميل وغيرها.</p>
+      </li>
+      <li>
+        <h3>اجمع وتحقق تلقائياً</h3>
+        <p>تسحب الأداة الأنشطة من مصادر متعددة، وتتحقق فورياً من صلاحية أرقام الموبايل، وتستبعد المكرر وتفحص موقع كل نشاط.</p>
+      </li>
+      <li>
+        <h3>قيّم وجهّز الديمو</h3>
+        <p>تحليل ذكي يعطي درجة ملاءمة من 0 إلى 100 مع سبب التقييم، وتوليد صفحة ديمو مخصصة باسم النشاط ورسالة مقنعة.</p>
+      </li>
+      <li>
+        <h3>تواصل وتابع باحترافية</h3>
+        <p>طابور واتساب منظم بحد يومي وفواصل زمنية عشوائية لحماية حسابك، وجدول متابعات تلقائي في الوقت المناسب.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section id="features" aria-labelledby="h-feat">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-target"/></svg> مزايا متكاملة</span>
+      <h2 id="h-feat">كل ما تحتاجه لتحويل البحث العشوائي إلى عملاء حقيقيين</h2>
+      <p class="lead">مصممة خصيصاً لتمنحك التفوق والمصداقية في السوق دون الحاجة لأدوات إضافية معقدة.</p>
+    </div>
+    <div class="feat">
+      <article class="f c-teal">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg></div>
+        <h3>بحث متعدد المصادر</h3>
+        <p>دمج خرائط جوجل وOpenStreetMap وحسابات السوشيال ميديا في مهمة بحث واحدة للحصول على أشمل النتائج.</p>
+      </article>
+
+      <article class="f c-indigo">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-filter"/></svg></div>
+        <h3>تحقق دقيق من الأرقام</h3>
+        <p>تتعامل مع صيغ الأرقام المصرية والسعودية والإماراتية، وتستبعد فوراً الخطوط الأرضية والأرقام غير الصالحة للواتساب.</p>
+      </article>
+
+      <article class="f c-amber">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-gauge"/></svg></div>
+        <h3>تقييم ملاءمة واضح (Lead Score)</h3>
+        <p>خوارزمية ذكية تقيّم فرصة البيع بناءً على غياب الموقع، حجم النشاط، وتوفر الواتساب، مع إظهار سبب كل درجة.</p>
+      </article>
+
+      <article class="f c-wa">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-layout"/></svg></div>
+        <h3>ديمو فوري لكل عميل</h3>
+        <p>تنشئ صفحة ويب مبدئية تفاعلية باسم النشاط وبياناته الفعلية، يمكن نشرها بضغطة زر وإرسال رابطها في الرسالة.</p>
+      </article>
+
+      <article class="f c-blue">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-text"/></svg></div>
+        <h3>رسائل بثلاث لهجات + ذكاء اصطناعي</h3>
+        <p>صياغة باللهجة المصرية، أو الفصحى الخليجية، أو الإنجليزية، مع دعم دمج Gemini AI لصياغة فريدة لكل نشاط.</p>
+      </article>
+
+      <article class="f c-rose">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg></div>
+        <h3>طابور واتساب منظم وآمن</h3>
+        <p>إرسال يدوي سريع أو تلقائي عبر متصفح جهازك، مع احترام الحدود اليومية وضبط فواصل زمنية تحاكي السلوك البشري.</p>
+      </article>
+
+      <article class="f c-teal">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></div>
+        <h3>متابعات ذكية في موعدها</h3>
+        <p>نظام يذكرك بالمتابعة الأولى بعد 3 أيام والثانية بعد 5 أيام بصياغة مهذبة وغير ملحة ترفع نسب الرد لأضعاف.</p>
+      </article>
+
+      <article class="f c-indigo">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-ban"/></svg></div>
+        <h3>قائمة حظر دائمة وتصدير كامل</h3>
+        <p>أي عميل يطلب عدم الإزعاج يُحظر تلقائياً ولا يظهر مجدداً. يمكنك تصدير بياناتك بالكامل إلى ملف CSV في ثوانٍ.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SHOWCASE ================= -->
+<section style="background:linear-gradient(180deg,#f3efe7,#ebe6db)" aria-labelledby="h-demo">
+  <div class="wrap show">
+    <div>
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-sparkles"/></svg> سلاحك السري للإغلاق</span>
+      <h2 id="h-demo">اجعل العميل يرى موقعه الجديد قبل أن تبدأ الحديث معه!</h2>
+      <p class="lead">الفرق الجوهري بين رسالة تسويقية مزعجة ومحادثة مبيعات ناجحة هو "الإثبات الملموس". تبني الأداة صفحة حقيقية باسم العميل وتقييماته وصورته، فيرى النتيجة فوراً.</p>
+      <ul class="ticks">
+        <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>تصاميم جاهزة تناسب مختلف الأنشطة: منيو للمطاعم، كاتالوج للملابس، ونظام حجز للعيادات والخدمات.</span></li>
+        <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>صفحة تفاعلية سريعة تفتح على موبايل العميل بسلاسة فائقة، مع زر تواصل مباشر معه.</span></li>
+        <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>إمكانية الرفع المجاني على استضافة Netlify أو GitHub بضغطة زر دون أي تكلفة إضافية.</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="browser" role="img" aria-label="معاينة تفاعلية لصفحة ديمو تُبنى تلقائياً">
+        <div class="url-bar">
+          <div class="mock-dots">
+            <span class="mock-dot r"></span>
+            <span class="mock-dot y"></span>
+            <span class="mock-dot g"></span>
+          </div>
+          <div class="url">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            https://demo-preview.site/c-3f9a1c0b7e42/
+          </div>
+        </div>
+        <div class="d-hero">
+          <span class="d-hero-badge">⭐ تقييم 4.8 على خرائط جوجل</span>
+          <b>كافيه ومطعم السعادة</b>
+          <small>أشهى المأكولات والمشروبات، وطلبك يصلك طازجاً لباب منزلك</small>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-chat"/></svg> اطلب الآن عبر واتساب</span>
+        </div>
+        <div class="d-grid">
+          <div class="d-card"><div class="d-card-img">☕</div>المشروبات الساخنة والباردة</div>
+          <div class="d-card"><div class="d-card-img">🍔</div>الوجبات والبرجر المميز</div>
+          <div class="d-card"><div class="d-card-img">🍰</div>الحلويات الشرقية والغربية</div>
+        </div>
+      </div>
+      <p class="caption">نموذج حي لتصميم الديمو الذي يراه عميلك في الرسالة.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SAFE USE ================= -->
+<section id="safe" aria-labelledby="h-safe">
+  <div class="wrap resp">
+    <div>
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-shield"/></svg> الأمان أولاً</span>
+      <h2 id="h-safe">مصمَّمة للتواصل الذكي المحترم، وليس للسبام العشوائي</h2>
+      <p class="lead">إرسال مئات الرسائل العشوائية هو أسرع طريق لحظر رقمك وتشويه سمعتك. لذلك صممنا الأداة بقواعد سلوك بشري تحافظ على أمان حسابك.</p>
+      <div class="warn">
+        <b>تنبيه هام ومسؤولية مشتركة:</b>
+        لا توجد أي أداة في العالم تضمن عدم تقييد الحساب لأن القرار النهائي خوارزمي لدى واتساب. نوصي دائماً بالبدء بحدود صغيرة (15-25 رسالة يومياً) ومخصصة بعناية. الإرسال اليدوي أو شبه التلقائي هو الخيار الأكثر أماناً واستدامة.
+      </div>
+    </div>
+    <div class="rules">
+      <div class="rule">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-gauge"/></svg></div>
+        <div>
+          <h3>حد يومي صارم وقابل للضبط</h3>
+          <p>تحدد الحد الأقصى من الرسائل يومياً وفق أقدمية رقمك، وتتوقف الأداة ذاتياً فور الوصول إليه دون تجاوز.</p>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></div>
+        <div>
+          <h3>فواصل زمنية عشوائية ذكية</h3>
+          <p>تأخير عشوائي ذكي (مثل 40 إلى 120 ثانية) بين كل رسالة والتي تليها لمحاكاة الإرسال البشري الطبيعي.</p>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-text"/></svg></div>
+        <div>
+          <h3>خيار إلغاء المراسلة الفوري</h3>
+          <p>كل رسالة افتتاحية تتضمن عبارة مهذبة تتيح للنشاط طلب عدم التواصل مجدداً بكلمة واحدة احتراماً لخصوصيته.</p>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-ban"/></svg></div>
+        <div>
+          <h3>قائمة حظر واستبعاد دائمة</h3>
+          <p>أي رقم يطلب التوقف يُدرج فوراً في قائمة الحظر المحلية، ويُستبعد نهائياً من أي بحث مستقبلي أو طابور إرسال.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRICING ================= -->
+<section class="dark" id="pricing" aria-labelledby="h-price">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-key"/></svg> باقات الاشتراك</span>
+      <h2 id="h-price">اشتراك واحد بكافة المميزات، واختر المدة المناسبة لنشاطك</h2>
+      <p class="lead">لا توجد نسخ مقيّدة أو ميزات مخفية. جميع المشتركين يحصلون على القوة الكاملة للأداة مع تحديثات مستمرة.</p>
+    </div>
+    <div class="plans">
+      <!-- Monthly -->
+      <article class="plan" style="color:var(--ink)">
+        <h3>الاشتراك الشهري</h3>
+        <div class="dur">للتجربة والبدء</div>
+        <div class="price" data-plan="monthly">السعر عند الطلب</div>
+        <ul>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>وصول كامل لجميع المميزات</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>ترخيص تشغيل لجهاز واحد</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>قوالب الرسائل وتوليد الديمو</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>تحديثات مستمرة طوال الشهر</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>دعم عبر واتساب</li>
+        </ul>
+        <a class="btn line block" href="#" data-wa="أريد الاستفسار عن الاشتراك الشهري في أداة NextGen Sales Agent"><span>اسأل عن الاشتراك الشهري</span></a>
+      </article>
+
+      <!-- Yearly (Highlighted) -->
+      <article class="plan hl" style="color:var(--ink)">
+        <span class="plan-badge">⭐ الخيار الأكثر طلباً وتوفيراً</span>
+        <h3>الاشتراك السنوي</h3>
+        <div class="dur">للعمل المنتظم والفرق الصغيرة (12 شهراً)</div>
+        <div class="price" data-plan="yearly">السعر عند الطلب</div>
+        <ul>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><strong>كل المميزات بلا حدود</strong></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>ترخيص تشغيل لجهاز واحد</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>أعلى معدل توفير مقارنة بالشهري</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>أولوية في التحديثات والميزات الجديدة</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>دعم عبر واتساب</li>
+        </ul>
+        <a class="btn wa block" href="#" data-wa="أريد الاستفسار عن الاشتراك السنوي في أداة NextGen Sales Agent"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span>احصل على الاشتراك السنوي</span></a>
+      </article>
+
+      <!-- Lifetime -->
+      <article class="plan" style="color:var(--ink)">
+        <span class="plan-badge" style="background:linear-gradient(135deg,#b45309,#d97706)">👑 دفعة واحدة للأبد</span>
+        <h3>مدى الحياة (Lifetime)</h3>
+        <div class="dur">استثمار دائم بدون أي تجديد شهري أو سنوي</div>
+        <div class="price" data-plan="lifetime">السعر عند الطلب</div>
+        <ul>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>وصول دائم وغير محدود لجميع الأدوات</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>ترخيص جهاز دائم مدى الحياة</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>كافة التحديثات والترقيات المستقبلية مجاناً</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>لا توجد أي رسوم إضافية لاحقاً</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>دعم فني خاص ومباشر عبر واتساب</li>
+        </ul>
+        <a class="btn line block" href="#" data-wa="أريد الاستفسار عن اشتراك مدى الحياة في أداة NextGen Sales Agent"><span>اسأل عن اشتراك مدى الحياة</span></a>
+      </article>
+    </div>
+
+    <!-- Activation Steps -->
+    <div class="sec-head" style="margin-top:clamp(60px,8vw,96px);margin-bottom:32px">
+      <span class="eyebrow">خطوات التفعيل السريعة</span>
+      <h2 style="font-size:clamp(1.6rem,2.8vw,2.2rem)">كيف تبدأ العمل في 3 خطوات بسيطة؟</h2>
+    </div>
+    <div class="act">
+      <div>
+        <b>1</b>
+        <h3>اطلب نسختك عبر واتساب</h3>
+        <p>راسلنا مباشرة واختر الباقة التي تناسبك، وستصلك روابط تحميل الأداة الفورية مع دليل الإعداد.</p>
+      </div>
+      <div>
+        <b>2</b>
+        <h3>أرسل بصمة جهازك</h3>
+        <p>عند تشغيل الأداة لأول مرة على كمبيوترك ستظهر لك بصمة الجهاز (Hardware ID)، انسخها وأرسلها لنا.</p>
+      </div>
+      <div>
+        <b>3</b>
+        <h3>استلم مفتاحك وابدأ الصيد!</h3>
+        <p>نرسل لك مفتاح التفعيل الرقمي المخصص لجهازك، تلصقه في الشاشة لتفتح معك الأداة بالكامل فوراً.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" aria-labelledby="h-faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-chat"/></svg> شفافية كاملة</span>
+      <h2 id="h-faq">الأسئلة الشائعة وإجابات كل ما يدور في ذهنك</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>هل تعمل الأداة على جهازي أم سحابياً على خوادم؟</summary>
+        <p>الأداة مصممة لتعمل محلياً بالكامل على جهاز الكمبيوتر الخاص بك (Windows)، وتفتح واجهتها عبر المتصفح المحلي. بيانات العملاء تُخزن في قاعدة بيانات مشفرة على جهازك فقط ولا يتم رفع أي سجلات لخوادمنا، لضمان خصوصيتك وأمان بياناتك بنسبة 100%.</p>
+      </details>
+
+      <details>
+        <summary>من أين تأتي بيانات وأرقام الأنشطة التجارية؟</summary>
+        <p>تعتمد الأداة على مصادر عامة ومفتوحة مثل خرائط جوجل، OpenStreetMap، والصفحات العامة للأنشطة على إنستجرام وفيسبوك وتيك توك ولينكتري. تقوم الخوارزميات بفلترة البيانات واستخراج أرقام الموبايل الفعالة بدقة متناهية وتخطي الأرقام الأرضية وغير الصالحة.</p>
+      </details>
+
+      <details>
+        <summary>هل أنا ملزم بالاشتراك في خدمات ذكاء اصطناعي مدفوعة؟</summary>
+        <p>إطلاقاً. تأتي الأداة محملة بقوالب رسائل احترافية متقنة بثلاث لهجات مختلفة تم اختبارها في السوق. وإذا رغبت في تخصيص أكثر بالذكاء الاصطناعي، يمكنك إضافة مفتاح Google Gemini المجاني تماماً من الإعدادات دون دفع أي تكلفة إضافية.</p>
+      </details>
+
+      <details>
+        <summary>هل هناك خطر على رقم الواتساب الخاص بي؟</summary>
+        <p>أي تواصل مع أرقام جديدة يحمل نسبة مخاطرة إن تم بشكل عشوائي أو مفرط. لذلك زوّدنا الأداة بفواصل زمنية عشوائية ذكية وحدود يومية تحاكي السلوك البشري الطبيعي. ننصح دائماً بالبدء بحدود آمنة (15-30 رسالة يومياً) واستخدام الإرسال اليدوي أو خيار التأكيد لضمان أعلى مستويات الأمان.</p>
+      </details>
+
+      <details>
+        <summary>هل الإرسال يتم بشكل يدوي أم تلقائي؟</summary>
+        <p>تمنحك الأداة كامل المرونة؛ يتوفر خيار الإرسال اليدوي المريح بضغطة زر لكل عميل مع مراجعة الرسالة، ويتوفر أيضاً خيار الطابور التلقائي الذي يرسل بدقة وفواصل زمنية مدروسة وفق الحدود التي تضبطها أنت بنفسك.</p>
+      </details>
+
+      <details>
+        <summary>ماذا يحدث لبياناتي عند انتهاء مدة الاشتراك؟</summary>
+        <p>بياناتك ملكك بالكامل وتظل محفوظة في أمان على جهازك. عند انتهاء الترخيص تتوقف الأداة عن البحث حتى تجدد المفتاح، ويمكنك دائماً تصدير كامل بيانات الأنشطة والعملاء المسجلين إلى ملف Excel/CSV.</p>
+      </details>
+
+      <details>
+        <summary>هل يمكنني نقل الترخيص إلى جهاز كمبيوتر آخر؟</summary>
+        <p>يرتبط الترخيص ببصمة عتاد الجهاز الواحد للحماية. إذا قمت بتغيير جهازك أو ترقيته، كل ما عليك هو التواصل معنا عبر واتساب وسنقوم بنقل الترخيص وتوليد مفتاح جديد لجهازك الجديد بكل سلاسة.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="dark final" aria-labelledby="h-final">
+  <div class="wrap">
+    <span class="eyebrow">جاهز لمضاعفة مبيعاتك؟</span>
+    <h2 id="h-final">ابدأ بأول مدينة ونشاط، وانظر كيف تنهال عليك الفرص المؤهلة</h2>
+    <p class="lead">تواصل معنا الآن عبر واتساب، وسنرد عليك فوراً بكل تفاصيل الاشتراك وخطوات التفعيل خلال دقائق معدودة.</p>
+    <div class="cta-row">
+      <a class="btn wa" href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent والبدء الآن"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span>تواصل عبر واتساب الآن</span></a>
+      <a class="btn line" href="#pricing"><span>مراجعة باقات الاشتراك</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="yr">2026</span> NextGen Sales Agent. جميع الحقوق محفوظة.</span>
+    <span>الأداة مصممة للتواصل التسويقي الاحترافي والمشروع، والتزامك بسياسات المنصات هو مسؤوليتك.</span>
+    <a href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent">تواصل مع الدعم الفني</a>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp Quick Button -->
+<a class="wa-floating-btn" href="#" data-wa="السلام عليكم، أريد الاستفسار عن تفاصيل أداة NextGen Sales Agent" aria-label="تواصل فوري عبر واتساب">
+  <svg class="wa-floating-icon" aria-hidden="true"><use href="#i-chat"/></svg>
+  <span>تحدث معنا عبر واتساب</span>
+</a>
+
+<script>
+/* ===== إعدادات يمكنك تعديلها بسهولة ===== */
+const CONTACT_WA = '201020451206';              /* رقم واتساب للتواصل (بدون +) */
+const PRICES = { monthly:'', yearly:'', lifetime:'' }; /* مثال: monthly:'500 ج / شهر' */
+
+document.querySelectorAll('[data-wa]').forEach(a=>{
+  a.href = 'https://wa.me/' + CONTACT_WA + '?text=' + encodeURIComponent('السلام عليكم، ' + a.dataset.wa);
+  a.target = '_blank';
+  a.rel = 'noopener';
+});
+
+Object.entries(PRICES).forEach(([k,v])=>{
+  const el = document.querySelector('[data-plan="'+k+'"]');
+  if(el && v) el.textContent = v;
+});
+
+const burger = document.getElementById('burger'), nav = document.getElementById('nav');
+function setMenu(open){
+  nav.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', open);
+  burger.querySelector('use').setAttribute('href', open ? '#i-x' : '#i-menu');
+}
+burger.addEventListener('click', ()=>setMenu(!nav.classList.contains('open')));
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>setMenu(false)));
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') setMenu(false); });
+document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
