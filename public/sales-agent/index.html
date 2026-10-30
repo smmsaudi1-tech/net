@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NextGen Sales Agent | اعثر على العملاء الذين يحتاجون موقعاً أو متجراً</title>
-<meta name="description" content="أداة ذكية تبحث في خرائط جوجل والسوشيال ميديا، تتحقق من أرقام الموبايل، تقيّم كل نشاط، وتجهّز له تصميماً مبدئياً ورسالة واتساب مخصصة. تعمل على جهازك بأمان تام.">
+<title data-i18n="page_title">NextGen Sales Agent | اعثر على العملاء الذين يحتاجون موقعاً أو متجراً</title>
+<meta name="description" content="أداة ذكية تبحث في خرائط جوجل والسوشيال ميديا عبر 150 دولة، تتحقق من أرقام الموبايل، تقيّم كل نشاط، وتجهّز له تصميماً مبدئياً ورسالة واتساب مخصصة.">
 <meta name="theme-color" content="#0b1b2b">
 <meta property="og:type" content="website">
 <meta property="og:title" content="NextGen Sales Agent | صائد العملاء المؤهلين">
-<meta property="og:description" content="اكتشف الأنشطة التي تحتاج موقعاً أو متجراً، وجهّز لها ديمو ورسالة واتساب في دقائق.">
+<meta property="og:description" content="اكتشف الأنشطة التي تحتاج موقعاً أو متجراً في 150 دولة حول العالم، وجهّز لها ديمو ورسالة واتساب في دقائق.">
 <meta property="og:locale" content="ar_AR">
 <link rel="icon" href="logo.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"NextGen Sales Agent","applicationCategory":"BusinessApplication","description":"أداة لاكتشاف الأنشطة التجارية التي تحتاج موقعاً أو متجراً وتجهيز ديمو ورسائل واتساب مخصصة لها.","inLanguage":"ar","publisher":{"@type":"Organization","name":"NextGen Devs"}}</script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"NextGen Sales Agent","applicationCategory":"BusinessApplication","description":"أداة لاكتشاف الأنشطة التجارية التي تحتاج موقعاً أو متجراً وتجهيز ديمو ورسائل واتساب مخصصة لها في 150 دولة.","inLanguage":"ar","publisher":{"@type":"Organization","name":"NextGen Devs"}}</script>
 <style>
 :root{
   --ink:#091624;
@@ -57,6 +57,15 @@ body{
   font-variant-numeric:tabular-nums;
   position:relative;
 }
+
+/* LTR Specific Adjustments */
+html[dir="ltr"] body {
+  font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  text-align:left;
+}
+html[dir="ltr"] .skip { inset-inline-start:16px; }
+html[dir="ltr"] .i-arrow-flip { transform:rotate(180deg); display:inline-block; }
+
 img,svg{display:block;max-width:100%}
 a{color:inherit}
 button{font:inherit;color:inherit}
@@ -150,101 +159,93 @@ h2{font-size:clamp(1.85rem,3.4vw,2.65rem);max-width:24em}
   box-shadow:var(--shadow-sm);
 }
 .btn.line:hover{
-  background:var(--ink);
-  color:#fff;
-  border-color:var(--ink);
+  border-color:var(--teal);
+  color:var(--teal);
   transform:translateY(-2px);
+  box-shadow:var(--shadow-md);
 }
-.dark .btn.line{
-  background:rgba(255,255,255,.05);
-  border-color:rgba(255,255,255,.16);
-  color:#fff;
+.btn.block{display:flex;width:100%}
+
+/* Language Toggle Button in Nav */
+.lang-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 14px;
+  border-radius:99px;
+  border:1.5px solid var(--line);
+  background:var(--card);
+  color:var(--ink-2);
+  font-weight:700;
+  font-size:13.5px;
+  cursor:pointer;
+  transition:all .2s ease;
 }
-.dark .btn.line:hover{
-  background:#fff;
-  color:var(--ink);
-  border-color:#fff;
-  transform:translateY(-2px);
-}
-.btn.block{width:100%}
-.dark .plan .btn.line{
-  background:#fff;
-  border-color:var(--line);
-  color:var(--ink);
-}
-.dark .plan .btn.line:hover{
-  background:var(--ink);
-  color:#fff;
-  border-color:var(--ink);
+.lang-btn:hover{
+  border-color:var(--teal);
+  color:var(--teal);
+  transform:translateY(-1px);
 }
 
-/* ---------- header ---------- */
-header.top{
+/* ---------- top nav ---------- */
+.top{
   position:sticky;
   top:0;
-  z-index:50;
+  z-index:90;
   background:rgba(247,246,242,.92);
-  border-bottom:1px solid rgba(228,223,211,.85);
-  backdrop-filter:saturate(1.4) blur(12px);
-  -webkit-backdrop-filter:saturate(1.4) blur(12px);
-  transition:box-shadow .2s;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(228,223,211,.8);
+  transition:background .2s;
 }
-.bar{display:flex;align-items:center;gap:28px;flex-wrap:wrap;min-height:74px}
-.logo{
+.bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  min-height:76px;
+  gap:16px;
+}
+.nav-actions{
   display:flex;
   align-items:center;
   gap:12px;
-  text-decoration:none;
+}
+.logo{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
   font-weight:700;
-  font-size:18.5px;
-  letter-spacing:-.3px;
+  font-size:19px;
   color:var(--ink);
-}
-.logo-img{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  object-fit:cover;
-  box-shadow:0 4px 14px rgba(0,0,0,0.12);
-  flex:none;
-}
-.nav{display:flex;align-items:center;gap:24px;margin-inline-start:auto}
-.nav a{
   text-decoration:none;
-  font-size:15px;
-  font-weight:500;
+}
+.logo-img{width:42px;height:42px;border-radius:10px;box-shadow:0 2px 8px var(--teal-glow)}
+.nav{display:flex;align-items:center;gap:24px}
+.nav a{
   color:var(--ink-2);
-  padding:6px 4px;
-  border-radius:6px;
+  text-decoration:none;
+  font-weight:600;
+  font-size:15px;
   transition:color .15s;
 }
 .nav a:hover{color:var(--teal)}
-.nav .btn{min-height:42px;padding:8px 22px;font-size:14.5px;color:#fff}
-.nav .btn:hover{color:#fff}
+.nav .btn{min-height:42px;padding:8px 18px;font-size:14.5px}
 .burger{
   display:none;
-  margin-inline-start:auto;
-  width:46px;
-  height:46px;
-  border:1.5px solid var(--line);
-  border-radius:12px;
+  width:44px;
+  height:44px;
+  border:1px solid var(--line);
   background:var(--card);
-  cursor:pointer;
+  border-radius:10px;
   place-items:center;
-  box-shadow:var(--shadow-sm);
+  cursor:pointer;
 }
 
 /* ---------- hero ---------- */
 .hero{
-  padding:clamp(48px,7vw,92px) 0 clamp(64px,8vw,110px);
-  background:
-    radial-gradient(circle at 85% 15%,rgba(13,122,113,.08) 0%,transparent 50%),
-    radial-gradient(circle at 10% 80%,rgba(180,83,9,.05) 0%,transparent 45%),
-    linear-gradient(to left,rgba(11,27,43,.03) 1px,transparent 1px) 0 0/60px 60px,
-    linear-gradient(to bottom,rgba(11,27,43,.03) 1px,transparent 1px) 0 0/60px 60px,
-    var(--paper);
-  position:relative;
+  padding:clamp(50px,7vw,90px) 0 clamp(60px,8vw,100px);
   overflow:hidden;
+  position:relative;
 }
 .hero-grid{
   display:grid;
@@ -658,8 +659,223 @@ header.top{
 .f.c-wa .ico{background:var(--wa-l);color:var(--wa)}
 .f.c-blue .ico{background:#e0f2fe;color:#0284c7}
 .f.c-rose .ico{background:#ffe4e6;color:#e11d48}
+.f.c-purple .ico{background:#f3e8ff;color:#9333ea}
+.f.c-emerald .ico{background:#ecfdf5;color:#059669}
 .f h3{font-size:18px;margin-bottom:8px;color:var(--ink)}
 .f p{color:var(--mut);font-size:15px;line-height:1.75;flex:1}
+
+/* ================= COUNTRIES EXPLORER SECTION ================= */
+.country-section{
+  background:linear-gradient(180deg,#faf9f5 0%,#f0eee6 100%);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  position:relative;
+}
+.country-explorer-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:var(--shadow-lg);
+  padding:clamp(24px,4vw,40px);
+}
+.search-controls{
+  max-width:760px;
+  margin:0 auto 28px;
+}
+.search-bar-wrap{
+  position:relative;
+  display:flex;
+  align-items:center;
+  margin-bottom:20px;
+}
+.search-input{
+  width:100%;
+  height:58px;
+  padding:0 52px;
+  font-size:17px;
+  font-family:inherit;
+  border-radius:16px;
+  border:2px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  box-shadow:var(--shadow-sm);
+  outline:none;
+  transition:all .2s ease;
+}
+.search-input:focus{
+  border-color:var(--teal);
+  box-shadow:0 0 0 4px var(--teal-glow);
+}
+.search-icon{
+  position:absolute;
+  inset-inline-start:18px;
+  width:22px;
+  height:22px;
+  color:var(--mut);
+  pointer-events:none;
+}
+.search-clear{
+  position:absolute;
+  inset-inline-end:16px;
+  background:none;
+  border:none;
+  color:var(--mut);
+  cursor:pointer;
+  padding:6px;
+  border-radius:8px;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.search-clear:hover{color:var(--ink);background:#f1f5f9}
+.region-tabs{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+}
+.region-tab{
+  padding:9px 20px;
+  border-radius:99px;
+  border:1.5px solid var(--line);
+  background:var(--card);
+  color:var(--ink-2);
+  font-size:14.5px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .2s;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.region-tab:hover{
+  border-color:var(--teal);
+  color:var(--teal);
+  transform:translateY(-1px);
+}
+.region-tab.active{
+  background:var(--teal);
+  color:#fff;
+  border-color:var(--teal);
+  box-shadow:0 4px 14px var(--teal-glow);
+}
+.region-tab-count{
+  background:rgba(0,0,0,.08);
+  padding:2px 8px;
+  border-radius:99px;
+  font-size:12px;
+}
+.region-tab.active .region-tab-count{
+  background:rgba(255,255,255,.25);
+  color:#fff;
+}
+.countries-results-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:16px;
+  padding-bottom:12px;
+  border-bottom:1px dashed var(--line);
+  font-size:14.5px;
+  color:var(--mut);
+}
+.countries-count-badge{
+  font-weight:700;
+  color:var(--teal);
+  background:var(--teal-l);
+  padding:3px 12px;
+  border-radius:99px;
+}
+.countries-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:14px;
+  max-height:560px;
+  overflow-y:auto;
+  padding:6px;
+  scroll-behavior:smooth;
+}
+.countries-grid::-webkit-scrollbar{width:8px}
+.countries-grid::-webkit-scrollbar-track{background:#f1f5f9;border-radius:8px}
+.countries-grid::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
+.countries-grid::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+
+.country-card{
+  background:#fff;
+  border:1.5px solid var(--line);
+  border-radius:14px;
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  transition:all .18s ease;
+  position:relative;
+}
+.country-card:hover{
+  border-color:var(--teal);
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px rgba(13,122,113,.08);
+}
+.country-flag{
+  font-size:32px;
+  line-height:1;
+  flex:none;
+}
+.country-info{
+  flex:1;
+  min-width:0;
+}
+.country-name{
+  font-weight:700;
+  font-size:15px;
+  color:var(--ink);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  display:block;
+}
+.country-sub{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:4px;
+  gap:6px;
+}
+.country-code{
+  font-family:ui-monospace,Consolas,monospace;
+  font-size:12px;
+  font-weight:700;
+  color:var(--teal);
+  background:var(--teal-l);
+  padding:1px 7px;
+  border-radius:6px;
+  direction:ltr;
+}
+.country-badge{
+  font-size:11px;
+  font-weight:600;
+  color:var(--wa-d);
+  background:var(--wa-l);
+  padding:1px 8px;
+  border-radius:99px;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  white-space:nowrap;
+}
+.country-empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:50px 20px;
+  background:#faf8f5;
+  border:1px dashed var(--line);
+  border-radius:16px;
+}
+.country-empty p{
+  color:var(--mut);
+  font-size:16px;
+  margin-top:8px;
+}
 
 /* ---------- showcase ---------- */
 .show{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,5vw,76px);align-items:center}
@@ -845,6 +1061,9 @@ header.top{
   box-shadow:0 4px 12px var(--teal-glow);
   white-space:nowrap;
 }
+html[dir="ltr"] .plan-badge {
+  transform:translateX(-50%);
+}
 .plan h3{font-size:22px;color:var(--ink)}
 .plan .dur{color:var(--mut);font-size:15px;margin-top:3px}
 .price{
@@ -1011,6 +1230,8 @@ footer{
   .plans{max-width:480px;margin-inline:auto}
   .plan.hl{transform:none}
   .plan.hl:hover{transform:translateY(-4px)}
+  .region-tabs{justify-content:flex-start;overflow-x:auto;padding-bottom:6px}
+  .region-tab{white-space:nowrap}
 }
 @media(max-width:600px){
   body{font-size:16px}
@@ -1024,12 +1245,13 @@ footer{
   .plan{padding:28px 22px}
   .wa-floating-btn span{display:none}
   .wa-floating-btn{padding:14px;border-radius:50%;bottom:18px;inset-inline-start:18px}
+  .countries-grid{grid-template-columns:1fr;max-height:480px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
-<a class="skip" href="#main">تخطَّ إلى المحتوى</a>
+<a class="skip" href="#main" data-i18n="skip_to_content">تخطَّ إلى المحتوى</a>
 
 <!-- SVG Symbol Definitions -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
@@ -1055,6 +1277,7 @@ footer{
 <symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></symbol>
 <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
 <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
 </defs></svg>
 
 <!-- Header -->
@@ -1064,15 +1287,26 @@ footer{
       <img src="logo.png" alt="NextGen Logo" class="logo-img">
       <span>NextGen Sales Agent</span>
     </a>
-    <button class="burger" id="burger" aria-label="القائمة" aria-expanded="false" aria-controls="nav"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    
     <nav class="nav" id="nav" aria-label="التنقل الرئيسي">
-      <a href="#how">كيف تعمل</a>
-      <a href="#features">المميزات</a>
-      <a href="#safe">الاستخدام الآمن</a>
-      <a href="#pricing">الاشتراك</a>
-      <a href="#faq">الأسئلة الشائعة</a>
-      <a class="btn wa" href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span>اطلب النسخة</span></a>
+      <a href="#how" data-i18n="nav_how">كيف تعمل</a>
+      <a href="#features" data-i18n="nav_features">المميزات</a>
+      <a href="#countries" data-i18n="nav_countries">الدول المدعومة</a>
+      <a href="#safe" data-i18n="nav_safe">الاستخدام الآمن</a>
+      <a href="#pricing" data-i18n="nav_pricing">الاشتراك</a>
+      <a href="#faq" data-i18n="nav_faq">الأسئلة الشائعة</a>
+      <a class="btn wa" href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span data-i18n="btn_order">اطلب النسخة</span></a>
     </nav>
+
+    <div class="nav-actions">
+      <!-- Language Switcher Button -->
+      <button id="lang-toggle-btn" class="lang-btn" onclick="toggleLang()" aria-label="Switch Language">
+        <svg class="i" style="width:16px;height:16px" aria-hidden="true"><use href="#i-globe"/></svg>
+        <span id="lang-btn-text">English</span>
+      </button>
+
+      <button class="burger" id="burger" aria-label="القائمة" aria-expanded="false" aria-controls="nav"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    </div>
   </div>
 </header>
 
@@ -1086,18 +1320,18 @@ footer{
   </div>
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow"><svg class="i" style="width:16px;height:16px"><use href="#i-sparkles"/></svg> لشركات ومستقلي تطوير المواقع والمتاجر الإلكترونية</span>
-      <h1>اعثر على الأنشطة التي <em>تحتاج موقعاً</em>، وافتح معها محادثة واتساب جاهزة</h1>
-      <p class="lead">تبحث الأداة في خرائط جوجل والسوشيال ميديا، وتتحقق من أرقام الموبايل، وتقيّم كل نشاط، وتجهّز له تصميماً مبدئياً ورسالة مخصصة. كل ذلك من جهازك، وبياناتك تبقى عندك بأمان.</p>
+      <span class="eyebrow"><svg class="i" style="width:16px;height:16px"><use href="#i-sparkles"/></svg> <span data-i18n="hero_eyebrow">لشركات ومستقلي تطوير المواقع والمتاجر الإلكترونية</span></span>
+      <h1 data-i18n-html="hero_title">اعثر على الأنشطة التي <em>تحتاج موقعاً</em>، وافتح معها محادثة واتساب جاهزة</h1>
+      <p class="lead" data-i18n="hero_lead">تبحث الأداة في خرائط جوجل ومنصات السوشيال ميديا عبر 150 دولة حول العالم (22 عربية، 21 أوروبية، و107 عالمية)، وتستخرج أرقام الواتساب الموثقة، وتولّد رسائل ذكية باللغتين العربية والإنجليزية Spintax لمنع الحظر مع ديمو تفاعلي فوري باسم كل عميل.</p>
       <div class="cta-row">
-        <a class="btn wa" href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span>اطلب النسخة عبر واتساب</span></a>
-        <a class="btn line" href="#how"><span>شاهد كيف تعمل</span><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn wa" href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span data-i18n="hero_cta_wa">اطلب النسخة عبر واتساب</span></a>
+        <a class="btn line" href="#countries"><span data-i18n="hero_cta_explore">استكشف الدول (150 دولة)</span><svg class="i i-arrow-flip" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
       <div class="hero-note">
-        <span><svg class="i" aria-hidden="true"><use href="#i-laptop"/></svg>تعمل محلياً على جهازك</span>
-        <span><svg class="i" aria-hidden="true"><use href="#i-key"/></svg>ترخيص مرتبط بجهازك</span>
-        <span><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg>بياناتك محمية تماماً</span>
-        <span><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>دعم فني عبر واتساب</span>
+        <span><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg><span data-i18n="hero_note_1">150 دولة حول العالم (عربية وأوروبية وعالمية)</span></span>
+        <span><svg class="i" aria-hidden="true"><use href="#i-sparkles"/></svg><span data-i18n="hero_note_2">ذكاء اصطناعي عربي وإنجليزي بـ 10 تخصصات</span></span>
+        <span><svg class="i" aria-hidden="true"><use href="#i-text"/></svg><span data-i18n="hero_note_3">رسائل Spintax ذكية ضد الحظر</span></span>
+        <span><svg class="i" aria-hidden="true"><use href="#i-laptop"/></svg><span data-i18n="hero_note_4">تعمل محلياً على جهازك بأمان وتشفير 100%</span></span>
       </div>
     </div>
 
@@ -1105,7 +1339,7 @@ footer{
     <div class="mock-wrap">
       <div class="mock-float-badge">
         <span class="pulse-dot"></span>
-        <span>تم فحص 34 عميلاً مؤهلاً اليوم</span>
+        <span data-i18n="mock_badge">تم فحص 48 عميلاً مؤهلاً اليوم</span>
       </div>
 
       <div class="mock" role="img" aria-label="معاينة تفاعلية للوحة العملاء داخل الأداة">
@@ -1117,16 +1351,16 @@ footer{
           </div>
           <div class="mock-search-pill">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-            <span>مطاعم وكافيهات • القاهرة • 24 نتيجة</span>
+            <span data-i18n="mock_search_pill">مطاعم وكافيهات • 150 دولة • 48 نتيجة</span>
           </div>
-          <span class="mock-status-pill">● متصل بالذكاء الاصطناعي</span>
+          <span class="mock-status-pill" data-i18n="mock_status_pill">● Gemini & Spintax متصل</span>
         </div>
 
         <div class="mock-body">
           <div class="m-stats">
-            <div class="m-stat"><span>أنشطة محفوظة</span><b>24</b></div>
-            <div class="m-stat"><span>أولوية عالية</span><b>9</b></div>
-            <div class="m-stat"><span>بدون موقع</span><b>17</b></div>
+            <div class="m-stat"><span data-i18n="mock_stat_1">الحد اليومي</span><b>48/150</b></div>
+            <div class="m-stat"><span data-i18n="mock_stat_2">أولوية عالية</span><b>18</b></div>
+            <div class="m-stat"><span data-i18n="mock_stat_3">بدون موقع</span><b>31</b></div>
           </div>
 
           <div class="m-rows">
@@ -1134,44 +1368,44 @@ footer{
               <div class="m-row-info">
                 <div class="m-row-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
                 <div>
-                  <b>كافيه المثال الراقي</b>
-                  <span class="tag">بدون موقع • موبايل مؤكد</span>
+                  <b data-i18n="mock_r1_title">كافيه ومحمصة المثال الراقي</b>
+                  <span class="tag" data-i18n="mock_r1_tag">بدون موقع • موبايل مؤكد</span>
                 </div>
               </div>
-              <div class="sc"><b>88</b><i style="--w:88%"></i></div>
+              <div class="sc"><b>92</b><i style="--w:92%"></i></div>
             </div>
 
             <div class="m-row">
               <div class="m-row-info">
                 <div class="m-row-icon" style="background:#e0f2fe;color:#0284c7"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></div>
                 <div>
-                  <b>عيادة النور التخصصية</b>
-                  <span class="tag">بدون موقع • واتساب متاح</span>
+                  <b data-i18n="mock_r2_title">عيادة النور التخصصية لطب الأسنان</b>
+                  <span class="tag" data-i18n="mock_r2_tag">بدون موقع • واتساب متاح</span>
                 </div>
               </div>
-              <div class="sc"><b>81</b><i style="--w:81%"></i></div>
+              <div class="sc"><b>86</b><i style="--w:86%"></i></div>
             </div>
 
             <div class="m-row">
               <div class="m-row-info">
                 <div class="m-row-icon" style="background:#fce7f3;color:#db2777"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></div>
                 <div>
-                  <b>براند أزياء واستيل مودرن</b>
-                  <span class="tag" style="background:#fce7f3;color:#be185d">سوشيال فقط</span>
+                  <b data-i18n="mock_r3_title">Modern Chic Fashion Store (London)</b>
+                  <span class="tag" style="background:#fce7f3;color:#be185d" data-i18n="mock_r3_tag">Social Only • UK +44</span>
                 </div>
               </div>
-              <div class="sc"><b>76</b><i style="--w:76%"></i></div>
+              <div class="sc"><b>84</b><i style="--w:84%"></i></div>
             </div>
 
             <div class="m-row">
               <div class="m-row-info">
                 <div class="m-row-icon" style="background:#f1f5f9;color:#64748b"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
                 <div>
-                  <b>مطعم السرايا</b>
-                  <span class="tag g">لديه موقع إلكتروني</span>
+                  <b data-i18n="mock_r4_title">Al-Saraya Gourmet Restaurant</b>
+                  <span class="tag g" data-i18n="mock_r4_tag">لديه موقع إلكتروني</span>
                 </div>
               </div>
-              <div class="sc"><b>52</b><i style="--w:52%"></i></div>
+              <div class="sc"><b>49</b><i style="--w:49%"></i></div>
             </div>
           </div>
 
@@ -1179,15 +1413,15 @@ footer{
             <div class="bubble-head">
               <span class="bubble-head-title">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
-                الرسالة الذكية المجهّزة لكافيه المثال
+                <span data-i18n="mock_bubble_title">الرسالة الذكية المقترحة (AI Spintax)</span>
               </span>
-              <small>لهجة مصرية • رابط ديمو جاهز</small>
+              <small data-i18n="mock_bubble_tag">دعم عربي / إنجليزي • رابط ديمو فوري</small>
             </div>
-            السلام عليكم فريق كافيه المثال، شفت نشاطكم على جوجل ماب وتقييماتكم الممتازة. بنصمم منيو إلكتروني سريع بـ QR وصفحة طلبات توصلكم فوري على واتساب. جهّزنا لكم نموذج مبدئي باسمكم تقدروا تشوفوه وتجربوه بضغطة واحدة من هنا!
+            <span data-i18n="mock_bubble_text">السلام عليكم فريق كافيه ومحمصة المثال، شفت نشاطكم المميز على جوجل ماب. بنصمم منيو تفاعلي سريع بـ QR وصفحة طلبات واتساب أونلاين. صممنا لكم نموذجاً تجريبياً حياً باسمكم تقدروا تشوفوه وتجربوه بضغطة زر من هنا!</span>
           </div>
         </div>
       </div>
-      <p class="caption">معاينة واقعية لشاشة البحث والتقييم وصياغة الرسائل التلقائية.</p>
+      <p class="caption" data-i18n="mock_caption">معاينة واقعية لشاشة البحث والتقييم وصياغة الرسائل التلقائية ثنائية اللغة.</p>
     </div>
   </div>
 </div>
@@ -1197,59 +1431,106 @@ footer{
   <div class="wrap">
     <ul>
       <li>
-        <div class="fact-icon-wrap"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg></div>
-        <div><b>مصادر متعددة موثوقة</b><span>خرائط جوجل، OpenStreetMap، وإنستجرام وفيسبوك وتيك توك ولينكتري</span></div>
+        <div class="fact-icon-wrap"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg></div>
+        <div><b data-i18n="fact_1_title">150 دولة مدعومة رسمياً</b><span data-i18n="fact_1_desc">22 دولة عربية، 21 دولة أوروبية، و107 دولة عالمية بكود الاتصال وصيغة الموبايل</span></div>
       </li>
       <li>
-        <div class="fact-icon-wrap"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></div>
-        <div><b>أرقام موبايل صالحة فقط</b><span>فلترة ذكية تستبعد الخطوط الأرضية والأرقام غير المتاحة على واتساب</span></div>
+        <div class="fact-icon-wrap"><svg class="i" aria-hidden="true"><use href="#i-sparkles"/></svg></div>
+        <div><b data-i18n="fact_2_title">ذكاء اصطناعي ثنائي اللغة</b><span data-i18n="fact_2_desc">يدعم Gemini & Ollama بالعربية بلهجات متعددة وبالإنجليزية لجميع الأسواق العالمية</span></div>
       </li>
       <li>
         <div class="fact-icon-wrap"><svg class="i" aria-hidden="true"><use href="#i-db"/></svg></div>
-        <div><b>بياناتك على جهازك 100%</b><span>قاعدة بيانات SQLite محلية، لا نشارك ولا نرفع عملاءك لأي خادم خارجي</span></div>
+        <div><b data-i18n="fact_3_title">بياناتك على جهازك 100%</b><span data-i18n="fact_3_desc">تشفير محلي تام، SQLite محلية ولا نرفع أي سجلات لعملاء جهازك إلى خوادم خارجية</span></div>
       </li>
       <li>
         <div class="fact-icon-wrap"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></div>
-        <div><b>حدود يومية وقائمة حظر</b><span>فواصل زمنية عشوائية ذكية لحماية رقمك وسمعتك أثناء التواصل</span></div>
+        <div><b data-i18n="fact_4_title">نظام أمان وحصص صارم</b><span data-i18n="fact_4_desc">حدود يومية وفواصل زمنية لمنع الحظر، مع حظر الأجهزة المخالفة وحماية رقمك</span></div>
       </li>
     </ul>
   </div>
 </div>
 
+<!-- ================= COUNTRIES EXPLORER (NEW) ================= -->
+<section class="country-section" id="countries" aria-labelledby="h-countries">
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center">
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-globe"/></svg> <span data-i18n="cnt_eyebrow">تغطية عالمية لا مثيل لها</span></span>
+      <h2 id="h-countries" style="margin-inline:auto" data-i18n="cnt_title">مستكشف الدول المدعومة (150 دولة حول العالم)</h2>
+      <p class="lead" style="margin-inline:auto" data-i18n="cnt_lead">تتحقق الأداة من دقة أرقام الموبايل ومفاتيح الاتصال لكافة الدول العربية والأوروبية والعالمية. ابحث عن دولتك المستهدفة الآن وتأكد من جاهزيتها:</p>
+    </div>
+
+    <div class="country-explorer-card">
+      <div class="search-controls">
+        <div class="search-bar-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="text" id="country-search-input" class="search-input" placeholder="ابحث بالاسم أو كود الاتصال (مثال: مصر، السعودية، France, +44, +966)..." data-i18n-ph="cnt_search_ph" aria-label="بحث عن دولة">
+          <button id="search-clear-btn" class="search-clear" onclick="clearCountrySearch()" aria-label="مسح البحث">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div class="region-tabs" id="region-tabs">
+          <button class="region-tab active" data-region="all" onclick="filterByRegion('all')">
+            <span data-i18n="tab_all">🌍 كافة الدول</span> <span class="region-tab-count" id="count-all">150</span>
+          </button>
+          <button class="region-tab" data-region="arab" onclick="filterByRegion('arab')">
+            <span data-i18n="tab_arab">🟢 الدول العربية</span> <span class="region-tab-count" id="count-arab">22</span>
+          </button>
+          <button class="region-tab" data-region="europe" onclick="filterByRegion('europe')">
+            <span data-i18n="tab_europe">🇪🇺 الدول الأوروبية</span> <span class="region-tab-count" id="count-europe">21</span>
+          </button>
+          <button class="region-tab" data-region="global" onclick="filterByRegion('global')">
+            <span data-i18n="tab_global">🌐 الدول العالمية</span> <span class="region-tab-count" id="count-global">107</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="countries-results-meta">
+        <span id="results-meta-text"><span data-i18n="cnt_showing">يتم عرض</span> <strong id="visible-countries-count" class="countries-count-badge">150</strong> <span data-i18n="cnt_countries_supported">دولة مدعومة ومفحوصة الأرقام</span></span>
+        <span style="font-size:13px;color:var(--wa-d)">✅ Mobile Regex & WhatsApp Verified</span>
+      </div>
+
+      <div class="countries-grid" id="countries-grid">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= PROBLEM ================= -->
 <section aria-labelledby="h-problem">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-ban"/></svg> المشكلة التي ننهيها تماماً</span>
-      <h2 id="h-problem">البحث اليدوي عن عملاء يستهلك طاقتك ووقتك الثمين قبل أن يبدأ البيع</h2>
-      <p class="lead">بناء وكالة أو عمل مستقل ناجح يتطلب قضاء وقتك في التفاوض والإغلاق والبرمجة، وليس في البحث اليدوي الشاق وتجميع الأرقام.</p>
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-ban"/></svg> <span data-i18n="prob_eyebrow">المشكلة التي ننهيها تماماً</span></span>
+      <h2 id="h-problem" data-i18n="prob_title">البحث اليدوي عن عملاء يستهلك طاقتك ووقتك الثمين قبل أن يبدأ البيع</h2>
+      <p class="lead" data-i18n="prob_lead">بناء وكالة أو عمل مستقل ناجح يتطلب قضاء وقتك في التفاوض والإغلاق والبرمجة، وليس في البحث اليدوي الشاق وتجميع الأرقام العشوائية.</p>
     </div>
     <div class="cols3">
       <div class="pain">
         <div class="pain-top">
-          <span class="n">المعاناة الأولى</span>
+          <span class="n" data-i18n="prob_p1_badge">المعاناة الأولى</span>
           <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
         </div>
-        <h3>ساعات طويلة من التصفح اليدوي</h3>
-        <p>تنقّل ممل بين الخرائط والصفحات لنسخ الأسماء والأرقام، ثم اكتشاف أن نصف الأرقام خطوط أرضية، أو مغلقة، أو غير موجودة على واتساب.</p>
+        <h3 data-i18n="prob_p1_title">ساعات طويلة من التصفح اليدوي</h3>
+        <p data-i18n="prob_p1_desc">تنقّل ممل بين الخرائط والصفحات لنسخ الأسماء والأرقام، ثم اكتشاف أن نصف الأرقام خطوط أرضية، أو مغلقة، أو غير موجودة على واتساب.</p>
       </div>
 
       <div class="pain">
         <div class="pain-top">
-          <span class="n">المعاناة الثانية</span>
+          <span class="n" data-i18n="prob_p2_badge">المعاناة الثانية</span>
           <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         </div>
-        <h3>رسائل عامة وباردة بلا رد</h3>
-        <p>الرسائل المنسوخة (Copy-Paste) تبدو آلية ومزعجة. صاحب النشاط يتجاهلها لأنه لا يرى ما الذي ستقدمه له تحديداً وما قيمته المضافة.</p>
+        <h3 data-i18n="prob_p2_title">رسائل عامة وباردة بلا رد</h3>
+        <p data-i18n="prob_p2_desc">الرسائل المنسوخة (Copy-Paste) تبدو آلية ومزعجة. صاحب النشاط يتجاهلها لأنه لا يرى ما الذي ستقدمه له تحديداً وما قيمته المضافة.</p>
       </div>
 
       <div class="pain">
         <div class="pain-top">
-          <span class="n">المعاناة الثالثة</span>
+          <span class="n" data-i18n="prob_p3_badge">المعاناة الثالثة</span>
           <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 3 18 18"/><path d="M12 2a10 10 0 0 1 10 10c0 2.22-.72 4.27-1.94 5.94"/><path d="M2 12A10 10 0 0 1 12 2"/></svg></div>
         </div>
-        <h3>فوضى وانعدام المتابعة المنظمة</h3>
-        <p>من راسلت أمس؟ ومن يستحق تذكيراً مهذباً اليوم؟ بدون سجل ذكي ومتابعات آلية، تضيع أهم الصفقات التي كانت على وشك الإغلاق.</p>
+        <h3 data-i18n="prob_p3_title">فوضى وانعدام المتابعة المنظمة</h3>
+        <p data-i18n="prob_p3_desc">من راسلت أمس؟ ومن يستحق تذكيراً مهذباً اليوم؟ بدون سجل ذكي ومتابعات آلية، تضيع أهم الصفقات التي كانت على وشك الإغلاق.</p>
       </div>
     </div>
   </div>
@@ -1259,26 +1540,26 @@ footer{
 <section class="dark" id="how" aria-labelledby="h-how">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">آلية العمل</span>
-      <h2 id="h-how">من اختيار المدينة إلى أول محادثة بيعية في أربع خطوات سريعة</h2>
-      <p class="lead">بضع دقائق فقط تفصلك عن قائمة عملاء عالية الجودة ومجهزة بالكامل لبدء التواصل الفعال.</p>
+      <span class="eyebrow" data-i18n="how_eyebrow">آلية العمل</span>
+      <h2 id="h-how" data-i18n="how_title">من اختيار الدولة والنشاط إلى أول محادثة بيعية في أربع خطوات</h2>
+      <p class="lead" data-i18n="how_lead">بضع دقائق فقط تفصلك عن قائمة عملاء عالية الجودة ومجهزة بالكامل لبدء التواصل الفعال في أي دولة بالعالم.</p>
     </div>
     <ol class="steps">
       <li>
-        <h3>حدّد النطاق والهدف</h3>
-        <p>اختر الدولة والمدينة ونوع النشاط بدقة: مطاعم، كافيهات، براندات ملابس، عيادات طبية، صالات جيم، صالونات تجميل وغيرها.</p>
+        <h3 data-i18n="how_s1_title">حدّد الدولة والنشاط</h3>
+        <p data-i18n="how_s1_desc">اختر من بين 150 دولة حول العالم ونوع النشاط بدقة: مطاعم، كافيهات، أزياء، عيادات، عقارات، سيارات، جيم وغيرها الكثير.</p>
       </li>
       <li>
-        <h3>اجمع وتحقق تلقائياً</h3>
-        <p>تسحب الأداة الأنشطة من مصادر متعددة، وتتحقق فورياً من صلاحية أرقام الموبايل، وتستبعد المكرر وتفحص موقع كل نشاط.</p>
+        <h3 data-i18n="how_s2_title">اجمع وتحقق تلقائياً</h3>
+        <p data-i18n="how_s2_desc">تسحب الأداة الأنشطة من مصادر متعددة، وتتحقق فورياً من صيغ الموبايل المحلية، وتستبعد المكرر وتفحص وجود موقع إلكتروني.</p>
       </li>
       <li>
-        <h3>قيّم وجهّز الديمو</h3>
-        <p>تحليل ذكي يعطي درجة ملاءمة من 0 إلى 100 مع سبب التقييم، وتوليد صفحة ديمو مخصصة باسم النشاط ورسالة مقنعة.</p>
+        <h3 data-i18n="how_s3_title">قيّم وجهّز الديمو والرسالة</h3>
+        <p data-i18n="how_s3_desc">تحليل ذكي يعطي درجة ملاءمة من 0 إلى 100، وتوليد صفحة ديمو مخصصة باسم النشاط وصياغة رسالة Spintax ذكية بالعربية أو الإنجليزية.</p>
       </li>
       <li>
-        <h3>تواصل وتابع باحترافية</h3>
-        <p>طابور واتساب منظم بحد يومي وفواصل زمنية عشوائية لحماية حسابك، وجدول متابعات تلقائي في الوقت المناسب.</p>
+        <h3 data-i18n="how_s4_title">تواصل بأمان وتابع الصفقات</h3>
+        <p data-i18n="how_s4_desc">طابور واتساب منظم بحد يومي وفواصل زمنية عشوائية لحماية حسابك، وجدول تسليم فوري ومتابعات منظمة.</p>
       </li>
     </ol>
   </div>
@@ -1288,57 +1569,57 @@ footer{
 <section id="features" aria-labelledby="h-feat">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-target"/></svg> مزايا متكاملة</span>
-      <h2 id="h-feat">كل ما تحتاجه لتحويل البحث العشوائي إلى عملاء حقيقيين</h2>
-      <p class="lead">مصممة خصيصاً لتمنحك التفوق والمصداقية في السوق دون الحاجة لأدوات إضافية معقدة.</p>
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-target"/></svg> <span data-i18n="feat_eyebrow">مزايا متكاملة</span></span>
+      <h2 id="h-feat" data-i18n="feat_title">كل ما تحتاجه لتحويل البحث العشوائي إلى عملاء حقيقيين في 150 دولة</h2>
+      <p class="lead" data-i18n="feat_lead">مصممة خصيصاً لتمنحك التفوق والمصداقية في السوق المحلي والعالمي دون الحاجة لأدوات إضافية معقدة.</p>
     </div>
     <div class="feat">
       <article class="f c-teal">
-        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg></div>
-        <h3>بحث متعدد المصادر</h3>
-        <p>دمج خرائط جوجل وOpenStreetMap وحسابات السوشيال ميديا في مهمة بحث واحدة للحصول على أشمل النتائج.</p>
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg></div>
+        <h3 data-i18n="f1_title">150 دولة حول العالم</h3>
+        <p data-i18n="f1_desc">دعم كامل لـ 22 دولة عربية، 21 دولة أوروبية، و107 دول عالمية بكود الاتصال وصيغة الموبايل الدقيقة لكل بلد.</p>
       </article>
 
       <article class="f c-indigo">
-        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-filter"/></svg></div>
-        <h3>تحقق دقيق من الأرقام</h3>
-        <p>تتعامل مع صيغ الأرقام المصرية والسعودية والإماراتية، وتستبعد فوراً الخطوط الأرضية والأرقام غير الصالحة للواتساب.</p>
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-sparkles"/></svg></div>
+        <h3 data-i18n="f2_title">ذكاء اصطناعي عربي وإنجليزي</h3>
+        <p data-i18n="f2_desc">دعم موديلات Gemini 1.5/2.0 وOllama لتوليد رسائل تسويقية احترافية بلهجات عربية متعددة وبالإنجليزية التامة للعملاء الدوليين.</p>
       </article>
 
       <article class="f c-amber">
-        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-gauge"/></svg></div>
-        <h3>تقييم ملاءمة واضح (Lead Score)</h3>
-        <p>خوارزمية ذكية تقيّم فرصة البيع بناءً على غياب الموقع، حجم النشاط، وتوفر الواتساب، مع إظهار سبب كل درجة.</p>
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-text"/></svg></div>
+        <h3 data-i18n="f3_title">رسائل متغيرة Spintax ضد الحظر</h3>
+        <p data-i18n="f3_desc">كل عميل تصله رسالة مختلفة 100% لمنع رصد الرسائل كـ Spam، مع تنويع التحيات وعروض الخدمة وصيغ الدعوة.</p>
       </article>
 
       <article class="f c-wa">
         <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-layout"/></svg></div>
-        <h3>ديمو فوري لكل عميل</h3>
-        <p>تنشئ صفحة ويب مبدئية تفاعلية باسم النشاط وبياناته الفعلية، يمكن نشرها بضغطة زر وإرسال رابطها في الرسالة.</p>
+        <h3 data-i18n="f4_title">ديمو فوري باسم النشاط وصوره</h3>
+        <p data-i18n="f4_desc">إنشاء صفحة ويب تجريبية باسم العميل وبياناته الفعلية، يمكن نشرها بضغطة زر وإرسال رابطها لرفع نسبة الإغلاق فوراً.</p>
       </article>
 
       <article class="f c-blue">
-        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-text"/></svg></div>
-        <h3>رسائل بثلاث لهجات + ذكاء اصطناعي</h3>
-        <p>صياغة باللهجة المصرية، أو الفصحى الخليجية، أو الإنجليزية، مع دعم دمج Gemini AI لصياغة فريدة لكل نشاط.</p>
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg></div>
+        <h3 data-i18n="f5_title">صائد السوشيال وقراءة البايو</h3>
+        <p data-i18n="f5_desc">استخراج بايو إنستجرام وفيسبوك وتيك توك ولينكتري وفك روابط wa.me والأرقام المخفية بالذكاء الاصطناعي.</p>
       </article>
 
       <article class="f c-rose">
         <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg></div>
-        <h3>طابور واتساب منظم وآمن</h3>
-        <p>إرسال يدوي سريع أو تلقائي عبر متصفح جهازك، مع احترام الحدود اليومية وضبط فواصل زمنية تحاكي السلوك البشري.</p>
+        <h3 data-i18n="f6_title">لوحة تسليم واتساب وتتبع الحالات</h3>
+        <p data-i18n="f6_desc">جدول متطور في قسم الواتساب يوضح من تم الإرسال له، من في الانتظار، ومن تعذر الوصول له مع أزرار فلترة لحظية.</p>
       </article>
 
-      <article class="f c-teal">
-        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></div>
-        <h3>متابعات ذكية في موعدها</h3>
-        <p>نظام يذكرك بالمتابعة الأولى بعد 3 أيام والثانية بعد 5 أيام بصياغة مهذبة وغير ملحة ترفع نسب الرد لأضعاف.</p>
+      <article class="f c-purple">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></div>
+        <h3 data-i18n="f7_title">لوحة تحكم إدارية وحماية أجهزة</h3>
+        <p data-i18n="f7_desc">نظام إدارة ترخيص متطور مع القدرة على حظر أي جهاز غير مصرح به فوراً (HWID Ban) والتحكم بالحصص.</p>
       </article>
 
-      <article class="f c-indigo">
-        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-ban"/></svg></div>
-        <h3>قائمة حظر دائمة وتصدير كامل</h3>
-        <p>أي عميل يطلب عدم الإزعاج يُحظر تلقائياً ولا يظهر مجدداً. يمكنك تصدير بياناتك بالكامل إلى ملف CSV في ثوانٍ.</p>
+      <article class="f c-emerald">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-gauge"/></svg></div>
+        <h3 data-i18n="f8_title">حدود يومية وفواصل بشرية</h3>
+        <p data-i18n="f8_desc">نظام حصص ذكي يحدده الأدمن ويمنع التجاوز لحماية رقمك من الحظر، مع فواصل زمنية عشوائية تحاكي الإرسال البشري.</p>
       </article>
     </div>
   </div>
@@ -1348,13 +1629,13 @@ footer{
 <section style="background:linear-gradient(180deg,#f3efe7,#ebe6db)" aria-labelledby="h-demo">
   <div class="wrap show">
     <div>
-      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-sparkles"/></svg> سلاحك السري للإغلاق</span>
-      <h2 id="h-demo">اجعل العميل يرى موقعه الجديد قبل أن تبدأ الحديث معه!</h2>
-      <p class="lead">الفرق الجوهري بين رسالة تسويقية مزعجة ومحادثة مبيعات ناجحة هو "الإثبات الملموس". تبني الأداة صفحة حقيقية باسم العميل وتقييماته وصورته، فيرى النتيجة فوراً.</p>
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-sparkles"/></svg> <span data-i18n="show_eyebrow">سلاحك السري للإغلاق</span></span>
+      <h2 id="h-demo" data-i18n="show_title">اجعل العميل يرى موقعه الجديد قبل أن تبدأ الحديث معه!</h2>
+      <p class="lead" data-i18n="show_lead">الفرق الجوهري بين رسالة تسويقية مزعجة ومحادثة مبيعات ناجحة هو "الإثبات الملموس". تبني الأداة صفحة حقيقية باسم العميل وتقييماته وصوره، فيرى النتيجة فوراً.</p>
       <ul class="ticks">
-        <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>تصاميم جاهزة تناسب مختلف الأنشطة: منيو للمطاعم، كاتالوج للملابس، ونظام حجز للعيادات والخدمات.</span></li>
-        <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>صفحة تفاعلية سريعة تفتح على موبايل العميل بسلاسة فائقة، مع زر تواصل مباشر معه.</span></li>
-        <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span>إمكانية الرفع المجاني على استضافة Netlify أو GitHub بضغطة زر دون أي تكلفة إضافية.</span></li>
+        <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="show_t1">تصاميم جاهزة لمختلف الأنشطة: منيو للمطاعم، كاتالوج للأزياء، حجز للعيادات والخدمات.</span></li>
+        <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="show_t2">صفحة تفاعلية سريعة تفتح على موبايل العميل بسلاسة مع زر تواصل مباشر معه.</span></li>
+        <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="show_t3">إمكانية النشر بضغطة زر على استضافة مجانية سريعة دون أي تكلفة إضافية.</span></li>
       </ul>
     </div>
     <div>
@@ -1371,18 +1652,18 @@ footer{
           </div>
         </div>
         <div class="d-hero">
-          <span class="d-hero-badge">⭐ تقييم 4.8 على خرائط جوجل</span>
-          <b>كافيه ومطعم السعادة</b>
-          <small>أشهى المأكولات والمشروبات، وطلبك يصلك طازجاً لباب منزلك</small>
-          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-chat"/></svg> اطلب الآن عبر واتساب</span>
+          <span class="d-hero-badge" data-i18n="show_demo_badge">⭐ تقييم 4.8 على خرائط جوجل</span>
+          <b data-i18n="show_demo_name">كافيه ومطعم السعادة</b>
+          <small data-i18n="show_demo_sub">أشهى المأكولات والمشروبات، وطلبك يصلك طازجاً لباب منزلك</small>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-chat"/></svg> <span data-i18n="show_demo_btn">اطلب الآن عبر واتساب</span></span>
         </div>
         <div class="d-grid">
-          <div class="d-card"><div class="d-card-img">☕</div>المشروبات الساخنة والباردة</div>
-          <div class="d-card"><div class="d-card-img">🍔</div>الوجبات والبرجر المميز</div>
-          <div class="d-card"><div class="d-card-img">🍰</div>الحلويات الشرقية والغربية</div>
+          <div class="d-card"><div class="d-card-img">☕</div><span data-i18n="show_card_1">المشروبات الساخنة والباردة</span></div>
+          <div class="d-card"><div class="d-card-img">🍔</div><span data-i18n="show_card_2">الوجبات والبرجر المميز</span></div>
+          <div class="d-card"><div class="d-card-img">🍰</div><span data-i18n="show_card_3">الحلويات الشرقية والغربية</span></div>
         </div>
       </div>
-      <p class="caption">نموذج حي لتصميم الديمو الذي يراه عميلك في الرسالة.</p>
+      <p class="caption" data-i18n="show_caption">نموذج حي لتصميم الديمو الذي يراه عميلك في الرسالة.</p>
     </div>
   </div>
 </section>
@@ -1391,44 +1672,44 @@ footer{
 <section id="safe" aria-labelledby="h-safe">
   <div class="wrap resp">
     <div>
-      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-shield"/></svg> الأمان أولاً</span>
-      <h2 id="h-safe">مصمَّمة للتواصل الذكي المحترم، وليس للسبام العشوائي</h2>
-      <p class="lead">إرسال مئات الرسائل العشوائية هو أسرع طريق لحظر رقمك وتشويه سمعتك. لذلك صممنا الأداة بقواعد سلوك بشري تحافظ على أمان حسابك.</p>
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-shield"/></svg> <span data-i18n="safe_eyebrow">الأمان أولاً</span></span>
+      <h2 id="h-safe" data-i18n="safe_title">مصمَّمة للتواصل الذكي المحترم، وليس للسبام العشوائي</h2>
+      <p class="lead" data-i18n="safe_lead">إرسال مئات الرسائل العشوائية هو أسرع طريق لحظر رقمك وتشويه سمعتك. لذلك صممنا الأداة بقواعد سلوك بشري تحافظ على أمان حسابك في أي دولة بالعالم.</p>
       <div class="warn">
-        <b>تنبيه هام ومسؤولية مشتركة:</b>
-        لا توجد أي أداة في العالم تضمن عدم تقييد الحساب لأن القرار النهائي خوارزمي لدى واتساب. نوصي دائماً بالبدء بحدود صغيرة (15-25 رسالة يومياً) ومخصصة بعناية. الإرسال اليدوي أو شبه التلقائي هو الخيار الأكثر أماناً واستدامة.
+        <b data-i18n="safe_warn_title">تنبيه هام ومسؤولية مشتركة:</b>
+        <span data-i18n="safe_warn_text">لا توجد أي أداة في العالم تضمن عدم تقييد الحساب لأن القرار النهائي خوارزمي لدى واتساب. نوصي دائماً بالبدء بحدود صغيرة (15-25 رسالة يومياً) ومخصصة بعناية. الإرسال اليدوي أو شبه التلقائي هو الخيار الأكثر أماناً واستدامة.</span>
       </div>
     </div>
     <div class="rules">
       <div class="rule">
         <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-gauge"/></svg></div>
         <div>
-          <h3>حد يومي صارم وقابل للضبط</h3>
-          <p>تحدد الحد الأقصى من الرسائل يومياً وفق أقدمية رقمك، وتتوقف الأداة ذاتياً فور الوصول إليه دون تجاوز.</p>
+          <h3 data-i18n="rule_1_title">حد يومي صارم وقابل للضبط</h3>
+          <p data-i18n="rule_1_desc">تحدد الحد الأقصى من الرسائل يومياً وفق أقدمية رقمك، وتتوقف الأداة ذاتياً فور الوصول إليه دون تجاوز.</p>
         </div>
       </div>
 
       <div class="rule">
         <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></div>
         <div>
-          <h3>فواصل زمنية عشوائية ذكية</h3>
-          <p>تأخير عشوائي ذكي (مثل 40 إلى 120 ثانية) بين كل رسالة والتي تليها لمحاكاة الإرسال البشري الطبيعي.</p>
+          <h3 data-i18n="rule_2_title">فواصل زمنية عشوائية ذكية</h3>
+          <p data-i18n="rule_2_desc">تأخير عشوائي ذكي (مثل 40 إلى 120 ثانية) بين كل رسالة والتي تليها لمحاكاة الإرسال البشري الطبيعي.</p>
         </div>
       </div>
 
       <div class="rule">
         <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-text"/></svg></div>
         <div>
-          <h3>خيار إلغاء المراسلة الفوري</h3>
-          <p>كل رسالة افتتاحية تتضمن عبارة مهذبة تتيح للنشاط طلب عدم التواصل مجدداً بكلمة واحدة احتراماً لخصوصيته.</p>
+          <h3 data-i18n="rule_3_title">خيار إلغاء المراسلة الفوري</h3>
+          <p data-i18n="rule_3_desc">كل رسالة افتتاحية تتضمن عبارة مهذبة تتيح للنشاط طلب عدم التواصل مجدداً بكلمة واحدة احتراماً لخصوصيته.</p>
         </div>
       </div>
 
       <div class="rule">
         <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-ban"/></svg></div>
         <div>
-          <h3>قائمة حظر واستبعاد دائمة</h3>
-          <p>أي رقم يطلب التوقف يُدرج فوراً في قائمة الحظر المحلية، ويُستبعد نهائياً من أي بحث مستقبلي أو طابور إرسال.</p>
+          <h3 data-i18n="rule_4_title">قائمة حظر واستبعاد دائمة</h3>
+          <p data-i18n="rule_4_desc">أي رقم يطلب التوقف يُدرج فوراً في قائمة الحظر المحلية، ويُستبعد نهائياً من أي بحث مستقبلي أو طابور إرسال.</p>
         </div>
       </div>
     </div>
@@ -1439,79 +1720,86 @@ footer{
 <section class="dark" id="pricing" aria-labelledby="h-price">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-key"/></svg> باقات الاشتراك</span>
-      <h2 id="h-price">اشتراك واحد بكافة المميزات، واختر المدة المناسبة لنشاطك</h2>
-      <p class="lead">لا توجد نسخ مقيّدة أو ميزات مخفية. جميع المشتركين يحصلون على القوة الكاملة للأداة مع تحديثات مستمرة.</p>
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-key"/></svg> <span data-i18n="price_eyebrow">باقات الاشتراك</span></span>
+      <h2 id="h-price" data-i18n="price_title">اشتراك واحد بكافة المميزات، واختر المدة المناسبة لنشاطك</h2>
+      <p class="lead" data-i18n="price_lead">لا توجد نسخ مقيّدة أو ميزات مخفية. جميع المشتركين يحصلون على القوة الكاملة للأداة في كافة الـ 150 دولة مع تحديثات مستمرة.</p>
     </div>
     <div class="plans">
       <!-- Monthly -->
       <article class="plan" style="color:var(--ink)">
-        <h3>الاشتراك الشهري</h3>
-        <div class="dur">للتجربة والبدء</div>
-        <div class="price" data-plan="monthly">السعر عند الطلب</div>
+        <h3 data-i18n="plan_m_title">الاشتراك الشهري</h3>
+        <div class="dur" data-i18n="plan_m_dur">للتجربة والبدء السريع</div>
+        <div class="price" data-plan="monthly" data-i18n="price_on_demand">السعر عند الطلب</div>
         <ul>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>وصول كامل لجميع المميزات</li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>ترخيص تشغيل لجهاز واحد</li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>قوالب الرسائل وتوليد الديمو</li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>تحديثات مستمرة طوال الشهر</li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>دعم عبر واتساب</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f1">وصول كامل لكافة الـ 150 دولة حول العالم</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f2"><strong>حد يومي آمن للاستخراج:</strong> حتى 100 عميل يومياً</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f3">تنويع الرسائل الديناميكي Spintax ثنائي اللغة ضد الحظر</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f4">استخراج بايو السوشيال (إنستجرام وفيس وتيك توك)</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f5">توليد صفحات الديمو ولوحة تسليم الواتساب</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f6">دعم فني وتحديثات مستمرة طوال الشهر</span></li>
         </ul>
-        <a class="btn line block" href="#" data-wa="أريد الاستفسار عن الاشتراك الشهري في أداة NextGen Sales Agent"><span>اسأل عن الاشتراك الشهري</span></a>
+        <a class="btn line block" href="#" data-wa="أريد الاستفسار عن الاشتراك الشهري في أداة NextGen Sales Agent"><span data-i18n="plan_m_btn">اسأل عن الاشتراك الشهري</span></a>
       </article>
 
       <!-- Yearly (Highlighted) -->
       <article class="plan hl" style="color:var(--ink)">
-        <span class="plan-badge">⭐ الخيار الأكثر طلباً وتوفيراً</span>
-        <h3>الاشتراك السنوي</h3>
-        <div class="dur">للعمل المنتظم والفرق الصغيرة (12 شهراً)</div>
-        <div class="price" data-plan="yearly">السعر عند الطلب</div>
+        <span class="plan-badge" data-i18n="plan_y_badge">⭐ الخيار الأكثر طلباً وتوفيراً</span>
+        <h3 data-i18n="plan_y_title">الاشتراك السنوي</h3>
+        <div class="dur" data-i18n="plan_y_dur">للعمل المنتظم والفرق التسويقية (12 شهراً)</div>
+        <div class="price" data-plan="yearly" data-i18n="price_on_demand">السعر عند الطلب</div>
         <ul>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><strong>كل المميزات بلا حدود</strong></li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>ترخيص تشغيل لجهاز واحد</li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>أعلى معدل توفير مقارنة بالشهري</li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>أولوية في التحديثات والميزات الجديدة</li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>دعم عبر واتساب</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_y_f1"><strong>كافة المميزات وأعلى توفير بنسبة 40%+</strong></span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_y_f2"><strong>حد استخراج يومي موسع:</strong> حتى 250 عميل يومياً (أو مخصص)</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_y_f3">دعم كامل لموديلات الذكاء الاصطناعي Gemini 1.5/2.0</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_y_f4">تقسيم الحصص بين الخرائط والسوشيال ميديا بحرية</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_y_f5">أولوية قصوى في التحديثات والميزات الجديدة</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_y_f6">دعم فني سريع ومباشر طوال العام</span></li>
         </ul>
-        <a class="btn wa block" href="#" data-wa="أريد الاستفسار عن الاشتراك السنوي في أداة NextGen Sales Agent"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span>احصل على الاشتراك السنوي</span></a>
+        <a class="btn wa block" href="#" data-wa="أريد الاستفسار عن الاشتراك السنوي في أداة NextGen Sales Agent"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span data-i18n="plan_y_btn">احصل على الاشتراك السنوي</span></a>
       </article>
 
       <!-- Lifetime -->
       <article class="plan" style="color:var(--ink)">
-        <span class="plan-badge" style="background:linear-gradient(135deg,#b45309,#d97706)">👑 دفعة واحدة للأبد</span>
-        <h3>مدى الحياة (Lifetime)</h3>
-        <div class="dur">استثمار دائم بدون أي تجديد شهري أو سنوي</div>
-        <div class="price" data-plan="lifetime">السعر عند الطلب</div>
+        <span class="plan-badge" style="background:linear-gradient(135deg,#b45309,#d97706)" data-i18n="plan_l_badge">👑 دفعة واحدة للأبد</span>
+        <h3 data-i18n="plan_l_title">مدى الحياة (Lifetime)</h3>
+        <div class="dur" data-i18n="plan_l_dur">استثمار دائم بدون أي تجديد شهري أو سنوي نهائياً</div>
+        <div class="price" data-plan="lifetime" data-i18n="price_on_demand">السعر عند الطلب</div>
         <ul>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>وصول دائم وغير محدود لجميع الأدوات</li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>ترخيص جهاز دائم مدى الحياة</li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>كافة التحديثات والترقيات المستقبلية مجاناً</li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>لا توجد أي رسوم إضافية لاحقاً</li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>دعم فني خاص ومباشر عبر واتساب</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_l_f1"><strong>أقصى حد استخراج يومي:</strong> غير محدود / مخصص لاحتياجاتك</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_l_f2">ترخيص تشغيل دائم مدى الحياة لجهازك</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_l_f3">كافة التحديثات والـ 150 دولة مجاناً للأبد</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_l_f4">لا توجد أي رسوم إضافية أو تجديدات لاحقاً</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_l_f5">دعم فني VIP خاص ومباشر عبر واتساب</span></li>
         </ul>
-        <a class="btn line block" href="#" data-wa="أريد الاستفسار عن اشتراك مدى الحياة في أداة NextGen Sales Agent"><span>اسأل عن اشتراك مدى الحياة</span></a>
+        <a class="btn line block" href="#" data-wa="أريد الاستفسار عن اشتراك مدى الحياة في أداة NextGen Sales Agent"><span data-i18n="plan_l_btn">اسأل عن اشتراك مدى الحياة</span></a>
       </article>
+    </div>
+
+    <!-- Daily Quota Notice -->
+    <div style="margin-top:28px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px 22px;max-width:820px;margin-inline:auto;text-align:center">
+      <span style="color:#6ee7b7;font-size:15px;line-height:1.7;display:block" data-i18n="quota_notice">🛡️ <b>نظام الحصص والحدود اليومية:</b> جميع الباقات تخضع لنظام الحصص اليومية الذكية القابلة للضبط والتخصيص من الإدارة لحماية أرقامك من حظر واتساب وضمان أعلى جودة للبيانات. يمكنك طلب تعديل أو توسيع الحد اليومي في أي وقت.</span>
     </div>
 
     <!-- Activation Steps -->
     <div class="sec-head" style="margin-top:clamp(60px,8vw,96px);margin-bottom:32px">
-      <span class="eyebrow">خطوات التفعيل السريعة</span>
-      <h2 style="font-size:clamp(1.6rem,2.8vw,2.2rem)">كيف تبدأ العمل في 3 خطوات بسيطة؟</h2>
+      <span class="eyebrow" data-i18n="act_eyebrow">خطوات التفعيل السريعة</span>
+      <h2 style="font-size:clamp(1.6rem,2.8vw,2.2rem)" data-i18n="act_title">كيف تبدأ العمل في 3 خطوات بسيطة؟</h2>
     </div>
     <div class="act">
       <div>
         <b>1</b>
-        <h3>اطلب نسختك عبر واتساب</h3>
-        <p>راسلنا مباشرة واختر الباقة التي تناسبك، وستصلك روابط تحميل الأداة الفورية مع دليل الإعداد.</p>
+        <h3 data-i18n="act_s1_title">اطلب نسختك عبر واتساب</h3>
+        <p data-i18n="act_s1_desc">راسلنا مباشرة واختر الباقة التي تناسبك، وستصلك روابط تحميل الأداة الفورية مع دليل الإعداد.</p>
       </div>
       <div>
         <b>2</b>
-        <h3>أرسل بصمة جهازك</h3>
-        <p>عند تشغيل الأداة لأول مرة على كمبيوترك ستظهر لك بصمة الجهاز (Hardware ID)، انسخها وأرسلها لنا.</p>
+        <h3 data-i18n="act_s2_title">أرسل بصمة جهازك</h3>
+        <p data-i18n="act_s2_desc">عند تشغيل الأداة لأول مرة على كمبيوترك ستظهر لك بصمة الجهاز (Hardware ID)، انسخها وأرسلها لنا لتوليد رخصتك.</p>
       </div>
       <div>
         <b>3</b>
-        <h3>استلم مفتاحك وابدأ الصيد!</h3>
-        <p>نرسل لك مفتاح التفعيل الرقمي المخصص لجهازك، تلصقه في الشاشة لتفتح معك الأداة بالكامل فوراً.</p>
+        <h3 data-i18n="act_s3_title">استلم مفتاحك وابدأ الصيد!</h3>
+        <p data-i18n="act_s3_desc">نرسل لك مفتاح التفعيل الرقمي المخصص لجهازك، تلصقه في الشاشة لتفتح معك الأداة بالكامل فوراً في 150 دولة.</p>
       </div>
     </div>
   </div>
@@ -1521,43 +1809,43 @@ footer{
 <section id="faq" aria-labelledby="h-faq">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-chat"/></svg> شفافية كاملة</span>
-      <h2 id="h-faq">الأسئلة الشائعة وإجابات كل ما يدور في ذهنك</h2>
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-chat"/></svg> <span data-i18n="faq_eyebrow">شفافية كاملة</span></span>
+      <h2 id="h-faq" data-i18n="faq_title">الأسئلة الشائعة وإجابات كل ما يدور في ذهنك</h2>
     </div>
     <div class="faq">
       <details>
-        <summary>هل تعمل الأداة على جهازي أم سحابياً على خوادم؟</summary>
-        <p>الأداة مصممة لتعمل محلياً بالكامل على جهاز الكمبيوتر الخاص بك (Windows)، وتفتح واجهتها عبر المتصفح المحلي. بيانات العملاء تُخزن في قاعدة بيانات مشفرة على جهازك فقط ولا يتم رفع أي سجلات لخوادمنا، لضمان خصوصيتك وأمان بياناتك بنسبة 100%.</p>
+        <summary data-i18n="faq_q1">هل تعمل الأداة على جهازي أم سحابياً على خوادم؟</summary>
+        <p data-i18n="faq_a1">الأداة مصممة لتعمل محلياً بالكامل على جهاز الكمبيوتر الخاص بك (Windows)، وتفتح واجهتها عبر المتصفح المحلي. بيانات العملاء تُخزن في قاعدة بيانات مشفرة على جهازك فقط ولا يتم رفع أي سجلات لخوادمنا، لضمان خصوصيتك وأمان بياناتك بنسبة 100%.</p>
       </details>
 
       <details>
-        <summary>من أين تأتي بيانات وأرقام الأنشطة التجارية؟</summary>
-        <p>تعتمد الأداة على مصادر عامة ومفتوحة مثل خرائط جوجل، OpenStreetMap، والصفحات العامة للأنشطة على إنستجرام وفيسبوك وتيك توك ولينكتري. تقوم الخوارزميات بفلترة البيانات واستخراج أرقام الموبايل الفعالة بدقة متناهية وتخطي الأرقام الأرضية وغير الصالحة.</p>
+        <summary data-i18n="faq_q2">ما هي الدول المدعومة رسمياً في الأداة؟</summary>
+        <p data-i18n="faq_a2">تدعم الأداة رسمياً 150 دولة حول العالم موزعة كالتالي: كافة الدول العربية الـ 22، 21 دولة أوروبية كبرى (بريطانيا، ألمانيا، فرنسا، إيطاليا، إسبانيا، هولندا، السويد، تركيا وغيرها)، و107 دولة عالمية (أمريكا، كندا، أستراليا، البرازيل، اليابان، الهند، سنغافورة وغيرها). يمكنك البحث عن أي دولة في قسم المستكشف أعلاه للتحقق من دعمها الفوري.</p>
       </details>
 
       <details>
-        <summary>هل أنا ملزم بالاشتراك في خدمات ذكاء اصطناعي مدفوعة؟</summary>
-        <p>إطلاقاً. تأتي الأداة محملة بقوالب رسائل احترافية متقنة بثلاث لهجات مختلفة تم اختبارها في السوق. وإذا رغبت في تخصيص أكثر بالذكاء الاصطناعي، يمكنك إضافة مفتاح Google Gemini المجاني تماماً من الإعدادات دون دفع أي تكلفة إضافية.</p>
+        <summary data-i18n="faq_q3">هل تدعم الأداة التواصل باللغة الإنجليزية للعملاء الأجانب؟</summary>
+        <p data-i18n="faq_a3">نعم تماماً! تدعم الأداة واجهة كاملة باللغتين العربية والإنجليزية، وتتضمن نماذج ذكاء اصطناعي (Gemini & Ollama) تفهم لغة العميل وتولد رسائل تسويقية احترافية باللغة الإنجليزية التامة لـ 10 تخصصات تجارية عالمية، بالإضافة لأكثر من 6 لهجات عربية محلية.</p>
       </details>
 
       <details>
-        <summary>هل هناك خطر على رقم الواتساب الخاص بي؟</summary>
-        <p>أي تواصل مع أرقام جديدة يحمل نسبة مخاطرة إن تم بشكل عشوائي أو مفرط. لذلك زوّدنا الأداة بفواصل زمنية عشوائية ذكية وحدود يومية تحاكي السلوك البشري الطبيعي. ننصح دائماً بالبدء بحدود آمنة (15-30 رسالة يومياً) واستخدام الإرسال اليدوي أو خيار التأكيد لضمان أعلى مستويات الأمان.</p>
+        <summary data-i18n="faq_q4">ما هو نظام الحد اليومي للاستخراج وكيف يحميني من الحظر؟</summary>
+        <p data-i18n="faq_a4">خوارزميات واتساب تترصد الحسابات التي تقوم بإرسال أو استخراج كميات ضخمة بشكل فجائي. يحدد نظام الحصص اليومية سقفاً آمناً للبحث والاستخراج اليومي (مثال: 100 إلى 250 عميلاً يومياً) لمنع السلوك العشوائي. هذا الحد يضبطه الأدمن ويمكنك طلب توسيعه وفق أقدمية رقمك واحتياجاتك.</p>
       </details>
 
       <details>
-        <summary>هل الإرسال يتم بشكل يدوي أم تلقائي؟</summary>
-        <p>تمنحك الأداة كامل المرونة؛ يتوفر خيار الإرسال اليدوي المريح بضغطة زر لكل عميل مع مراجعة الرسالة، ويتوفر أيضاً خيار الطابور التلقائي الذي يرسل بدقة وفواصل زمنية مدروسة وفق الحدود التي تضبطها أنت بنفسك.</p>
+        <summary data-i18n="faq_q5">كيف يحميني تنويع الرسائل (Spintax) من حظر الواتساب؟</summary>
+        <p data-i18n="faq_a5">تعتمد الأداة على نظام Spintax لتوليد رسائل متغيرة؛ حيث تحتوي كل رسالة على تحيات مختلفة، صياغات متباينة لعرض الخدمة، ودعوات تواصل ذكية بأكثر من 6 لهجات عربية وباللغة الإنجليزية، بحيث تخرج كل رسالة بصياغة فريدة 100% ولا تتشابه أي رسالتين متتاليتين، وهو ما يمنع رصد الرسائل كـ Spam من قبل خوارزميات واتساب.</p>
       </details>
 
       <details>
-        <summary>ماذا يحدث لبياناتي عند انتهاء مدة الاشتراك؟</summary>
-        <p>بياناتك ملكك بالكامل وتظل محفوظة في أمان على جهازك. عند انتهاء الترخيص تتوقف الأداة عن البحث حتى تجدد المفتاح، ويمكنك دائماً تصدير كامل بيانات الأنشطة والعملاء المسجلين إلى ملف Excel/CSV.</p>
+        <summary data-i18n="faq_q6">من أين تأتي بيانات وأرقام الأنشطة التجارية؟</summary>
+        <p data-i18n="faq_a6">تعتمد الأداة على مصادر عامة ومفتوحة مثل خرائط جوجل، OpenStreetMap، والصفحات العامة للأنشطة على إنستجرام وفيسبوك وتيك توك ولينكتري. تقوم الخوارزميات بفلترة البيانات واستخراج أرقام الموبايل الفعالة بدقة متناهية وتخطي الأرقام الأرضية وغير الصالحة.</p>
       </details>
 
       <details>
-        <summary>هل يمكنني نقل الترخيص إلى جهاز كمبيوتر آخر؟</summary>
-        <p>يرتبط الترخيص ببصمة عتاد الجهاز الواحد للحماية. إذا قمت بتغيير جهازك أو ترقيته، كل ما عليك هو التواصل معنا عبر واتساب وسنقوم بنقل الترخيص وتوليد مفتاح جديد لجهازك الجديد بكل سلاسة.</p>
+        <summary data-i18n="faq_q7">ماذا يحدث إذا تم حظر جهازي أو نقلت الأداة لكمبيوتر آخر؟</summary>
+        <p data-i18n="faq_a7">يرتبط الترخيص ببصمة عتاد الجهاز (HWID) لضمان الأمان. إذا قمت بتغيير جهازك أو ترقيته، كل ما عليك هو التواصل معنا عبر واتساب وسنقوم بنقل الترخيص وتوليد مفتاح جديد لجهازك الجديد بكل سلاسة وأمان.</p>
       </details>
     </div>
   </div>
@@ -1566,12 +1854,12 @@ footer{
 <!-- ================= FINAL CTA ================= -->
 <section class="dark final" aria-labelledby="h-final">
   <div class="wrap">
-    <span class="eyebrow">جاهز لمضاعفة مبيعاتك؟</span>
-    <h2 id="h-final">ابدأ بأول مدينة ونشاط، وانظر كيف تنهال عليك الفرص المؤهلة</h2>
-    <p class="lead">تواصل معنا الآن عبر واتساب، وسنرد عليك فوراً بكل تفاصيل الاشتراك وخطوات التفعيل خلال دقائق معدودة.</p>
+    <span class="eyebrow" data-i18n="final_eyebrow">جاهز لمضاعفة مبيعاتك؟</span>
+    <h2 id="h-final" data-i18n="final_title">ابدأ بأول مدينة ونشاط، وانظر كيف تنهال عليك الفرص المؤهلة</h2>
+    <p class="lead" data-i18n="final_lead">تواصل معنا الآن عبر واتساب، وسنرد عليك فوراً بكل تفاصيل الاشتراك وخطوات التفعيل خلال دقائق معدودة.</p>
     <div class="cta-row">
-      <a class="btn wa" href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent والبدء الآن"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span>تواصل عبر واتساب الآن</span></a>
-      <a class="btn line" href="#pricing"><span>مراجعة باقات الاشتراك</span></a>
+      <a class="btn wa" href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent والبدء الآن"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span data-i18n="final_cta_wa">تواصل عبر واتساب الآن</span></a>
+      <a class="btn line" href="#pricing"><span data-i18n="final_cta_price">مراجعة باقات الاشتراك</span></a>
     </div>
   </div>
 </section>
@@ -1581,44 +1869,622 @@ footer{
 <!-- Footer -->
 <footer>
   <div class="wrap foot">
-    <span>© <span id="yr">2026</span> NextGen Sales Agent. جميع الحقوق محفوظة.</span>
-    <span>الأداة مصممة للتواصل التسويقي الاحترافي والمشروع، والتزامك بسياسات المنصات هو مسؤوليتك.</span>
-    <a href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent">تواصل مع الدعم الفني</a>
+    <span>© <span id="yr">2026</span> NextGen Sales Agent. <span data-i18n="foot_rights">جميع الحقوق محفوظة.</span></span>
+    <span data-i18n="foot_disclaimer">الأداة مصممة للتواصل التسويقي الاحترافي والمشروع، والتزامك بسياسات المنصات هو مسؤوليتك.</span>
+    <a href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent" data-i18n="foot_support">تواصل مع الدعم الفني</a>
   </div>
 </footer>
 
 <!-- Floating WhatsApp Quick Button -->
 <a class="wa-floating-btn" href="#" data-wa="السلام عليكم، أريد الاستفسار عن تفاصيل أداة NextGen Sales Agent" aria-label="تواصل فوري عبر واتساب">
   <svg class="wa-floating-icon" aria-hidden="true"><use href="#i-chat"/></svg>
-  <span>تحدث معنا عبر واتساب</span>
+  <span data-i18n="wa_float">تحدث معنا عبر واتساب</span>
 </a>
 
+<!-- Embedded Countries Data -->
 <script>
-/* ===== إعدادات يمكنك تعديلها بسهولة ===== */
-const CONTACT_WA = '201020451206';              /* رقم واتساب للتواصل (بدون +) */
-const PRICES = { monthly:'', yearly:'', lifetime:'' }; /* مثال: monthly:'500 ج / شهر' */
+const ALL_COUNTRIES_DATA = [{"name_ar": "مصر", "name_en": "Egypt", "flag": "🇪🇬", "code": "20", "region": "arab"}, {"name_ar": "السعودية", "name_en": "Saudi Arabia", "flag": "🇸🇦", "code": "966", "region": "arab"}, {"name_ar": "الإمارات", "name_en": "United Arab Emirates", "flag": "🇦🇪", "code": "971", "region": "arab"}, {"name_ar": "الكويت", "name_en": "Kuwait", "flag": "🇰🇼", "code": "965", "region": "arab"}, {"name_ar": "قطر", "name_en": "Qatar", "flag": "🇶🇦", "code": "974", "region": "arab"}, {"name_ar": "البحرين", "name_en": "Bahrain", "flag": "🇧🇭", "code": "973", "region": "arab"}, {"name_ar": "عمان", "name_en": "Oman", "flag": "🇴🇲", "code": "968", "region": "arab"}, {"name_ar": "الأردن", "name_en": "Jordan", "flag": "🇯🇴", "code": "962", "region": "arab"}, {"name_ar": "العراق", "name_en": "Iraq", "flag": "🇮🇶", "code": "964", "region": "arab"}, {"name_ar": "لبنان", "name_en": "Lebanon", "flag": "🇱🇧", "code": "961", "region": "arab"}, {"name_ar": "المغرب", "name_en": "Morocco", "flag": "🇲🇦", "code": "212", "region": "arab"}, {"name_ar": "الجزائر", "name_en": "Algeria", "flag": "🇩🇿", "code": "213", "region": "arab"}, {"name_ar": "تونس", "name_en": "Tunisia", "flag": "🇹🇳", "code": "216", "region": "arab"}, {"name_ar": "ليبيا", "name_en": "Libya", "flag": "🇱🇾", "code": "218", "region": "arab"}, {"name_ar": "السودان", "name_en": "Sudan", "flag": "🇸🇩", "code": "249", "region": "arab"}, {"name_ar": "اليمن", "name_en": "Yemen", "flag": "🇾🇪", "code": "967", "region": "arab"}, {"name_ar": "فلسطين", "name_en": "Palestine", "flag": "🇵🇸", "code": "970", "region": "arab"}, {"name_ar": "سوريا", "name_en": "Syria", "flag": "🇸🇾", "code": "963", "region": "arab"}, {"name_ar": "موريتانيا", "name_en": "Mauritania", "flag": "🇲🇷", "code": "222", "region": "arab"}, {"name_ar": "الصومال", "name_en": "Somalia", "flag": "🇸🇴", "code": "252", "region": "arab"}, {"name_ar": "جيبوتي", "name_en": "Djibouti", "flag": "🇩🇯", "code": "253", "region": "arab"}, {"name_ar": "جزر القمر", "name_en": "Comoros", "flag": "🇰🇲", "code": "269", "region": "arab"}, {"name_ar": "المملكة المتحدة (بريطانيا)", "name_en": "United Kingdom", "flag": "🇬🇧", "code": "44", "region": "europe"}, {"name_ar": "ألمانيا", "name_en": "Germany", "flag": "🇩🇪", "code": "49", "region": "europe"}, {"name_ar": "فرنسا", "name_en": "France", "flag": "🇫🇷", "code": "33", "region": "europe"}, {"name_ar": "إيطاليا", "name_en": "Italy", "flag": "🇮🇹", "code": "39", "region": "europe"}, {"name_ar": "إسبانيا", "name_en": "Spain", "flag": "🇪🇸", "code": "34", "region": "europe"}, {"name_ar": "هولندا", "name_en": "Netherlands", "flag": "🇳🇱", "code": "31", "region": "europe"}, {"name_ar": "بلجيكا", "name_en": "Belgium", "flag": "🇧🇪", "code": "32", "region": "europe"}, {"name_ar": "سويسرا", "name_en": "Switzerland", "flag": "🇨🇭", "code": "41", "region": "europe"}, {"name_ar": "السويد", "name_en": "Sweden", "flag": "🇸🇪", "code": "46", "region": "europe"}, {"name_ar": "النرويج", "name_en": "Norway", "flag": "🇳🇴", "code": "47", "region": "europe"}, {"name_ar": "الدنمارك", "name_en": "Denmark", "flag": "🇩🇰", "code": "45", "region": "europe"}, {"name_ar": "فنلندا", "name_en": "Finland", "flag": "🇫🇮", "code": "358", "region": "europe"}, {"name_ar": "بولندا", "name_en": "Poland", "flag": "🇵🇱", "code": "48", "region": "europe"}, {"name_ar": "النمسا", "name_en": "Austria", "flag": "🇦🇹", "code": "43", "region": "europe"}, {"name_ar": "أيرلندا", "name_en": "Ireland", "flag": "🇮🇪", "code": "353", "region": "europe"}, {"name_ar": "البرتغال", "name_en": "Portugal", "flag": "🇵🇹", "code": "351", "region": "europe"}, {"name_ar": "اليونان", "name_en": "Greece", "flag": "🇬🇷", "code": "30", "region": "europe"}, {"name_ar": "تركيا", "name_en": "Turkey", "flag": "🇹🇷", "code": "90", "region": "europe"}, {"name_ar": "التشيك", "name_en": "Czech Republic", "flag": "🇨🇿", "code": "420", "region": "europe"}, {"name_ar": "رومانيا", "name_en": "Romania", "flag": "🇷🇴", "code": "40", "region": "europe"}, {"name_ar": "المجر", "name_en": "Hungary", "flag": "🇭🇺", "code": "36", "region": "europe"}, {"name_ar": "الولايات المتحدة الأمريكية", "name_en": "United States", "flag": "🇺🇸", "code": "1", "region": "global"}, {"name_ar": "كندا", "name_en": "Canada", "flag": "🇨🇦", "code": "1", "region": "global"}, {"name_ar": "المكسيك", "name_en": "Mexico", "flag": "🇲🇽", "code": "52", "region": "global"}, {"name_ar": "البرازيل", "name_en": "Brazil", "flag": "🇧🇷", "code": "55", "region": "global"}, {"name_ar": "الأرجنتين", "name_en": "Argentina", "flag": "🇦🇷", "code": "54", "region": "global"}, {"name_ar": "كولومبيا", "name_en": "Colombia", "flag": "🇨🇴", "code": "57", "region": "global"}, {"name_ar": "تشيلي", "name_en": "Chile", "flag": "🇨🇱", "code": "56", "region": "global"}, {"name_ar": "بيرو", "name_en": "Peru", "flag": "🇵🇪", "code": "51", "region": "global"}, {"name_ar": "الإكوادور", "name_en": "Ecuador", "flag": "🇪🇨", "code": "593", "region": "global"}, {"name_ar": "فنزويلا", "name_en": "Venezuela", "flag": "🇻🇪", "code": "58", "region": "global"}, {"name_ar": "بوليفيا", "name_en": "Bolivia", "flag": "🇧🇴", "code": "591", "region": "global"}, {"name_ar": "باراغواي", "name_en": "Paraguay", "flag": "🇵🇾", "code": "595", "region": "global"}, {"name_ar": "أوروغواي", "name_en": "Uruguay", "flag": "🇺🇾", "code": "598", "region": "global"}, {"name_ar": "كوستاريكا", "name_en": "Costa Rica", "flag": "🇨🇷", "code": "506", "region": "global"}, {"name_ar": "بنما", "name_en": "Panama", "flag": "🇵🇦", "code": "507", "region": "global"}, {"name_ar": "غواتيمالا", "name_en": "Guatemala", "flag": "🇬🇹", "code": "502", "region": "global"}, {"name_ar": "هندوراس", "name_en": "Honduras", "flag": "🇭🇳", "code": "504", "region": "global"}, {"name_ar": "السلفادور", "name_en": "El Salvador", "flag": "🇸🇻", "code": "503", "region": "global"}, {"name_ar": "نيكاراغوا", "name_en": "Nicaragua", "flag": "🇳🇮", "code": "505", "region": "global"}, {"name_ar": "جمهورية الدومينيكان", "name_en": "Dominican Republic", "flag": "🇩🇴", "code": "1809", "region": "global"}, {"name_ar": "جامايكا", "name_en": "Jamaica", "flag": "🇯🇲", "code": "1876", "region": "global"}, {"name_ar": "ترينيداد وتوباغو", "name_en": "Trinidad and Tobago", "flag": "🇹🇹", "code": "1868", "region": "global"}, {"name_ar": "البهاما", "name_en": "Bahamas", "flag": "🇧🇸", "code": "1242", "region": "global"}, {"name_ar": "باربادوس", "name_en": "Barbados", "flag": "🇧🇧", "code": "1246", "region": "global"}, {"name_ar": "الهند", "name_en": "India", "flag": "🇮🇳", "code": "91", "region": "global"}, {"name_ar": "باكستان", "name_en": "Pakistan", "flag": "🇵🇰", "code": "92", "region": "global"}, {"name_ar": "بنغلاديش", "name_en": "Bangladesh", "flag": "🇧🇩", "code": "880", "region": "global"}, {"name_ar": "الصين", "name_en": "China", "flag": "🇨🇳", "code": "86", "region": "global"}, {"name_ar": "اليابان", "name_en": "Japan", "flag": "🇯🇵", "code": "81", "region": "global"}, {"name_ar": "كوريا الجنوبية", "name_en": "South Korea", "flag": "🇰🇷", "code": "82", "region": "global"}, {"name_ar": "إندونيسيا", "name_en": "Indonesia", "flag": "🇮🇩", "code": "62", "region": "global"}, {"name_ar": "ماليزيا", "name_en": "Malaysia", "flag": "🇲🇾", "code": "60", "region": "global"}, {"name_ar": "سنغافورة", "name_en": "Singapore", "flag": "🇸🇬", "code": "65", "region": "global"}, {"name_ar": "الفلبين", "name_en": "Philippines", "flag": "🇵🇭", "code": "63", "region": "global"}, {"name_ar": "فيتنام", "name_en": "Vietnam", "flag": "🇻🇳", "code": "84", "region": "global"}, {"name_ar": "تايلاند", "name_en": "Thailand", "flag": "🇹🇭", "code": "66", "region": "global"}, {"name_ar": "هونغ كونغ", "name_en": "Hong Kong", "flag": "🇭🇰", "code": "852", "region": "global"}, {"name_ar": "تايوان", "name_en": "Taiwan", "flag": "🇹🇼", "code": "886", "region": "global"}, {"name_ar": "أستراليا", "name_en": "Australia", "flag": "🇦🇺", "code": "61", "region": "global"}, {"name_ar": "نيوزيلندا", "name_en": "New Zealand", "flag": "🇳🇿", "code": "64", "region": "global"}, {"name_ar": "سريلانكا", "name_en": "Sri Lanka", "flag": "🇱🇰", "code": "94", "region": "global"}, {"name_ar": "نيبال", "name_en": "Nepal", "flag": "🇳🇵", "code": "977", "region": "global"}, {"name_ar": "ميانمار", "name_en": "Myanmar", "flag": "🇲🇲", "code": "95", "region": "global"}, {"name_ar": "كمبوديا", "name_en": "Cambodia", "flag": "🇰🇭", "code": "855", "region": "global"}, {"name_ar": "لاوس", "name_en": "Laos", "flag": "🇱🇦", "code": "856", "region": "global"}, {"name_ar": "بروناي", "name_en": "Brunei", "flag": "🇧🇳", "code": "673", "region": "global"}, {"name_ar": "منغوليا", "name_en": "Mongolia", "flag": "🇲🇳", "code": "976", "region": "global"}, {"name_ar": "المالديف", "name_en": "Maldives", "flag": "🇲🇻", "code": "960", "region": "global"}, {"name_ar": "فيجي", "name_en": "Fiji", "flag": "🇫🇯", "code": "679", "region": "global"}, {"name_ar": "بابوا غينيا الجديدة", "name_en": "Papua New Guinea", "flag": "🇵🇬", "code": "675", "region": "global"}, {"name_ar": "كازاخستان", "name_en": "Kazakhstan", "flag": "🇰🇿", "code": "7", "region": "global"}, {"name_ar": "أوزبكستان", "name_en": "Uzbekistan", "flag": "🇺🇿", "code": "998", "region": "global"}, {"name_ar": "أذربيجان", "name_en": "Azerbaijan", "flag": "🇦🇿", "code": "994", "region": "global"}, {"name_ar": "جورجيا", "name_en": "Georgia", "flag": "🇬🇪", "code": "995", "region": "global"}, {"name_ar": "أرمينيا", "name_en": "Armenia", "flag": "🇦🇲", "code": "374", "region": "global"}, {"name_ar": "قيرغيزستان", "name_en": "Kyrgyzstan", "flag": "🇰🇬", "code": "996", "region": "global"}, {"name_ar": "طاجيكستان", "name_en": "Tajikistan", "flag": "🇹🇯", "code": "992", "region": "global"}, {"name_ar": "تركمانستان", "name_en": "Turkmenistan", "flag": "🇹🇲", "code": "993", "region": "global"}, {"name_ar": "جنوب أفريقيا", "name_en": "South Africa", "flag": "🇿🇦", "code": "27", "region": "global"}, {"name_ar": "نيجيريا", "name_en": "Nigeria", "flag": "🇳🇬", "code": "234", "region": "global"}, {"name_ar": "كينيا", "name_en": "Kenya", "flag": "🇰🇪", "code": "254", "region": "global"}, {"name_ar": "غانا", "name_en": "Ghana", "flag": "🇬🇭", "code": "233", "region": "global"}, {"name_ar": "إثيوبيا", "name_en": "Ethiopia", "flag": "🇪🇹", "code": "251", "region": "global"}, {"name_ar": "تنزانيا", "name_en": "Tanzania", "flag": "🇹🇿", "code": "255", "region": "global"}, {"name_ar": "أوغندا", "name_en": "Uganda", "flag": "🇺🇬", "code": "256", "region": "global"}, {"name_ar": "السنغال", "name_en": "Senegal", "flag": "🇸🇳", "code": "221", "region": "global"}, {"name_ar": "ساحل العاج", "name_en": "Ivory Coast", "flag": "🇨🇮", "code": "225", "region": "global"}, {"name_ar": "الكاميرون", "name_en": "Cameroon", "flag": "🇨🇲", "code": "237", "region": "global"}, {"name_ar": "رواندا", "name_en": "Rwanda", "flag": "🇷🇼", "code": "250", "region": "global"}, {"name_ar": "زيمبابوي", "name_en": "Zimbabwe", "flag": "🇿🇼", "code": "263", "region": "global"}, {"name_ar": "زامبيا", "name_en": "Zambia", "flag": "🇿🇲", "code": "260", "region": "global"}, {"name_ar": "أنغولا", "name_en": "Angola", "flag": "🇦🇴", "code": "244", "region": "global"}, {"name_ar": "موزمبيق", "name_en": "Mozambique", "flag": "🇲🇿", "code": "258", "region": "global"}, {"name_ar": "مدغشقر", "name_en": "Madagascar", "flag": "🇲🇬", "code": "261", "region": "global"}, {"name_ar": "موريشيوس", "name_en": "Mauritius", "flag": "🇲🇺", "code": "230", "region": "global"}, {"name_ar": "ناميبيا", "name_en": "Namibia", "flag": "🇳🇦", "code": "264", "region": "global"}, {"name_ar": "بوتسوانا", "name_en": "Botswana", "flag": "🇧🇼", "code": "267", "region": "global"}, {"name_ar": "مالي", "name_en": "Mali", "flag": "🇲🇱", "code": "223", "region": "global"}, {"name_ar": "بوركينا فاسو", "name_en": "Burkina Faso", "flag": "🇧🇫", "code": "226", "region": "global"}, {"name_ar": "غينيا", "name_en": "Guinea", "flag": "🇬🇳", "code": "224", "region": "global"}, {"name_ar": "بنين", "name_en": "Benin", "flag": "🇧🇯", "code": "229", "region": "global"}, {"name_ar": "توغو", "name_en": "Togo", "flag": "🇹🇬", "code": "228", "region": "global"}, {"name_ar": "الغابون", "name_en": "Gabon", "flag": "🇬🇦", "code": "241", "region": "global"}, {"name_ar": "الكونغو الديمقراطية", "name_en": "DR Congo", "flag": "🇨🇩", "code": "243", "region": "global"}, {"name_ar": "جمهورية الكونغو", "name_en": "Congo", "flag": "🇨🇬", "code": "242", "region": "global"}, {"name_ar": "سيراليون", "name_en": "Sierra Leone", "flag": "🇸🇱", "code": "232", "region": "global"}, {"name_ar": "ليبيريا", "name_en": "Liberia", "flag": "🇱🇷", "code": "231", "region": "global"}, {"name_ar": "روسيا", "name_en": "Russia", "flag": "🇷🇺", "code": "7", "region": "global"}, {"name_ar": "أوكرانيا", "name_en": "Ukraine", "flag": "🇺🇦", "code": "380", "region": "global"}, {"name_ar": "قبرص", "name_en": "Cyprus", "flag": "🇨🇾", "code": "357", "region": "global"}, {"name_ar": "آيسلندا", "name_en": "Iceland", "flag": "🇮🇸", "code": "354", "region": "global"}, {"name_ar": "لوكسمبورغ", "name_en": "Luxembourg", "flag": "🇱🇺", "code": "352", "region": "global"}, {"name_ar": "مالطا", "name_en": "Malta", "flag": "🇲🇹", "code": "356", "region": "global"}, {"name_ar": "كرواتيا", "name_en": "Croatia", "flag": "🇭🇷", "code": "385", "region": "global"}, {"name_ar": "صربيا", "name_en": "Serbia", "flag": "🇷🇸", "code": "381", "region": "global"}, {"name_ar": "البوسنة والهرسك", "name_en": "Bosnia and Herzegovina", "flag": "🇧🇦", "code": "387", "region": "global"}, {"name_ar": "ألبانيا", "name_en": "Albania", "flag": "🇦🇱", "code": "355", "region": "global"}, {"name_ar": "مقدونيا الشمالية", "name_en": "North Macedonia", "flag": "🇲🇰", "code": "389", "region": "global"}, {"name_ar": "الجبل الأسود", "name_en": "Montenegro", "flag": "🇲🇪", "code": "382", "region": "global"}, {"name_ar": "سلوفينيا", "name_en": "Slovenia", "flag": "🇸🇮", "code": "386", "region": "global"}, {"name_ar": "سلوفاكيا", "name_en": "Slovakia", "flag": "🇸🇰", "code": "421", "region": "global"}, {"name_ar": "بلغاريا", "name_en": "Bulgaria", "flag": "🇧🇬", "code": "359", "region": "global"}, {"name_ar": "ليتوانيا", "name_en": "Lithuania", "flag": "🇱🇹", "code": "370", "region": "global"}, {"name_ar": "لاتفيا", "name_en": "Latvia", "flag": "🇱🇻", "code": "371", "region": "global"}, {"name_ar": "إستونيا", "name_en": "Estonia", "flag": "🇪🇪", "code": "372", "region": "global"}, {"name_ar": "بيلاروسيا", "name_en": "Belarus", "flag": "🇧🇾", "code": "375", "region": "global"}, {"name_ar": "مولدوفا", "name_en": "Moldova", "flag": "🇲🇩", "code": "373", "region": "global"}];
 
-document.querySelectorAll('[data-wa]').forEach(a=>{
-  a.href = 'https://wa.me/' + CONTACT_WA + '?text=' + encodeURIComponent('السلام عليكم، ' + a.dataset.wa);
-  a.target = '_blank';
-  a.rel = 'noopener';
-});
+/* ===== Settings ===== */
+const CONTACT_WA = '201020451206';
+const PRICES = { monthly:'', yearly:'', lifetime:'' };
 
-Object.entries(PRICES).forEach(([k,v])=>{
-  const el = document.querySelector('[data-plan="'+k+'"]');
-  if(el && v) el.textContent = v;
-});
+/* ===== Internationalization Dictionary ===== */
+const TRANSLATIONS = {
+  ar: {
+    page_title: "NextGen Sales Agent | صائد العملاء المؤهلين في 150 دولة",
+    skip_to_content: "تخطَّ إلى المحتوى",
+    nav_how: "كيف تعمل",
+    nav_features: "المميزات",
+    nav_countries: "الدول المدعومة",
+    nav_safe: "الاستخدام الآمن",
+    nav_pricing: "الاشتراك",
+    nav_faq: "الأسئلة الشائعة",
+    btn_order: "اطلب النسخة",
+    hero_eyebrow: "لشركات ومستقلي تطوير المواقع والمتاجر الإلكترونية",
+    hero_title: "اعثر على الأنشطة التي <em>تحتاج موقعاً</em>، وافتح معها محادثة واتساب جاهزة",
+    hero_lead: "تبحث الأداة في خرائط جوجل ومنصات السوشيال ميديا عبر 150 دولة حول العالم (22 عربية، 21 أوروبية، و107 عالمية)، وتستخرج أرقام الواتساب الموثقة، وتولّد رسائل ذكية باللغتين العربية والإنجليزية Spintax لمنع الحظر مع ديمو تفاعلي فوري باسم كل عميل.",
+    hero_cta_wa: "اطلب النسخة عبر واتساب",
+    hero_cta_explore: "استكشف الدول (150 دولة)",
+    hero_note_1: "150 دولة حول العالم (عربية وأوروبية وعالمية)",
+    hero_note_2: "ذكاء اصطناعي عربي وإنجليزي بـ 10 تخصصات",
+    hero_note_3: "رسائل Spintax ذكية ضد الحظر",
+    hero_note_4: "تعمل محلياً على جهازك بأمان وتشفير 100%",
+    mock_badge: "تم فحص 48 عميلاً مؤهلاً اليوم",
+    mock_search_pill: "مطاعم وكافيهات • 150 دولة • 48 نتيجة",
+    mock_status_pill: "● Gemini & Spintax متصل",
+    mock_stat_1: "الحد اليومي",
+    mock_stat_2: "أولوية عالية",
+    mock_stat_3: "بدون موقع",
+    mock_r1_title: "كافيه ومحمصة المثال الراقي",
+    mock_r1_tag: "بدون موقع • موبايل مؤكد",
+    mock_r2_title: "عيادة النور التخصصية لطب الأسنان",
+    mock_r2_tag: "بدون موقع • واتساب متاح",
+    mock_r3_title: "Modern Chic Fashion Store (London)",
+    mock_r3_tag: "Social Only • UK +44",
+    mock_r4_title: "Al-Saraya Gourmet Restaurant",
+    mock_r4_tag: "لديه موقع إلكتروني",
+    mock_bubble_title: "الرسالة الذكية المقترحة (AI Spintax)",
+    mock_bubble_tag: "دعم عربي / إنجليزي • رابط ديمو فوري",
+    mock_bubble_text: "السلام عليكم فريق كافيه ومحمصة المثال، شفت نشاطكم المميز على جوجل ماب. بنصمم منيو تفاعلي سريع بـ QR وصفحة طلبات واتساب أونلاين. صممنا لكم نموذجاً تجريبياً حياً باسمكم تقدروا تشوفوه وتجربوه بضغطة زر من هنا!",
+    mock_caption: "معاينة واقعية لشاشة البحث والتقييم وصياغة الرسائل التلقائية ثنائية اللغة.",
+    fact_1_title: "150 دولة مدعومة رسمياً",
+    fact_1_desc: "22 دولة عربية، 21 دولة أوروبية، و107 دولة عالمية بكود الاتصال وصيغة الموبايل",
+    fact_2_title: "ذكاء اصطناعي ثنائي اللغة",
+    fact_2_desc: "يدعم Gemini & Ollama بالعربية بلهجات متعددة وبالإنجليزية لجميع الأسواق العالمية",
+    fact_3_title: "بياناتك على جهازك 100%",
+    fact_3_desc: "تشفير محلي تام، SQLite محلية ولا نرفع أي سجلات لعملاء جهازك إلى خوادم خارجية",
+    fact_4_title: "نظام أمان وحصص صارم",
+    fact_4_desc: "حدود يومية وفواصل زمنية لمنع الحظر، مع حظر الأجهزة المخالفة وحماية رقمك",
+    cnt_eyebrow: "تغطية عالمية لا مثيل لها",
+    cnt_title: "مستكشف الدول المدعومة (150 دولة حول العالم)",
+    cnt_lead: "تتحقق الأداة من دقة أرقام الموبايل ومفاتيح الاتصال لكافة الدول العربية والأوروبية والعالمية. ابحث عن دولتك المستهدفة الآن وتأكد من جاهزيتها:",
+    cnt_search_ph: "ابحث بالاسم أو كود الاتصال (مثال: مصر، السعودية، France, +44, +966)...",
+    tab_all: "🌍 كافة الدول",
+    tab_arab: "🟢 الدول العربية",
+    tab_europe: "🇪🇺 الدول الأوروبية",
+    tab_global: "🌐 الدول العالمية",
+    cnt_showing: "يتم عرض",
+    cnt_countries_supported: "دولة مدعومة ومفحوصة الأرقام",
+    cnt_verified_badge: "مفحوصة الأرقام",
+    cnt_no_results: "لم نجد دولة مطابقة لبحثك",
+    cnt_no_results_sub: "تواصل معنا عبر واتساب لإضافتها في التحديث القادم فوراً!",
+    prob_eyebrow: "المشكلة التي ننهيها تماماً",
+    prob_title: "البحث اليدوي عن عملاء يستهلك طاقتك ووقتك الثمين قبل أن يبدأ البيع",
+    prob_lead: "بناء وكالة أو عمل مستقل ناجح يتطلب قضاء وقتك في التفاوض والإغلاق والبرمجة، وليس في البحث اليدوي الشاق وتجميع الأرقام العشوائية.",
+    prob_p1_badge: "المعاناة الأولى",
+    prob_p1_title: "ساعات طويلة من التصفح اليدوي",
+    prob_p1_desc: "تنقّل ممل بين الخرائط والصفحات لنسخ الأسماء والأرقام، ثم اكتشاف أن نصف الأرقام خطوط أرضية، أو مغلقة، أو غير موجودة على واتساب.",
+    prob_p2_badge: "المعاناة الثانية",
+    prob_p2_title: "رسائل عامة وباردة بلا رد",
+    prob_p2_desc: "الرسائل المنسوخة (Copy-Paste) تبدو آلية ومزعجة. صاحب النشاط يتجاهلها لأنه لا يرى ما الذي ستقدمه له تحديداً وما قيمته المضافة.",
+    prob_p3_badge: "المعاناة الثالثة",
+    prob_p3_title: "فوضى وانعدام المتابعة المنظمة",
+    prob_p3_desc: "من راسلت أمس؟ ومن يستحق تذكيراً مهذباً اليوم؟ بدون سجل ذكي ومتابعات آلية، تضيع أهم الصفقات التي كانت على وشك الإغلاق.",
+    how_eyebrow: "آلية العمل",
+    how_title: "من اختيار الدولة والنشاط إلى أول محادثة بيعية في أربع خطوات",
+    how_lead: "بضع دقائق فقط تفصلك عن قائمة عملاء عالية الجودة ومجهزة بالكامل لبدء التواصل الفعال في أي دولة بالعالم.",
+    how_s1_title: "حدّد الدولة والنشاط",
+    how_s1_desc: "اختر من بين 150 دولة حول العالم ونوع النشاط بدقة: مطاعم، كافيهات، أزياء، عيادات، عقارات، سيارات، جيم وغيرها الكثير.",
+    how_s2_title: "اجمع وتحقق تلقائياً",
+    how_s2_desc: "تسحب الأداة الأنشطة من مصادر متعددة، وتتحقق فورياً من صيغ الموبايل المحلية، وتستبعد المكرر وتفحص وجود موقع إلكتروني.",
+    how_s3_title: "قيّم وجهّز الديمو والرسالة",
+    how_s3_desc: "تحليل ذكي يعطي درجة ملاءمة من 0 إلى 100، وتوليد صفحة ديمو مخصصة باسم النشاط وصياغة رسالة Spintax ذكية بالعربية أو الإنجليزية.",
+    how_s4_title: "تواصل بأمان وتابع الصفقات",
+    how_s4_desc: "طابور واتساب منظم بحد يومي وفواصل زمنية عشوائية لحماية حسابك، وجدول تسليم فوري ومتابعات منظمة.",
+    feat_eyebrow: "مزايا متكاملة",
+    feat_title: "كل ما تحتاجه لتحويل البحث العشوائي إلى عملاء حقيقيين في 150 دولة",
+    feat_lead: "مصممة خصيصاً لتمنحك التفوق والمصداقية في السوق المحلي والعالمي دون الحاجة لأدوات إضافية معقدة.",
+    f1_title: "150 دولة حول العالم",
+    f1_desc: "دعم كامل لـ 22 دولة عربية، 21 دولة أوروبية، و107 دول عالمية بكود الاتصال وصيغة الموبايل الدقيقة لكل بلد.",
+    f2_title: "ذكاء اصطناعي عربي وإنجليزي",
+    f2_desc: "دعم موديلات Gemini 1.5/2.0 وOllama لتوليد رسائل تسويقية احترافية بلهجات عربية متعددة وبالإنجليزية التامة للعملاء الدوليين.",
+    f3_title: "رسائل متغيرة Spintax ضد الحظر",
+    f3_desc: "كل عميل تصله رسالة مختلفة 100% لمنع رصد الرسائل كـ Spam، مع تنويع التحيات وعروض الخدمة وصيغ الدعوة.",
+    f4_title: "ديمو فوري باسم النشاط وصوره",
+    f4_desc: "إنشاء صفحة ويب تجريبية باسم العميل وبياناته الفعلية، يمكن نشرها بضغطة زر وإرسال رابطها لرفع نسبة الإغلاق فوراً.",
+    f5_title: "صائد السوشيال وقراءة البايو",
+    f5_desc: "استخراج بايو إنستجرام وفيسبوك وتيك توك ولينكتري وفك روابط wa.me والأرقام المخفية بالذكاء الاصطناعي.",
+    f6_title: "لوحة تسليم واتساب وتتبع الحالات",
+    f6_desc: "جدول متطور في قسم الواتساب يوضح من تم الإرسال له، من في الانتظار، ومن تعذر الوصول له مع أزرار فلترة لحظية.",
+    f7_title: "لوحة تحكم إدارية وحماية أجهزة",
+    f7_desc: "نظام إدارة ترخيص متطور مع القدرة على حظر أي جهاز غير مصرح به فوراً (HWID Ban) والتحكم بالحصص.",
+    f8_title: "حدود يومية وفواصل بشرية",
+    f8_desc: "نظام حصص ذكي يحدده الأدمن ويمنع التجاوز لحماية رقمك من الحظر، مع فواصل زمنية عشوائية تحاكي الإرسال البشري.",
+    show_eyebrow: "سلاحك السري للإغلاق",
+    show_title: "اجعل العميل يرى موقعه الجديد قبل أن تبدأ الحديث معه!",
+    show_lead: "الفرق الجوهري بين رسالة تسويقية مزعجة ومحادثة مبيعات ناجحة هو \"الإثبات الملموس\". تبني الأداة صفحة حقيقية باسم العميل وتقييماته وصوره، فيرى النتيجة فوراً.",
+    show_t1: "تصاميم جاهزة لمختلف الأنشطة: منيو للمطاعم، كاتالوج للأزياء، حجز للعيادات والخدمات.",
+    show_t2: "صفحة تفاعلية سريعة تفتح على موبايل العميل بسلاسة مع زر تواصل مباشر معه.",
+    show_t3: "إمكانية النشر بضغطة زر على استضافة مجانية سريعة دون أي تكلفة إضافية.",
+    show_demo_badge: "⭐ تقييم 4.8 على خرائط جوجل",
+    show_demo_name: "كافيه ومطعم السعادة",
+    show_demo_sub: "أشهى المأكولات والمشروبات، وطلبك يصلك طازجاً لباب منزلك",
+    show_demo_btn: "اطلب الآن عبر واتساب",
+    show_card_1: "المشروبات الساخنة والباردة",
+    show_card_2: "الوجبات والبرجر المميز",
+    show_card_3: "الحلويات الشرقية والغربية",
+    show_caption: "نموذج حي لتصميم الديمو الذي يراه عميلك في الرسالة.",
+    safe_eyebrow: "الأمان أولاً",
+    safe_title: "مصمَّمة للتواصل الذكي المحترم، وليس للسبام العشوائي",
+    safe_lead: "إرسال مئات الرسائل العشوائية هو أسرع طريق لحظر رقمك وتشويه سمعتك. لذلك صممنا الأداة بقواعد سلوك بشري تحافظ على أمان حسابك في أي دولة بالعالم.",
+    safe_warn_title: "تنبيه هام ومسؤولية مشتركة:",
+    safe_warn_text: "لا توجد أي أداة في العالم تضمن عدم تقييد الحساب لأن القرار النهائي خوارزمي لدى واتساب. نوصي دائماً بالبدء بحدود صغيرة (15-25 رسالة يومياً) ومخصصة بعناية. الإرسال اليدوي أو شبه التلقائي هو الخيار الأكثر أماناً واستدامة.",
+    rule_1_title: "حد يومي صارم وقابل للضبط",
+    rule_1_desc: "تحدد الحد الأقصى من الرسائل يومياً وفق أقدمية رقمك، وتتوقف الأداة ذاتياً فور الوصول إليه دون تجاوز.",
+    rule_2_title: "فواصل زمنية عشوائية ذكية",
+    rule_2_desc: "تأخير عشوائي ذكي (مثل 40 إلى 120 ثانية) بين كل رسالة والتي تليها لمحاكاة الإرسال البشري الطبيعي.",
+    rule_3_title: "خيار إلغاء المراسلة الفوري",
+    rule_3_desc: "كل رسالة افتتاحية تتضمن عبارة مهذبة تتيح للنشاط طلب عدم التواصل مجدداً بكلمة واحدة احتراماً لخصوصيته.",
+    rule_4_title: "قائمة حظر واستبعاد دائمة",
+    rule_4_desc: "أي رقم يطلب التوقف يُدرج فوراً في قائمة الحظر المحلية، ويُستبعد نهائياً من أي بحث مستقبلي أو طابور إرسال.",
+    price_eyebrow: "باقات الاشتراك",
+    price_title: "اشتراك واحد بكافة المميزات، واختر المدة المناسبة لنشاطك",
+    price_lead: "لا توجد نسخ مقيّدة أو ميزات مخفية. جميع المشتركين يحصلون على القوة الكاملة للأداة في كافة الـ 150 دولة مع تحديثات مستمرة.",
+    price_on_demand: "السعر عند الطلب",
+    plan_m_title: "الاشتراك الشهري",
+    plan_m_dur: "للتجربة والبدء السريع",
+    plan_m_f1: "وصول كامل لكافة الـ 150 دولة حول العالم",
+    plan_m_f2: "<strong>حد يومي آمن للاستخراج:</strong> حتى 100 عميل يومياً",
+    plan_m_f3: "تنويع الرسائل الديناميكي Spintax ثنائي اللغة ضد الحظر",
+    plan_m_f4: "استخراج بايو السوشيال (إنستجرام وفيس وتيك توك)",
+    plan_m_f5: "توليد صفحات الديمو ولوحة تسليم الواتساب",
+    plan_m_f6: "دعم فني وتحديثات مستمرة طوال الشهر",
+    plan_m_btn: "اسأل عن الاشتراك الشهري",
+    plan_y_badge: "⭐ الخيار الأكثر طلباً وتوفيراً",
+    plan_y_title: "الاشتراك السنوي",
+    plan_y_dur: "للعمل المنتظم والفرق التسويقية (12 شهراً)",
+    plan_y_f1: "<strong>كافة المميزات وأعلى توفير بنسبة 40%+</strong>",
+    plan_y_f2: "<strong>حد استخراج يومي موسع:</strong> حتى 250 عميل يومياً (أو مخصص)",
+    plan_y_f3: "دعم كامل لموديلات الذكاء الاصطناعي Gemini 1.5/2.0",
+    plan_y_f4: "تقسيم الحصص بين الخرائط والسوشيال ميديا بحرية",
+    plan_y_f5: "أولوية قصوى في التحديثات والميزات الجديدة",
+    plan_y_f6: "دعم فني سريع ومباشر طوال العام",
+    plan_y_btn: "احصل على الاشتراك السنوي",
+    plan_l_badge: "👑 دفعة واحدة للأبد",
+    plan_l_title: "مدى الحياة (Lifetime)",
+    plan_l_dur: "استثمار دائم بدون أي تجديد شهري أو سنوي نهائياً",
+    plan_l_f1: "<strong>أقصى حد استخراج يومي:</strong> غير محدود / مخصص لاحتياجاتك",
+    plan_l_f2: "ترخيص تشغيل دائم مدى الحياة لجهازك",
+    plan_l_f3: "كافة التحديثات والـ 150 دولة مجاناً للأبد",
+    plan_l_f4: "لا توجد أي رسوم إضافية أو تجديدات لاحقاً",
+    plan_l_f5: "دعم فني VIP خاص ومباشر عبر واتساب",
+    plan_l_btn: "اسأل عن اشتراك مدى الحياة",
+    quota_notice: "🛡️ <b>نظام الحصص والحدود اليومية:</b> جميع الباقات تخضع لنظام الحصص اليومية الذكية القابلة للضبط والتخصيص من الإدارة لحماية أرقامك من حظر واتساب وضمان أعلى جودة للبيانات. يمكنك طلب تعديل أو توسيع الحد اليومي في أي وقت.",
+    act_eyebrow: "خطوات التفعيل السريعة",
+    act_title: "كيف تبدأ العمل في 3 خطوات بسيطة؟",
+    act_s1_title: "اطلب نسختك عبر واتساب",
+    act_s1_desc: "راسلنا مباشرة واختر الباقة التي تناسبك، وستصلك روابط تحميل الأداة الفورية مع دليل الإعداد.",
+    act_s2_title: "أرسل بصمة جهازك",
+    act_s2_desc: "عند تشغيل الأداة لأول مرة على كمبيوترك ستظهر لك بصمة الجهاز (Hardware ID)، انسخها وأرسلها لنا لتوليد رخصتك.",
+    act_s3_title: "استلم مفتاحك وابدأ الصيد!",
+    act_s3_desc: "نرسل لك مفتاح التفعيل الرقمي المخصص لجهازك، تلصقه في الشاشة لتفتح معك الأداة بالكامل فوراً في 150 دولة.",
+    faq_eyebrow: "شفافية كاملة",
+    faq_title: "الأسئلة الشائعة وإجابات كل ما يدور في ذهنك",
+    faq_q1: "هل تعمل الأداة على جهازي أم سحابياً على خوادم؟",
+    faq_a1: "الأداة مصممة لتعمل محلياً بالكامل على جهاز الكمبيوتر الخاص بك (Windows)، وتفتح واجهتها عبر المتصفح المحلي. بيانات العملاء تُخزن في قاعدة بيانات مشفرة على جهازك فقط ولا يتم رفع أي سجلات لخوادمنا، لضمان خصوصيتك وأمان بياناتك بنسبة 100%.",
+    faq_q2: "ما هي الدول المدعومة رسمياً في الأداة؟",
+    faq_a2: "تدعم الأداة رسمياً 150 دولة حول العالم موزعة كالتالي: كافة الدول العربية الـ 22، 21 دولة أوروبية كبرى (بريطانيا، ألمانيا، فرنسا، إيطاليا، إسبانيا، هولندا، السويد، تركيا وغيرها)، و107 دولة عالمية (أمريكا، كندا، أستراليا، البرازيل، اليابان، الهند، سنغافورة وغيرها). يمكنك البحث عن أي دولة في قسم المستكشف أعلاه للتحقق من دعمها الفوري.",
+    faq_q3: "هل تدعم الأداة التواصل باللغة الإنجليزية للعملاء الأجانب؟",
+    faq_a3: "نعم تماماً! تدعم الأداة واجهة كاملة باللغتين العربية والإنجليزية، وتتضمن نماذج ذكاء اصطناعي (Gemini & Ollama) تفهم لغة العميل وتولد رسائل تسويقية احترافية باللغة الإنجليزية التامة لـ 10 تخصصات تجارية عالمية، بالإضافة لأكثر من 6 لهجات عربية محلية.",
+    faq_q4: "ما هو نظام الحد اليومي للاستخراج وكيف يحميني من الحظر؟",
+    faq_a4: "خوارزميات واتساب تترصد الحسابات التي تقوم بإرسال أو استخراج كميات ضخمة بشكل فجائي. يحدد نظام الحصص اليومية سقفاً آمناً للبحث والاستخراج اليومي (مثال: 100 إلى 250 عميلاً يومياً) لمنع السلوك العشوائي. هذا الحد يضبطه الأدمن ويمكنك طلب توسيعه وفق أقدمية رقمك واحتياجاتك.",
+    faq_q5: "كيف يحميني تنويع الرسائل (Spintax) من حظر الواتساب؟",
+    faq_a5: "تعتمد الأداة على نظام Spintax لتوليد رسائل متغيرة؛ حيث تحتوي كل رسالة على تحيات مختلفة، صياغات متباينة لعرض الخدمة، ودعوات تواصل ذكية بأكثر من 6 لهجات عربية وباللغة الإنجليزية، بحيث تخرج كل رسالة بصياغة فريدة 100% ولا تتشابه أي رسالتين متتاليتين، وهو ما يمنع رصد الرسائل كـ Spam من قبل خوارزميات واتساب.",
+    faq_q6: "من أين تأتي بيانات وأرقام الأنشطة التجارية؟",
+    faq_a6: "تعتمد الأداة على مصادر عامة ومفتوحة مثل خرائط جوجل، OpenStreetMap، والصفحات العامة للأنشطة على إنستجرام وفيسبوك وتيك توك ولينكتري. تقوم الخوارزميات بفلترة البيانات واستخراج أرقام الموبايل الفعالة بدقة متناهية وتخطي الأرقام الأرضية وغير الصالحة.",
+    faq_q7: "ماذا يحدث إذا تم حظر جهازي أو نقلت الأداة لكمبيوتر آخر؟",
+    faq_a7: "يرتبط الترخيص ببصمة عتاد الجهاز (HWID) لضمان الأمان. إذا قمت بتغيير جهازك أو ترقيته، كل ما عليك هو التواصل معنا عبر واتساب وسنقوم بنقل الترخيص وتوليد مفتاح جديد لجهازك الجديد بكل سلاسة وأمان.",
+    final_eyebrow: "جاهز لمضاعفة مبيعاتك؟",
+    final_title: "ابدأ بأول مدينة ونشاط، وانظر كيف تنهال عليك الفرص المؤهلة",
+    final_lead: "تواصل معنا الآن عبر واتساب، وسنرد عليك فوراً بكل تفاصيل الاشتراك وخطوات التفعيل خلال دقائق معدودة.",
+    final_cta_wa: "تواصل عبر واتساب الآن",
+    final_cta_price: "مراجعة باقات الاشتراك",
+    foot_rights: "جميع الحقوق محفوظة.",
+    foot_disclaimer: "الأداة مصممة للتواصل التسويقي الاحترافي والمشروع، والتزامك بسياسات المنصات هو مسؤوليتك.",
+    foot_support: "تواصل مع الدعم الفني",
+    wa_float: "تحدث معنا عبر واتساب"
+  },
+  en: {
+    page_title: "NextGen Sales Agent | Qualified B2B Lead Hunter in 150 Countries",
+    skip_to_content: "Skip to content",
+    nav_how: "How It Works",
+    nav_features: "Features",
+    nav_countries: "Supported Countries",
+    nav_safe: "Safe Usage",
+    nav_pricing: "Pricing",
+    nav_faq: "FAQ",
+    btn_order: "Order License",
+    hero_eyebrow: "For Web Agencies & Freelance Developers",
+    hero_title: "Find businesses that <em>need a website</em>, and launch instant warm WhatsApp outreach",
+    hero_lead: "NextGen searches Google Maps and social media across 150 countries worldwide (22 Arab, 21 European, and 107 Global), validates verified mobile numbers, and crafts tailored Spintax WhatsApp messages in Arabic & English with an instant live demo site branded for each client.",
+    hero_cta_wa: "Request License via WhatsApp",
+    hero_cta_explore: "Explore 150 Countries",
+    hero_note_1: "150 Countries Worldwide (Arab, European & Global)",
+    hero_note_2: "Bilingual AI Copilot across 10 Commercial Niches",
+    hero_note_3: "Anti-Ban Smart Spintax Variation Engine",
+    hero_note_4: "Runs 100% Locally on Your PC with Zero Data Leaks",
+    mock_badge: "48 Qualified Leads Scanned Today",
+    mock_search_pill: "Restaurants & Cafes • 150 Countries • 48 Leads",
+    mock_status_pill: "● Gemini & Spintax Connected",
+    mock_stat_1: "Daily Quota",
+    mock_stat_2: "High Priority",
+    mock_stat_3: "No Website",
+    mock_r1_title: "El-Mesal Roastery & Specialty Cafe",
+    mock_r1_tag: "No Website • Mobile Verified",
+    mock_r2_title: "Al-Noor Dental & Orthodontic Clinic",
+    mock_r2_tag: "No Website • WhatsApp Ready",
+    mock_r3_title: "Modern Chic Fashion Store (London)",
+    mock_r3_tag: "Social Only • UK +44",
+    mock_r4_title: "Al-Saraya Gourmet Restaurant",
+    mock_r4_tag: "Has Existing Website",
+    mock_bubble_title: "Generated Smart Outreach (AI Spintax)",
+    mock_bubble_tag: "Bilingual EN/AR • Live Demo Included",
+    mock_bubble_text: "Hello team at El-Mesal Roastery! We noticed your high ratings on Google Maps. We specialize in building ultra-fast interactive QR digital menus and direct WhatsApp ordering pages. We generated an interactive live demo preview branded for you to test right now!",
+    mock_caption: "Realistic preview of the bilingual lead discovery, scoring, and automated outreach interface.",
+    fact_1_title: "150 Countries Officially Supported",
+    fact_1_desc: "22 Arab, 21 European, and 107 Global countries with exact mobile regex & dial codes",
+    fact_2_title: "Bilingual AI Copilot",
+    fact_2_desc: "Powered by Gemini & Ollama in Arabic (multiple dialects) and fluent English for international markets",
+    fact_3_title: "100% Local & Encrypted",
+    fact_3_desc: "Runs locally on your Windows machine with local SQLite. Zero client data is ever uploaded to external servers",
+    fact_4_title: "Strict Safety & Quota System",
+    fact_4_desc: "Configurable daily limits and human-like random delays to keep your WhatsApp number fully protected",
+    cnt_eyebrow: "Unmatched Global Reach",
+    cnt_title: "Supported Countries Explorer (150 Countries Worldwide)",
+    cnt_lead: "The engine validates local mobile formats and international dial codes across 150 countries. Search for your target market now:",
+    cnt_search_ph: "Search by country name or dial code (e.g., Egypt, Saudi, Germany, France, +44, +1)...",
+    tab_all: "🌍 All Countries",
+    tab_arab: "🟢 Arab Countries",
+    tab_europe: "🇪🇺 European Countries",
+    tab_global: "🌐 Global Countries",
+    cnt_showing: "Showing",
+    cnt_countries_supported: "countries supported & verified",
+    cnt_verified_badge: "Mobile Regex Verified",
+    cnt_no_results: "No country matched your search query",
+    cnt_no_results_sub: "Message us on WhatsApp to add it in the next update right away!",
+    prob_eyebrow: "The Pain Point We Solve",
+    prob_title: "Manual prospecting burns your energy and hours before sales even start",
+    prob_lead: "Growing an agency or freelance business requires your focus on closing deals, high-value consulting, and development — not endless copying and pasting dead phone numbers.",
+    prob_p1_badge: "Friction #1",
+    prob_p1_title: "Hours of Tedious Manual Browsing",
+    prob_p1_desc: "Boring navigation across maps and social feeds only to find half the numbers are landlines, unreachable, or missing WhatsApp.",
+    prob_p2_badge: "Friction #2",
+    prob_p2_title: "Generic Cold Pitches with Zero Reply",
+    prob_p2_desc: "Copy-paste messages look spammy and get ignored. Business owners want to see concrete value and what you can build specifically for them.",
+    prob_p3_badge: "Friction #3",
+    prob_p3_title: "Chaotic Tracking & Missed Follow-ups",
+    prob_p3_desc: "Who did you message yesterday? Who is due for a follow-up today? Without structured pipeline tracking, high-ticket deals slip away.",
+    how_eyebrow: "Workflow",
+    how_title: "From Target Selection to First Sales Conversation in 4 Quick Steps",
+    how_lead: "Just a few minutes separate you from a verified, ready-to-contact lead list in any country worldwide.",
+    how_s1_title: "1. Select Country & Niche",
+    how_s1_desc: "Pick from 150 countries worldwide and filter by category: restaurants, fashion, clinics, real estate, gyms, salons, and more.",
+    how_s2_title: "2. Extract & Auto-Verify",
+    how_s2_desc: "Pulls business profiles from maps and social bio links, strictly verifies mobile number syntax, and checks for existing websites.",
+    how_s3_title: "3. Score & Generate Demo",
+    how_s3_desc: "Smart heuristic scoring (0-100), generates a personalized branded preview site, and formats a non-repetitive Spintax message.",
+    how_s4_title: "4. Reach Out & Track Deals",
+    how_s4_desc: "Queue messages with random human-like intervals to safeguard your number, with a real-time status tracker and scheduled reminders.",
+    feat_eyebrow: "Comprehensive Features",
+    feat_title: "Everything You Need to Turn Raw Leads into Paying Clients Across 150 Countries",
+    feat_lead: "Engineered specifically to give you an edge in both local and international markets without duct-taping disjointed tools.",
+    f1_title: "150 Countries Worldwide",
+    f1_desc: "Comprehensive mobile regex and dial-code validation covering 22 Arab nations, 21 European countries, and 107 global economies.",
+    f2_title: "Bilingual English & Arabic AI",
+    f2_desc: "Integrated with Gemini 1.5/2.0 and Ollama to craft persuasive, native English and Arabic copy tailored to 10 specific business sectors.",
+    f3_title: "Dynamic Anti-Ban Spintax",
+    f3_desc: "Every prospective client receives a uniquely phrased message with varied openings, value propositions, and calls to action.",
+    f4_title: "Live Branded Client Demo",
+    f4_desc: "Instant web preview built with client branding, reviews, and catalog ready to be shared with a single click to boost closing rates.",
+    f5_title: "Deep Social Bio Scraper",
+    f5_desc: "Extracts Instagram, Facebook, TikTok, and Linktree bios, automatically resolving obfuscated wa.me links into clean mobile numbers.",
+    f6_title: "WhatsApp Delivery Board",
+    f6_desc: "Structured pipeline displaying sent messages, pending queue, and failed contacts with instant filters and delivery telemetry.",
+    f7_title: "Admin Controls & Device Security",
+    f7_desc: "Advanced license management and real-time HWID blocking to immediately restrict unauthorized devices and manage seat quotas.",
+    f8_title: "Safe Daily Limits & Delays",
+    f8_desc: "Enforced extraction quotas and human-like delays (40-120s) to keep your sender reputation healthy and ban-free.",
+    show_eyebrow: "Your Closing Weapon",
+    show_title: "Let Clients Experience Their New Website Before You Even Speak!",
+    show_lead: "The difference between annoying cold spam and an irresistible sales pitch is tangible proof. NextGen spins up a live site branded with the client's actual name and reviews.",
+    show_t1: "Turnkey templates for various industries: restaurant menus, fashion boutiques, clinic bookings, and agency sites.",
+    show_t2: "Lightning-fast, mobile-responsive layout that opens smoothly on any smartphone with an immediate WhatsApp CTA.",
+    show_t3: "One-click deployment to free hosting platforms without recurring server costs or setup hurdles.",
+    show_demo_badge: "⭐ 4.8 Rating on Google Maps",
+    show_demo_name: "Happiness Cafe & Bistro",
+    show_demo_sub: "Delicious gourmet food and specialty coffee delivered right to your doorstep",
+    show_demo_btn: "Order Now via WhatsApp",
+    show_card_1: "Specialty Hot & Cold Beverages",
+    show_card_2: "Gourmet Burgers & Meals",
+    show_card_3: "Artisanal Desserts & Pastries",
+    show_caption: "Realistic preview of the client-branded interactive demo link included in the pitch.",
+    safe_eyebrow: "Safety First",
+    safe_title: "Engineered for Respectful Outreach, Never Reckless Spam",
+    safe_lead: "Blasting hundreds of unsolicited cold messages is the fastest route to a banned number. NextGen enforces natural human patterns to protect your sender account.",
+    safe_warn_title: "Important Safety Disclaimer:",
+    safe_warn_text: "No tool can guarantee a zero-ban rate because WhatsApp decisions are algorithmic. We strongly advise starting with conservative daily quotas (15-25 messages) and personalized copy. Manual or semi-automated outreach remains the safest and most sustainable approach.",
+    rule_1_title: "Strict, Enforced Daily Quotas",
+    rule_1_desc: "Set a clear daily ceiling matched to your number's warmup history. NextGen halts automatically once reached.",
+    rule_2_title: "Smart Random Delays",
+    rule_2_desc: "Natural human-like delay intervals (40 to 120 seconds) between successive messages to avoid triggering automated spam heuristics.",
+    rule_3_title: "Polite Opt-Out Guarantee",
+    rule_3_desc: "Every opening message contains a polite phrase allowing businesses to opt out with a single word.",
+    rule_4_title: "Permanent Local Blacklist",
+    rule_4_desc: "Any contact requesting to stop is instantly moved to the local exclusion list and omitted from all future discovery runs.",
+    price_eyebrow: "Flexible Plans",
+    price_title: "One Unlocked Suite. Choose the Duration That Fits Your Business",
+    price_lead: "No hidden tiers or crippled modules. Every active license provides full access to all 150 countries with ongoing updates.",
+    price_on_demand: "Price Upon Request",
+    plan_m_title: "Monthly License",
+    plan_m_dur: "Perfect for testing and quick validation",
+    plan_m_f1: "Full access to all 150 countries worldwide",
+    plan_m_f2: "<strong>Safe daily extraction quota:</strong> Up to 100 leads/day",
+    plan_m_f3: "Bilingual Anti-Ban Spintax message generator",
+    plan_m_f4: "Social media bio extraction (Instagram, FB, TikTok)",
+    plan_m_f5: "Instant client demo generator & delivery board",
+    plan_m_f6: "Continuous technical support and software updates",
+    plan_m_btn: "Inquire About Monthly Plan",
+    plan_y_badge: "⭐ Most Popular & Best Value",
+    plan_y_title: "Annual License",
+    plan_y_dur: "For established agencies & teams (12 months)",
+    plan_y_f1: "<strong>All features included with 40%+ cost savings</strong>",
+    plan_y_f2: "<strong>Expanded daily quota:</strong> Up to 250 leads/day (or custom)",
+    plan_y_f3: "Full Gemini 1.5/2.0 and Ollama AI integration",
+    plan_y_f4: "Custom ratio allocation between Maps and Social leads",
+    plan_y_f5: "Priority rollout for new features and niche templates",
+    plan_y_f6: "Direct high-priority support throughout the year",
+    plan_y_btn: "Get Annual License",
+    plan_l_badge: "👑 One-Time Payment",
+    plan_l_title: "Lifetime License",
+    plan_l_dur: "Permanent investment with zero monthly or yearly renewal fees",
+    plan_l_f1: "<strong>Maximum daily quota:</strong> Unlimited / Tailored to needs",
+    plan_l_f2: "Permanent lifetime software license for your hardware",
+    plan_l_f3: "All future updates & 150 country databases free forever",
+    plan_l_f4: "Zero recurring subscription or renewal fees",
+    plan_l_f5: "VIP direct support line via WhatsApp",
+    plan_l_btn: "Inquire About Lifetime Access",
+    quota_notice: "🛡️ <b>Daily Quota System:</b> All packages operate with configurable daily quotas managed by administration to protect sender numbers and guarantee data fidelity. Quotas can be adjusted or expanded upon request.",
+    act_eyebrow: "Rapid Onboarding",
+    act_title: "Start Hunting in 3 Simple Steps",
+    act_s1_title: "1. Order License via WhatsApp",
+    act_s1_desc: "Contact us directly with your chosen plan, and receive instant download links and setup instructions.",
+    act_s2_title: "2. Send Your Hardware ID",
+    act_s2_desc: "Launch the client on your PC, copy your unique Hardware ID (HWID), and send it to us for key generation.",
+    act_s3_title: "3. Activate & Hunt Leads!",
+    act_s3_desc: "Paste your digital activation key to unlock the complete software suite across 150 countries instantly.",
+    faq_eyebrow: "Full Transparency",
+    faq_title: "Frequently Asked Questions & Detailed Answers",
+    faq_q1: "Does NextGen run locally on my machine or in the cloud?",
+    faq_a1: "NextGen runs 100% locally on your Windows PC and renders via your local browser. Client data is securely preserved inside an encrypted SQLite database on your computer. No prospect records or logs are ever transmitted to our servers.",
+    faq_q2: "Which countries are officially supported?",
+    faq_a2: "NextGen officially supports 150 countries worldwide: all 22 Arab League nations, 21 European countries (UK, Germany, France, Italy, Spain, Netherlands, Sweden, etc.), and 107 global economies (USA, Canada, Australia, Brazil, Japan, India, etc.). Search any country above to confirm instant support.",
+    faq_q3: "Does NextGen support English outreach for international prospects?",
+    faq_a3: "Yes, completely! NextGen features a full bilingual English and Arabic interface, with AI copilot prompts tailored for 10 commercial sectors in fluent native English as well as 6 regional Arabic dialects.",
+    faq_q4: "What is the daily extraction quota and how does it protect my account?",
+    faq_a4: "WhatsApp algorithms flag accounts that suddenly blast excessive volume. The daily quota sets a safe ceiling (e.g., 100 to 250 leads/day). Quotas are admin-controlled and can be expanded as your sender accounts mature.",
+    faq_q5: "How does Spintax variation prevent WhatsApp bans?",
+    faq_a5: "The Spintax engine structures greetings, pitches, and calls to action with diverse vocabulary so every single sent message is 100% unique, preventing spam filter pattern detection.",
+    faq_q6: "Where does NextGen pull business data from?",
+    faq_a6: "NextGen leverages public directories including Google Maps, OpenStreetMap, and public social bios on Instagram, Facebook, and TikTok, applying strict filtering to extract valid mobile numbers and skip landlines.",
+    faq_q7: "Can I transfer my license if I upgrade my PC?",
+    faq_a7: "Licenses are tied to your device Hardware ID (HWID) for security. If you upgrade or replace your PC, simply reach out on WhatsApp and we will transfer your license to your new machine smoothly.",
+    final_eyebrow: "Ready to Scale Your Pipeline?",
+    final_title: "Pick your first country and niche, and watch qualified leads roll in",
+    final_lead: "Chat with us on WhatsApp now, and we'll have your activation key ready within minutes.",
+    final_cta_wa: "Chat on WhatsApp Now",
+    final_cta_price: "Review License Plans",
+    foot_rights: "All rights reserved.",
+    foot_disclaimer: "NextGen Sales Agent is built for professional, compliant B2B outreach. Compliance with third-party platform terms remains the user's responsibility.",
+    foot_support: "Contact Technical Support",
+    wa_float: "Chat via WhatsApp"
+  }
+};
 
-const burger = document.getElementById('burger'), nav = document.getElementById('nav');
+/* ===== Current State ===== */
+let currentLang = localStorage.getItem('nextgen_landing_lang') || 'ar';
+let currentRegion = 'all';
+let currentSearch = '';
+
+/* ===== Language Engine ===== */
+function setLanguage(lang) {
+  if (!TRANSLATIONS[lang]) lang = 'ar';
+  currentLang = lang;
+  localStorage.setItem('nextgen_landing_lang', lang);
+
+  const isAr = lang === 'ar';
+  document.documentElement.lang = lang;
+  document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+
+  // Toggle button text
+  const btnText = document.getElementById('lang-btn-text');
+  if (btnText) btnText.textContent = isAr ? 'English' : 'العربية';
+
+  // Update text nodes
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (TRANSLATIONS[lang][key]) {
+      el.textContent = TRANSLATIONS[lang][key];
+    }
+  });
+
+  // Update HTML nodes
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (TRANSLATIONS[lang][key]) {
+      el.innerHTML = TRANSLATIONS[lang][key];
+    }
+  });
+
+  // Update Placeholders
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.dataset.i18nPh;
+    if (TRANSLATIONS[lang][key]) {
+      el.placeholder = TRANSLATIONS[lang][key];
+    }
+  });
+
+  // Update WhatsApp links text
+  const waPrefix = isAr ? 'السلام عليكم، ' : 'Hello, ';
+  document.querySelectorAll('[data-wa]').forEach(a => {
+    const text = isAr ? a.dataset.wa : 'I want to inquire about NextGen Sales Agent license';
+    a.href = 'https://wa.me/' + CONTACT_WA + '?text=' + encodeURIComponent(waPrefix + text);
+    a.target = '_blank';
+    a.rel = 'noopener';
+  });
+
+  // Re-render countries with localized names
+  renderCountries();
+}
+
+function toggleLang() {
+  setLanguage(currentLang === 'ar' ? 'en' : 'ar');
+}
+
+/* ===== Country Explorer Engine ===== */
+function renderCountries() {
+  const grid = document.getElementById('countries-grid');
+  if (!grid) return;
+
+  const isAr = currentLang === 'ar';
+  const query = currentSearch.trim().toLowerCase();
+
+  const filtered = ALL_COUNTRIES_DATA.filter(c => {
+    // Region match
+    if (currentRegion !== 'all' && c.region !== currentRegion) {
+      return false;
+    }
+    // Search match
+    if (query) {
+      const matchAr = c.name_ar && c.name_ar.toLowerCase().includes(query);
+      const matchEn = c.name_en && c.name_en.toLowerCase().includes(query);
+      const matchCode = c.code && (c.code.includes(query) || ('+' + c.code).includes(query));
+      return matchAr || matchEn || matchCode;
+    }
+    return true;
+  });
+
+  // Update counter
+  const counterEl = document.getElementById('visible-countries-count');
+  if (counterEl) counterEl.textContent = filtered.length;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="country-empty">
+        <div style="font-size:36px;margin-bottom:8px">🌍🔍</div>
+        <b style="font-size:18px;color:var(--ink)">${TRANSLATIONS[currentLang].cnt_no_results}</b>
+        <p>${TRANSLATIONS[currentLang].cnt_no_results_sub}</p>
+        <div style="margin-top:16px">
+          <a class="btn wa" href="https://wa.me/${CONTACT_WA}?text=${encodeURIComponent((isAr ? 'السلام عليكم، أود اقتراح إضافة دولة: ' : 'Hello, I want to request adding a country: ') + currentSearch)}" target="_blank" rel="noopener">
+            <svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>
+            <span>${isAr ? 'اطلب إضافة هذه الدولة' : 'Request Adding This Country'}</span>
+          </a>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  const badgeText = isAr ? 'مفحوصة الأرقام' : 'Regex Verified';
+
+  grid.innerHTML = filtered.map(c => {
+    const primaryName = isAr ? c.name_ar : c.name_en;
+    const secondaryName = isAr ? c.name_en : c.name_ar;
+
+    return `
+      <div class="country-card">
+        <span class="country-flag">${c.flag}</span>
+        <div class="country-info">
+          <span class="country-name" title="${primaryName} (${secondaryName})">${primaryName}</span>
+          <div class="country-sub">
+            <span class="country-code">+${c.code}</span>
+            <span class="country-badge">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>${badgeText}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function filterByRegion(region) {
+  currentRegion = region;
+  document.querySelectorAll('.region-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.region === region);
+  });
+  renderCountries();
+}
+
+function initSearchControls() {
+  const searchInput = document.getElementById('country-search-input');
+  const clearBtn = document.getElementById('search-clear-btn');
+
+  if (searchInput) {
+    searchInput.addEventListener('input', e => {
+      currentSearch = e.target.value;
+      if (clearBtn) clearBtn.style.display = currentSearch ? 'inline-flex' : 'none';
+      renderCountries();
+    });
+  }
+}
+
+function clearCountrySearch() {
+  const searchInput = document.getElementById('country-search-input');
+  const clearBtn = document.getElementById('search-clear-btn');
+  if (searchInput) {
+    searchInput.value = '';
+    currentSearch = '';
+    searchInput.focus();
+  }
+  if (clearBtn) clearBtn.style.display = 'none';
+  renderCountries();
+}
+
+/* ===== Region Counts Calculation ===== */
+function updateRegionTabCounts() {
+  const counts = { all: ALL_COUNTRIES_DATA.length, arab: 0, europe: 0, global: 0 };
+  ALL_COUNTRIES_DATA.forEach(c => {
+    if (counts[c.region] !== undefined) counts[c.region]++;
+  });
+  const elAll = document.getElementById('count-all');
+  const elArab = document.getElementById('count-arab');
+  const elEurope = document.getElementById('count-europe');
+  const elGlobal = document.getElementById('count-global');
+  if (elAll) elAll.textContent = counts.all;
+  if (elArab) elArab.textContent = counts.arab;
+  if (elEurope) elEurope.textContent = counts.europe;
+  if (elGlobal) elGlobal.textContent = counts.global;
+}
+
+/* ===== Navigation & Pricing Setup ===== */
+const burger = document.getElementById('burger');
+const nav = document.getElementById('nav');
+
 function setMenu(open){
+  if (!nav || !burger) return;
   nav.classList.toggle('open', open);
   burger.setAttribute('aria-expanded', open);
   burger.querySelector('use').setAttribute('href', open ? '#i-x' : '#i-menu');
 }
-burger.addEventListener('click', ()=>setMenu(!nav.classList.contains('open')));
-nav.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>setMenu(false)));
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') setMenu(false); });
-document.getElementById('yr').textContent = new Date().getFullYear();
+
+if (burger) {
+  burger.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+}
+if (nav) {
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') setMenu(false); });
+
+// Update year
+const yrEl = document.getElementById('yr');
+if (yrEl) yrEl.textContent = new Date().getFullYear();
+
+// Initialize on load
+updateRegionTabCounts();
+initSearchControls();
+setLanguage(currentLang);
 </script>
 </body>
 </html>
