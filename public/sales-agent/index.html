@@ -1,1 +1,2785 @@
-HO
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<script>try{var t=localStorage.getItem('nextgen_theme');if(t!=='dark'&&t!=='light')t='light';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title data-i18n="page_title">NextGen Sales Agent | اعثر على العملاء الذين يحتاجون موقعاً أو متجراً</title>
+<meta name="description" content="أداة ذكية تبحث في خرائط جوجل والسوشيال ميديا عبر 150 دولة، تتحقق من أرقام الموبايل، تقيّم كل نشاط، وتجهّز له تصميماً مبدئياً ورسالة واتساب مخصصة.">
+<meta name="theme-color" content="#0b1b2b">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NextGen Sales Agent | صائد العملاء المؤهلين">
+<meta property="og:description" content="اكتشف الأنشطة التي تحتاج موقعاً أو متجراً في 150 دولة حول العالم، وجهّز لها ديمو ورسالة واتساب في دقائق.">
+<meta property="og:locale" content="ar_AR">
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"NextGen Sales Agent","applicationCategory":"BusinessApplication","description":"أداة لاكتشاف الأنشطة التجارية التي تحتاج موقعاً أو متجراً وتجهيز ديمو ورسائل واتساب مخصصة لها في 150 دولة.","inLanguage":"ar","publisher":{"@type":"Organization","name":"NextGen Devs"}}</script>
+<style>
+:root{
+  --ink:#091624;
+  --ink-2:#1e2f42;
+  --mut:#586a7e;
+  --mut-l:#8fa1b4;
+  --paper:#f7f6f2;
+  --card:#ffffff;
+  --line:#e4dfd3;
+  --line-d:#1d3448;
+  --nav-bg:rgba(255,255,255,0.98);
+  --nav-dropdown:#ffffff;
+  --teal:#0d7a71;
+  --teal-d:#085952;
+  --teal-l:#e6f5f3;
+  --teal-t:#4fd1c5;
+  --teal-glow:rgba(13,122,113,0.18);
+  --amber:#b45309;
+  --amber-l:#fef3c7;
+  --wa:#16a34a;
+  --wa-d:#15803d;
+  --wa-l:#dcfce7;
+  --bad:#dc2626;
+  --bad-l:#fee2e2;
+  --cyan:#0284c7;
+  --cyan-l:#e0f2fe;
+  --r:16px;
+  --wrap:1540px;
+  --shadow-sm:0 2px 8px rgba(9,22,36,0.04);
+  --shadow-md:0 12px 32px -8px rgba(9,22,36,0.08),0 2px 8px rgba(9,22,36,0.04);
+  --shadow-lg:0 28px 64px -16px rgba(9,22,36,0.18),0 6px 16px rgba(9,22,36,0.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%;scrollbar-width:none;-ms-overflow-style:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
+body{transition:background-color .3s ease,color .3s ease}
+body{
+  font-family:'IBM Plex Sans Arabic','Segoe UI',system-ui,Tahoma,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  font-size:17px;
+  line-height:1.8;
+  overflow-wrap:anywhere;
+  font-variant-numeric:tabular-nums;
+  position:relative;
+}
+
+/* LTR Specific Adjustments */
+html[dir="ltr"] body {
+  font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  text-align:left;
+}
+html[dir="ltr"] .skip { inset-inline-start:16px; }
+html[dir="ltr"] .i-arrow-flip { transform:rotate(180deg); display:inline-block; }
+
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:8px}
+.skip{position:absolute;inset-inline-start:16px;top:-60px;background:var(--ink);color:#fff;padding:10px 18px;border-radius:8px;z-index:100;text-decoration:none;transition:top .2s}
+.skip:focus{top:12px}
+.i{width:22px;height:22px;flex:none}
+.wrap{width:min(100% - clamp(24px, 4vw, 56px), var(--wrap));margin-inline:auto}
+section{padding:clamp(60px,8vw,110px) 0;position:relative}
+
+/* Ambient Background Blobs */
+.bg-ambient{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:0;
+}
+.ambient-glow{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(80px);
+  opacity:.5;
+}
+.glow-1{width:460px;height:460px;background:var(--ambient-1);top:-120px;inset-inline-end:-100px}
+.glow-2{width:400px;height:400px;background:var(--ambient-2);bottom:40px;inset-inline-start:-80px;opacity:.35}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:13.5px;
+  font-weight:700;
+  color:var(--teal);
+  background:var(--teal-l);
+  padding:5px 14px;
+  border-radius:99px;
+  letter-spacing:.3px;
+  margin-bottom:16px;
+  border:1px solid rgba(13,122,113,.15);
+}
+
+h1,h2,h3{line-height:1.35;font-weight:700;letter-spacing:-.2px}
+h2{font-size:clamp(1.85rem,3.4vw,2.65rem);max-width:none}
+.lead{color:var(--mut);font-size:clamp(1.05rem,1.6vw,1.22rem);max-width:56em;margin-top:16px}
+
+.sec-head{margin-bottom:clamp(36px,5vw,60px)}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:50px;
+  padding:12px 28px;
+  border-radius:12px;
+  border:1.5px solid transparent;
+  font-weight:600;
+  font-size:16px;
+  text-decoration:none;
+  cursor:pointer;
+  transition:all .2s cubic-bezier(.16,1,.3,1);
+  white-space:nowrap;
+  position:relative;
+}
+.btn .i{width:20px;height:20px}
+.btn.pri{
+  background:linear-gradient(135deg,var(--teal),var(--teal-d));
+  color:#fff;
+  box-shadow:0 4px 16px var(--teal-glow);
+}
+.btn.pri:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px var(--teal-glow);
+}
+.btn.wa{
+  background:linear-gradient(135deg,#16a34a,#15803d);
+  color:#fff;
+  box-shadow:0 6px 20px rgba(22,163,74,0.28);
+}
+.btn.wa:hover{
+  background:linear-gradient(135deg,#15803d,#166534);
+  transform:translateY(-2px);
+  box-shadow:0 10px 28px rgba(22,163,74,0.36);
+}
+.btn.line{
+  background:var(--card);
+  border-color:var(--line);
+  color:var(--ink-2);
+  box-shadow:var(--shadow-sm);
+}
+.btn.line:hover{
+  border-color:var(--teal);
+  color:var(--teal);
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-md);
+}
+.btn.block{display:flex;width:100%}
+
+/* Language Toggle Button in Nav */
+.lang-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:7px 13px;
+  border-radius:99px;
+  border:1.5px solid var(--line);
+  background:var(--card);
+  color:var(--ink);
+  font-weight:700;
+  font-size:13px;
+  cursor:pointer;
+  white-space:nowrap;
+  flex-shrink:0;
+  transition:all .2s ease;
+}
+.lang-btn:hover{
+  border-color:var(--teal);
+  color:var(--teal);
+  transform:translateY(-1px);
+}
+
+/* ---------- top nav ---------- */
+.top{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:var(--nav-bg);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  transition:background .25s ease,border-color .25s ease;
+}
+.bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  min-height:72px;
+  gap:12px;
+  position:relative;
+}
+.nav-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-shrink:0;
+}
+.logo{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+  color:var(--ink);
+  text-decoration:none;
+  flex-shrink:0;
+}
+.logo-img{
+  width:40px;
+  height:40px;
+  border-radius:10px;
+  box-shadow:0 2px 8px var(--teal-glow);
+  flex-shrink:0;
+}
+.logo span{
+  font-size:clamp(15px,4vw,19px);
+  white-space:nowrap;
+  line-height:1;
+}
+.nav{display:flex;align-items:center;gap:20px}
+.nav a{
+  color:var(--ink-2);
+  text-decoration:none;
+  font-weight:600;
+  font-size:14.5px;
+  transition:color .15s;
+  white-space:nowrap;
+}
+.nav a:hover{color:var(--teal)}
+.nav .btn{min-height:40px;padding:8px 18px;font-size:14px}
+.burger{
+  display:none;
+  width:38px;
+  height:38px;
+  border:1.5px solid var(--line);
+  background:var(--card);
+  color:var(--ink);
+  border-radius:10px;
+  place-items:center;
+  cursor:pointer;
+  flex-shrink:0;
+}
+
+/* ---------- hero ---------- */
+.hero{
+  padding:clamp(50px,7vw,90px) 0 clamp(60px,8vw,100px);
+  overflow:hidden;
+  position:relative;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.14fr) minmax(0,.94fr);
+  gap:clamp(36px,4.5vw,72px);
+  align-items:center;
+  position:relative;
+  z-index:1;
+}
+.hero h1{
+  font-size:clamp(2.35rem,4.4vw,3.85rem);
+  line-height:1.22;
+  font-weight:700;
+  color:var(--ink);
+  max-width:none;
+}
+.hero .lead{
+  max-width:100%;
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--teal),#059669);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  display:inline-block;
+  position:relative;
+}
+.hero h1 em::after{
+  content:"";
+  position:absolute;
+  inset-inline:0;
+  bottom:4px;
+  height:6px;
+  background:var(--teal-l);
+  z-index:-1;
+  border-radius:4px;
+}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.hero-note{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 24px;
+  margin-top:32px;
+  color:var(--mut);
+  font-size:14.5px;
+  padding-top:20px;
+  border-top:1px dashed var(--line);
+}
+.hero-note span{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-weight:500;
+}
+.hero-note .i{width:18px;height:18px;color:var(--teal)}
+
+/* ---------- Hero Product Mockup Card ---------- */
+.mock-wrap{position:relative}
+.mock-float-badge{
+  position:absolute;
+  top:-16px;
+  inset-inline-start:-18px;
+  background:#ffffff;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-md);
+  padding:8px 14px;
+  border-radius:99px;
+  font-size:13px;
+  font-weight:700;
+  color:var(--wa-d);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  z-index:10;
+  animation:float 4s ease-in-out infinite;
+}
+.pulse-dot{
+  width:9px;
+  height:9px;
+  background:var(--wa);
+  border-radius:50%;
+  box-shadow:0 0 0 4px rgba(22,163,74,.25);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(22,163,74,.4)}
+  70%{box-shadow:0 0 0 8px rgba(22,163,74,0)}
+  100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+
+.mock{
+  background:var(--card);
+  border:1px solid rgba(228,223,211,.9);
+  border-radius:20px;
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+  min-width:0;
+  position:relative;
+  transition:transform .3s;
+}
+.mock:hover{transform:translateY(-3px)}
+.mock-window-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 18px;
+  border-bottom:1px solid var(--line);
+  background:#faf8f5;
+}
+.mock-dots{display:flex;gap:7px;align-items:center}
+.mock-dot{width:10px;height:10px;border-radius:50%}
+.mock-dot.r{background:#ff5f56;border:1px solid #e0443e}
+.mock-dot.y{background:#ffbd2e;border:1px solid #dea123}
+.mock-dot.g{background:#27c93f;border:1px solid #1aab29}
+.mock-search-pill{
+  font-size:12px;
+  color:var(--mut);
+  background:#fff;
+  border:1px solid var(--line);
+  padding:3px 14px;
+  border-radius:99px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-weight:500;
+}
+.mock-status-pill{
+  font-size:12px;
+  font-weight:600;
+  color:var(--teal);
+  background:var(--teal-l);
+  padding:3px 10px;
+  border-radius:99px;
+}
+.mock-body{padding:20px}
+.m-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.m-stat{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px 14px;
+  background:#faf9f6;
+  position:relative;
+  overflow:hidden;
+}
+.m-stat::before{
+  content:"";
+  position:absolute;
+  inset-inline-start:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:var(--teal);
+}
+.m-stat:nth-child(2)::before{background:var(--amber)}
+.m-stat:nth-child(3)::before{background:var(--bad)}
+.m-stat span{display:block;font-size:12.5px;color:var(--mut);font-weight:500}
+.m-stat b{font-size:24px;line-height:1.2;font-weight:700;color:var(--ink);margin-top:2px;display:block}
+
+.m-rows{display:grid;gap:10px}
+.m-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 110px;
+  gap:14px;
+  align-items:center;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:11px 14px;
+  background:#fff;
+  transition:all .18s ease;
+}
+.m-row:hover{
+  border-color:var(--teal);
+  background:#fcfffe;
+  box-shadow:0 4px 12px rgba(13,122,113,.06);
+}
+.m-row-info{display:flex;align-items:center;gap:10px}
+.m-row-icon{
+  width:32px;
+  height:32px;
+  border-radius:8px;
+  background:var(--teal-l);
+  color:var(--teal);
+  display:grid;
+  place-items:center;
+  flex:none;
+}
+.m-row b{display:block;font-size:14.5px;line-height:1.4;color:var(--ink)}
+.tag{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  font-size:11.5px;
+  font-weight:600;
+  padding:1px 9px;
+  border-radius:99px;
+  background:var(--amber-l);
+  color:var(--amber);
+  margin-top:2px;
+}
+.tag.g{background:#e6e9ee;color:var(--mut)}
+.tag.bad{background:var(--bad-l);color:var(--bad)}
+.sc{display:flex;align-items:center;gap:8px}
+.sc b{font-size:13.5px;width:24px;text-align:center;font-weight:700}
+.sc i{display:block;flex:1;height:7px;border-radius:99px;background:#e8e5dc;position:relative;overflow:hidden}
+.sc i::after{
+  content:"";
+  position:absolute;
+  inset-block:0;
+  inset-inline-start:0;
+  width:var(--w);
+  background:linear-gradient(90deg,var(--teal-t),var(--teal));
+  border-radius:99px;
+}
+
+/* Chat bubble inside mock */
+.bubble{
+  margin-top:16px;
+  background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+  border:1px solid #bbf7d0;
+  border-radius:14px;
+  border-start-start-radius:3px;
+  padding:14px 16px;
+  font-size:14px;
+  line-height:1.75;
+  color:#14532d;
+  box-shadow:0 2px 8px rgba(20,83,45,.05);
+}
+.bubble-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:6px;
+  padding-bottom:6px;
+  border-bottom:1px solid rgba(22,163,74,.15);
+}
+.bubble-head-title{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-weight:700;
+  font-size:12.5px;
+  color:#15803d;
+}
+.bubble-head small{
+  color:#166534;
+  font-size:11.5px;
+  background:#fff;
+  padding:1px 8px;
+  border-radius:99px;
+  border:1px solid #bbf7d0;
+}
+.caption{margin-top:14px;font-size:13px;color:var(--mut);text-align:center}
+
+/* ---------- facts strip ---------- */
+.facts{
+  background:linear-gradient(180deg,#091624,#0e2235);
+  color:#fff;
+  padding:0;
+  border-top:1px solid var(--line-d);
+  border-bottom:1px solid var(--line-d);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+}
+.facts ul{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.facts li{
+  padding:32px 24px;
+  border-inline-start:1px solid rgba(255,255,255,.07);
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+  transition:background .2s;
+}
+.facts li:hover{background:rgba(255,255,255,.02)}
+.facts li:first-child{border-inline-start:0}
+.fact-icon-wrap{
+  width:46px;
+  height:46px;
+  border-radius:12px;
+  background:rgba(79,209,197,.12);
+  border:1px solid rgba(79,209,197,.2);
+  display:grid;
+  place-items:center;
+  flex:none;
+  color:var(--teal-t);
+}
+.facts b{display:block;font-size:16.5px;line-height:1.4;font-weight:700;color:#f0fdf4}
+.facts span{display:block;font-size:14px;color:#a0b4c8;line-height:1.6;margin-top:4px}
+
+/* ---------- problem ---------- */
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.pain{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:32px 28px;
+  box-shadow:var(--shadow-sm);
+  transition:all .25s ease;
+  position:relative;
+  overflow:hidden;
+}
+.pain:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-md);
+  border-color:rgba(180,83,9,.3);
+}
+.pain::before{
+  content:"";
+  position:absolute;
+  inset-inline-start:0;
+  top:0;
+  bottom:0;
+  width:4px;
+  background:linear-gradient(180deg,#f59e0b,#d97706);
+}
+.pain-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.pain .n{
+  font-size:13px;
+  font-weight:700;
+  color:var(--amber);
+  background:var(--amber-l);
+  padding:3px 12px;
+  border-radius:99px;
+  display:inline-block;
+}
+.pain-icon{
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  background:#fff7ed;
+  color:#ea580c;
+  display:grid;
+  place-items:center;
+}
+.pain h3{font-size:20px;margin-bottom:10px;color:var(--ink)}
+.pain p{color:var(--mut);font-size:15.5px;line-height:1.8}
+
+/* ---------- steps (dark) ---------- */
+.dark{
+  background:transparent;
+  color:var(--ink);
+  position:relative;
+}
+.steps{
+  list-style:none;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:24px;
+  counter-reset:s;
+  position:relative;
+}
+.steps li{
+  counter-increment:s;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:30px 24px;
+  position:relative;
+  box-shadow:var(--shadow-sm);
+  transition:all .25s ease;
+}
+.steps li:hover{
+  border-color:var(--teal);
+  box-shadow:var(--shadow-md);
+  transform:translateY(-3px);
+}
+.steps li::before{
+  content:counter(s,decimal-leading-zero);
+  display:inline-block;
+  font-size:32px;
+  font-weight:700;
+  color:var(--teal-t);
+  line-height:1;
+  margin-bottom:16px;
+  background:linear-gradient(135deg,var(--teal-t),#38bdf8);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.steps h3{font-size:19.5px;margin-bottom:10px;color:var(--ink)}
+.steps p{color:var(--mut);font-size:15.5px;line-height:1.75}
+
+/* ---------- features ---------- */
+.feat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.f{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:28px 24px;
+  box-shadow:var(--shadow-sm);
+  transition:all .2s cubic-bezier(.16,1,.3,1);
+  display:flex;
+  flex-direction:column;
+}
+.f:hover{
+  border-color:var(--teal);
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-md);
+}
+.f .ico{
+  width:50px;
+  height:50px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  margin-bottom:18px;
+  box-shadow:0 4px 12px rgba(0,0,0,.03);
+}
+.f.c-teal .ico{background:var(--teal-l);color:var(--teal)}
+.f.c-blue .ico{background:#e0f2fe;color:#0284c7}
+.f.c-amber .ico{background:var(--amber-l);color:var(--amber)}
+.f.c-wa .ico{background:var(--wa-l);color:var(--wa)}
+.f.c-blue .ico{background:#e0f2fe;color:#0284c7}
+.f.c-rose .ico{background:#ffe4e6;color:#e11d48}
+.f.c-cyan .ico{background:var(--cyan-l);color:var(--cyan)}
+.f.c-emerald .ico{background:#ecfdf5;color:#059669}
+.f h3{font-size:18px;margin-bottom:8px;color:var(--ink)}
+.f p{color:var(--mut);font-size:15px;line-height:1.75;flex:1}
+
+/* ================= COUNTRIES EXPLORER SECTION ================= */
+.country-section{
+  background:linear-gradient(180deg,#faf9f5 0%,#f0eee6 100%);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  position:relative;
+}
+.country-explorer-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:var(--shadow-lg);
+  padding:clamp(24px,4vw,40px);
+}
+.search-controls{
+  max-width:760px;
+  margin:0 auto 28px;
+}
+.search-bar-wrap{
+  position:relative;
+  display:flex;
+  align-items:center;
+  margin-bottom:20px;
+}
+.search-input{
+  width:100%;
+  height:58px;
+  padding:0 52px;
+  font-size:17px;
+  font-family:inherit;
+  border-radius:16px;
+  border:2px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  box-shadow:var(--shadow-sm);
+  outline:none;
+  transition:all .2s ease;
+}
+.search-input:focus{
+  border-color:var(--teal);
+  box-shadow:0 0 0 4px var(--teal-glow);
+}
+.search-icon{
+  position:absolute;
+  inset-inline-start:18px;
+  width:22px;
+  height:22px;
+  color:var(--mut);
+  pointer-events:none;
+}
+.search-clear{
+  position:absolute;
+  inset-inline-end:16px;
+  background:none;
+  border:none;
+  color:var(--mut);
+  cursor:pointer;
+  padding:6px;
+  border-radius:8px;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.search-clear:hover{color:var(--ink);background:#f1f5f9}
+.region-tabs{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+}
+.region-tab{
+  padding:9px 20px;
+  border-radius:99px;
+  border:1.5px solid var(--line);
+  background:var(--card);
+  color:var(--ink-2);
+  font-size:14.5px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .2s;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.region-tab:hover{
+  border-color:var(--teal);
+  color:var(--teal);
+  transform:translateY(-1px);
+}
+.region-tab.active{
+  background:var(--teal);
+  color:#fff;
+  border-color:var(--teal);
+  box-shadow:0 4px 14px var(--teal-glow);
+}
+.region-tab-count{
+  background:rgba(0,0,0,.08);
+  padding:2px 8px;
+  border-radius:99px;
+  font-size:12px;
+}
+.region-tab.active .region-tab-count{
+  background:rgba(255,255,255,.25);
+  color:#fff;
+}
+.countries-results-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:16px;
+  padding-bottom:12px;
+  border-bottom:1px dashed var(--line);
+  font-size:14.5px;
+  color:var(--mut);
+}
+.countries-count-badge{
+  font-weight:700;
+  color:var(--teal);
+  background:var(--teal-l);
+  padding:3px 12px;
+  border-radius:99px;
+}
+.countries-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:14px;
+  max-height:560px;
+  overflow-y:auto;
+  padding:6px;
+  scroll-behavior:smooth;
+}
+.countries-grid{scrollbar-width:none;-ms-overflow-style:none}
+.countries-grid::-webkit-scrollbar{width:0;height:0;display:none}
+
+.country-card{
+  background:#fff;
+  border:1.5px solid var(--line);
+  border-radius:14px;
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  transition:all .18s ease;
+  position:relative;
+}
+.country-card:hover{
+  border-color:var(--teal);
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px rgba(13,122,113,.08);
+}
+.country-flag{
+  width:36px;
+  height:26px;
+  border-radius:5px;
+  object-fit:cover;
+  flex:none;
+  box-shadow:0 0 0 1px rgba(9,22,36,.12),0 2px 6px rgba(9,22,36,.12);
+  background:var(--paper);
+}
+.country-flag.emoji{display:grid;place-items:center;font-size:22px;box-shadow:none;background:none}
+.region-tab .i{width:17px;height:17px}
+.country-info{
+  flex:1;
+  min-width:0;
+}
+.country-name{
+  font-weight:700;
+  font-size:15px;
+  color:var(--ink);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  display:block;
+}
+.country-sub{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:4px;
+  gap:6px;
+}
+.country-code{
+  font-family:ui-monospace,Consolas,monospace;
+  font-size:12px;
+  font-weight:700;
+  color:var(--teal);
+  background:var(--teal-l);
+  padding:1px 7px;
+  border-radius:6px;
+  direction:ltr;
+}
+.country-badge{
+  font-size:11px;
+  font-weight:600;
+  color:var(--wa-d);
+  background:var(--wa-l);
+  padding:1px 8px;
+  border-radius:99px;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  white-space:nowrap;
+}
+.country-empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:50px 20px;
+  background:#faf8f5;
+  border:1px dashed var(--line);
+  border-radius:16px;
+}
+.country-empty p{
+  color:var(--mut);
+  font-size:16px;
+  margin-top:8px;
+}
+
+/* ---------- showcase ---------- */
+.show{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,5vw,76px);align-items:center}
+.ticks{list-style:none;margin-top:26px;display:grid;gap:14px}
+.ticks li{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  color:var(--ink-2);
+  background:rgba(255,255,255,.6);
+  padding:10px 14px;
+  border-radius:10px;
+  border:1px solid rgba(228,223,211,.6);
+}
+.ticks .i{color:var(--teal);width:22px;height:22px;margin-top:2px;flex:none}
+.browser{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:var(--shadow-lg);
+  transition:transform .3s;
+}
+.browser:hover{transform:translateY(-3px)}
+.url-bar{
+  padding:12px 16px;
+  border-bottom:1px solid var(--line);
+  background:#faf8f5;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.url{
+  flex:1;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:5px 12px;
+  font-size:12.5px;
+  color:var(--mut);
+  direction:ltr;
+  text-align:left;
+  font-family:ui-monospace,Consolas,monospace;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.url svg{width:13px;height:13px;color:var(--wa)}
+.d-hero{
+  background:linear-gradient(135deg,#c2410c,#ea580c);
+  color:#fff;
+  text-align:center;
+  padding:38px 24px;
+  position:relative;
+}
+.d-hero-badge{
+  display:inline-block;
+  background:rgba(0,0,0,.25);
+  font-size:12px;
+  padding:2px 10px;
+  border-radius:99px;
+  margin-bottom:8px;
+}
+.d-hero b{display:block;font-size:26px;line-height:1.3;font-weight:700}
+.d-hero small{display:block;opacity:.92;margin-top:4px;font-size:14.5px}
+.d-hero span{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:16px;
+  background:#fed7aa;
+  color:#7c2d12;
+  font-weight:700;
+  padding:8px 24px;
+  border-radius:10px;
+  font-size:14.5px;
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+.d-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:20px;background:#fffaf5}
+.d-card{
+  background:#fff;
+  border:1px solid #fed7aa;
+  border-radius:12px;
+  padding:12px 10px;
+  font-size:13px;
+  font-weight:600;
+  text-align:center;
+  box-shadow:var(--shadow-sm);
+}
+.d-card-img{
+  height:58px;
+  border-radius:8px;
+  background:linear-gradient(135deg,#fed7aa,#ffedd5);
+  margin-bottom:8px;
+  display:grid;
+  place-items:center;
+  font-size:22px;
+}
+
+/* ---------- responsible ---------- */
+.resp{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,5vw,76px);align-items:start}
+.rules{display:grid;gap:16px}
+.rule{
+  display:flex;
+  gap:18px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:22px 24px;
+  box-shadow:var(--shadow-sm);
+  transition:all .2s;
+}
+.rule:hover{
+  border-color:var(--teal);
+  transform:translateX(-3px);
+  box-shadow:var(--shadow-md);
+}
+.rule .ico{
+  width:46px;
+  height:46px;
+  border-radius:12px;
+  background:var(--amber-l);
+  color:var(--amber);
+  display:grid;
+  place-items:center;
+  flex:none;
+}
+.rule h3{font-size:17.5px;margin-bottom:4px;color:var(--ink)}
+.rule p{color:var(--mut);font-size:15px;line-height:1.7}
+.warn{
+  margin-top:24px;
+  padding:18px 20px;
+  border-radius:14px;
+  background:#fffbeb;
+  color:#78350f;
+  font-size:15px;
+  line-height:1.75;
+  border:1px solid #fde68a;
+  box-shadow:var(--shadow-sm);
+}
+.warn b{color:#92400e;display:block;margin-bottom:4px;font-size:15.5px}
+
+/* ---------- pricing ---------- */
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:stretch}
+.plan{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:22px;
+  padding:34px 30px;
+  display:flex;
+  flex-direction:column;
+  box-shadow:var(--shadow-sm);
+  transition:all .25s ease;
+  position:relative;
+}
+.plan:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-lg);
+}
+.plan.hl{
+  border:2px solid var(--teal-t);
+  background:linear-gradient(180deg,#ffffff,#f0fdfa);
+  box-shadow:0 20px 48px -12px rgba(13,122,113,.25);
+  transform:scale(1.02);
+}
+.plan.hl:hover{
+  transform:scale(1.02) translateY(-4px);
+}
+.plan-badge{
+  position:absolute;
+  top:-14px;
+  inset-inline-start:50%;
+  transform:translateX(50%);
+  background:linear-gradient(135deg,var(--teal),#047857);
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+  padding:4px 16px;
+  border-radius:99px;
+  box-shadow:0 4px 12px var(--teal-glow);
+  white-space:nowrap;
+}
+html[dir="ltr"] .plan-badge {
+  transform:translateX(-50%);
+}
+.plan h3{font-size:22px;color:var(--ink)}
+.plan .dur{color:var(--mut);font-size:15px;margin-top:3px}
+.price{
+  font-size:clamp(1.6rem,2.6vw,2.1rem);
+  font-weight:700;
+  margin:22px 0 6px;
+  line-height:1.3;
+  color:var(--ink);
+}
+.price small{font-size:14px;font-weight:500;color:var(--mut)}
+.plan-quota{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:var(--teal-l);
+  color:var(--teal);
+  font-weight:700;
+  font-size:13.5px;
+  padding:5px 12px;
+  border-radius:10px;
+  margin:10px 0 4px;
+  border:1px solid rgba(13,122,113,.15);
+  width:fit-content;
+}
+[data-theme="dark"] .plan-quota{
+  background:rgba(34,168,155,.15);
+  color:var(--teal-t);
+  border-color:rgba(79,209,197,.3);
+}
+.plan ul{list-style:none;margin:24px 0 30px;display:grid;gap:12px;font-size:15.5px;flex:1}
+.plan li{display:flex;gap:10px;align-items:flex-start;color:var(--ink-2)}
+.plan li .i{color:var(--teal);width:20px;height:20px;margin-top:3px;flex:none}
+.plan-note{margin-top:24px;color:var(--mut);font-size:15px;text-align:center}
+
+/* ---------- activation ---------- */
+.act{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.act div{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:30px 26px;
+  box-shadow:var(--shadow-sm);
+  transition:all .2s;
+}
+.act div:hover{
+  border-color:var(--teal);
+  box-shadow:var(--shadow-md);
+  transform:translateY(-2px);
+}
+.act b{
+  display:grid;
+  place-items:center;
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-d));
+  color:#fff;
+  font-size:17px;
+  font-weight:700;
+  margin-bottom:16px;
+  box-shadow:0 4px 12px var(--teal-glow);
+}
+.act h3{font-size:19px;margin-bottom:8px;color:var(--ink)}
+.act p{color:var(--mut);font-size:15.5px;line-height:1.75}
+
+/* ---------- faq ---------- */
+.faq{max-width:860px;margin-inline:auto;display:grid;gap:14px}
+details{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:14px;
+  transition:all .2s;
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+}
+details:hover{border-color:var(--teal)}
+details[open]{border-color:var(--teal);box-shadow:var(--shadow-md)}
+summary{
+  list-style:none;
+  cursor:pointer;
+  padding:20px 24px;
+  font-weight:600;
+  font-size:17px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  min-height:64px;
+  color:var(--ink);
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:"";
+  width:10px;
+  height:10px;
+  border-inline-end:2.5px solid var(--teal);
+  border-bottom:2.5px solid var(--teal);
+  transform:rotate(45deg);
+  transition:transform .25s ease;
+  flex:none;
+  margin-bottom:3px;
+}
+details[open] summary::after{transform:rotate(-135deg);margin-bottom:-4px}
+details p{
+  padding:0 24px 22px;
+  color:var(--mut);
+  font-size:16px;
+  line-height:1.8;
+  border-top:1px dashed var(--line);
+  margin-top:4px;
+  padding-top:16px;
+}
+
+/* ---------- final cta + footer ---------- */
+.final{text-align:center;padding:clamp(70px,9vw,120px) 0}
+.final h2{margin-inline:auto}
+.final .lead{margin-inline:auto}
+.final .cta-row{justify-content:center}
+footer{
+  background:#050c14;
+  color:#94a3b8;
+  padding:38px 0;
+  font-size:14.5px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.foot{display:flex;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;align-items:center}
+.foot a{color:#cbd5e1;text-decoration:none;transition:color .15s}
+.foot a:hover{color:#fff}
+
+/* ---------- Floating WhatsApp Widget ---------- */
+.wa-floating-btn{
+  position:fixed;
+  bottom:26px;
+  inset-inline-start:26px;
+  z-index:99;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:linear-gradient(135deg,#16a34a,#15803d);
+  color:#fff;
+  padding:12px 20px;
+  border-radius:99px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:15px;
+  box-shadow:0 12px 28px rgba(22,163,74,.4),0 2px 8px rgba(0,0,0,.1);
+  transition:all .25s cubic-bezier(.16,1,.3,1);
+}
+.wa-floating-btn:hover{
+  transform:translateY(-3px) scale(1.03);
+  box-shadow:0 16px 36px rgba(22,163,74,.5);
+  color:#fff;
+}
+.wa-floating-icon{
+  width:26px;
+  height:26px;
+  flex:none;
+  animation:waBounce 2.5s infinite;
+}
+@keyframes waBounce{
+  0%,20%,50%,80%,100%{transform:translateY(0)}
+  40%{transform:translateY(-4px)}
+  60%{transform:translateY(-2px)}
+}
+
+/* ---------- responsive ---------- */
+@media(max-width:1040px){
+  .hero-grid,.show,.resp{grid-template-columns:minmax(0,1fr)}
+  .feat{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facts ul{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facts li:nth-child(3){border-inline-start:0}
+  .facts li:nth-child(n+3){border-top:1px solid rgba(255,255,255,.07)}
+  .mock{max-width:580px;margin-inline:auto}.browser{max-width:580px;margin-inline:auto}
+  .mock-float-badge{inset-inline-start:0;top:-12px}
+}
+@media(max-width:860px){
+  .bar{
+    position:relative;
+    min-height:66px;
+  }
+  .logo{
+    max-width:55%;
+    flex-shrink:0;
+  }
+  .logo span{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    font-size:clamp(14px,3.8vw,17px);
+  }
+  .nav-actions{
+    gap:6px;
+    flex-shrink:0;
+  }
+  .lang-btn{
+    white-space:nowrap;
+    flex-shrink:0;
+    padding:6px 10px;
+    font-size:12.5px;
+  }
+  .burger{
+    display:grid;
+    place-items:center;
+    flex-shrink:0;
+  }
+  .nav{
+    display:none;
+    position:absolute;
+    top:100%;
+    inset-inline:0;
+    width:100%;
+    background:#ffffff !important;
+    border-bottom:2px solid var(--line);
+    box-shadow:0 25px 50px -12px rgba(9,22,36,0.22), 0 0 0 1px rgba(9,22,36,0.06);
+    padding:16px 20px 24px;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    z-index:9999 !important;
+  }
+  .nav.open{
+    display:flex;
+    animation:navDrop .22s cubic-bezier(0.16,1,0.3,1);
+  }
+  @keyframes navDrop{
+    from{opacity:0;transform:translateY(-8px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  .nav a{
+    padding:14px 12px;
+    border-bottom:1px solid #edf2f7;
+    font-size:15px;
+    font-weight:600;
+    color:var(--ink);
+    display:block;
+    transition:all .15s ease;
+  }
+  .nav a:hover{
+    color:var(--teal);
+    background:var(--paper);
+    padding-inline-start:18px;
+  }
+  .nav .btn.wa{
+    margin-top:16px;
+    width:100%;
+    min-height:48px;
+    border-radius:12px;
+  }
+  .cols3,.plans,.act{grid-template-columns:minmax(0,1fr)}
+  .plans{max-width:480px;margin-inline:auto}
+  .plan.hl{transform:none}
+  .plan.hl:hover{transform:translateY(-4px)}
+  .region-tabs{justify-content:flex-start;overflow-x:auto;padding-bottom:6px}
+  .region-tab{white-space:nowrap}
+}
+@media(max-width:600px){
+  body{font-size:16px}
+  .wrap{width:min(100% - 28px,var(--wrap))}
+  .feat,.steps,.facts ul{grid-template-columns:minmax(0,1fr)}
+  .facts li{border-inline-start:0;border-top:1px solid rgba(255,255,255,.07);padding:22px 4px}
+  .facts li:first-child{border-top:0}
+  .cta-row .btn{width:100%}
+  .m-row{grid-template-columns:minmax(0,1fr) 88px}
+  .d-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.d-grid .d-card:last-child{display:none}
+  .plan{padding:28px 22px}
+  .wa-floating-btn span{display:none}
+  .wa-floating-btn{padding:14px;border-radius:50%;bottom:18px;inset-inline-start:18px}
+  .countries-grid{grid-template-columns:1fr;max-height:480px}
+}
+/* ================= THEME TOGGLE ================= */
+:root{--ambient-1:rgba(13,122,113,.16);--ambient-2:rgba(2,132,199,.12)}
+.theme-toggle{
+  display:inline-grid;
+  place-items:center;
+  width:38px;
+  height:38px;
+  border-radius:99px;
+  border:1.5px solid var(--line);
+  background:var(--card);
+  color:var(--ink);
+  cursor:pointer;
+  flex-shrink:0;
+  transition:border-color .2s ease,color .2s ease,transform .2s ease;
+}
+.theme-toggle:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-1px)}
+.theme-toggle svg{width:18px;height:18px;grid-area:1/1;transition:opacity .25s ease,transform .35s ease}
+.theme-toggle .ic-moon{opacity:1;transform:rotate(0)}
+.theme-toggle .ic-sun{opacity:0;transform:rotate(-90deg) scale(.6)}
+[data-theme="dark"] .theme-toggle .ic-moon{opacity:0;transform:rotate(90deg) scale(.6)}
+[data-theme="dark"] .theme-toggle .ic-sun{opacity:1;transform:rotate(0) scale(1)}
+
+/* ================= DARK THEME ================= */
+[data-theme="dark"]{
+  color-scheme:dark;
+  --ink:#e8eef5;
+  --ink-2:#c5d1de;
+  --mut:#93a5b9;
+  --mut-l:#6f8299;
+  --paper:#0a1520;
+  --card:#101f2e;
+  --line:#1f3245;
+  --nav-bg:rgba(10,21,32,.9);
+  --nav-dropdown:#101f2e;
+  --teal:#22a89b;
+  --teal-d:#0d7a71;
+  --teal-l:rgba(79,209,197,.12);
+  --teal-glow:rgba(34,168,155,.25);
+  --amber-l:rgba(245,158,11,.14);
+  --wa-l:rgba(22,163,74,.15);
+  --bad-l:rgba(220,38,38,.15);
+  --cyan-l:rgba(2,132,199,.15);
+  --ambient-1:rgba(34,168,155,.14);
+  --ambient-2:rgba(2,132,199,.10);
+  --shadow-sm:0 2px 8px rgba(0,0,0,.25);
+  --shadow-md:0 12px 32px -8px rgba(0,0,0,.45);
+  --shadow-lg:0 28px 64px -16px rgba(0,0,0,.6);
+}
+[data-theme="dark"] .mock-float-badge,
+[data-theme="dark"] .mock-search-pill,
+[data-theme="dark"] .m-row,
+[data-theme="dark"] .search-input,
+[data-theme="dark"] .country-card,
+[data-theme="dark"] .url,
+[data-theme="dark"] .d-card,
+[data-theme="dark"] .bubble-head small{background:var(--card);color:var(--ink)}
+[data-theme="dark"] .mock-window-head,
+[data-theme="dark"] .m-stat,
+[data-theme="dark"] .country-empty,
+[data-theme="dark"] .url-bar,
+[data-theme="dark"] .d-grid{background:#0c1926}
+[data-theme="dark"] .m-row:hover{background:#13263a}
+[data-theme="dark"] .country-section{background:var(--paper)}
+[data-theme="dark"] .plan.hl{background:linear-gradient(180deg,#112436,#0f2a2a)}
+[data-theme="dark"] .bubble{background:linear-gradient(135deg,#0f2a1c,#123222);border-color:#1d4a2f;color:#c9f2d6}
+[data-theme="dark"] .bubble-head-title{color:#4ade80}
+[data-theme="dark"] .warn{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.3);color:#fcd9a0}
+[data-theme="dark"] .warn b{color:#fbbf24}
+[data-theme="dark"] .ticks li{background:rgba(255,255,255,.04)}
+[data-theme="dark"] .pain-icon{background:rgba(234,88,12,.14)}
+[data-theme="dark"] .tag.g,[data-theme="dark"] .sc i{background:#1d3043}
+[data-theme="dark"] .f .ico{filter:saturate(1.1)}
+[data-theme="dark"] .search-clear:hover{background:#1a2d40}
+[data-theme="dark"] .m-row-icon[style]{background:rgba(79,209,197,.12)!important;color:var(--teal-t)!important}
+[data-theme="dark"] .country-flag{box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+@media(max-width:420px){
+  .nav-actions{gap:6px}
+  .lang-btn{padding:8px 10px}
+  .lang-btn #lang-btn-text{display:none}
+  .theme-toggle,.burger{width:36px;height:36px}
+}
+@media(max-width:860px){
+  [data-theme="dark"] .nav{background:var(--card)!important;box-shadow:0 25px 50px -12px rgba(0,0,0,.6)}
+  [data-theme="dark"] .nav a{border-bottom-color:var(--line)}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip_to_content">تخطَّ إلى المحتوى</a>
+
+<!-- SVG Symbol Definitions -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="logo" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#0d7a71"/><path d="M18 48V16h6l16 22V16h6v32h-6L24 26v22z" fill="#fff"/><circle cx="46" cy="18" r="4" fill="#4fd1c5"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+<symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+<symbol id="i-gauge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
+<symbol id="i-layout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/><rect width="5" height="7" x="16" y="14" rx="1"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+<symbol id="i-ban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></symbol>
+<symbol id="i-laptop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="12" x="3" y="4" rx="2"/><path d="M2 20h20"/></symbol>
+<symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></symbol>
+
+<symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+<symbol id="i-ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="3"/><circle cx="8.5" cy="16" r="1.5" fill="currentColor"/><circle cx="15.5" cy="16" r="1.5" fill="currentColor"/><path d="M12 2v4M12 6a2 2 0 0 1 2 2M12 6a2 2 0 0 0-2 2M2 16h1M21 16h1"/></symbol>
+</defs></svg>
+
+<!-- Header -->
+<header class="top">
+  <div class="wrap bar">
+    <a class="logo" href="#top" aria-label="NextGen Sales Agent">
+      <img src="logo.png" alt="NextGen Logo" class="logo-img">
+      <span>NextGen Sales Agent</span>
+    </a>
+    
+    <nav class="nav" id="nav" aria-label="التنقل الرئيسي">
+      <a href="#how" data-i18n="nav_how">كيف تعمل</a>
+      <a href="#features" data-i18n="nav_features">المميزات</a>
+      <a href="#countries" data-i18n="nav_countries">الدول المدعومة</a>
+      <a href="#safe" data-i18n="nav_safe">الاستخدام الآمن</a>
+      <a href="#pricing" data-i18n="nav_pricing">الاشتراك</a>
+      <a href="#faq" data-i18n="nav_faq">الأسئلة الشائعة</a>
+      <a class="btn wa" href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span data-i18n="btn_order">اطلب النسخة</span></a>
+    </nav>
+
+    <div class="nav-actions">
+      <!-- Theme Switcher (Light / Dark) -->
+      <button id="theme-btn" class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="تبديل الوضع الليلي / النهاري">
+        <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+
+      <!-- Language Switcher Button -->
+      <button id="lang-toggle-btn" class="lang-btn" onclick="toggleLang()" aria-label="Switch Language">
+        <svg class="i" style="width:16px;height:16px" aria-hidden="true"><use href="#i-globe"/></svg>
+        <span id="lang-btn-text">English</span>
+      </button>
+
+      <button class="burger" id="burger" aria-label="القائمة" aria-expanded="false" aria-controls="nav"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<div class="hero" id="top">
+  <div class="bg-ambient">
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+  </div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"> <span data-i18n="hero_eyebrow">لشركات ومستقلي تطوير المواقع والمتاجر الإلكترونية</span></span>
+      <h1 data-i18n-html="hero_title">اعثر على الأنشطة التي <em>تحتاج موقعاً</em>، وافتح معها محادثة واتساب جاهزة</h1>
+      <p class="lead" data-i18n="hero_lead">تبحث الأداة في خرائط جوجل ومنصات السوشيال ميديا عبر 150 دولة حول العالم (22 عربية، 21 أوروبية، و107 عالمية)، وتستخرج أرقام الواتساب الموثقة، وتولّد رسائل ذكية باللغتين العربية والإنجليزية Spintax لمنع الحظر مع ديمو تفاعلي فوري باسم كل عميل.</p>
+      <div class="cta-row">
+        <a class="btn wa" href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span data-i18n="hero_cta_wa">اطلب النسخة عبر واتساب</span></a>
+        <a class="btn line" href="#countries"><span data-i18n="hero_cta_explore">استكشف الدول (150 دولة)</span><svg class="i i-arrow-flip" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="hero-note">
+        <span><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg><span data-i18n="hero_note_1">150 دولة حول العالم (عربية وأوروبية وعالمية)</span></span>
+        <span><svg class="i" aria-hidden="true"><use href="#i-ai"/></svg><span data-i18n="hero_note_2">ذكاء اصطناعي عربي وإنجليزي بـ 10 تخصصات</span></span>
+        <span><svg class="i" aria-hidden="true"><use href="#i-text"/></svg><span data-i18n="hero_note_3">رسائل Spintax ذكية ضد الحظر</span></span>
+        <span><svg class="i" aria-hidden="true"><use href="#i-laptop"/></svg><span data-i18n="hero_note_4">تعمل محلياً على جهازك بأمان وتشفير 100%</span></span>
+      </div>
+    </div>
+
+    <!-- Product Mockup Card -->
+    <div class="mock-wrap">
+      <div class="mock-float-badge">
+        <span class="pulse-dot"></span>
+        <span data-i18n="mock_badge">تم فحص 48 عميلاً مؤهلاً اليوم</span>
+      </div>
+
+      <div class="mock" role="img" aria-label="معاينة تفاعلية للوحة العملاء داخل الأداة">
+        <div class="mock-window-head">
+          <div class="mock-dots">
+            <span class="mock-dot r"></span>
+            <span class="mock-dot y"></span>
+            <span class="mock-dot g"></span>
+          </div>
+          <div class="mock-search-pill">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <span data-i18n="mock_search_pill">مطاعم وكافيهات • 150 دولة • 48 نتيجة</span>
+          </div>
+          <span class="mock-status-pill" data-i18n="mock_status_pill">● Gemini & Spintax متصل</span>
+        </div>
+
+        <div class="mock-body">
+          <div class="m-stats">
+            <div class="m-stat"><span data-i18n="mock_stat_1">الحد اليومي</span><b>48/150</b></div>
+            <div class="m-stat"><span data-i18n="mock_stat_2">أولوية عالية</span><b>18</b></div>
+            <div class="m-stat"><span data-i18n="mock_stat_3">بدون موقع</span><b>31</b></div>
+          </div>
+
+          <div class="m-rows">
+            <div class="m-row">
+              <div class="m-row-info">
+                <div class="m-row-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                <div>
+                  <b data-i18n="mock_r1_title">كافيه ومحمصة المثال الراقي</b>
+                  <span class="tag" data-i18n="mock_r1_tag">بدون موقع • موبايل مؤكد</span>
+                </div>
+              </div>
+              <div class="sc"><b>92</b><i style="--w:92%"></i></div>
+            </div>
+
+            <div class="m-row">
+              <div class="m-row-info">
+                <div class="m-row-icon" style="background:#e0f2fe;color:#0284c7"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></div>
+                <div>
+                  <b data-i18n="mock_r2_title">عيادة النور التخصصية لطب الأسنان</b>
+                  <span class="tag" data-i18n="mock_r2_tag">بدون موقع • واتساب متاح</span>
+                </div>
+              </div>
+              <div class="sc"><b>86</b><i style="--w:86%"></i></div>
+            </div>
+
+            <div class="m-row">
+              <div class="m-row-info">
+                <div class="m-row-icon" style="background:#f0fdfa;color:#0d9488"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></div>
+                <div>
+                  <b data-i18n="mock_r3_title">Modern Chic Fashion Store (London)</b>
+                  <span class="tag" style="background:#f0fdfa;color:#0f766e" data-i18n="mock_r3_tag">Social Only • UK +44</span>
+                </div>
+              </div>
+              <div class="sc"><b>84</b><i style="--w:84%"></i></div>
+            </div>
+
+            <div class="m-row">
+              <div class="m-row-info">
+                <div class="m-row-icon" style="background:#f1f5f9;color:#64748b"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
+                <div>
+                  <b data-i18n="mock_r4_title">Al-Saraya Gourmet Restaurant</b>
+                  <span class="tag g" data-i18n="mock_r4_tag">لديه موقع إلكتروني</span>
+                </div>
+              </div>
+              <div class="sc"><b>49</b><i style="--w:49%"></i></div>
+            </div>
+          </div>
+
+          <div class="bubble">
+            <div class="bubble-head">
+              <span class="bubble-head-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+                <span data-i18n="mock_bubble_title">الرسالة الذكية المقترحة (AI Spintax)</span>
+              </span>
+              <small data-i18n="mock_bubble_tag">دعم عربي / إنجليزي • رابط ديمو فوري</small>
+            </div>
+            <span data-i18n="mock_bubble_text">السلام عليكم فريق كافيه ومحمصة المثال، شفت نشاطكم المميز على جوجل ماب. بنصمم منيو تفاعلي سريع بـ QR وصفحة طلبات واتساب أونلاين. صممنا لكم نموذجاً تجريبياً حياً باسمكم تقدروا تشوفوه وتجربوه بضغطة زر من هنا!</span>
+          </div>
+        </div>
+      </div>
+      <p class="caption" data-i18n="mock_caption">معاينة واقعية لشاشة البحث والتقييم وصياغة الرسائل التلقائية ثنائية اللغة.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= FACTS ================= -->
+<div class="facts">
+  <div class="wrap">
+    <ul>
+      <li>
+        <div class="fact-icon-wrap"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg></div>
+        <div><b data-i18n="fact_1_title">150 دولة مدعومة رسمياً</b><span data-i18n="fact_1_desc">22 دولة عربية، 21 دولة أوروبية، و107 دولة عالمية بكود الاتصال وصيغة الموبايل</span></div>
+      </li>
+      <li>
+        <div class="fact-icon-wrap"><svg class="i" aria-hidden="true"><use href="#i-ai"/></svg></div>
+        <div><b data-i18n="fact_2_title">ذكاء اصطناعي ثنائي اللغة</b><span data-i18n="fact_2_desc">يدعم Gemini & Ollama بالعربية بلهجات متعددة وبالإنجليزية لجميع الأسواق العالمية</span></div>
+      </li>
+      <li>
+        <div class="fact-icon-wrap"><svg class="i" aria-hidden="true"><use href="#i-db"/></svg></div>
+        <div><b data-i18n="fact_3_title">بياناتك على جهازك 100%</b><span data-i18n="fact_3_desc">تشفير محلي تام، SQLite محلية ولا نرفع أي سجلات لعملاء جهازك إلى خوادم خارجية</span></div>
+      </li>
+      <li>
+        <div class="fact-icon-wrap"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></div>
+        <div><b data-i18n="fact_4_title">نظام أمان وحصص صارم</b><span data-i18n="fact_4_desc">حدود يومية وفواصل زمنية لمنع الحظر، مع حظر الأجهزة المخالفة وحماية رقمك</span></div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= COUNTRIES EXPLORER (NEW) ================= -->
+<section class="country-section" id="countries" aria-labelledby="h-countries">
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center">
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-globe"/></svg> <span data-i18n="cnt_eyebrow">تغطية عالمية لا مثيل لها</span></span>
+      <h2 id="h-countries" style="margin-inline:auto" data-i18n="cnt_title">مستكشف الدول المدعومة (150 دولة حول العالم)</h2>
+      <p class="lead" style="margin-inline:auto" data-i18n="cnt_lead">تتحقق الأداة من دقة أرقام الموبايل ومفاتيح الاتصال لكافة الدول العربية والأوروبية والعالمية. ابحث عن دولتك المستهدفة الآن وتأكد من جاهزيتها:</p>
+    </div>
+
+    <div class="country-explorer-card">
+      <div class="search-controls">
+        <div class="search-bar-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="text" id="country-search-input" class="search-input" placeholder="ابحث بالاسم أو كود الاتصال (مثال: مصر، السعودية، France, +44, +966)..." data-i18n-ph="cnt_search_ph" aria-label="بحث عن دولة">
+          <button id="search-clear-btn" class="search-clear" onclick="clearCountrySearch()" aria-label="مسح البحث">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <div class="region-tabs" id="region-tabs">
+          <button class="region-tab active" data-region="all" onclick="filterByRegion('all')">
+            <svg class="i" aria-hidden="true"><use href="#i-globe"/></svg><span data-i18n="tab_all">كافة الدول</span> <span class="region-tab-count" id="count-all">150</span>
+          </button>
+          <button class="region-tab" data-region="arab" onclick="filterByRegion('arab')">
+            <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a7 7 0 1 0 7 9 5.5 5.5 0 1 1-7-9Z"/><path d="m18 4 .7 1.6 1.8.2-1.3 1.2.4 1.8-1.6-.9-1.6.9.4-1.8-1.3-1.2 1.8-.2Z"/></svg><span data-i18n="tab_arab">الدول العربية</span> <span class="region-tab-count" id="count-arab">22</span>
+          </button>
+          <button class="region-tab" data-region="europe" onclick="filterByRegion('europe')">
+            <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V10M9.5 21V10M14.5 21V10M19 21V10"/><path d="M2.5 10h19L12 3Z"/></svg><span data-i18n="tab_europe">الدول الأوروبية</span> <span class="region-tab-count" id="count-europe">21</span>
+          </button>
+          <button class="region-tab" data-region="global" onclick="filterByRegion('global')">
+            <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg><span data-i18n="tab_global">الدول العالمية</span> <span class="region-tab-count" id="count-global">107</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="countries-results-meta">
+        <span id="results-meta-text"><span data-i18n="cnt_showing">يتم عرض</span> <strong id="visible-countries-count" class="countries-count-badge">150</strong> <span data-i18n="cnt_countries_supported">دولة مدعومة ومفحوصة الأرقام</span></span>
+        <span style="font-size:13px;color:var(--wa-d)">✅ Mobile Regex & WhatsApp Verified</span>
+      </div>
+
+      <div class="countries-grid" id="countries-grid">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROBLEM ================= -->
+<section aria-labelledby="h-problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-ban"/></svg> <span data-i18n="prob_eyebrow">المشكلة التي ننهيها تماماً</span></span>
+      <h2 id="h-problem" data-i18n="prob_title">البحث اليدوي عن عملاء يستهلك طاقتك ووقتك الثمين قبل أن يبدأ البيع</h2>
+      <p class="lead" data-i18n="prob_lead">بناء وكالة أو عمل مستقل ناجح يتطلب قضاء وقتك في التفاوض والإغلاق والبرمجة، وليس في البحث اليدوي الشاق وتجميع الأرقام العشوائية.</p>
+    </div>
+    <div class="cols3">
+      <div class="pain">
+        <div class="pain-top">
+          <span class="n" data-i18n="prob_p1_badge">المعاناة الأولى</span>
+          <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        </div>
+        <h3 data-i18n="prob_p1_title">ساعات طويلة من التصفح اليدوي</h3>
+        <p data-i18n="prob_p1_desc">تنقّل ممل بين الخرائط والصفحات لنسخ الأسماء والأرقام، ثم اكتشاف أن نصف الأرقام خطوط أرضية، أو مغلقة، أو غير موجودة على واتساب.</p>
+      </div>
+
+      <div class="pain">
+        <div class="pain-top">
+          <span class="n" data-i18n="prob_p2_badge">المعاناة الثانية</span>
+          <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        </div>
+        <h3 data-i18n="prob_p2_title">رسائل عامة وباردة بلا رد</h3>
+        <p data-i18n="prob_p2_desc">الرسائل المنسوخة (Copy-Paste) تبدو آلية ومزعجة. صاحب النشاط يتجاهلها لأنه لا يرى ما الذي ستقدمه له تحديداً وما قيمته المضافة.</p>
+      </div>
+
+      <div class="pain">
+        <div class="pain-top">
+          <span class="n" data-i18n="prob_p3_badge">المعاناة الثالثة</span>
+          <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 3 18 18"/><path d="M12 2a10 10 0 0 1 10 10c0 2.22-.72 4.27-1.94 5.94"/><path d="M2 12A10 10 0 0 1 12 2"/></svg></div>
+        </div>
+        <h3 data-i18n="prob_p3_title">فوضى وانعدام المتابعة المنظمة</h3>
+        <p data-i18n="prob_p3_desc">من راسلت أمس؟ ومن يستحق تذكيراً مهذباً اليوم؟ بدون سجل ذكي ومتابعات آلية، تضيع أهم الصفقات التي كانت على وشك الإغلاق.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW ================= -->
+<section class="dark" id="how" aria-labelledby="h-how">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="how_eyebrow">آلية العمل</span>
+      <h2 id="h-how" data-i18n="how_title">من اختيار الدولة والنشاط إلى أول محادثة بيعية في أربع خطوات</h2>
+      <p class="lead" data-i18n="how_lead">بضع دقائق فقط تفصلك عن قائمة عملاء عالية الجودة ومجهزة بالكامل لبدء التواصل الفعال في أي دولة بالعالم.</p>
+    </div>
+    <ol class="steps">
+      <li>
+        <h3 data-i18n="how_s1_title">حدّد الدولة والنشاط</h3>
+        <p data-i18n="how_s1_desc">اختر من بين 150 دولة حول العالم ونوع النشاط بدقة: مطاعم، كافيهات، أزياء، عيادات، عقارات، سيارات، جيم وغيرها الكثير.</p>
+      </li>
+      <li>
+        <h3 data-i18n="how_s2_title">اجمع وتحقق تلقائياً</h3>
+        <p data-i18n="how_s2_desc">تسحب الأداة الأنشطة من مصادر متعددة، وتتحقق فورياً من صيغ الموبايل المحلية، وتستبعد المكرر وتفحص وجود موقع إلكتروني.</p>
+      </li>
+      <li>
+        <h3 data-i18n="how_s3_title">قيّم وجهّز الديمو والرسالة</h3>
+        <p data-i18n="how_s3_desc">تحليل ذكي يعطي درجة ملاءمة من 0 إلى 100، وتوليد صفحة ديمو مخصصة باسم النشاط وصياغة رسالة Spintax ذكية بالعربية أو الإنجليزية.</p>
+      </li>
+      <li>
+        <h3 data-i18n="how_s4_title">تواصل بأمان وتابع الصفقات</h3>
+        <p data-i18n="how_s4_desc">طابور واتساب منظم بحد يومي وفواصل زمنية عشوائية لحماية حسابك، وجدول تسليم فوري ومتابعات منظمة.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section id="features" aria-labelledby="h-feat">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-target"/></svg> <span data-i18n="feat_eyebrow">مزايا متكاملة</span></span>
+      <h2 id="h-feat" data-i18n="feat_title">كل ما تحتاجه لتحويل البحث العشوائي إلى عملاء حقيقيين في 150 دولة</h2>
+      <p class="lead" data-i18n="feat_lead">مصممة خصيصاً لتمنحك التفوق والمصداقية في السوق المحلي والعالمي دون الحاجة لأدوات إضافية معقدة.</p>
+    </div>
+    <div class="feat">
+      <article class="f c-teal">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg></div>
+        <h3 data-i18n="f1_title">150 دولة حول العالم</h3>
+        <p data-i18n="f1_desc">دعم كامل لـ 22 دولة عربية، 21 دولة أوروبية، و107 دول عالمية بكود الاتصال وصيغة الموبايل الدقيقة لكل بلد.</p>
+      </article>
+
+      <article class="f c-teal">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-ai"/></svg></div>
+        <h3 data-i18n="f2_title">ذكاء اصطناعي عربي وإنجليزي</h3>
+        <p data-i18n="f2_desc">دعم موديلات Gemini 1.5/2.0 وOllama لتوليد رسائل تسويقية احترافية بلهجات عربية متعددة وبالإنجليزية التامة للعملاء الدوليين.</p>
+      </article>
+
+      <article class="f c-amber">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-text"/></svg></div>
+        <h3 data-i18n="f3_title">رسائل متغيرة Spintax ضد الحظر</h3>
+        <p data-i18n="f3_desc">كل عميل تصله رسالة مختلفة 100% لمنع رصد الرسائل كـ Spam، مع تنويع التحيات وعروض الخدمة وصيغ الدعوة.</p>
+      </article>
+
+      <article class="f c-wa">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-layout"/></svg></div>
+        <h3 data-i18n="f4_title">ديمو فوري باسم النشاط وصوره</h3>
+        <p data-i18n="f4_desc">إنشاء صفحة ويب تجريبية باسم العميل وبياناته الفعلية، يمكن نشرها بضغطة زر وإرسال رابطها لرفع نسبة الإغلاق فوراً.</p>
+      </article>
+
+      <article class="f c-blue">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg></div>
+        <h3 data-i18n="f5_title">صائد السوشيال والبايو والشات المباشر</h3>
+        <p data-i18n="f5_desc">استخراج بايو بروفايلات إنستجرام وفيسبوك وتيك توك مع توليد روابط مراسلة مباشرة (واتساب، إنستجرام DM، ماسنجر) بنقرة واحدة.</p>
+      </article>
+
+      <article class="f c-rose">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg></div>
+        <h3 data-i18n="f6_title">الطيار الآلي (Auto-Pilot) وجدولة الإرسال</h3>
+        <p data-i18n="f6_desc">وضع الطيار الآلي للبحث والإرسال التلقائي المبرمج في الخلفية، مع لوحة تتبع لحظية لجميع الرسائل وحالات التسليم.</p>
+      </article>
+
+      <article class="f c-cyan">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></div>
+        <h3 data-i18n="f7_title">لوحة تحكم إدارية وحماية أجهزة</h3>
+        <p data-i18n="f7_desc">نظام إدارة ترخيص متطور مع القدرة على حظر أي جهاز غير مصرح به فوراً (HWID Ban) والتحكم بالحصص.</p>
+      </article>
+
+      <article class="f c-emerald">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-gauge"/></svg></div>
+        <h3 data-i18n="f8_title">حدود يومية وفواصل بشرية</h3>
+        <p data-i18n="f8_desc">نظام حصص ذكي يحدده الأدمن ويمنع التجاوز لحماية رقمك من الحظر، مع فواصل زمنية عشوائية تحاكي الإرسال البشري.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SHOWCASE ================= -->
+<section style="background:linear-gradient(180deg,#f3efe7,#ebe6db)" aria-labelledby="h-demo">
+  <div class="wrap show">
+    <div>
+      <span class="eyebrow"> <span data-i18n="show_eyebrow">سلاحك السري للإغلاق</span></span>
+      <h2 id="h-demo" data-i18n="show_title">اجعل العميل يرى موقعه الجديد قبل أن تبدأ الحديث معه!</h2>
+      <p class="lead" data-i18n="show_lead">الفرق الجوهري بين رسالة تسويقية مزعجة ومحادثة مبيعات ناجحة هو "الإثبات الملموس". تبني الأداة صفحة حقيقية باسم العميل وتقييماته وصوره، فيرى النتيجة فوراً.</p>
+      <ul class="ticks">
+        <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="show_t1">تصاميم جاهزة لمختلف الأنشطة: منيو للمطاعم، كاتالوج للأزياء، حجز للعيادات والخدمات.</span></li>
+        <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="show_t2">صفحة تفاعلية سريعة تفتح على موبايل العميل بسلاسة مع زر تواصل مباشر معه.</span></li>
+        <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="show_t3">إمكانية النشر بضغطة زر على استضافة مجانية سريعة دون أي تكلفة إضافية.</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="browser" role="img" aria-label="معاينة تفاعلية لصفحة ديمو تُبنى تلقائياً">
+        <div class="url-bar">
+          <div class="mock-dots">
+            <span class="mock-dot r"></span>
+            <span class="mock-dot y"></span>
+            <span class="mock-dot g"></span>
+          </div>
+          <div class="url">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            https://demo-preview.site/c-3f9a1c0b7e42/
+          </div>
+        </div>
+        <div class="d-hero">
+          <span class="d-hero-badge" data-i18n="show_demo_badge">⭐ تقييم 4.8 على خرائط جوجل</span>
+          <b data-i18n="show_demo_name">كافيه ومطعم السعادة</b>
+          <small data-i18n="show_demo_sub">أشهى المأكولات والمشروبات، وطلبك يصلك طازجاً لباب منزلك</small>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-chat"/></svg> <span data-i18n="show_demo_btn">اطلب الآن عبر واتساب</span></span>
+        </div>
+        <div class="d-grid">
+          <div class="d-card"><div class="d-card-img">☕</div><span data-i18n="show_card_1">المشروبات الساخنة والباردة</span></div>
+          <div class="d-card"><div class="d-card-img">🍔</div><span data-i18n="show_card_2">الوجبات والبرجر المميز</span></div>
+          <div class="d-card"><div class="d-card-img">🍰</div><span data-i18n="show_card_3">الحلويات الشرقية والغربية</span></div>
+        </div>
+      </div>
+      <p class="caption" data-i18n="show_caption">نموذج حي لتصميم الديمو الذي يراه عميلك في الرسالة.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SAFE USE ================= -->
+<section id="safe" aria-labelledby="h-safe">
+  <div class="wrap resp">
+    <div>
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-shield"/></svg> <span data-i18n="safe_eyebrow">الأمان أولاً</span></span>
+      <h2 id="h-safe" data-i18n="safe_title">مصمَّمة للتواصل الذكي المحترم، وليس للسبام العشوائي</h2>
+      <p class="lead" data-i18n="safe_lead">إرسال مئات الرسائل العشوائية هو أسرع طريق لحظر رقمك وتشويه سمعتك. لذلك صممنا الأداة بقواعد سلوك بشري تحافظ على أمان حسابك في أي دولة بالعالم.</p>
+      <div class="warn">
+        <b data-i18n="safe_warn_title">تنبيه هام ومسؤولية مشتركة:</b>
+        <span data-i18n="safe_warn_text">لا توجد أي أداة في العالم تضمن عدم تقييد الحساب لأن القرار النهائي خوارزمي لدى واتساب. نوصي دائماً بالبدء بحدود صغيرة (15-25 رسالة يومياً) ومخصصة بعناية. الإرسال اليدوي أو شبه التلقائي هو الخيار الأكثر أماناً واستدامة.</span>
+      </div>
+    </div>
+    <div class="rules">
+      <div class="rule">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-gauge"/></svg></div>
+        <div>
+          <h3 data-i18n="rule_1_title">حد يومي صارم وقابل للضبط</h3>
+          <p data-i18n="rule_1_desc">تحدد الحد الأقصى من الرسائل يومياً وفق أقدمية رقمك، وتتوقف الأداة ذاتياً فور الوصول إليه دون تجاوز.</p>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></div>
+        <div>
+          <h3 data-i18n="rule_2_title">فواصل زمنية عشوائية ذكية</h3>
+          <p data-i18n="rule_2_desc">تأخير عشوائي ذكي (مثل 40 إلى 120 ثانية) بين كل رسالة والتي تليها لمحاكاة الإرسال البشري الطبيعي.</p>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-text"/></svg></div>
+        <div>
+          <h3 data-i18n="rule_3_title">خيار إلغاء المراسلة الفوري</h3>
+          <p data-i18n="rule_3_desc">كل رسالة افتتاحية تتضمن عبارة مهذبة تتيح للنشاط طلب عدم التواصل مجدداً بكلمة واحدة احتراماً لخصوصيته.</p>
+        </div>
+      </div>
+
+      <div class="rule">
+        <div class="ico"><svg class="i" aria-hidden="true"><use href="#i-ban"/></svg></div>
+        <div>
+          <h3 data-i18n="rule_4_title">قائمة حظر واستبعاد دائمة</h3>
+          <p data-i18n="rule_4_desc">أي رقم يطلب التوقف يُدرج فوراً في قائمة الحظر المحلية، ويُستبعد نهائياً من أي بحث مستقبلي أو طابور إرسال.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRICING ================= -->
+<section class="dark" id="pricing" aria-labelledby="h-price">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-key"/></svg> <span data-i18n="price_eyebrow">باقات الاشتراك</span></span>
+      <h2 id="h-price" data-i18n="price_title">باقات الاشتراك – NextGen Sales Agent</h2>
+      <p class="lead" data-i18n="price_lead">اختر الباقة المناسبة لاحتياجاتك وابدأ في بناء خط إنتاج عملاء مؤهلين في 150 دولة مع تحديثات ودعم مستمر.</p>
+    </div>
+    <div class="plans">
+      <!-- Monthly Plan -->
+      <article class="plan" style="color:var(--ink)">
+        <h3 data-i18n="plan_m_title">Monthly Plan</h3>
+        <div class="dur" data-i18n="plan_m_dur">مثالية للفريلانسرز والمبتدئين في مجال تطوير المواقع.</div>
+        <div class="price"><span data-i18n="plan_m_price">$30</span> <small data-i18n="per_month">/ month</small></div>
+        <div class="plan-quota"><svg class="i" style="width:15px;height:15px" aria-hidden="true"><use href="#i-gauge"/></svg> <span data-i18n="plan_m_quota">100 عميل مؤهل يوميًا</span></div>
+        <ul>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f1">البحث في خرائط جوجل ومصادر السوشيال ميديا المدعومة.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f2">تغطية الدول العربية الـ22.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f3">استخراج بيانات الأنشطة وأرقام التواصل المتاحة.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f4">تقييم العملاء المحتملين من 0 إلى 100.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f5">توليد رسائل مخصصة بالذكاء الاصطناعي.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f6">دعم اللهجات الست.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f7">إنشاء ديمو مخصص باسم النشاط.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f8">إدارة العملاء وقائمة المتابعة.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f9">ترخيص لجهاز واحد.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_m_f10">تحديثات ودعم طوال الاشتراك.</span></li>
+        </ul>
+        <a class="btn line block" href="#" data-wa="أريد الاشتراك في الباقة الشهرية Monthly Plan ($30) في أداة NextGen Sales Agent"><span data-i18n="plan_m_btn">اشترك في الباقة الشهرية ($30)</span></a>
+      </article>
+
+      <!-- Yearly Plan (Best Value) -->
+      <article class="plan hl" style="color:var(--ink)">
+        <span class="plan-badge" data-i18n="plan_y_badge">⭐ Best Value</span>
+        <h3 data-i18n="plan_y_title">Yearly Plan</h3>
+        <div class="dur" data-i18n="plan_y_dur">للفريلانسرز المحترفين وشركات تطوير المواقع.</div>
+        <div class="price"><span data-i18n="plan_y_price">$300</span> <small data-i18n="per_year">/ year</small></div>
+        <div class="plan-quota"><svg class="i" style="width:15px;height:15px" aria-hidden="true"><use href="#i-gauge"/></svg> <span data-i18n="plan_y_quota">250 عميل مؤهل يوميًا</span></div>
+        <ul>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_y_f1">جميع مميزات الباقة الشهرية.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_y_f2">حد بحث يومي أكبر.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_y_f3">تحكم في توزيع البحث بين المصادر.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_y_f4">أولوية في التحديثات الجديدة.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_y_f5">دعم فني بأولوية أعلى.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_y_f6">ترخيص لجهاز واحد.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_y_f7">سجل متقدم للبحث والعملاء والمتابعات.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_y_f8">توفير $60 مقارنة بالدفع الشهري.</span></li>
+        </ul>
+        <a class="btn wa block" href="#" data-wa="أريد الاشتراك في الباقة السنوية Yearly Plan ($300) في أداة NextGen Sales Agent"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span data-i18n="plan_y_btn">اشترك في الباقة السنوية ($300)</span></a>
+      </article>
+
+      <!-- Lifetime Plan -->
+      <article class="plan" style="color:var(--ink)">
+        <span class="plan-badge" style="background:linear-gradient(135deg,#b45309,#d97706)" data-i18n="plan_l_badge">👑 استثمار دائم</span>
+        <h3 data-i18n="plan_l_title">Lifetime Plan</h3>
+        <div class="dur" data-i18n="plan_l_dur">للمحترفين والشركات اللي عاوزة استثمار طويل المدى.</div>
+        <div class="price"><span data-i18n="plan_l_price">$700</span> <small data-i18n="per_once">/ one-time</small></div>
+        <div class="plan-quota"><svg class="i" style="width:15px;height:15px" aria-hidden="true"><use href="#i-gauge"/></svg> <span data-i18n="plan_l_quota">500 عميل مؤهل يوميًا</span></div>
+        <ul>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_l_f1">جميع مميزات الباقة السنوية.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_l_f2">ترخيص دائم لجهاز واحد.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_l_f3">أعلى حد يومي للبحث.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_l_f4">أولوية الدعم الفني.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_l_f5">تحديثات مستمرة وفق سياسة الترخيص.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_l_f6">بدون تجديد شهري أو سنوي.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="plan_l_f7">إمكانية طلب توسيع الاستخدام للشركات.</span></li>
+        </ul>
+        <a class="btn line block" href="#" data-wa="أريد الاشتراك في باقة مدى الحياة Lifetime Plan ($700) في أداة NextGen Sales Agent"><span data-i18n="plan_l_btn">احصل على باقة مدى الحياة ($700)</span></a>
+      </article>
+    </div>
+
+    <!-- Daily Quota Notice -->
+    <div style="margin-top:28px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px 22px;max-width:820px;margin-inline:auto;text-align:center">
+      <span style="color:#6ee7b7;font-size:15px;line-height:1.7;display:block" data-i18n="quota_notice">🛡️ نظام الحصص والحدود اليومية: جميع الباقات تخضع لنظام الحصص اليومية الذكية القابلة للضبط والتخصيص من الإدارة لحماية أرقامك من حظر واتساب وضمان أعلى جودة للبيانات. يمكنك طلب تعديل أو توسيع الحد اليومي في أي وقت.</span>
+    </div>
+
+    <!-- Activation Steps -->
+    <div class="sec-head" style="margin-top:clamp(60px,8vw,96px);margin-bottom:32px">
+      <span class="eyebrow" data-i18n="act_eyebrow">خطوات التفعيل السريعة</span>
+      <h2 style="font-size:clamp(1.6rem,2.8vw,2.2rem)" data-i18n="act_title">كيف تبدأ العمل في 3 خطوات بسيطة؟</h2>
+    </div>
+    <div class="act">
+      <div>
+        <b>1</b>
+        <h3 data-i18n="act_s1_title">اطلب نسختك عبر واتساب</h3>
+        <p data-i18n="act_s1_desc">راسلنا مباشرة واختر الباقة التي تناسبك، وستصلك روابط تحميل الأداة الفورية مع دليل الإعداد.</p>
+      </div>
+      <div>
+        <b>2</b>
+        <h3 data-i18n="act_s2_title">أرسل بصمة جهازك</h3>
+        <p data-i18n="act_s2_desc">عند تشغيل الأداة لأول مرة على كمبيوترك ستظهر لك بصمة الجهاز (Hardware ID)، انسخها وأرسلها لنا لتوليد رخصتك.</p>
+      </div>
+      <div>
+        <b>3</b>
+        <h3 data-i18n="act_s3_title">استلم مفتاحك وابدأ الصيد!</h3>
+        <p data-i18n="act_s3_desc">نرسل لك مفتاح التفعيل الرقمي المخصص لجهازك، تلصقه في الشاشة لتفتح معك الأداة بالكامل فوراً في 150 دولة.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" aria-labelledby="h-faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-chat"/></svg> <span data-i18n="faq_eyebrow">شفافية كاملة</span></span>
+      <h2 id="h-faq" data-i18n="faq_title">الأسئلة الشائعة وإجابات كل ما يدور في ذهنك</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary data-i18n="faq_q1">هل تعمل الأداة على جهازي أم سحابياً على خوادم؟</summary>
+        <p data-i18n="faq_a1">الأداة مصممة لتعمل محلياً بالكامل على جهاز الكمبيوتر الخاص بك (Windows)، وتفتح واجهتها عبر المتصفح المحلي. بيانات العملاء تُخزن في قاعدة بيانات مشفرة على جهازك فقط ولا يتم رفع أي سجلات لخوادمنا، لضمان خصوصيتك وأمان بياناتك بنسبة 100%.</p>
+      </details>
+
+      <details>
+        <summary data-i18n="faq_q2">ما هي الدول المدعومة رسمياً في الأداة؟</summary>
+        <p data-i18n="faq_a2">تدعم الأداة رسمياً 150 دولة حول العالم موزعة كالتالي: كافة الدول العربية الـ 22، 21 دولة أوروبية كبرى (بريطانيا، ألمانيا، فرنسا، إيطاليا، إسبانيا، هولندا، السويد، تركيا وغيرها)، و107 دولة عالمية (أمريكا، كندا، أستراليا، البرازيل، اليابان، الهند، سنغافورة وغيرها). يمكنك البحث عن أي دولة في قسم المستكشف أعلاه للتحقق من دعمها الفوري.</p>
+      </details>
+
+      <details>
+        <summary data-i18n="faq_q3">هل تدعم الأداة التواصل باللغة الإنجليزية للعملاء الأجانب؟</summary>
+        <p data-i18n="faq_a3">نعم تماماً! تدعم الأداة واجهة كاملة باللغتين العربية والإنجليزية، وتتضمن نماذج ذكاء اصطناعي (Gemini & Ollama) تفهم لغة العميل وتولد رسائل تسويقية احترافية باللغة الإنجليزية التامة لـ 10 تخصصات تجارية عالمية، بالإضافة لأكثر من 6 لهجات عربية محلية.</p>
+      </details>
+
+      <details>
+        <summary data-i18n="faq_q4">ما هو نظام الحد اليومي للاستخراج وكيف يحميني من الحظر؟</summary>
+        <p data-i18n="faq_a4">خوارزميات واتساب تترصد الحسابات التي تقوم بإرسال أو استخراج كميات ضخمة بشكل فجائي. يحدد نظام الحصص اليومية سقفاً آمناً للبحث والاستخراج اليومي (مثال: 100 إلى 250 عميلاً يومياً) لمنع السلوك العشوائي. هذا الحد يضبطه الأدمن ويمكنك طلب توسيعه وفق أقدمية رقمك واحتياجاتك.</p>
+      </details>
+
+      <details>
+        <summary data-i18n="faq_q5">كيف يحميني تنويع الرسائل (Spintax) من حظر الواتساب؟</summary>
+        <p data-i18n="faq_a5">تعتمد الأداة على نظام Spintax لتوليد رسائل متغيرة؛ حيث تحتوي كل رسالة على تحيات مختلفة، صياغات متباينة لعرض الخدمة، ودعوات تواصل ذكية بأكثر من 6 لهجات عربية وباللغة الإنجليزية، بحيث تخرج كل رسالة بصياغة فريدة 100% ولا تتشابه أي رسالتين متتاليتين، وهو ما يمنع رصد الرسائل كـ Spam من قبل خوارزميات واتساب.</p>
+      </details>
+
+      <details>
+        <summary data-i18n="faq_q6">من أين تأتي بيانات وأرقام الأنشطة التجارية؟</summary>
+        <p data-i18n="faq_a6">تعتمد الأداة على مصادر عامة ومفتوحة مثل خرائط جوجل، OpenStreetMap، والصفحات العامة للأنشطة على إنستجرام وفيسبوك وتيك توك ولينكتري. تقوم الخوارزميات بفلترة البيانات واستخراج أرقام الموبايل الفعالة بدقة متناهية وتخطي الأرقام الأرضية وغير الصالحة.</p>
+      </details>
+
+      <details>
+        <summary data-i18n="faq_q7">ماذا يحدث إذا تم حظر جهازي أو نقلت الأداة لكمبيوتر آخر؟</summary>
+        <p data-i18n="faq_a7">يرتبط الترخيص ببصمة عتاد الجهاز (HWID) لضمان الأمان. إذا قمت بتغيير جهازك أو ترقيته، كل ما عليك هو التواصل معنا عبر واتساب وسنقوم بنقل الترخيص وتوليد مفتاح جديد لجهازك الجديد بكل سلاسة وأمان.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="dark final" aria-labelledby="h-final">
+  <div class="wrap">
+    <span class="eyebrow" data-i18n="final_eyebrow">جاهز لمضاعفة مبيعاتك؟</span>
+    <h2 id="h-final" data-i18n="final_title">ابدأ بأول مدينة ونشاط، وانظر كيف تنهال عليك الفرص المؤهلة</h2>
+    <p class="lead" data-i18n="final_lead">تواصل معنا الآن عبر واتساب، وسنرد عليك فوراً بكل تفاصيل الاشتراك وخطوات التفعيل خلال دقائق معدودة.</p>
+    <div class="cta-row">
+      <a class="btn wa" href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent والبدء الآن"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span data-i18n="final_cta_wa">تواصل عبر واتساب الآن</span></a>
+      <a class="btn line" href="#pricing"><span data-i18n="final_cta_price">مراجعة باقات الاشتراك</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap foot">
+    <span data-i18n="foot_disclaimer">الأداة مصممة للتواصل التسويقي الاحترافي والمشروع، والتزامك بسياسات المنصات هو مسؤوليتك.</span>
+    <a href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent" data-i18n="foot_support">تواصل مع الدعم الفني</a>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp Quick Button -->
+<a class="wa-floating-btn" href="#" data-wa="السلام عليكم، أريد الاستفسار عن تفاصيل أداة NextGen Sales Agent" aria-label="تواصل فوري عبر واتساب">
+  <svg class="wa-floating-icon" aria-hidden="true"><use href="#i-chat"/></svg>
+  <span data-i18n="wa_float">تحدث معنا عبر واتساب</span>
+</a>
+
+<!-- Embedded Countries Data -->
+<script>
+const ALL_COUNTRIES_DATA = [{"name_ar": "مصر", "name_en": "Egypt", "flag": "🇪🇬", "code": "20", "region": "arab"}, {"name_ar": "السعودية", "name_en": "Saudi Arabia", "flag": "🇸🇦", "code": "966", "region": "arab"}, {"name_ar": "الإمارات", "name_en": "United Arab Emirates", "flag": "🇦🇪", "code": "971", "region": "arab"}, {"name_ar": "الكويت", "name_en": "Kuwait", "flag": "🇰🇼", "code": "965", "region": "arab"}, {"name_ar": "قطر", "name_en": "Qatar", "flag": "🇶🇦", "code": "974", "region": "arab"}, {"name_ar": "البحرين", "name_en": "Bahrain", "flag": "🇧🇭", "code": "973", "region": "arab"}, {"name_ar": "عمان", "name_en": "Oman", "flag": "🇴🇲", "code": "968", "region": "arab"}, {"name_ar": "الأردن", "name_en": "Jordan", "flag": "🇯🇴", "code": "962", "region": "arab"}, {"name_ar": "العراق", "name_en": "Iraq", "flag": "🇮🇶", "code": "964", "region": "arab"}, {"name_ar": "لبنان", "name_en": "Lebanon", "flag": "🇱🇧", "code": "961", "region": "arab"}, {"name_ar": "المغرب", "name_en": "Morocco", "flag": "🇲🇦", "code": "212", "region": "arab"}, {"name_ar": "الجزائر", "name_en": "Algeria", "flag": "🇩🇿", "code": "213", "region": "arab"}, {"name_ar": "تونس", "name_en": "Tunisia", "flag": "🇹🇳", "code": "216", "region": "arab"}, {"name_ar": "ليبيا", "name_en": "Libya", "flag": "🇱🇾", "code": "218", "region": "arab"}, {"name_ar": "السودان", "name_en": "Sudan", "flag": "🇸🇩", "code": "249", "region": "arab"}, {"name_ar": "اليمن", "name_en": "Yemen", "flag": "🇾🇪", "code": "967", "region": "arab"}, {"name_ar": "فلسطين", "name_en": "Palestine", "flag": "🇵🇸", "code": "970", "region": "arab"}, {"name_ar": "سوريا", "name_en": "Syria", "flag": "🇸🇾", "code": "963", "region": "arab"}, {"name_ar": "موريتانيا", "name_en": "Mauritania", "flag": "🇲🇷", "code": "222", "region": "arab"}, {"name_ar": "الصومال", "name_en": "Somalia", "flag": "🇸🇴", "code": "252", "region": "arab"}, {"name_ar": "جيبوتي", "name_en": "Djibouti", "flag": "🇩🇯", "code": "253", "region": "arab"}, {"name_ar": "جزر القمر", "name_en": "Comoros", "flag": "🇰🇲", "code": "269", "region": "arab"}, {"name_ar": "المملكة المتحدة (بريطانيا)", "name_en": "United Kingdom", "flag": "🇬🇧", "code": "44", "region": "europe"}, {"name_ar": "ألمانيا", "name_en": "Germany", "flag": "🇩🇪", "code": "49", "region": "europe"}, {"name_ar": "فرنسا", "name_en": "France", "flag": "🇫🇷", "code": "33", "region": "europe"}, {"name_ar": "إيطاليا", "name_en": "Italy", "flag": "🇮🇹", "code": "39", "region": "europe"}, {"name_ar": "إسبانيا", "name_en": "Spain", "flag": "🇪🇸", "code": "34", "region": "europe"}, {"name_ar": "هولندا", "name_en": "Netherlands", "flag": "🇳🇱", "code": "31", "region": "europe"}, {"name_ar": "بلجيكا", "name_en": "Belgium", "flag": "🇧🇪", "code": "32", "region": "europe"}, {"name_ar": "سويسرا", "name_en": "Switzerland", "flag": "🇨🇭", "code": "41", "region": "europe"}, {"name_ar": "السويد", "name_en": "Sweden", "flag": "🇸🇪", "code": "46", "region": "europe"}, {"name_ar": "النرويج", "name_en": "Norway", "flag": "🇳🇴", "code": "47", "region": "europe"}, {"name_ar": "الدنمارك", "name_en": "Denmark", "flag": "🇩🇰", "code": "45", "region": "europe"}, {"name_ar": "فنلندا", "name_en": "Finland", "flag": "🇫🇮", "code": "358", "region": "europe"}, {"name_ar": "بولندا", "name_en": "Poland", "flag": "🇵🇱", "code": "48", "region": "europe"}, {"name_ar": "النمسا", "name_en": "Austria", "flag": "🇦🇹", "code": "43", "region": "europe"}, {"name_ar": "أيرلندا", "name_en": "Ireland", "flag": "🇮🇪", "code": "353", "region": "europe"}, {"name_ar": "البرتغال", "name_en": "Portugal", "flag": "🇵🇹", "code": "351", "region": "europe"}, {"name_ar": "اليونان", "name_en": "Greece", "flag": "🇬🇷", "code": "30", "region": "europe"}, {"name_ar": "تركيا", "name_en": "Turkey", "flag": "🇹🇷", "code": "90", "region": "europe"}, {"name_ar": "التشيك", "name_en": "Czech Republic", "flag": "🇨🇿", "code": "420", "region": "europe"}, {"name_ar": "رومانيا", "name_en": "Romania", "flag": "🇷🇴", "code": "40", "region": "europe"}, {"name_ar": "المجر", "name_en": "Hungary", "flag": "🇭🇺", "code": "36", "region": "europe"}, {"name_ar": "الولايات المتحدة الأمريكية", "name_en": "United States", "flag": "🇺🇸", "code": "1", "region": "global"}, {"name_ar": "كندا", "name_en": "Canada", "flag": "🇨🇦", "code": "1", "region": "global"}, {"name_ar": "المكسيك", "name_en": "Mexico", "flag": "🇲🇽", "code": "52", "region": "global"}, {"name_ar": "البرازيل", "name_en": "Brazil", "flag": "🇧🇷", "code": "55", "region": "global"}, {"name_ar": "الأرجنتين", "name_en": "Argentina", "flag": "🇦🇷", "code": "54", "region": "global"}, {"name_ar": "كولومبيا", "name_en": "Colombia", "flag": "🇨🇴", "code": "57", "region": "global"}, {"name_ar": "تشيلي", "name_en": "Chile", "flag": "🇨🇱", "code": "56", "region": "global"}, {"name_ar": "بيرو", "name_en": "Peru", "flag": "🇵🇪", "code": "51", "region": "global"}, {"name_ar": "الإكوادور", "name_en": "Ecuador", "flag": "🇪🇨", "code": "593", "region": "global"}, {"name_ar": "فنزويلا", "name_en": "Venezuela", "flag": "🇻🇪", "code": "58", "region": "global"}, {"name_ar": "بوليفيا", "name_en": "Bolivia", "flag": "🇧🇴", "code": "591", "region": "global"}, {"name_ar": "باراغواي", "name_en": "Paraguay", "flag": "🇵🇾", "code": "595", "region": "global"}, {"name_ar": "أوروغواي", "name_en": "Uruguay", "flag": "🇺🇾", "code": "598", "region": "global"}, {"name_ar": "كوستاريكا", "name_en": "Costa Rica", "flag": "🇨🇷", "code": "506", "region": "global"}, {"name_ar": "بنما", "name_en": "Panama", "flag": "🇵🇦", "code": "507", "region": "global"}, {"name_ar": "غواتيمالا", "name_en": "Guatemala", "flag": "🇬🇹", "code": "502", "region": "global"}, {"name_ar": "هندوراس", "name_en": "Honduras", "flag": "🇭🇳", "code": "504", "region": "global"}, {"name_ar": "السلفادور", "name_en": "El Salvador", "flag": "🇸🇻", "code": "503", "region": "global"}, {"name_ar": "نيكاراغوا", "name_en": "Nicaragua", "flag": "🇳🇮", "code": "505", "region": "global"}, {"name_ar": "جمهورية الدومينيكان", "name_en": "Dominican Republic", "flag": "🇩🇴", "code": "1809", "region": "global"}, {"name_ar": "جامايكا", "name_en": "Jamaica", "flag": "🇯🇲", "code": "1876", "region": "global"}, {"name_ar": "ترينيداد وتوباغو", "name_en": "Trinidad and Tobago", "flag": "🇹🇹", "code": "1868", "region": "global"}, {"name_ar": "البهاما", "name_en": "Bahamas", "flag": "🇧🇸", "code": "1242", "region": "global"}, {"name_ar": "باربادوس", "name_en": "Barbados", "flag": "🇧🇧", "code": "1246", "region": "global"}, {"name_ar": "الهند", "name_en": "India", "flag": "🇮🇳", "code": "91", "region": "global"}, {"name_ar": "باكستان", "name_en": "Pakistan", "flag": "🇵🇰", "code": "92", "region": "global"}, {"name_ar": "بنغلاديش", "name_en": "Bangladesh", "flag": "🇧🇩", "code": "880", "region": "global"}, {"name_ar": "الصين", "name_en": "China", "flag": "🇨🇳", "code": "86", "region": "global"}, {"name_ar": "اليابان", "name_en": "Japan", "flag": "🇯🇵", "code": "81", "region": "global"}, {"name_ar": "كوريا الجنوبية", "name_en": "South Korea", "flag": "🇰🇷", "code": "82", "region": "global"}, {"name_ar": "إندونيسيا", "name_en": "Indonesia", "flag": "🇮🇩", "code": "62", "region": "global"}, {"name_ar": "ماليزيا", "name_en": "Malaysia", "flag": "🇲🇾", "code": "60", "region": "global"}, {"name_ar": "سنغافورة", "name_en": "Singapore", "flag": "🇸🇬", "code": "65", "region": "global"}, {"name_ar": "الفلبين", "name_en": "Philippines", "flag": "🇵🇭", "code": "63", "region": "global"}, {"name_ar": "فيتنام", "name_en": "Vietnam", "flag": "🇻🇳", "code": "84", "region": "global"}, {"name_ar": "تايلاند", "name_en": "Thailand", "flag": "🇹🇭", "code": "66", "region": "global"}, {"name_ar": "هونغ كونغ", "name_en": "Hong Kong", "flag": "🇭🇰", "code": "852", "region": "global"}, {"name_ar": "تايوان", "name_en": "Taiwan", "flag": "🇹🇼", "code": "886", "region": "global"}, {"name_ar": "أستراليا", "name_en": "Australia", "flag": "🇦🇺", "code": "61", "region": "global"}, {"name_ar": "نيوزيلندا", "name_en": "New Zealand", "flag": "🇳🇿", "code": "64", "region": "global"}, {"name_ar": "سريلانكا", "name_en": "Sri Lanka", "flag": "🇱🇰", "code": "94", "region": "global"}, {"name_ar": "نيبال", "name_en": "Nepal", "flag": "🇳🇵", "code": "977", "region": "global"}, {"name_ar": "ميانمار", "name_en": "Myanmar", "flag": "🇲🇲", "code": "95", "region": "global"}, {"name_ar": "كمبوديا", "name_en": "Cambodia", "flag": "🇰🇭", "code": "855", "region": "global"}, {"name_ar": "لاوس", "name_en": "Laos", "flag": "🇱🇦", "code": "856", "region": "global"}, {"name_ar": "بروناي", "name_en": "Brunei", "flag": "🇧🇳", "code": "673", "region": "global"}, {"name_ar": "منغوليا", "name_en": "Mongolia", "flag": "🇲🇳", "code": "976", "region": "global"}, {"name_ar": "المالديف", "name_en": "Maldives", "flag": "🇲🇻", "code": "960", "region": "global"}, {"name_ar": "فيجي", "name_en": "Fiji", "flag": "🇫🇯", "code": "679", "region": "global"}, {"name_ar": "بابوا غينيا الجديدة", "name_en": "Papua New Guinea", "flag": "🇵🇬", "code": "675", "region": "global"}, {"name_ar": "كازاخستان", "name_en": "Kazakhstan", "flag": "🇰🇿", "code": "7", "region": "global"}, {"name_ar": "أوزبكستان", "name_en": "Uzbekistan", "flag": "🇺🇿", "code": "998", "region": "global"}, {"name_ar": "أذربيجان", "name_en": "Azerbaijan", "flag": "🇦🇿", "code": "994", "region": "global"}, {"name_ar": "جورجيا", "name_en": "Georgia", "flag": "🇬🇪", "code": "995", "region": "global"}, {"name_ar": "أرمينيا", "name_en": "Armenia", "flag": "🇦🇲", "code": "374", "region": "global"}, {"name_ar": "قيرغيزستان", "name_en": "Kyrgyzstan", "flag": "🇰🇬", "code": "996", "region": "global"}, {"name_ar": "طاجيكستان", "name_en": "Tajikistan", "flag": "🇹🇯", "code": "992", "region": "global"}, {"name_ar": "تركمانستان", "name_en": "Turkmenistan", "flag": "🇹🇲", "code": "993", "region": "global"}, {"name_ar": "جنوب أفريقيا", "name_en": "South Africa", "flag": "🇿🇦", "code": "27", "region": "global"}, {"name_ar": "نيجيريا", "name_en": "Nigeria", "flag": "🇳🇬", "code": "234", "region": "global"}, {"name_ar": "كينيا", "name_en": "Kenya", "flag": "🇰🇪", "code": "254", "region": "global"}, {"name_ar": "غانا", "name_en": "Ghana", "flag": "🇬🇭", "code": "233", "region": "global"}, {"name_ar": "إثيوبيا", "name_en": "Ethiopia", "flag": "🇪🇹", "code": "251", "region": "global"}, {"name_ar": "تنزانيا", "name_en": "Tanzania", "flag": "🇹🇿", "code": "255", "region": "global"}, {"name_ar": "أوغندا", "name_en": "Uganda", "flag": "🇺🇬", "code": "256", "region": "global"}, {"name_ar": "السنغال", "name_en": "Senegal", "flag": "🇸🇳", "code": "221", "region": "global"}, {"name_ar": "ساحل العاج", "name_en": "Ivory Coast", "flag": "🇨🇮", "code": "225", "region": "global"}, {"name_ar": "الكاميرون", "name_en": "Cameroon", "flag": "🇨🇲", "code": "237", "region": "global"}, {"name_ar": "رواندا", "name_en": "Rwanda", "flag": "🇷🇼", "code": "250", "region": "global"}, {"name_ar": "زيمبابوي", "name_en": "Zimbabwe", "flag": "🇿🇼", "code": "263", "region": "global"}, {"name_ar": "زامبيا", "name_en": "Zambia", "flag": "🇿🇲", "code": "260", "region": "global"}, {"name_ar": "أنغولا", "name_en": "Angola", "flag": "🇦🇴", "code": "244", "region": "global"}, {"name_ar": "موزمبيق", "name_en": "Mozambique", "flag": "🇲🇿", "code": "258", "region": "global"}, {"name_ar": "مدغشقر", "name_en": "Madagascar", "flag": "🇲🇬", "code": "261", "region": "global"}, {"name_ar": "موريشيوس", "name_en": "Mauritius", "flag": "🇲🇺", "code": "230", "region": "global"}, {"name_ar": "ناميبيا", "name_en": "Namibia", "flag": "🇳🇦", "code": "264", "region": "global"}, {"name_ar": "بوتسوانا", "name_en": "Botswana", "flag": "🇧🇼", "code": "267", "region": "global"}, {"name_ar": "مالي", "name_en": "Mali", "flag": "🇲🇱", "code": "223", "region": "global"}, {"name_ar": "بوركينا فاسو", "name_en": "Burkina Faso", "flag": "🇧🇫", "code": "226", "region": "global"}, {"name_ar": "غينيا", "name_en": "Guinea", "flag": "🇬🇳", "code": "224", "region": "global"}, {"name_ar": "بنين", "name_en": "Benin", "flag": "🇧🇯", "code": "229", "region": "global"}, {"name_ar": "توغو", "name_en": "Togo", "flag": "🇹🇬", "code": "228", "region": "global"}, {"name_ar": "الغابون", "name_en": "Gabon", "flag": "🇬🇦", "code": "241", "region": "global"}, {"name_ar": "الكونغو الديمقراطية", "name_en": "DR Congo", "flag": "🇨🇩", "code": "243", "region": "global"}, {"name_ar": "جمهورية الكونغو", "name_en": "Congo", "flag": "🇨🇬", "code": "242", "region": "global"}, {"name_ar": "سيراليون", "name_en": "Sierra Leone", "flag": "🇸🇱", "code": "232", "region": "global"}, {"name_ar": "ليبيريا", "name_en": "Liberia", "flag": "🇱🇷", "code": "231", "region": "global"}, {"name_ar": "روسيا", "name_en": "Russia", "flag": "🇷🇺", "code": "7", "region": "global"}, {"name_ar": "أوكرانيا", "name_en": "Ukraine", "flag": "🇺🇦", "code": "380", "region": "global"}, {"name_ar": "قبرص", "name_en": "Cyprus", "flag": "🇨🇾", "code": "357", "region": "global"}, {"name_ar": "آيسلندا", "name_en": "Iceland", "flag": "🇮🇸", "code": "354", "region": "global"}, {"name_ar": "لوكسمبورغ", "name_en": "Luxembourg", "flag": "🇱🇺", "code": "352", "region": "global"}, {"name_ar": "مالطا", "name_en": "Malta", "flag": "🇲🇹", "code": "356", "region": "global"}, {"name_ar": "كرواتيا", "name_en": "Croatia", "flag": "🇭🇷", "code": "385", "region": "global"}, {"name_ar": "صربيا", "name_en": "Serbia", "flag": "🇷🇸", "code": "381", "region": "global"}, {"name_ar": "البوسنة والهرسك", "name_en": "Bosnia and Herzegovina", "flag": "🇧🇦", "code": "387", "region": "global"}, {"name_ar": "ألبانيا", "name_en": "Albania", "flag": "🇦🇱", "code": "355", "region": "global"}, {"name_ar": "مقدونيا الشمالية", "name_en": "North Macedonia", "flag": "🇲🇰", "code": "389", "region": "global"}, {"name_ar": "الجبل الأسود", "name_en": "Montenegro", "flag": "🇲🇪", "code": "382", "region": "global"}, {"name_ar": "سلوفينيا", "name_en": "Slovenia", "flag": "🇸🇮", "code": "386", "region": "global"}, {"name_ar": "سلوفاكيا", "name_en": "Slovakia", "flag": "🇸🇰", "code": "421", "region": "global"}, {"name_ar": "بلغاريا", "name_en": "Bulgaria", "flag": "🇧🇬", "code": "359", "region": "global"}, {"name_ar": "ليتوانيا", "name_en": "Lithuania", "flag": "🇱🇹", "code": "370", "region": "global"}, {"name_ar": "لاتفيا", "name_en": "Latvia", "flag": "🇱🇻", "code": "371", "region": "global"}, {"name_ar": "إستونيا", "name_en": "Estonia", "flag": "🇪🇪", "code": "372", "region": "global"}, {"name_ar": "بيلاروسيا", "name_en": "Belarus", "flag": "🇧🇾", "code": "375", "region": "global"}, {"name_ar": "مولدوفا", "name_en": "Moldova", "flag": "🇲🇩", "code": "373", "region": "global"}];
+
+/* ===== Settings ===== */
+const CONTACT_WA = '201020451206';
+const PRICES = { monthly:'', yearly:'', lifetime:'' };
+
+/* ===== Internationalization Dictionary ===== */
+const TRANSLATIONS = {
+  ar: {
+    page_title: "NextGen Sales Agent | صائد العملاء المؤهلين في 150 دولة",
+    skip_to_content: "تخطَّ إلى المحتوى",
+    nav_how: "كيف تعمل",
+    nav_features: "المميزات",
+    nav_countries: "الدول المدعومة",
+    nav_safe: "الاستخدام الآمن",
+    nav_pricing: "الاشتراك",
+    nav_faq: "الأسئلة الشائعة",
+    btn_order: "اطلب النسخة",
+    hero_eyebrow: "لشركات ومستقلي تطوير المواقع والمتاجر الإلكترونية",
+    hero_title: "اعثر على الأنشطة التي <em>تحتاج موقعاً</em>، وافتح معها محادثة واتساب جاهزة",
+    hero_lead: "تبحث الأداة في خرائط جوجل ومنصات السوشيال ميديا عبر 150 دولة حول العالم (22 عربية، 21 أوروبية، و107 عالمية)، وتستخرج أرقام الواتساب الموثقة، وتولّد رسائل ذكية باللغتين العربية والإنجليزية Spintax لمنع الحظر مع ديمو تفاعلي فوري باسم كل عميل.",
+    hero_cta_wa: "اطلب النسخة عبر واتساب",
+    hero_cta_explore: "استكشف الدول (150 دولة)",
+    hero_note_1: "150 دولة حول العالم (عربية وأوروبية وعالمية)",
+    hero_note_2: "ذكاء اصطناعي عربي وإنجليزي بـ 10 تخصصات",
+    hero_note_3: "رسائل Spintax ذكية ضد الحظر",
+    hero_note_4: "تعمل محلياً على جهازك بأمان وتشفير 100%",
+    mock_badge: "تم فحص 48 عميلاً مؤهلاً اليوم",
+    mock_search_pill: "مطاعم وكافيهات • 150 دولة • 48 نتيجة",
+    mock_status_pill: "● Gemini & Spintax متصل",
+    mock_stat_1: "الحد اليومي",
+    mock_stat_2: "أولوية عالية",
+    mock_stat_3: "بدون موقع",
+    mock_r1_title: "كافيه ومحمصة المثال الراقي",
+    mock_r1_tag: "بدون موقع • موبايل مؤكد",
+    mock_r2_title: "عيادة النور التخصصية لطب الأسنان",
+    mock_r2_tag: "بدون موقع • واتساب متاح",
+    mock_r3_title: "Modern Chic Fashion Store (London)",
+    mock_r3_tag: "Social Only • UK +44",
+    mock_r4_title: "Al-Saraya Gourmet Restaurant",
+    mock_r4_tag: "لديه موقع إلكتروني",
+    mock_bubble_title: "الرسالة الذكية المقترحة (AI Spintax)",
+    mock_bubble_tag: "دعم عربي / إنجليزي • رابط ديمو فوري",
+    mock_bubble_text: "السلام عليكم فريق كافيه ومحمصة المثال، شفت نشاطكم المميز على جوجل ماب. بنصمم منيو تفاعلي سريع بـ QR وصفحة طلبات واتساب أونلاين. صممنا لكم نموذجاً تجريبياً حياً باسمكم تقدروا تشوفوه وتجربوه بضغطة زر من هنا!",
+    mock_caption: "معاينة واقعية لشاشة البحث والتقييم وصياغة الرسائل التلقائية ثنائية اللغة.",
+    fact_1_title: "150 دولة مدعومة رسمياً",
+    fact_1_desc: "22 دولة عربية، 21 دولة أوروبية، و107 دولة عالمية بكود الاتصال وصيغة الموبايل",
+    fact_2_title: "ذكاء اصطناعي ثنائي اللغة",
+    fact_2_desc: "يدعم Gemini & Ollama بالعربية بلهجات متعددة وبالإنجليزية لجميع الأسواق العالمية",
+    fact_3_title: "بياناتك على جهازك 100%",
+    fact_3_desc: "تشفير محلي تام، SQLite محلية ولا نرفع أي سجلات لعملاء جهازك إلى خوادم خارجية",
+    fact_4_title: "نظام أمان وحصص صارم",
+    fact_4_desc: "حدود يومية وفواصل زمنية لمنع الحظر، مع حظر الأجهزة المخالفة وحماية رقمك",
+    cnt_eyebrow: "تغطية عالمية لا مثيل لها",
+    cnt_title: "مستكشف الدول المدعومة (150 دولة حول العالم)",
+    cnt_lead: "تتحقق الأداة من دقة أرقام الموبايل ومفاتيح الاتصال لكافة الدول العربية والأوروبية والعالمية. ابحث عن دولتك المستهدفة الآن وتأكد من جاهزيتها:",
+    cnt_search_ph: "ابحث بالاسم أو كود الاتصال (مثال: مصر، السعودية، France, +44, +966)...",
+    tab_all: "كافة الدول",
+    tab_arab: "الدول العربية",
+    tab_europe: "الدول الأوروبية",
+    tab_global: "الدول العالمية",
+    cnt_showing: "يتم عرض",
+    cnt_countries_supported: "دولة مدعومة ومفحوصة الأرقام",
+    cnt_verified_badge: "مفحوصة الأرقام",
+    cnt_no_results: "لم نجد دولة مطابقة لبحثك",
+    cnt_no_results_sub: "تواصل معنا عبر واتساب لإضافتها في التحديث القادم فوراً!",
+    prob_eyebrow: "المشكلة التي ننهيها تماماً",
+    prob_title: "البحث اليدوي عن عملاء يستهلك طاقتك ووقتك الثمين قبل أن يبدأ البيع",
+    prob_lead: "بناء وكالة أو عمل مستقل ناجح يتطلب قضاء وقتك في التفاوض والإغلاق والبرمجة، وليس في البحث اليدوي الشاق وتجميع الأرقام العشوائية.",
+    prob_p1_badge: "المعاناة الأولى",
+    prob_p1_title: "ساعات طويلة من التصفح اليدوي",
+    prob_p1_desc: "تنقّل ممل بين الخرائط والصفحات لنسخ الأسماء والأرقام، ثم اكتشاف أن نصف الأرقام خطوط أرضية، أو مغلقة، أو غير موجودة على واتساب.",
+    prob_p2_badge: "المعاناة الثانية",
+    prob_p2_title: "رسائل عامة وباردة بلا رد",
+    prob_p2_desc: "الرسائل المنسوخة (Copy-Paste) تبدو آلية ومزعجة. صاحب النشاط يتجاهلها لأنه لا يرى ما الذي ستقدمه له تحديداً وما قيمته المضافة.",
+    prob_p3_badge: "المعاناة الثالثة",
+    prob_p3_title: "فوضى وانعدام المتابعة المنظمة",
+    prob_p3_desc: "من راسلت أمس؟ ومن يستحق تذكيراً مهذباً اليوم؟ بدون سجل ذكي ومتابعات آلية، تضيع أهم الصفقات التي كانت على وشك الإغلاق.",
+    how_eyebrow: "آلية العمل",
+    how_title: "من اختيار الدولة والنشاط إلى أول محادثة بيعية في أربع خطوات",
+    how_lead: "بضع دقائق فقط تفصلك عن قائمة عملاء عالية الجودة ومجهزة بالكامل لبدء التواصل الفعال في أي دولة بالعالم.",
+    how_s1_title: "حدّد الدولة والنشاط",
+    how_s1_desc: "اختر من بين 150 دولة حول العالم ونوع النشاط بدقة: مطاعم، كافيهات، أزياء، عيادات، عقارات، سيارات، جيم وغيرها الكثير.",
+    how_s2_title: "اجمع وتحقق تلقائياً",
+    how_s2_desc: "تسحب الأداة الأنشطة من مصادر متعددة، وتتحقق فورياً من صيغ الموبايل المحلية، وتستبعد المكرر وتفحص وجود موقع إلكتروني.",
+    how_s3_title: "قيّم وجهّز الديمو والرسالة",
+    how_s3_desc: "تحليل ذكي يعطي درجة ملاءمة من 0 إلى 100، وتوليد صفحة ديمو مخصصة باسم النشاط وصياغة رسالة Spintax ذكية بالعربية أو الإنجليزية.",
+    how_s4_title: "تواصل بأمان وتابع الصفقات",
+    how_s4_desc: "طابور واتساب منظم بحد يومي وفواصل زمنية عشوائية لحماية حسابك، وجدول تسليم فوري ومتابعات منظمة.",
+    feat_eyebrow: "مزايا متكاملة",
+    feat_title: "كل ما تحتاجه لتحويل البحث العشوائي إلى عملاء حقيقيين في 150 دولة",
+    feat_lead: "مصممة خصيصاً لتمنحك التفوق والمصداقية في السوق المحلي والعالمي دون الحاجة لأدوات إضافية معقدة.",
+    f1_title: "150 دولة حول العالم",
+    f1_desc: "دعم كامل لـ 22 دولة عربية، 21 دولة أوروبية، و107 دول عالمية بكود الاتصال وصيغة الموبايل الدقيقة لكل بلد.",
+    f2_title: "ذكاء اصطناعي عربي وإنجليزي",
+    f2_desc: "دعم موديلات Gemini 1.5/2.0 وOllama لتوليد رسائل تسويقية احترافية بلهجات عربية متعددة وبالإنجليزية التامة للعملاء الدوليين.",
+    f3_title: "رسائل متغيرة Spintax ضد الحظر",
+    f3_desc: "كل عميل تصله رسالة مختلفة 100% لمنع رصد الرسائل كـ Spam، مع تنويع التحيات وعروض الخدمة وصيغ الدعوة.",
+    f4_title: "ديمو فوري باسم النشاط وصوره",
+    f4_desc: "إنشاء صفحة ويب تجريبية باسم العميل وبياناته الفعلية، يمكن نشرها بضغطة زر وإرسال رابطها لرفع نسبة الإغلاق فوراً.",
+    f5_title: "صائد السوشيال والبايو والشات المباشر",
+    f5_desc: "استخراج بايو بروفايلات إنستجرام وفيسبوك وتيك توك مع توليد روابط مراسلة مباشرة (واتساب، إنستجرام DM، ماسنجر) بنقرة واحدة.",
+    f6_title: "الطيار الآلي (Auto-Pilot) وجدولة الإرسال",
+    f6_desc: "وضع الطيار الآلي للبحث والإرسال التلقائي المبرمج في الخلفية، مع لوحة تتبع لحظية لجميع الرسائل وحالات التسليم.",
+    f7_title: "لوحة تحكم إدارية وحماية أجهزة",
+    f7_desc: "نظام إدارة ترخيص متطور مع القدرة على حظر أي جهاز غير مصرح به فوراً (HWID Ban) والتحكم بالحصص.",
+    f8_title: "حدود يومية وفواصل بشرية",
+    f8_desc: "نظام حصص ذكي يحدده الأدمن ويمنع التجاوز لحماية رقمك من الحظر، مع فواصل زمنية عشوائية تحاكي الإرسال البشري.",
+    show_eyebrow: "سلاحك السري للإغلاق",
+    show_title: "اجعل العميل يرى موقعه الجديد قبل أن تبدأ الحديث معه!",
+    show_lead: "الفرق الجوهري بين رسالة تسويقية مزعجة ومحادثة مبيعات ناجحة هو \"الإثبات الملموس\". تبني الأداة صفحة حقيقية باسم العميل وتقييماته وصوره، فيرى النتيجة فوراً.",
+    show_t1: "تصاميم جاهزة لمختلف الأنشطة: منيو للمطاعم، كاتالوج للأزياء، حجز للعيادات والخدمات.",
+    show_t2: "صفحة تفاعلية سريعة تفتح على موبايل العميل بسلاسة مع زر تواصل مباشر معه.",
+    show_t3: "إمكانية النشر بضغطة زر على استضافة مجانية سريعة دون أي تكلفة إضافية.",
+    show_demo_badge: "⭐ تقييم 4.8 على خرائط جوجل",
+    show_demo_name: "كافيه ومطعم السعادة",
+    show_demo_sub: "أشهى المأكولات والمشروبات، وطلبك يصلك طازجاً لباب منزلك",
+    show_demo_btn: "اطلب الآن عبر واتساب",
+    show_card_1: "المشروبات الساخنة والباردة",
+    show_card_2: "الوجبات والبرجر المميز",
+    show_card_3: "الحلويات الشرقية والغربية",
+    show_caption: "نموذج حي لتصميم الديمو الذي يراه عميلك في الرسالة.",
+    safe_eyebrow: "الأمان أولاً",
+    safe_title: "مصمَّمة للتواصل الذكي المحترم، وليس للسبام العشوائي",
+    safe_lead: "إرسال مئات الرسائل العشوائية هو أسرع طريق لحظر رقمك وتشويه سمعتك. لذلك صممنا الأداة بقواعد سلوك بشري تحافظ على أمان حسابك في أي دولة بالعالم.",
+    safe_warn_title: "تنبيه هام ومسؤولية مشتركة:",
+    safe_warn_text: "لا توجد أي أداة في العالم تضمن عدم تقييد الحساب لأن القرار النهائي خوارزمي لدى واتساب. نوصي دائماً بالبدء بحدود صغيرة (15-25 رسالة يومياً) ومخصصة بعناية. الإرسال اليدوي أو شبه التلقائي هو الخيار الأكثر أماناً واستدامة.",
+    rule_1_title: "حد يومي صارم وقابل للضبط",
+    rule_1_desc: "تحدد الحد الأقصى من الرسائل يومياً وفق أقدمية رقمك، وتتوقف الأداة ذاتياً فور الوصول إليه دون تجاوز.",
+    rule_2_title: "فواصل زمنية عشوائية ذكية",
+    rule_2_desc: "تأخير عشوائي ذكي (مثل 40 إلى 120 ثانية) بين كل رسالة والتي تليها لمحاكاة الإرسال البشري الطبيعي.",
+    rule_3_title: "خيار إلغاء المراسلة الفوري",
+    rule_3_desc: "كل رسالة افتتاحية تتضمن عبارة مهذبة تتيح للنشاط طلب عدم التواصل مجدداً بكلمة واحدة احتراماً لخصوصيته.",
+    rule_4_title: "قائمة حظر واستبعاد دائمة",
+    rule_4_desc: "أي رقم يطلب التوقف يُدرج فوراً في قائمة الحظر المحلية، ويُستبعد نهائياً من أي بحث مستقبلي أو طابور إرسال.",
+    price_eyebrow: "باقات الاشتراك",
+    price_title: "باقات الاشتراك – NextGen Sales Agent",
+    price_lead: "اختر الباقة المناسبة لاحتياجاتك وابدأ في بناء خط إنتاج عملاء مؤهلين في 150 دولة مع تحديثات ودعم مستمر.",
+    per_month: "/ month",
+    per_year: "/ year",
+    per_once: "/ one-time",
+    plan_m_title: "Monthly Plan",
+    plan_m_dur: "مثالية للفريلانسرز والمبتدئين في مجال تطوير المواقع.",
+    plan_m_price: "$30",
+    plan_m_quota: "100 عميل مؤهل يوميًا",
+    plan_m_f1: "البحث في خرائط جوجل ومصادر السوشيال ميديا المدعومة.",
+    plan_m_f2: "تغطية الدول العربية الـ22.",
+    plan_m_f3: "استخراج بيانات الأنشطة وأرقام التواصل المتاحة.",
+    plan_m_f4: "تقييم العملاء المحتملين من 0 إلى 100.",
+    plan_m_f5: "توليد رسائل مخصصة بالذكاء الاصطناعي.",
+    plan_m_f6: "دعم اللهجات الست.",
+    plan_m_f7: "إنشاء ديمو مخصص باسم النشاط.",
+    plan_m_f8: "إدارة العملاء وقائمة المتابعة.",
+    plan_m_f9: "ترخيص لجهاز واحد.",
+    plan_m_f10: "تحديثات ودعم طوال الاشتراك.",
+    plan_m_btn: "اشترك في الباقة الشهرية ($30)",
+    plan_y_badge: "⭐ Best Value",
+    plan_y_title: "Yearly Plan",
+    plan_y_dur: "للفريلانسرز المحترفين وشركات تطوير المواقع.",
+    plan_y_price: "$300",
+    plan_y_quota: "250 عميل مؤهل يوميًا",
+    plan_y_f1: "جميع مميزات الباقة الشهرية.",
+    plan_y_f2: "حد بحث يومي أكبر.",
+    plan_y_f3: "تحكم في توزيع البحث بين المصادر.",
+    plan_y_f4: "أولوية في التحديثات الجديدة.",
+    plan_y_f5: "دعم فني بأولوية أعلى.",
+    plan_y_f6: "ترخيص لجهاز واحد.",
+    plan_y_f7: "سجل متقدم للبحث والعملاء والمتابعات.",
+    plan_y_f8: "توفير $60 مقارنة بالدفع الشهري.",
+    plan_y_btn: "اشترك في الباقة السنوية ($300)",
+    plan_l_badge: "👑 استثمار دائم",
+    plan_l_title: "Lifetime Plan",
+    plan_l_dur: "للمحترفين والشركات اللي عاوزة استثمار طويل المدى.",
+    plan_l_price: "$700",
+    plan_l_quota: "500 عميل مؤهل يوميًا",
+    plan_l_f1: "جميع مميزات الباقة السنوية.",
+    plan_l_f2: "ترخيص دائم لجهاز واحد.",
+    plan_l_f3: "أعلى حد يومي للبحث.",
+    plan_l_f4: "أولوية الدعم الفني.",
+    plan_l_f5: "تحديثات مستمرة وفق سياسة الترخيص.",
+    plan_l_f6: "بدون تجديد شهري أو سنوي.",
+    plan_l_f7: "إمكانية طلب توسيع الاستخدام للشركات.",
+    plan_l_btn: "احصل على باقة مدى الحياة ($700)",
+    quota_notice: "🛡️ نظام الحصص والحدود اليومية: جميع الباقات تخضع لنظام الحصص اليومية الذكية القابلة للضبط والتخصيص من الإدارة لحماية أرقامك من حظر واتساب وضمان أعلى جودة للبيانات. يمكنك طلب تعديل أو توسيع الحد اليومي في أي وقت.",
+    act_eyebrow: "خطوات التفعيل السريعة",
+    act_title: "كيف تبدأ العمل في 3 خطوات بسيطة؟",
+    act_s1_title: "اطلب نسختك عبر واتساب",
+    act_s1_desc: "راسلنا مباشرة واختر الباقة التي تناسبك، وستصلك روابط تحميل الأداة الفورية مع دليل الإعداد.",
+    act_s2_title: "أرسل بصمة جهازك",
+    act_s2_desc: "عند تشغيل الأداة لأول مرة على كمبيوترك ستظهر لك بصمة الجهاز (Hardware ID)، انسخها وأرسلها لنا لتوليد رخصتك.",
+    act_s3_title: "استلم مفتاحك وابدأ الصيد!",
+    act_s3_desc: "نرسل لك مفتاح التفعيل الرقمي المخصص لجهازك، تلصقه في الشاشة لتفتح معك الأداة بالكامل فوراً في 150 دولة.",
+    faq_eyebrow: "شفافية كاملة",
+    faq_title: "الأسئلة الشائعة وإجابات كل ما يدور في ذهنك",
+    faq_q1: "هل تعمل الأداة على جهازي أم سحابياً على خوادم؟",
+    faq_a1: "الأداة مصممة لتعمل محلياً بالكامل على جهاز الكمبيوتر الخاص بك (Windows)، وتفتح واجهتها عبر المتصفح المحلي. بيانات العملاء تُخزن في قاعدة بيانات مشفرة على جهازك فقط ولا يتم رفع أي سجلات لخوادمنا، لضمان خصوصيتك وأمان بياناتك بنسبة 100%.",
+    faq_q2: "ما هي الدول المدعومة رسمياً في الأداة؟",
+    faq_a2: "تدعم الأداة رسمياً 150 دولة حول العالم موزعة كالتالي: كافة الدول العربية الـ 22، 21 دولة أوروبية كبرى (بريطانيا، ألمانيا، فرنسا، إيطاليا، إسبانيا، هولندا، السويد، تركيا وغيرها)، و107 دولة عالمية (أمريكا، كندا، أستراليا، البرازيل، اليابان، الهند، سنغافورة وغيرها). يمكنك البحث عن أي دولة في قسم المستكشف أعلاه للتحقق من دعمها الفوري.",
+    faq_q3: "هل تدعم الأداة التواصل باللغة الإنجليزية للعملاء الأجانب؟",
+    faq_a3: "نعم تماماً! تدعم الأداة واجهة كاملة باللغتين العربية والإنجليزية، وتتضمن نماذج ذكاء اصطناعي (Gemini & Ollama) تفهم لغة العميل وتولد رسائل تسويقية احترافية باللغة الإنجليزية التامة لـ 10 تخصصات تجارية عالمية، بالإضافة لأكثر من 6 لهجات عربية محلية.",
+    faq_q4: "ما هو نظام الحد اليومي للاستخراج وكيف يحميني من الحظر؟",
+    faq_a4: "خوارزميات واتساب تترصد الحسابات التي تقوم بإرسال أو استخراج كميات ضخمة بشكل فجائي. يحدد نظام الحصص اليومية سقفاً آمناً للبحث والاستخراج اليومي (مثال: 100 إلى 250 عميلاً يومياً) لمنع السلوك العشوائي. هذا الحد يضبطه الأدمن ويمكنك طلب توسيعه وفق أقدمية رقمك واحتياجاتك.",
+    faq_q5: "كيف يحميني تنويع الرسائل (Spintax) من حظر الواتساب؟",
+    faq_a5: "تعتمد الأداة على نظام Spintax لتوليد رسائل متغيرة؛ حيث تحتوي كل رسالة على تحيات مختلفة، صياغات متباينة لعرض الخدمة، ودعوات تواصل ذكية بأكثر من 6 لهجات عربية وباللغة الإنجليزية، بحيث تخرج كل رسالة بصياغة فريدة 100% ولا تتشابه أي رسالتين متتاليتين، وهو ما يمنع رصد الرسائل كـ Spam من قبل خوارزميات واتساب.",
+    faq_q6: "من أين تأتي بيانات وأرقام الأنشطة التجارية؟",
+    faq_a6: "تعتمد الأداة على مصادر عامة ومفتوحة مثل خرائط جوجل، OpenStreetMap، والصفحات العامة للأنشطة على إنستجرام وفيسبوك وتيك توك ولينكتري. تقوم الخوارزميات بفلترة البيانات واستخراج أرقام الموبايل الفعالة بدقة متناهية وتخطي الأرقام الأرضية وغير الصالحة.",
+    faq_q7: "ماذا يحدث إذا تم حظر جهازي أو نقلت الأداة لكمبيوتر آخر؟",
+    faq_a7: "يرتبط الترخيص ببصمة عتاد الجهاز (HWID) لضمان الأمان. إذا قمت بتغيير جهازك أو ترقيته، كل ما عليك هو التواصل معنا عبر واتساب وسنقوم بنقل الترخيص وتوليد مفتاح جديد لجهازك الجديد بكل سلاسة وأمان.",
+    final_eyebrow: "جاهز لمضاعفة مبيعاتك؟",
+    final_title: "ابدأ بأول مدينة ونشاط، وانظر كيف تنهال عليك الفرص المؤهلة",
+    final_lead: "تواصل معنا الآن عبر واتساب، وسنرد عليك فوراً بكل تفاصيل الاشتراك وخطوات التفعيل خلال دقائق معدودة.",
+    final_cta_wa: "تواصل عبر واتساب الآن",
+    final_cta_price: "مراجعة باقات الاشتراك",
+    foot_rights: "جميع الحقوق محفوظة.",
+    foot_disclaimer: "الأداة مصممة للتواصل التسويقي الاحترافي والمشروع، والتزامك بسياسات المنصات هو مسؤوليتك.",
+    foot_support: "تواصل مع الدعم الفني",
+    wa_float: "تحدث معنا عبر واتساب"
+  },
+  en: {
+    page_title: "NextGen Sales Agent | Qualified B2B Lead Hunter in 150 Countries",
+    skip_to_content: "Skip to content",
+    nav_how: "How It Works",
+    nav_features: "Features",
+    nav_countries: "Supported Countries",
+    nav_safe: "Safe Usage",
+    nav_pricing: "Pricing",
+    nav_faq: "FAQ",
+    btn_order: "Order License",
+    hero_eyebrow: "For Web Agencies & Freelance Developers",
+    hero_title: "Find businesses that <em>need a website</em>, and launch instant warm WhatsApp outreach",
+    hero_lead: "NextGen searches Google Maps and social media across 150 countries worldwide (22 Arab, 21 European, and 107 Global), validates verified mobile numbers, and crafts tailored Spintax WhatsApp messages in Arabic & English with an instant live demo site branded for each client.",
+    hero_cta_wa: "Request License via WhatsApp",
+    hero_cta_explore: "Explore 150 Countries",
+    hero_note_1: "150 Countries Worldwide (Arab, European & Global)",
+    hero_note_2: "Bilingual AI Copilot across 10 Commercial Niches",
+    hero_note_3: "Anti-Ban Smart Spintax Variation Engine",
+    hero_note_4: "Runs 100% Locally on Your PC with Zero Data Leaks",
+    mock_badge: "48 Qualified Leads Scanned Today",
+    mock_search_pill: "Restaurants & Cafes • 150 Countries • 48 Leads",
+    mock_status_pill: "● Gemini & Spintax Connected",
+    mock_stat_1: "Daily Quota",
+    mock_stat_2: "High Priority",
+    mock_stat_3: "No Website",
+    mock_r1_title: "El-Mesal Roastery & Specialty Cafe",
+    mock_r1_tag: "No Website • Mobile Verified",
+    mock_r2_title: "Al-Noor Dental & Orthodontic Clinic",
+    mock_r2_tag: "No Website • WhatsApp Ready",
+    mock_r3_title: "Modern Chic Fashion Store (London)",
+    mock_r3_tag: "Social Only • UK +44",
+    mock_r4_title: "Al-Saraya Gourmet Restaurant",
+    mock_r4_tag: "Has Existing Website",
+    mock_bubble_title: "Generated Smart Outreach (AI Spintax)",
+    mock_bubble_tag: "Bilingual EN/AR • Live Demo Included",
+    mock_bubble_text: "Hello team at El-Mesal Roastery! We noticed your high ratings on Google Maps. We specialize in building ultra-fast interactive QR digital menus and direct WhatsApp ordering pages. We generated an interactive live demo preview branded for you to test right now!",
+    mock_caption: "Realistic preview of the bilingual lead discovery, scoring, and automated outreach interface.",
+    fact_1_title: "150 Countries Officially Supported",
+    fact_1_desc: "22 Arab, 21 European, and 107 Global countries with exact mobile regex & dial codes",
+    fact_2_title: "Bilingual AI Copilot",
+    fact_2_desc: "Powered by Gemini & Ollama in Arabic (multiple dialects) and fluent English for international markets",
+    fact_3_title: "100% Local & Encrypted",
+    fact_3_desc: "Runs locally on your Windows machine with local SQLite. Zero client data is ever uploaded to external servers",
+    fact_4_title: "Strict Safety & Quota System",
+    fact_4_desc: "Configurable daily limits and human-like random delays to keep your WhatsApp number fully protected",
+    cnt_eyebrow: "Unmatched Global Reach",
+    cnt_title: "Supported Countries Explorer (150 Countries Worldwide)",
+    cnt_lead: "The engine validates local mobile formats and international dial codes across 150 countries. Search for your target market now:",
+    cnt_search_ph: "Search by country name or dial code (e.g., Egypt, Saudi, Germany, France, +44, +1)...",
+    tab_all: "All Countries",
+    tab_arab: "Arab Countries",
+    tab_europe: "European Countries",
+    tab_global: "Global Countries",
+    cnt_showing: "Showing",
+    cnt_countries_supported: "countries supported & verified",
+    cnt_verified_badge: "Mobile Regex Verified",
+    cnt_no_results: "No country matched your search query",
+    cnt_no_results_sub: "Message us on WhatsApp to add it in the next update right away!",
+    prob_eyebrow: "The Pain Point We Solve",
+    prob_title: "Manual prospecting burns your energy and hours before sales even start",
+    prob_lead: "Growing an agency or freelance business requires your focus on closing deals, high-value consulting, and development — not endless copying and pasting dead phone numbers.",
+    prob_p1_badge: "Friction #1",
+    prob_p1_title: "Hours of Tedious Manual Browsing",
+    prob_p1_desc: "Boring navigation across maps and social feeds only to find half the numbers are landlines, unreachable, or missing WhatsApp.",
+    prob_p2_badge: "Friction #2",
+    prob_p2_title: "Generic Cold Pitches with Zero Reply",
+    prob_p2_desc: "Copy-paste messages look spammy and get ignored. Business owners want to see concrete value and what you can build specifically for them.",
+    prob_p3_badge: "Friction #3",
+    prob_p3_title: "Chaotic Tracking & Missed Follow-ups",
+    prob_p3_desc: "Who did you message yesterday? Who is due for a follow-up today? Without structured pipeline tracking, high-ticket deals slip away.",
+    how_eyebrow: "Workflow",
+    how_title: "From Target Selection to First Sales Conversation in 4 Quick Steps",
+    how_lead: "Just a few minutes separate you from a verified, ready-to-contact lead list in any country worldwide.",
+    how_s1_title: "1. Select Country & Niche",
+    how_s1_desc: "Pick from 150 countries worldwide and filter by category: restaurants, fashion, clinics, real estate, gyms, salons, and more.",
+    how_s2_title: "2. Extract & Auto-Verify",
+    how_s2_desc: "Pulls business profiles from maps and social bio links, strictly verifies mobile number syntax, and checks for existing websites.",
+    how_s3_title: "3. Score & Generate Demo",
+    how_s3_desc: "Smart heuristic scoring (0-100), generates a personalized branded preview site, and formats a non-repetitive Spintax message.",
+    how_s4_title: "4. Reach Out & Track Deals",
+    how_s4_desc: "Queue messages with random human-like intervals to safeguard your number, with a real-time status tracker and scheduled reminders.",
+    feat_eyebrow: "Comprehensive Features",
+    feat_title: "Everything You Need to Turn Raw Leads into Paying Clients Across 150 Countries",
+    feat_lead: "Engineered specifically to give you an edge in both local and international markets without duct-taping disjointed tools.",
+    f1_title: "150 Countries Worldwide",
+    f1_desc: "Comprehensive mobile regex and dial-code validation covering 22 Arab nations, 21 European countries, and 107 global economies.",
+    f2_title: "Bilingual English & Arabic AI",
+    f2_desc: "Integrated with Gemini 1.5/2.0 and Ollama to craft persuasive, native English and Arabic copy tailored to 10 specific business sectors.",
+    f3_title: "Dynamic Anti-Ban Spintax",
+    f3_desc: "Every prospective client receives a uniquely phrased message with varied openings, value propositions, and calls to action.",
+    f4_title: "Live Branded Client Demo",
+    f4_desc: "Instant web preview built with client branding, reviews, and catalog ready to be shared with a single click to boost closing rates.",
+    f5_title: "Social Bio Hunter & 1-Click Direct Chat",
+    f5_desc: "Extracts Instagram, Facebook, and TikTok bios while instantly generating direct chat links (WhatsApp, Instagram DM, Messenger) in 1 click.",
+    f6_title: "Auto-Pilot Outreach & Pipeline Board",
+    f6_desc: "Hands-free Auto-Pilot mode that automatically sequences personalized pitches right after prospecting, paired with live delivery tracking.",
+    f7_title: "Admin Controls & Device Security",
+    f7_desc: "Advanced license management and real-time HWID blocking to immediately restrict unauthorized devices and manage seat quotas.",
+    f8_title: "Safe Daily Limits & Delays",
+    f8_desc: "Enforced extraction quotas and human-like delays (40-120s) to keep your sender reputation healthy and ban-free.",
+    show_eyebrow: "Your Closing Weapon",
+    show_title: "Let Clients Experience Their New Website Before You Even Speak!",
+    show_lead: "The difference between annoying cold spam and an irresistible sales pitch is tangible proof. NextGen spins up a live site branded with the client's actual name and reviews.",
+    show_t1: "Turnkey templates for various industries: restaurant menus, fashion boutiques, clinic bookings, and agency sites.",
+    show_t2: "Lightning-fast, mobile-responsive layout that opens smoothly on any smartphone with an immediate WhatsApp CTA.",
+    show_t3: "One-click deployment to free hosting platforms without recurring server costs or setup hurdles.",
+    show_demo_badge: "⭐ 4.8 Rating on Google Maps",
+    show_demo_name: "Happiness Cafe & Bistro",
+    show_demo_sub: "Delicious gourmet food and specialty coffee delivered right to your doorstep",
+    show_demo_btn: "Order Now via WhatsApp",
+    show_card_1: "Specialty Hot & Cold Beverages",
+    show_card_2: "Gourmet Burgers & Meals",
+    show_card_3: "Artisanal Desserts & Pastries",
+    show_caption: "Realistic preview of the client-branded interactive demo link included in the pitch.",
+    safe_eyebrow: "Safety First",
+    safe_title: "Engineered for Respectful Outreach, Never Reckless Spam",
+    safe_lead: "Blasting hundreds of unsolicited cold messages is the fastest route to a banned number. NextGen enforces natural human patterns to protect your sender account.",
+    safe_warn_title: "Important Safety Disclaimer:",
+    safe_warn_text: "No tool can guarantee a zero-ban rate because WhatsApp decisions are algorithmic. We strongly advise starting with conservative daily quotas (15-25 messages) and personalized copy. Manual or semi-automated outreach remains the safest and most sustainable approach.",
+    rule_1_title: "Strict, Enforced Daily Quotas",
+    rule_1_desc: "Set a clear daily ceiling matched to your number's warmup history. NextGen halts automatically once reached.",
+    rule_2_title: "Smart Random Delays",
+    rule_2_desc: "Natural human-like delay intervals (40 to 120 seconds) between successive messages to avoid triggering automated spam heuristics.",
+    rule_3_title: "Polite Opt-Out Guarantee",
+    rule_3_desc: "Every opening message contains a polite phrase allowing businesses to opt out with a single word.",
+    rule_4_title: "Permanent Local Blacklist",
+    rule_4_desc: "Any contact requesting to stop is instantly moved to the local exclusion list and omitted from all future discovery runs.",
+    price_eyebrow: "Subscription Plans",
+    price_title: "Subscription Plans – NextGen Sales Agent",
+    price_lead: "Choose the package tailored to your needs and start building a high-converting lead pipeline across 150 countries with continuous updates.",
+    per_month: "/ month",
+    per_year: "/ year",
+    per_once: "/ one-time",
+    plan_m_title: "Monthly Plan",
+    plan_m_dur: "Ideal for freelancers and beginners in web development.",
+    plan_m_price: "$30",
+    plan_m_quota: "100 qualified leads daily",
+    plan_m_f1: "Search Google Maps and supported social media sources.",
+    plan_m_f2: "Coverage across all 22 Arab countries.",
+    plan_m_f3: "Extract business details and available contact numbers.",
+    plan_m_f4: "Lead qualification score from 0 to 100.",
+    plan_m_f5: "AI-generated personalized outreach messages.",
+    plan_m_f6: "Support for 6 regional dialects.",
+    plan_m_f7: "Custom demo site generated with business name.",
+    plan_m_f8: "Lead management and follow-up pipeline.",
+    plan_m_f9: "Single-device license.",
+    plan_m_f10: "Updates and support throughout subscription.",
+    plan_m_btn: "Subscribe to Monthly Plan ($30)",
+    plan_y_badge: "⭐ Best Value",
+    plan_y_title: "Yearly Plan",
+    plan_y_dur: "For professional freelancers and web development agencies.",
+    plan_y_price: "$300",
+    plan_y_quota: "250 qualified leads daily",
+    plan_y_f1: "All features of the Monthly Plan included.",
+    plan_y_f2: "Higher daily prospecting limit.",
+    plan_y_f3: "Control distribution across search sources.",
+    plan_y_f4: "Priority access to new updates.",
+    plan_y_f5: "Higher priority technical support.",
+    plan_y_f6: "Single-device license.",
+    plan_y_f7: "Advanced search history, leads, and follow-ups log.",
+    plan_y_f8: "Save $60 compared to monthly billing.",
+    plan_y_btn: "Subscribe to Yearly Plan ($300)",
+    plan_l_badge: "👑 Lifetime Access",
+    plan_l_title: "Lifetime Plan",
+    plan_l_dur: "For professionals and companies seeking a long-term investment.",
+    plan_l_price: "$700",
+    plan_l_quota: "500 qualified leads daily",
+    plan_l_f1: "All features of the Yearly Plan included.",
+    plan_l_f2: "Permanent lifetime license for 1 device.",
+    plan_l_f3: "Highest daily prospecting limit.",
+    plan_l_f4: "VIP priority technical support.",
+    plan_l_f5: "Continuous updates per license policy.",
+    plan_l_f6: "No monthly or yearly renewals ever.",
+    plan_l_f7: "Option to request enterprise usage expansion.",
+    plan_l_btn: "Get Lifetime License ($700)",
+    quota_notice: "🛡️ Daily Quota System: All packages operate with configurable daily quotas managed by administration to protect sender numbers and guarantee data fidelity. Quotas can be adjusted or expanded upon request.",
+    act_eyebrow: "Rapid Onboarding",
+    act_title: "Start Hunting in 3 Simple Steps",
+    act_s1_title: "1. Order License via WhatsApp",
+    act_s1_desc: "Contact us directly with your chosen plan, and receive instant download links and setup instructions.",
+    act_s2_title: "2. Send Your Hardware ID",
+    act_s2_desc: "Launch the client on your PC, copy your unique Hardware ID (HWID), and send it to us for key generation.",
+    act_s3_title: "3. Activate & Hunt Leads!",
+    act_s3_desc: "Paste your digital activation key to unlock the complete software suite across 150 countries instantly.",
+    faq_eyebrow: "Full Transparency",
+    faq_title: "Frequently Asked Questions & Detailed Answers",
+    faq_q1: "Does NextGen run locally on my machine or in the cloud?",
+    faq_a1: "NextGen runs 100% locally on your Windows PC and renders via your local browser. Client data is securely preserved inside an encrypted SQLite database on your computer. No prospect records or logs are ever transmitted to our servers.",
+    faq_q2: "Which countries are officially supported?",
+    faq_a2: "NextGen officially supports 150 countries worldwide: all 22 Arab League nations, 21 European countries (UK, Germany, France, Italy, Spain, Netherlands, Sweden, etc.), and 107 global economies (USA, Canada, Australia, Brazil, Japan, India, etc.). Search any country above to confirm instant support.",
+    faq_q3: "Does NextGen support English outreach for international prospects?",
+    faq_a3: "Yes, completely! NextGen features a full bilingual English and Arabic interface, with AI copilot prompts tailored for 10 commercial sectors in fluent native English as well as 6 regional Arabic dialects.",
+    faq_q4: "What is the daily extraction quota and how does it protect my account?",
+    faq_a4: "WhatsApp algorithms flag accounts that suddenly blast excessive volume. The daily quota sets a safe ceiling (e.g., 100 to 250 leads/day). Quotas are admin-controlled and can be expanded as your sender accounts mature.",
+    faq_q5: "How does Spintax variation prevent WhatsApp bans?",
+    faq_a5: "The Spintax engine structures greetings, pitches, and calls to action with diverse vocabulary so every single sent message is 100% unique, preventing spam filter pattern detection.",
+    faq_q6: "Where does NextGen pull business data from?",
+    faq_a6: "NextGen leverages public directories including Google Maps, OpenStreetMap, and public social bios on Instagram, Facebook, and TikTok, applying strict filtering to extract valid mobile numbers and skip landlines.",
+    faq_q7: "Can I transfer my license if I upgrade my PC?",
+    faq_a7: "Licenses are tied to your device Hardware ID (HWID) for security. If you upgrade or replace your PC, simply reach out on WhatsApp and we will transfer your license to your new machine smoothly.",
+    final_eyebrow: "Ready to Scale Your Pipeline?",
+    final_title: "Pick your first country and niche, and watch qualified leads roll in",
+    final_lead: "Chat with us on WhatsApp now, and we'll have your activation key ready within minutes.",
+    final_cta_wa: "Chat on WhatsApp Now",
+    final_cta_price: "Review License Plans",
+    foot_rights: "All rights reserved.",
+    foot_disclaimer: "NextGen Sales Agent is built for professional, compliant B2B outreach. Compliance with third-party platform terms remains the user's responsibility.",
+    foot_support: "Contact Technical Support",
+    wa_float: "Chat via WhatsApp"
+  }
+};
+
+
+/* ===== Theme Engine (Light / Dark Mode) ===== */
+function applyTheme(theme) {
+  if (theme !== 'dark') theme = 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+  try { localStorage.setItem('nextgen_theme', theme); } catch (e) {}
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', theme === 'dark' ? '#0a1520' : '#f7f6f2');
+  const btn = document.getElementById('theme-btn');
+  if (btn) {
+    const ar = (localStorage.getItem('nextgen_landing_lang') || 'ar') === 'ar';
+    const label = theme === 'dark'
+      ? (ar ? 'التبديل إلى الوضع النهاري' : 'Switch to light mode')
+      : (ar ? 'التبديل إلى الوضع الليلي' : 'Switch to dark mode');
+    btn.setAttribute('aria-label', label);
+    btn.title = label;
+  }
+}
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+}
+
+/* ===== Flag images (emoji flags do not render on Windows) ===== */
+function flagIso(flag) {
+  const cps = Array.from(flag || '').map(ch => ch.codePointAt(0) - 127397);
+  if (cps.length !== 2 || cps.some(c => c < 65 || c > 90)) return '';
+  return String.fromCharCode(...cps).toLowerCase();
+}
+function flagHtml(c, name) {
+  const iso = flagIso(c.flag);
+  if (!iso) return `<span class="country-flag emoji">${c.flag || ''}</span>`;
+  return `<img class="country-flag" src="https://flagcdn.com/w40/${iso}.png" srcset="https://flagcdn.com/w80/${iso}.png 2x" width="36" height="26" alt="${name}" loading="lazy" decoding="async">`;
+}
+
+/* ===== Current State ===== */
+let currentLang = localStorage.getItem('nextgen_landing_lang') || 'ar';
+let currentRegion = 'all';
+let currentSearch = '';
+
+/* ===== Language Engine ===== */
+function setLanguage(lang) {
+  if (!TRANSLATIONS[lang]) lang = 'ar';
+  currentLang = lang;
+  localStorage.setItem('nextgen_landing_lang', lang);
+
+  const isAr = lang === 'ar';
+  document.documentElement.lang = lang;
+  document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+
+  // Toggle button text
+  const btnText = document.getElementById('lang-btn-text');
+  if (btnText) btnText.textContent = isAr ? 'English' : 'العربية';
+
+  // Update text nodes
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (TRANSLATIONS[lang][key]) {
+      el.textContent = TRANSLATIONS[lang][key];
+    }
+  });
+
+  // Update HTML nodes
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (TRANSLATIONS[lang][key]) {
+      el.innerHTML = TRANSLATIONS[lang][key];
+    }
+  });
+
+  // Update Placeholders
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.dataset.i18nPh;
+    if (TRANSLATIONS[lang][key]) {
+      el.placeholder = TRANSLATIONS[lang][key];
+    }
+  });
+
+  // Update WhatsApp links text
+  const waPrefix = isAr ? 'السلام عليكم، ' : 'Hello, ';
+  document.querySelectorAll('[data-wa]').forEach(a => {
+    const text = isAr ? a.dataset.wa : 'I want to inquire about NextGen Sales Agent license';
+    a.href = 'https://wa.me/' + CONTACT_WA + '?text=' + encodeURIComponent(waPrefix + text);
+    a.target = '_blank';
+    a.rel = 'noopener';
+  });
+
+  // Re-render countries with localized names
+  renderCountries();
+}
+
+function toggleLang() {
+  setLanguage(currentLang === 'ar' ? 'en' : 'ar');
+}
+
+/* ===== Country Explorer Engine ===== */
+function renderCountries() {
+  const grid = document.getElementById('countries-grid');
+  if (!grid) return;
+
+  const isAr = currentLang === 'ar';
+  const query = currentSearch.trim().toLowerCase();
+
+  const filtered = ALL_COUNTRIES_DATA.filter(c => {
+    // Region match
+    if (currentRegion !== 'all' && c.region !== currentRegion) {
+      return false;
+    }
+    // Search match
+    if (query) {
+      const matchAr = c.name_ar && c.name_ar.toLowerCase().includes(query);
+      const matchEn = c.name_en && c.name_en.toLowerCase().includes(query);
+      const matchCode = c.code && (c.code.includes(query) || ('+' + c.code).includes(query));
+      return matchAr || matchEn || matchCode;
+    }
+    return true;
+  });
+
+  // Update counter
+  const counterEl = document.getElementById('visible-countries-count');
+  if (counterEl) counterEl.textContent = filtered.length;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="country-empty">
+        <div style="font-size:36px;margin-bottom:8px">🌍🔍</div>
+        <b style="font-size:18px;color:var(--ink)">${TRANSLATIONS[currentLang].cnt_no_results}</b>
+        <p>${TRANSLATIONS[currentLang].cnt_no_results_sub}</p>
+        <div style="margin-top:16px">
+          <a class="btn wa" href="https://wa.me/${CONTACT_WA}?text=${encodeURIComponent((isAr ? 'السلام عليكم، أود اقتراح إضافة دولة: ' : 'Hello, I want to request adding a country: ') + currentSearch)}" target="_blank" rel="noopener">
+            <svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>
+            <span>${isAr ? 'اطلب إضافة هذه الدولة' : 'Request Adding This Country'}</span>
+          </a>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  const badgeText = isAr ? 'مفحوصة الأرقام' : 'Regex Verified';
+
+  grid.innerHTML = filtered.map(c => {
+    const primaryName = isAr ? c.name_ar : c.name_en;
+    const secondaryName = isAr ? c.name_en : c.name_ar;
+
+    return `
+      <div class="country-card">
+        ${flagHtml(c, primaryName)}
+        <div class="country-info">
+          <span class="country-name" title="${primaryName} (${secondaryName})">${primaryName}</span>
+          <div class="country-sub">
+            <span class="country-code">+${c.code}</span>
+            <span class="country-badge">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>${badgeText}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function filterByRegion(region) {
+  currentRegion = region;
+  document.querySelectorAll('.region-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.region === region);
+  });
+  renderCountries();
+}
+
+function initSearchControls() {
+  const searchInput = document.getElementById('country-search-input');
+  const clearBtn = document.getElementById('search-clear-btn');
+
+  if (searchInput) {
+    searchInput.addEventListener('input', e => {
+      currentSearch = e.target.value;
+      if (clearBtn) clearBtn.style.display = currentSearch ? 'inline-flex' : 'none';
+      renderCountries();
+    });
+  }
+}
+
+function clearCountrySearch() {
+  const searchInput = document.getElementById('country-search-input');
+  const clearBtn = document.getElementById('search-clear-btn');
+  if (searchInput) {
+    searchInput.value = '';
+    currentSearch = '';
+    searchInput.focus();
+  }
+  if (clearBtn) clearBtn.style.display = 'none';
+  renderCountries();
+}
+
+/* ===== Region Counts Calculation ===== */
+function updateRegionTabCounts() {
+  const counts = { all: ALL_COUNTRIES_DATA.length, arab: 0, europe: 0, global: 0 };
+  ALL_COUNTRIES_DATA.forEach(c => {
+    if (counts[c.region] !== undefined) counts[c.region]++;
+  });
+  const elAll = document.getElementById('count-all');
+  const elArab = document.getElementById('count-arab');
+  const elEurope = document.getElementById('count-europe');
+  const elGlobal = document.getElementById('count-global');
+  if (elAll) elAll.textContent = counts.all;
+  if (elArab) elArab.textContent = counts.arab;
+  if (elEurope) elEurope.textContent = counts.europe;
+  if (elGlobal) elGlobal.textContent = counts.global;
+}
+
+/* ===== Navigation & Pricing Setup ===== */
+const burger = document.getElementById('burger');
+const nav = document.getElementById('nav');
+
+function setMenu(open){
+  if (!nav || !burger) return;
+  nav.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', open);
+  burger.querySelector('use').setAttribute('href', open ? '#i-x' : '#i-menu');
+}
+
+if (burger) {
+  burger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setMenu(!nav.classList.contains('open'));
+  });
+}
+if (nav) {
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+}
+document.addEventListener('click', (e) => {
+  if (nav && nav.classList.contains('open') && !nav.contains(e.target) && !burger.contains(e.target)) {
+    setMenu(false);
+  }
+});
+document.addEventListener('keydown', e => { if(e.key === 'Escape') setMenu(false); });
+
+// Update year
+const yrEl = document.getElementById('yr');
+if (yrEl) yrEl.textContent = new Date().getFullYear();
+
+// Initialize on load
+updateRegionTabCounts();
+initSearchControls();
+applyTheme(document.documentElement.getAttribute('data-theme'));
+setLanguage(currentLang);
+</script>
+</body>
+</html>
