@@ -527,6 +527,639 @@ h2{font-size:clamp(1.85rem,3.4vw,2.65rem);max-width:none}
 }
 .caption{margin-top:14px;font-size:13px;color:var(--mut);text-align:center}
 
+/* ---------- Animated Video Demo Simulator ---------- */
+.sim-wrap{position:relative;width:100%}
+.sim-window{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:22px;
+  box-shadow:0 25px 60px -15px rgba(9,22,36,.18),0 0 0 1px rgba(9,22,36,.04);
+  overflow:hidden;
+  position:relative;
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+.sim-window:hover{box-shadow:0 30px 70px -15px rgba(13,122,113,.22)}
+[data-theme="dark"] .sim-window{
+  border-color:rgba(79,209,197,.25);
+  box-shadow:0 25px 60px -15px rgba(0,0,0,.6);
+}
+.sim-header{
+  background:#f8fafc;
+  border-bottom:1px solid var(--line);
+  padding:10px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+[data-theme="dark"] .sim-header{background:#0d1b2a}
+.sim-header-left{display:flex;align-items:center;gap:10px}
+.sim-rec-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  color:#dc2626;
+  background:#fee2e2;
+  padding:3px 9px;
+  border-radius:99px;
+  border:1px solid #fca5a5;
+}
+[data-theme="dark"] .sim-rec-badge{
+  background:rgba(220,38,38,.2);
+  color:#f87171;
+  border-color:rgba(220,38,38,.4);
+}
+.sim-rec-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#dc2626;
+  animation:simBlink 1.4s infinite;
+}
+@keyframes simBlink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.8)}}
+.sim-header-actions{display:flex;align-items:center;gap:8px}
+.sim-btn-ctrl{
+  background:var(--paper);
+  border:1px solid var(--line);
+  color:var(--ink);
+  font-size:12px;
+  font-weight:700;
+  padding:5px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  transition:all .2s ease;
+}
+.sim-btn-ctrl:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+.sim-timecode{
+  font-family:ui-monospace,Consolas,monospace;
+  font-size:12px;
+  font-weight:700;
+  color:var(--mut);
+  background:rgba(0,0,0,.04);
+  padding:3px 8px;
+  border-radius:6px;
+}
+[data-theme="dark"] .sim-timecode{background:rgba(255,255,255,.06);color:var(--mut)}
+.sim-steps-nav{
+  display:flex;
+  background:rgba(0,0,0,.02);
+  border-bottom:1px solid var(--line);
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.sim-steps-nav::-webkit-scrollbar{display:none}
+.sim-step-tab{
+  flex:1;
+  min-width:130px;
+  padding:10px 12px;
+  background:transparent;
+  border:none;
+  border-bottom:2.5px solid transparent;
+  color:var(--mut);
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:all .25s ease;
+  white-space:nowrap;
+}
+.sim-step-tab:hover{color:var(--teal);background:rgba(13,122,113,.04)}
+.sim-step-tab.active{color:var(--teal);border-bottom-color:var(--teal);background:rgba(13,122,113,.08)}
+.sim-step-num{
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:var(--line);
+  color:var(--ink-2);
+  font-size:11px;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+  transition:all .2s;
+}
+.sim-step-tab.active .sim-step-num{background:var(--teal);color:#fff}
+.sim-progress-track{
+  width:100%;
+  height:3px;
+  background:rgba(0,0,0,.05);
+  position:relative;
+  overflow:hidden;
+}
+[data-theme="dark"] .sim-progress-track{background:rgba(255,255,255,.06)}
+.sim-progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--teal-t),var(--teal));
+  transition:width .1s linear;
+}
+.sim-viewport{
+  position:relative;
+  min-height:480px;
+  padding:20px;
+  background:var(--card);
+}
+.sim-scene{
+  display:none;
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity .35s ease,transform .35s ease;
+}
+.sim-scene.active{display:block;opacity:1;transform:translateY(0)}
+.sim-scene-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:14px;
+  padding-bottom:10px;
+  border-bottom:1px dashed var(--line);
+  gap:10px;
+  flex-wrap:wrap;
+}
+.sim-scene-title{
+  font-size:15.5px;
+  font-weight:800;
+  color:var(--ink);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.sim-scene-pill{
+  font-size:11.5px;
+  font-weight:700;
+  padding:3px 10px;
+  border-radius:99px;
+  background:var(--teal-l);
+  color:var(--teal);
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+}
+.sim-search-bar{
+  background:#f1f5f9;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+  font-size:13px;
+  color:var(--ink);
+  position:relative;
+  overflow:hidden;
+}
+[data-theme="dark"] .sim-search-bar{background:#0d1b2a}
+.sim-radar-pulse{
+  position:absolute;
+  inset-inline-end:12px;
+  width:22px;
+  height:22px;
+  display:grid;
+  place-items:center;
+}
+.sim-radar-wave{
+  position:absolute;
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  border:2px solid var(--teal);
+  animation:simWave 2s ease-out infinite;
+}
+@keyframes simWave{0%{transform:scale(.3);opacity:1}100%{transform:scale(1.6);opacity:0}}
+.sim-leads-stream{display:grid;gap:9px;margin-bottom:14px}
+.sim-lead-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 13px;
+  border-radius:12px;
+  border:1.5px solid var(--line);
+  background:var(--paper);
+  transition:all .2s ease;
+  animation:simCardPop .4s ease both;
+}
+.sim-lead-card:nth-child(2){animation-delay:.15s}
+.sim-lead-card:nth-child(3){animation-delay:.3s}
+@keyframes simCardPop{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.sim-lead-info{display:flex;align-items:center;gap:10px}
+.sim-lead-ico{
+  width:34px;
+  height:34px;
+  border-radius:9px;
+  background:var(--teal-l);
+  color:var(--teal);
+  display:grid;
+  place-items:center;
+  font-size:15px;
+  flex:none;
+}
+.sim-lead-name{font-size:14px;font-weight:700;color:var(--ink);display:block}
+.sim-lead-sub{font-size:11.5px;color:var(--mut);display:flex;align-items:center;gap:6px;margin-top:2px}
+.sim-tag-noweb{background:#fee2e2;color:#b91c1c;font-weight:700;font-size:11px;padding:1px 7px;border-radius:6px}
+[data-theme="dark"] .sim-tag-noweb{background:rgba(220,38,38,.2);color:#f87171}
+.sim-tag-wa{background:#dcfce7;color:#15803d;font-weight:700;font-size:11px;padding:1px 7px;border-radius:6px}
+[data-theme="dark"] .sim-tag-wa{background:rgba(34,197,94,.2);color:#4ade80}
+.sim-audit-grid{
+  display:grid;
+  grid-template-columns:130px 1fr;
+  gap:14px;
+  align-items:center;
+  margin-bottom:14px;
+}
+@media(max-width:640px){.sim-audit-grid{grid-template-columns:1fr}}
+.sim-score-box{
+  background:linear-gradient(135deg,rgba(13,122,113,.12),rgba(2,132,199,.12));
+  border:1.5px solid var(--teal);
+  border-radius:16px;
+  padding:16px 10px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.sim-score-circle{font-size:32px;font-weight:900;color:var(--teal);line-height:1}
+.sim-score-label{font-size:11px;font-weight:800;color:var(--ink);margin-top:4px}
+.sim-audit-items{display:grid;gap:7px}
+.sim-audit-item{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:7px 11px;
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  font-size:12.5px;
+  color:var(--ink-2);
+}
+.sim-audit-item.danger{border-inline-start:3px solid #dc2626}
+.sim-audit-item.warning{border-inline-start:3px solid #f59e0b}
+.sim-audit-item.success{border-inline-start:3px solid #16a34a}
+.sim-demo-preview{
+  border:1.5px solid var(--line);
+  border-radius:14px;
+  background:#ffffff;
+  overflow:hidden;
+  box-shadow:0 4px 16px rgba(0,0,0,.06);
+  margin-bottom:14px;
+}
+[data-theme="dark"] .sim-demo-preview{background:#0f1c2b}
+.sim-browser-bar{
+  background:#f1f5f9;
+  border-bottom:1px solid var(--line);
+  padding:6px 12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  font-size:11.5px;
+  color:var(--mut);
+}
+[data-theme="dark"] .sim-browser-bar{background:#0a1520}
+.sim-browser-url{
+  background:var(--card);
+  padding:3px 10px;
+  border-radius:6px;
+  border:1px solid var(--line);
+  color:var(--teal);
+  font-family:monospace;
+  direction:ltr;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-size:11px;
+}
+.sim-demo-hero{
+  padding:12px 14px;
+  background:linear-gradient(135deg,#1e293b,#0f172a);
+  color:#ffffff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  transition:background .3s ease;
+}
+.sim-demo-brand b{font-size:15px;color:#ffffff;display:block}
+.sim-demo-brand span{font-size:11.5px;color:#cbd5e1}
+.sim-theme-pills{display:flex;gap:6px;align-items:center}
+.sim-theme-dot{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  cursor:pointer;
+  border:2px solid #ffffff;
+  transition:transform .2s;
+}
+.sim-theme-dot:hover{transform:scale(1.2)}
+.sim-menu-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  padding:10px 14px;
+}
+@media(max-width:500px){.sim-menu-grid{grid-template-columns:1fr}}
+.sim-menu-card{
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:7px 9px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:var(--paper);
+}
+.sim-menu-card-info b{font-size:12.5px;display:block;color:var(--ink)}
+.sim-menu-card-info span{font-size:11.5px;color:var(--teal);font-weight:700}
+.sim-btn-add{
+  background:var(--teal);
+  color:#fff;
+  border:none;
+  padding:3px 9px;
+  border-radius:6px;
+  font-size:11.5px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .2s;
+}
+.sim-btn-add:hover{transform:scale(1.05);background:var(--teal-d)}
+.sim-demo-cart-bar{
+  background:#f8fafc;
+  border-top:1px solid var(--line);
+  padding:8px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:12.5px;
+}
+[data-theme="dark"] .sim-demo-cart-bar{background:#0a1520}
+.sim-chat-box{
+  border:1.5px solid #bbf7d0;
+  background:#efeae2;
+  border-radius:14px;
+  overflow:hidden;
+  margin-bottom:14px;
+  position:relative;
+}
+[data-theme="dark"] .sim-chat-box{
+  background:#0b141a;
+  border-color:rgba(34,197,94,.3);
+}
+.sim-chat-header{
+  background:#075e54;
+  color:#fff;
+  padding:8px 12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.sim-chat-avatar{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#128c7e;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+  font-size:13px;
+  color:#fff;
+}
+.sim-chat-user b{font-size:13px;display:block;color:#fff}
+.sim-chat-user span{font-size:10.5px;color:#a7f3d0}
+.sim-chat-messages{
+  padding:12px;
+  display:grid;
+  gap:10px;
+}
+.sim-msg-bubble{
+  max-width:90%;
+  padding:9px 12px;
+  border-radius:10px;
+  font-size:12.5px;
+  line-height:1.6;
+  position:relative;
+  box-shadow:0 1px 3px rgba(0,0,0,.08);
+}
+.sim-msg-out{
+  background:#dcf8c6;
+  color:#111b21;
+  margin-inline-start:auto;
+  border-start-end-radius:2px;
+}
+[data-theme="dark"] .sim-msg-out{background:#005c4b;color:#e9edef}
+.sim-msg-in{
+  background:#ffffff;
+  color:#111b21;
+  margin-inline-end:auto;
+  border-start-start-radius:2px;
+  animation:simPopIn .4s ease 1s both;
+}
+[data-theme="dark"] .sim-msg-in{background:#202c33;color:#e9edef}
+@keyframes simPopIn{from{opacity:0;transform:translateY(8px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.sim-msg-time{
+  font-size:10px;
+  color:#667781;
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+  float:inline-end;
+  margin-top:4px;
+  margin-inline-start:8px;
+}
+[data-theme="dark"] .sim-msg-time{color:#8696a0}
+.sim-link-card{
+  background:rgba(0,0,0,.05);
+  border-radius:8px;
+  padding:6px 10px;
+  margin-top:6px;
+  border:1px solid rgba(0,0,0,.08);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+[data-theme="dark"] .sim-link-card{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1)}
+.sim-benefit-bar{
+  background:linear-gradient(135deg,rgba(13,122,113,.08),rgba(2,132,199,.06));
+  border:1px solid rgba(13,122,113,.2);
+  border-radius:12px;
+  padding:9px 13px;
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  font-size:13px;
+  line-height:1.6;
+  color:var(--ink);
+}
+[data-theme="dark"] .sim-benefit-bar{
+  background:rgba(13,122,113,.15);
+  border-color:rgba(79,209,197,.3);
+}
+.sim-benefit-bar b{color:var(--teal);font-weight:800;white-space:nowrap}
+.sim-controls-bar{
+  background:#f8fafc;
+  border-top:1px solid var(--line);
+  padding:9px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+}
+[data-theme="dark"] .sim-controls-bar{background:#0d1b2a}
+.sim-ctrl-group{display:flex;align-items:center;gap:8px}
+.sim-dots{display:flex;align-items:center;gap:6px}
+.sim-dot-nav{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--line);
+  cursor:pointer;
+  transition:all .2s;
+}
+.sim-dot-nav.active{width:22px;border-radius:99px;background:var(--teal)}
+@media(max-width:600px){
+  .sim-viewport{padding:14px 12px;min-height:430px}
+  .sim-header{padding:8px 12px;gap:8px}
+  .sim-steps-nav{padding:0 4px}
+  .sim-step-tab{min-width:105px;font-size:12px;padding:8px 6px;gap:5px}
+  .sim-benefit-bar{font-size:12px;padding:8px 10px;flex-direction:column;gap:4px}
+  .sim-search-bar{font-size:12px;padding:8px 10px}
+  .sim-lead-card{padding:8px 10px}
+  .sim-lead-name{font-size:13px}
+  .sim-timecode{display:none}
+}
+
+/* Interactive Sandbox Extensions */
+.sim-interactive-controls{
+  background:rgba(13,122,113,.04);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px 14px;
+  margin-bottom:14px;
+}
+[data-theme="dark"] .sim-interactive-controls{background:rgba(255,255,255,.03)}
+.sim-controls-label{
+  font-size:12px;
+  font-weight:700;
+  color:var(--mut);
+  display:block;
+  margin-bottom:8px;
+}
+.sim-pills-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:10px;
+}
+.sim-pill-btn{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  color:var(--ink-2);
+  padding:6px 14px;
+  border-radius:99px;
+  font-size:12.5px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .2s ease;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.sim-pill-btn:hover{
+  border-color:var(--teal);
+  color:var(--teal);
+  transform:translateY(-1px);
+}
+.sim-pill-btn.active{
+  background:var(--teal);
+  border-color:var(--teal);
+  color:#fff;
+  box-shadow:0 3px 10px var(--teal-glow);
+}
+.sim-action-btn{
+  width:100%;
+  background:linear-gradient(135deg,var(--teal),var(--teal-d));
+  color:#fff;
+  border:none;
+  padding:12px 20px;
+  border-radius:12px;
+  font-size:14px;
+  font-weight:800;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  box-shadow:0 4px 14px var(--teal-glow);
+  transition:all .22s ease;
+}
+.sim-action-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px var(--teal-glow);
+  background:linear-gradient(135deg,#0fa599,var(--teal-d));
+}
+.sim-lead-select-btn{
+  background:var(--teal-l);
+  color:var(--teal);
+  border:1px solid rgba(13,122,113,.2);
+  padding:5px 12px;
+  border-radius:8px;
+  font-size:11.5px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .2s;
+  white-space:nowrap;
+}
+.sim-lead-select-btn:hover{
+  background:var(--teal);
+  color:#fff;
+  transform:scale(1.04);
+}
+.sim-celebrate-box{
+  background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+  border:1.5px solid #86efac;
+  border-radius:14px;
+  padding:14px 16px;
+  margin-top:12px;
+  text-align:center;
+  animation:simCardPop .4s ease both;
+}
+[data-theme="dark"] .sim-celebrate-box{
+  background:rgba(22,163,74,.15);
+  border-color:rgba(34,197,94,.4);
+}
+.sim-celebrate-box b{
+  color:#15803d;
+  font-size:15px;
+  display:block;
+  margin-bottom:4px;
+}
+[data-theme="dark"] .sim-celebrate-box b{color:#4ade80}
+.sim-celebrate-box p{
+  color:#166534;
+  font-size:12.5px;
+  margin:0 0 10px;
+}
+[data-theme="dark"] .sim-celebrate-box p{color:#cbd5e1}
+.sim-typing-badge{
+  font-size:11.5px;
+  color:#0284c7;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:6px;
+  font-weight:700;
+  animation:simBlink 1.2s infinite;
+}
+
 /* ---------- facts strip ---------- */
 .facts{
   background:linear-gradient(180deg,#091624,#0e2235);
@@ -1207,6 +1840,80 @@ details p{
   padding-top:16px;
 }
 
+/* ---------- Terms, Privacy & Legal Compliance ---------- */
+.terms-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:20px;
+  margin-bottom:28px;
+}
+@media(max-width:768px){
+  .terms-grid{grid-template-columns:1fr}
+}
+.terms-card{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:18px;
+  padding:26px 24px;
+  box-shadow:var(--shadow-sm);
+  transition:all .2s ease;
+  display:flex;
+  flex-direction:column;
+}
+.terms-card:hover{
+  border-color:var(--teal);
+  box-shadow:var(--shadow-md);
+  transform:translateY(-2px);
+}
+.terms-ico{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  font-size:22px;
+  margin-bottom:14px;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+.terms-card h3{
+  font-size:18px;
+  font-weight:800;
+  color:var(--ink);
+  margin-bottom:10px;
+}
+.terms-card p{
+  color:var(--mut);
+  font-size:14.5px;
+  line-height:1.75;
+  flex:1;
+}
+.terms-declaration{
+  background:linear-gradient(135deg,rgba(13,122,113,.08),rgba(2,132,199,.06));
+  border:1.5px solid rgba(13,122,113,.25);
+  border-radius:16px;
+  padding:22px 26px;
+  margin-top:10px;
+}
+[data-theme="dark"] .terms-declaration{
+  background:rgba(13,122,113,.15);
+  border-color:rgba(79,209,197,.3);
+}
+.terms-dec-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--teal);
+  font-size:16px;
+  font-weight:800;
+  margin-bottom:8px;
+}
+.terms-declaration p{
+  color:var(--ink-2);
+  font-size:14.5px;
+  line-height:1.8;
+  margin:0;
+}
+
 /* ---------- final cta + footer ---------- */
 .final{text-align:center;padding:clamp(70px,9vw,120px) 0}
 .final h2{margin-inline:auto}
@@ -1240,9 +1947,19 @@ footer{
   font-weight:700;
   font-size:15px;
   box-shadow:0 12px 28px rgba(22,163,74,.4),0 2px 8px rgba(0,0,0,.1);
-  transition:all .25s cubic-bezier(.16,1,.3,1);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(24px) scale(.92);
+  pointer-events:none;
+  transition:opacity .35s ease, transform .35s cubic-bezier(.16,1,.3,1), visibility .35s ease, box-shadow .25s ease;
 }
-.wa-floating-btn:hover{
+.wa-floating-btn.visible{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0) scale(1);
+  pointer-events:auto;
+}
+.wa-floating-btn.visible:hover{
   transform:translateY(-3px) scale(1.03);
   box-shadow:0 16px 36px rgba(22,163,74,.5);
   color:#fff;
@@ -1498,6 +2215,7 @@ footer{
       <a href="#safe" data-i18n="nav_safe">الاستخدام الآمن</a>
       <a href="#pricing" data-i18n="nav_pricing">الاشتراك</a>
       <a href="#faq" data-i18n="nav_faq">الأسئلة الشائعة</a>
+      <a href="#terms" data-i18n="nav_terms">شروط الاستخدام والامتثال</a>
       <a class="btn wa" href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg><span data-i18n="btn_order">اطلب النسخة</span></a>
     </nav>
 
@@ -1544,14 +2262,682 @@ footer{
       </div>
     </div>
 
-    <!-- Product Mockup Card -->
-    <div class="mock-wrap">
+    <!-- Interactive Animated Hands-on Sandbox -->
+    <div class="mock-wrap sim-wrap">
       <div class="mock-float-badge">
         <span class="pulse-dot"></span>
-        <span data-i18n="mock_badge">تم فحص 48 عميلاً مؤهلاً اليوم</span>
+        <span data-i18n="sim_badge">محاكاة حية لطريقة عمل الأداة وفوائدها</span>
       </div>
 
-      <div class="mock" role="img" aria-label="معاينة تفاعلية للوحة العملاء داخل الأداة">
+      <!-- SIMULATOR_START -->
+      <div class="sim-window" id="interactive-sandbox" role="region" aria-label="تجربة تفاعلية حية لأداة NextGen Sales Agent">
+        <!-- Top Interactive Sandbox Header -->
+        <div class="sim-header">
+          <div class="sim-header-left">
+            <div class="mock-dots">
+              <span class="mock-dot r"></span>
+              <span class="mock-dot y"></span>
+              <span class="mock-dot g"></span>
+            </div>
+            <span class="sim-rec-badge" style="background:var(--teal-l);color:var(--teal);border-color:rgba(13,122,113,0.3)">
+              <span class="sim-rec-dot" style="background:var(--teal)"></span>
+              <span data-i18n="sim_rec_label">تجربة حية تفاعلية • LIVE INTERACTIVE SANDBOX</span>
+            </span>
+          </div>
+
+          <div class="sim-header-actions">
+            <button class="sim-btn-ctrl" onclick="sbResetSandbox()" aria-label="إعادة التجربة من البداية">
+              <span>↺</span>
+              <span data-i18n="sim_btn_restart">إعادة التجربة من البداية</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Workflow Step Tabs -->
+        <div class="sim-steps-nav" id="sb-steps-nav">
+          <button class="sim-step-tab active" data-step="0" onclick="sbGoTo(0)">
+            <span class="sim-step-num">1</span>
+            <span data-i18n="sim_tab_1">1. صيد العملاء</span>
+          </button>
+          <button class="sim-step-tab" data-step="1" onclick="sbGoTo(1)">
+            <span class="sim-step-num">2</span>
+            <span data-i18n="sim_tab_2">2. الفحص الذكي</span>
+          </button>
+          <button class="sim-step-tab" data-step="2" onclick="sbGoTo(2)">
+            <span class="sim-step-num">3</span>
+            <span data-i18n="sim_tab_3">3. تجربة الديمو</span>
+          </button>
+          <button class="sim-step-tab" data-step="3" onclick="sbGoTo(3)">
+            <span class="sim-step-num">4</span>
+            <span data-i18n="sim_tab_4">4. إرسال الواتساب</span>
+          </button>
+        </div>
+
+        <!-- Progress Timeline Bar -->
+        <div class="sim-progress-track">
+          <div class="sim-progress-fill" id="sb-progress-bar" style="width:25%"></div>
+        </div>
+
+        <!-- Viewport with 4 Interactive Scenes -->
+        <div class="sim-viewport">
+
+          <!-- SCENE 1: Search & Scrape Interactive Radar -->
+          <div class="sim-scene active" id="sb-scene-0">
+            <div class="sim-scene-meta">
+              <div class="sim-scene-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <span data-i18n="sim_s1_title">المرحلة الأولى: رصد العملاء وفلترة الأرقام التفاعلية</span>
+              </div>
+              <span class="sim-scene-pill" data-i18n="sim_s1_pill">⚡ رادار مسح 150 دولة • تفاعلي</span>
+            </div>
+
+            <!-- Interactive Filters Panel -->
+            <div class="sim-interactive-controls">
+              <span class="sim-controls-label">1. اختر التخصص والنشاط التجاري المستهدف:</span>
+              <div class="sim-pills-row" id="sb-niche-pills">
+                <button type="button" class="sim-pill-btn active" data-niche="restaurants" onclick="sbSelectNiche('restaurants', this)">🍖 مطاعم ومشاوي</button>
+                <button type="button" class="sim-pill-btn" data-niche="cafes" onclick="sbSelectNiche('cafes', this)">☕ كافيهات ومقاهي</button>
+                <button type="button" class="sim-pill-btn" data-niche="clinics" onclick="sbSelectNiche('clinics', this)">🦷 عيادات وأسنان</button>
+                <button type="button" class="sim-pill-btn" data-niche="fashion" onclick="sbSelectNiche('fashion', this)">👗 متاجر أزياء</button>
+              </div>
+
+              <span class="sim-controls-label">2. اختر الدولة أو المدينة (150 دولة مدعومة بأرقام مفحوصة):</span>
+              <div class="sim-pills-row" id="sb-country-pills">
+                <button type="button" class="sim-pill-btn active" data-country="ae" onclick="sbSelectCountry('ae', this)">🇦🇪 الإمارات (دبي)</button>
+                <button type="button" class="sim-pill-btn" data-country="sa" onclick="sbSelectCountry('sa', this)">🇸🇦 السعودية (الرياض)</button>
+                <button type="button" class="sim-pill-btn" data-country="eg" onclick="sbSelectCountry('eg', this)">🇪🇬 مصر (القاهرة)</button>
+                <button type="button" class="sim-pill-btn" data-country="uk" onclick="sbSelectCountry('uk', this)">🇬🇧 بريطانيا (لندن)</button>
+              </div>
+
+              <button type="button" class="sim-action-btn" onclick="sbTriggerSearch()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                <span>🔍 ابدأ البحث المباشر واستخراج العملاء (رادار محلي)</span>
+              </button>
+            </div>
+
+            <div class="sim-search-bar" style="margin-bottom:10px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <span id="sb-search-indicator">🔍 نتائج الفحص الحي: <strong>3 أنشطة مؤكدة</strong> بدون موقع وتملك أرقام واتساب فعالة</span>
+            </div>
+
+            <!-- Dynamic Leads Stream -->
+            <div class="sim-leads-stream" id="sb-leads-stream">
+              <!-- Populated dynamically by JS -->
+            </div>
+
+            <div class="sim-benefit-bar">
+              <b>💡 كيف تفيدك هذه الخطوة؟</b>
+              <span data-i18n="sim_s1_benefit">توفر عليك 20+ ساعة أسبوعياً من البحث اليدوي الشاق؛ تستخرج مئات العملاء الجاهزين في ثوانٍ وتتخلص تلقائياً من الأرقام الأرضية المغلقة.</span>
+            </div>
+          </div>
+
+          <!-- SCENE 2: Automated Smart Audit -->
+          <div class="sim-scene" id="sb-scene-1">
+            <div class="sim-scene-meta">
+              <div class="sim-scene-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <span data-i18n="sim_s2_title">المرحلة الثانية: فحص العميل وكشف ثغرات البيع</span>
+              </div>
+              <span class="sim-scene-pill" style="background:#fef3c7;color:#b45309" data-i18n="sim_s2_pill">⭐ فرصة بيع ذهبية</span>
+            </div>
+
+            <!-- Selected Client Header Summary -->
+            <div style="background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+              <div>
+                <small style="color:var(--mut);font-weight:700;display:block;font-size:11px">العميل الذي اخترته للفحص:</small>
+                <b id="sb-audit-name" style="font-size:16px;color:var(--ink)">مطعم ومشاوي السلطان (دبي)</b>
+              </div>
+              <div style="font-size:12px;color:var(--mut)">
+                <span id="sb-audit-phone" style="direction:ltr;unicode-bidi:embed;font-weight:700;color:var(--teal)">+971 50 847 2910</span>
+                <span id="sb-audit-city" style="margin-inline-start:8px;background:var(--card);padding:3px 8px;border-radius:6px;border:1px solid var(--line)">الإمارات 🇦🇪</span>
+              </div>
+            </div>
+
+            <div class="sim-audit-grid">
+              <div class="sim-score-box">
+                <span class="sim-score-circle" id="sb-audit-score">96</span>
+                <span class="sim-score-label" data-i18n="sim_s2_score_lbl">درجة الملاءمة للشراء</span>
+                <small style="color:var(--wa-d);font-weight:700;font-size:10.5px;margin-top:2px" data-i18n="sim_s2_score_sub">أولوية تعاقد فائقة</small>
+              </div>
+
+              <div class="sim-audit-items">
+                <div class="sim-audit-item danger">
+                  <span>❌</span>
+                  <div>
+                    <strong data-i18n="sim_s2_item1_t">لا يملك موقعاً رسمياً:</strong>
+                    <span data-i18n="sim_s2_item1_d">يفقد أكثر من 70% من الباحثين عنه يومياً على محرك بحث جوجل لعدم وجود رابط مباشر.</span>
+                  </div>
+                </div>
+
+                <div class="sim-audit-item warning">
+                  <span>⚠️</span>
+                  <div>
+                    <strong data-i18n="sim_s2_item2_t">نزيف عمولات التطبيقات والوسطاء:</strong>
+                    <span data-i18n="sim_s2_item2_d">يعتمد على تطبيقات التوصيل والمنصات الوسيطة التي تقتطع 20% إلى 30% من أرباحه!</span>
+                  </div>
+                </div>
+
+                <div class="sim-audit-item success">
+                  <span>✅</span>
+                  <div>
+                    <strong data-i18n="sim_s2_item3_t">قناة بيع نشطة متاحة:</strong>
+                    <span data-i18n="sim_s2_item3_d">يملك رقم واتساب مبيعات مباشر ومفحوص، جاهز لاستقبال الطلبات الفورية بنقرة زر.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Advance CTA Button -->
+            <button type="button" class="sim-action-btn" onclick="sbGoTo(2)" style="margin-bottom:14px">
+              <span>🚀 أنشئ موقع ديمو فوري باسم هذا النشاط الآن (خطوة 3) ❯</span>
+            </button>
+
+            <div class="sim-benefit-bar">
+              <b>💡 كيف تفيدك هذه الخطوة؟</b>
+              <span data-i18n="sim_s2_benefit">لن تتصل بعميل لتسأله "هل تريد موقعاً؟"، بل تدخل كخبير استشاري يعرف أين يخسر أرباحه بالضبط وتقدم له حلاً يرفع دخله فوراً.</span>
+            </div>
+          </div>
+
+          <!-- SCENE 3: Live Interactive Demo Generator -->
+          <div class="sim-scene" id="sb-scene-2">
+            <div class="sim-scene-meta">
+              <div class="sim-scene-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                <span data-i18n="sim_s3_title">المرحلة الثالثة: توليد موقع ديمو تفاعلي فوري باسمه</span>
+              </div>
+              <span class="sim-scene-pill" style="background:#dcfce7;color:#15803d" data-i18n="sim_s3_pill">🚀 جاهز خلال 0.8 ثانية</span>
+            </div>
+
+            <!-- Mini Live Interactive Demo Site -->
+            <div class="sim-demo-preview">
+              <div class="sim-browser-bar">
+                <div class="mock-dots">
+                  <span class="mock-dot r" style="width:7px;height:7px"></span>
+                  <span class="mock-dot y" style="width:7px;height:7px"></span>
+                  <span class="mock-dot g" style="width:7px;height:7px"></span>
+                </div>
+                <div class="sim-browser-url">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <span id="sb-demo-url">demo.nextgen.app/sultan-grill</span>
+                </div>
+                <span style="font-size:11px;color:var(--wa-d)">⚡ SSL & Mobile Ready</span>
+              </div>
+
+              <div class="sim-demo-hero" id="sb-demo-header">
+                <div class="sim-demo-brand">
+                  <b id="sb-demo-brand-name">مطعم ومشاوي السلطان 👑</b>
+                  <span id="sb-demo-brand-sub">منيو ديجيتال QR تفاعلي • طلبات واتساب أونلاين</span>
+                </div>
+                <div class="sim-theme-pills">
+                  <span class="sim-theme-dot" style="background:#eab308" onclick="sbSetTheme('#78350f', '#b45309')" title="Classic Gold"></span>
+                  <span class="sim-theme-dot" style="background:#0d9488" onclick="sbSetTheme('#0f172a', '#0d9488')" title="Modern Teal"></span>
+                  <span class="sim-theme-dot" style="background:#6366f1" onclick="sbSetTheme('#312e81', '#4f46e5')" title="Indigo Luxury"></span>
+                  <span class="sim-theme-dot" style="background:#059669" onclick="sbSetTheme('#064e3b', '#059669')" title="Royal Emerald"></span>
+                </div>
+              </div>
+
+              <!-- Interactive Products Grid -->
+              <div class="sim-menu-grid" id="sb-demo-items-grid">
+                <!-- Populated dynamically by JS -->
+              </div>
+
+              <div class="sim-demo-cart-bar">
+                <span style="font-weight:700;color:var(--ink)">🛒 السلة: <strong id="sb-cart-count" style="color:var(--teal)">0 طلبات</strong> جاهزة للتنفيذ</span>
+                <span style="background:var(--wa);color:#fff;padding:4px 12px;border-radius:6px;font-size:11.5px;font-weight:700;cursor:pointer" onclick="sbAddCart()">اطلب عبر واتساب 💬</span>
+              </div>
+            </div>
+
+            <!-- Advance CTA Button -->
+            <button type="button" class="sim-action-btn" onclick="sbGoTo(3)" style="margin-bottom:14px">
+              <span>💬 صغ رسالة البيع بالـ AI وجرب إرسالها للعميل (خطوة 4) ❯</span>
+            </button>
+
+            <div class="sim-benefit-bar">
+              <b>💡 كيف تفيدك هذه الخطوة؟</b>
+              <span data-i18n="sim_s3_benefit">الإثبات بالدليل الحي! يرى صاحب النشاط موقعه شغالاً بالفعل باسمه ومنتجاته وسلته التفاعلية، مما يرفع نسبة إغلاق الصفقات 4 أضعاف.</span>
+            </div>
+          </div>
+
+          <!-- SCENE 4: AI Spintax Outreach & Automated Closing -->
+          <div class="sim-scene" id="sb-scene-3">
+            <div class="sim-scene-meta">
+              <div class="sim-scene-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span data-i18n="sim_s4_title">المرحلة الرابعة: صياغة ذكية بالـ AI وإرسال آمن ضد الحظر</span>
+              </div>
+              <span class="sim-scene-pill" style="background:#ede9fe;color:#6d28d9" data-i18n="sim_s4_pill">🤖 Spintax ذكي + حماية الرقم</span>
+            </div>
+
+            <!-- Dialect Selection & Spintax Regnerate -->
+            <div class="sim-interactive-controls" style="margin-bottom:12px">
+              <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+                <span class="sim-controls-label" style="margin:0">اختر لهجة الصياغة الذكية للعميل:</span>
+                <button type="button" class="sim-lead-select-btn" onclick="sbRegenerateSpintax()">🔄 صياغة جديدة (AI Spintax)</button>
+              </div>
+              <div class="sim-pills-row" id="sb-dialect-pills" style="margin-bottom:0">
+                <button type="button" class="sim-pill-btn active" data-dialect="gulf" onclick="sbSelectDialect('gulf', this)">🇸🇦 لهجة خليجية</button>
+                <button type="button" class="sim-pill-btn" data-dialect="egyptian" onclick="sbSelectDialect('egyptian', this)">🇪🇬 لهجة مصرية</button>
+                <button type="button" class="sim-pill-btn" data-dialect="levantine" onclick="sbSelectDialect('levantine', this)">🇸🇾 لهجة شامية</button>
+                <button type="button" class="sim-pill-btn" data-dialect="english" onclick="sbSelectDialect('english', this)">🇬🇧 English</button>
+              </div>
+            </div>
+
+            <!-- Simulated WhatsApp UI -->
+            <div class="sim-chat-box">
+              <div class="sim-chat-header">
+                <div class="sim-chat-avatar" id="sb-chat-avatar">S</div>
+                <div class="sim-chat-user">
+                  <b id="sb-chat-user-name">أحمد - إدارة مطعم ومشاوي السلطان</b>
+                  <span id="sb-chat-user-status">متصل الآن 🟢</span>
+                </div>
+              </div>
+
+              <div class="sim-chat-messages">
+                <!-- Outgoing Message -->
+                <div class="sim-msg-bubble sim-msg-out">
+                  <span id="sb-chat-msg-text">السلام عليكم أ. أحمد، شفت مطعمكم المميز على جوجل ماب في دبي، ولاحظت عدم وجود رابط لطلباتكم المباشرة لتوفير عمولات التطبيقات. صممنا لكم ديمو سريع لمنيو تفاعلي يرسل الطلبات للواتساب مباشرة.. جرب نسختكم الحية من هنا:</span>
+                  <div class="sim-link-card">
+                    <span style="font-size:18px">🌐</span>
+                    <div>
+                      <strong id="sb-chat-card-url" style="display:block;font-size:12px;color:var(--teal)">demo.nextgen.app/sultan-grill</strong>
+                      <small id="sb-chat-card-desc" style="color:var(--mut);font-size:10.5px">معاينة مباشرة لموقع وديمو النشاط التجريبي</small>
+                    </div>
+                  </div>
+                  <span class="sim-msg-time">
+                    <span>10:42 AM</span>
+                    <span id="sb-check-ticks" style="color:#0284c7;font-weight:900">✓✓</span>
+                  </span>
+                </div>
+
+                <!-- Test Send Action Button -->
+                <button type="button" class="sim-action-btn" id="sb-test-send-btn" onclick="sbTriggerSend()">
+                  <span>📱 اضغط هنا لتجربة إرسال رسالة الواتساب للعميل الآن 💬</span>
+                </button>
+
+                <!-- Simulated Typing Indicator -->
+                <div id="sb-typing-indicator" class="sim-typing-badge" style="display:none">
+                  <span>✍️ العميل يكتب رداً الآن...</span>
+                </div>
+
+                <!-- Client Incoming Reply Bubble -->
+                <div class="sim-msg-bubble sim-msg-in" id="sb-client-reply-box" style="display:none">
+                  <span id="sb-client-reply-text">وعليكم السلام ورحمة الله، الديمو ممتاز جداً وشكله فخم وسريع! كم تكلفة التنفيذ والميعاد المتاح للبدء؟</span>
+                  <span class="sim-msg-time" id="sb-client-reply-time">10:44 AM</span>
+                </div>
+
+                <!-- Celebration & Closing Box -->
+                <div class="sim-celebrate-box" id="sb-celebrate-box" style="display:none">
+                  <b>🎉 مبروك! أغلقت الصفقة بنجاح واستلمت طلباً مدفوعاً!</b>
+                  <p>العميل انبهر برؤية موقعه جاهزاً باسمه وعروضه، وتحولت المراسلة الباردة إلى عقد استشاري مباشر دون أي إحراج.</p>
+                  <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap">
+                    <a class="btn wa" style="padding:9px 20px;font-size:13.5px;border-radius:10px" href="#" data-wa="أريد طلب أداة NextGen Sales Agent ومضاعفة عملائي">
+                      <svg class="i" style="width:16px;height:16px" aria-hidden="true"><use href="#i-chat"/></svg>
+                      <span>اطلب أداة NextGen Sales Agent الآن</span>
+                    </a>
+                    <button type="button" class="sim-btn-ctrl" onclick="sbResetSandbox()">
+                      <span>↺ جرّب نشاطاً أو دولة أخرى</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sim-benefit-bar">
+              <b>💡 كيف تفيدك هذه الخطوة؟</b>
+              <span data-i18n="sim_s4_benefit">مراسلة مخصصة 100% لكل عميل بلهجته مع فواصل زمنية عشوائية ذكية تمنع حظر رقمك، وتحوّل الرسائل الباردة إلى صفقات استشارية مدفوعة.</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Simulator Bottom Controls Bar -->
+        <div class="sim-controls-bar">
+          <div class="sim-ctrl-group">
+            <button type="button" class="sim-btn-ctrl" onclick="sbPrev()" aria-label="المشهد السابق">
+              <span data-i18n="sim_btn_prev">❮ السابق</span>
+            </button>
+            <div class="sim-dots">
+              <span class="sim-dot-nav active" data-step="0" onclick="sbGoTo(0)"></span>
+              <span class="sim-dot-nav" data-step="1" onclick="sbGoTo(1)"></span>
+              <span class="sim-dot-nav" data-step="2" onclick="sbGoTo(2)"></span>
+              <span class="sim-dot-nav" data-step="3" onclick="sbGoTo(3)"></span>
+            </div>
+            <button type="button" class="sim-btn-ctrl" onclick="sbNext()" aria-label="المشهد التالي">
+              <span data-i18n="sim_btn_next">التالي ❯</span>
+            </button>
+          </div>
+
+          <div class="sim-ctrl-group">
+            <a class="btn wa" style="padding:7px 16px;font-size:13px;border-radius:8px" href="#" data-wa="أريد تجربة أداة NextGen Sales Agent ومضاعفة عملائي">
+              <svg class="i" style="width:16px;height:16px" aria-hidden="true"><use href="#i-chat"/></svg>
+              <span data-i18n="sim_btn_get_tool">اطلب نسختك الآن</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+      <p class="caption" data-i18n="sim_caption">تجربة تفاعلية حية تبين مراحل العمل الـ 4: من سحب وفحص العملاء وبناء الديمو، وحتى الإغلاق عبر واتساب.</p>
+      <div style="display:none !important" aria-hidden="true">
+      <div class="sim-window" id="demo-simulator" role="region" aria-label="محاكاة تفاعلية متحركة لطريقة عمل الأداة">
+        <!-- Top Video Player Header -->
+        <div class="sim-header">
+          <div class="sim-header-left">
+            <div class="mock-dots">
+              <span class="mock-dot r"></span>
+              <span class="mock-dot y"></span>
+              <span class="mock-dot g"></span>
+            </div>
+            <span class="sim-rec-badge">
+              <span class="sim-rec-dot"></span>
+              <span data-i18n="sim_rec_label">SIMULATOR • LIVE DEMO</span>
+            </span>
+          </div>
+
+          <div class="sim-header-actions">
+            <span class="sim-timecode" id="sim-timecode">00:04 / 00:28</span>
+            <button class="sim-btn-ctrl" id="sim-toggle-play" onclick="simTogglePlay()" aria-label="إيقاف مؤقت / تشغيل">
+              <span id="sim-play-icon">⏸</span>
+              <span id="sim-play-text" data-i18n="sim_pause_btn">إيقاف مؤقت</span>
+            </button>
+            <button class="sim-btn-ctrl" onclick="simReset()" aria-label="إعادة التشغيل">
+              <span>↺</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Workflow Step Tabs -->
+        <div class="sim-steps-nav" id="sim-steps-nav">
+          <button class="sim-step-tab active" data-step="0" onclick="simGoTo(0)">
+            <span class="sim-step-num">1</span>
+            <span data-i18n="sim_tab_1">1. صيد العملاء</span>
+          </button>
+          <button class="sim-step-tab" data-step="1" onclick="simGoTo(1)">
+            <span class="sim-step-num">2</span>
+            <span data-i18n="sim_tab_2">2. الفحص الذكي</span>
+          </button>
+          <button class="sim-step-tab" data-step="2" onclick="simGoTo(2)">
+            <span class="sim-step-num">3</span>
+            <span data-i18n="sim_tab_3">3. بناء الديمو</span>
+          </button>
+          <button class="sim-step-tab" data-step="3" onclick="simGoTo(3)">
+            <span class="sim-step-num">4</span>
+            <span data-i18n="sim_tab_4">4. إرسال الواتساب</span>
+          </button>
+        </div>
+
+        <!-- Progress Timeline Bar -->
+        <div class="sim-progress-track">
+          <div class="sim-progress-fill" id="sim-progress-bar"></div>
+        </div>
+
+        <!-- Viewport with 4 Interactive Scenes -->
+        <div class="sim-viewport">
+
+          <!-- SCENE 1: Search & Scrape (Google Maps & 150 Countries) -->
+          <div class="sim-scene active" id="sim-scene-0">
+            <div class="sim-scene-meta">
+              <div class="sim-scene-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <span data-i18n="sim_s1_title">المرحلة الأولى: رصد العملاء وفلترة الأرقام</span>
+              </div>
+              <span class="sim-scene-pill" data-i18n="sim_s1_pill">⚡ رادار مسح 150 دولة</span>
+            </div>
+
+            <div class="sim-search-bar">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <span data-i18n-html="sim_s1_query">🔍 بحث تلقائي: <strong>مطاعم ومشاوي</strong> • دبي، الرياض، لندن (150 دولة مدعومة)</span>
+
+            </div>
+
+            <div class="sim-leads-stream">
+              <div class="sim-lead-card">
+                <div class="sim-lead-info">
+                  <div class="sim-lead-ico">🍖</div>
+                  <div>
+                    <span class="sim-lead-name" data-i18n="sim_s1_c1_name">مطعم ومشاوي السلطان (دبي)</span>
+                    <span class="sim-lead-sub">
+                      <span class="sim-tag-noweb" data-i18n="sim_tag_noweb">❌ بدون موقع إلكتروني</span>
+                      <span class="sim-tag-wa" data-i18n="sim_tag_wa">✅ موبايل واتساب مؤكد</span>
+                      <span>+971 50 ••• ••••</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="sc" style="width:70px"><b>96</b><i style="--w:96%"></i></div>
+              </div>
+
+              <div class="sim-lead-card">
+                <div class="sim-lead-info">
+                  <div class="sim-lead-ico" style="background:#e0f2fe;color:#0284c7">☕</div>
+                  <div>
+                    <span class="sim-lead-name" data-i18n="sim_s1_c2_name">كافيه روز باريستا (الرياض)</span>
+                    <span class="sim-lead-sub">
+                      <span class="sim-tag-noweb" data-i18n="sim_tag_noweb">❌ بدون موقع إلكتروني</span>
+                      <span class="sim-tag-wa" data-i18n="sim_tag_wa">✅ موبايل واتساب مؤكد</span>
+                      <span>+966 55 ••• ••••</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="sc" style="width:70px"><b>91</b><i style="--w:91%"></i></div>
+              </div>
+
+              <div class="sim-lead-card">
+                <div class="sim-lead-info">
+                  <div class="sim-lead-ico" style="background:#fef3c7;color:#d97706">🥐</div>
+                  <div>
+                    <span class="sim-lead-name" data-i18n="sim_s1_c3_name">The Artisan Bakery (London)</span>
+                    <span class="sim-lead-sub">
+                      <span class="sim-tag-noweb" data-i18n="sim_tag_social">📱 إنستجرام فقط • لا موقع</span>
+                      <span class="sim-tag-wa" data-i18n="sim_tag_wa">✅ موبايل واتساب مؤكد</span>
+                      <span>+44 79 ••• ••••</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="sc" style="width:70px"><b>88</b><i style="--w:88%"></i></div>
+              </div>
+            </div>
+
+            <div class="sim-benefit-bar">
+              <b>💡 كيف تفيدك هذه الخطوة؟</b>
+              <span data-i18n="sim_s1_benefit">توفر عليك 20+ ساعة أسبوعياً من البحث اليدوي الشاق؛ تستخرج مئات العملاء الجاهزين في ثوانٍ وتتخلص تلقائياً من الأرقام الأرضية المغلقة.</span>
+            </div>
+          </div>
+
+          <!-- SCENE 2: Automated Audit & High-Ticket Opportunity -->
+          <div class="sim-scene" id="sim-scene-1">
+            <div class="sim-scene-meta">
+              <div class="sim-scene-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <span data-i18n="sim_s2_title">المرحلة الثانية: فحص العميل وكشف ثغرات البيع</span>
+              </div>
+              <span class="sim-scene-pill" style="background:#fef3c7;color:#b45309" data-i18n="sim_s2_pill">⭐ فرصة بيع ذهبية</span>
+            </div>
+
+            <div class="sim-audit-grid">
+              <div class="sim-score-box">
+                <span class="sim-score-circle">94</span>
+                <span class="sim-score-label" data-i18n="sim_s2_score_lbl">درجة الملاءمة للشراء</span>
+                <small style="color:var(--wa-d);font-weight:700;font-size:10.5px;margin-top:2px" data-i18n="sim_s2_score_sub">أولوية تعاقد فائقة</small>
+              </div>
+
+              <div class="sim-audit-items">
+                <div class="sim-audit-item danger">
+                  <span>❌</span>
+                  <div>
+                    <strong data-i18n="sim_s2_item1_t">لا يملك موقعاً رسمياً:</strong>
+                    <span data-i18n="sim_s2_item1_d">يفقد أكثر من 70% من الباحثين عنه يومياً على محرك بحث جوجل لعدم وجود رابط مباشر.</span>
+                  </div>
+                </div>
+
+                <div class="sim-audit-item warning">
+                  <span>⚠️</span>
+                  <div>
+                    <strong data-i18n="sim_s2_item2_t">نزيف عمولات التطبيقات:</strong>
+                    <span data-i18n="sim_s2_item2_d">يعتمد على تطبيقات التوصيل التي تقتطع ما بين 20% إلى 30% من أرباح كل وجبة وطلب!</span>
+                  </div>
+                </div>
+
+                <div class="sim-audit-item success">
+                  <span>✅</span>
+                  <div>
+                    <strong data-i18n="sim_s2_item3_t">قناة بيع نشطة متاحة:</strong>
+                    <span data-i18n="sim_s2_item3_d">يملك رقم واتساب مبيعات مباشر ومفحوص، جاهز لاستقبال الطلبات الفورية بنقرة زر.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sim-benefit-bar">
+              <b>💡 كيف تفيدك هذه الخطوة؟</b>
+              <span data-i18n="sim_s2_benefit">لن تتصل بعميل لتسأله "هل تريد موقعاً؟"، بل تدخل كخبير استشاري يعرف أين يخسر أرباحه بالضبط وتقدم له حلاً يرفع دخله فوراً.</span>
+            </div>
+          </div>
+
+          <!-- SCENE 3: 1-Click Interactive Demo Generator -->
+          <div class="sim-scene" id="sim-scene-2">
+            <div class="sim-scene-meta">
+              <div class="sim-scene-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                <span data-i18n="sim_s3_title">المرحلة الثالثة: توليد موقع ديمو تفاعلي فوري باسمه</span>
+              </div>
+              <span class="sim-scene-pill" style="background:#dcfce7;color:#15803d" data-i18n="sim_s3_pill">🚀 جاهز خلال 0.8 ثانية</span>
+            </div>
+
+            <!-- Mini Live Interactive Demo Site -->
+            <div class="sim-demo-preview">
+              <div class="sim-browser-bar">
+                <div class="mock-dots">
+                  <span class="mock-dot r" style="width:7px;height:7px"></span>
+                  <span class="mock-dot y" style="width:7px;height:7px"></span>
+                  <span class="mock-dot g" style="width:7px;height:7px"></span>
+                </div>
+                <div class="sim-browser-url">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <span>demo.nextgen.app/sultan-grill</span>
+                </div>
+                <span style="font-size:11px;color:var(--wa-d)">⚡ SSL & Mobile Ready</span>
+              </div>
+
+              <div class="sim-demo-hero" id="sim-demo-header">
+                <div class="sim-demo-brand">
+                  <b data-i18n="sim_s3_demo_name">مطعم ومشاوي السلطان 👑</b>
+                  <span data-i18n="sim_s3_demo_sub">منيو ديجيتال QR تفاعلي • طلبات واتساب أونلاين</span>
+                </div>
+                <div class="sim-theme-pills">
+                  <span class="sim-theme-dot" style="background:#eab308" onclick="simSetDemoTheme('#78350f', '#b45309')" title="Classic Gold"></span>
+                  <span class="sim-theme-dot" style="background:#0d9488" onclick="simSetDemoTheme('#0f172a', '#0d9488')" title="Modern Teal"></span>
+                  <span class="sim-theme-dot" style="background:#6366f1" onclick="simSetDemoTheme('#312e81', '#4f46e5')" title="Indigo Luxury"></span>
+                </div>
+              </div>
+
+              <div class="sim-menu-grid">
+                <div class="sim-menu-card">
+                  <div class="sim-menu-card-info">
+                    <b data-i18n="sim_s3_m1_t">مشاوي مشكلة فاخرة</b>
+                    <span>75 AED</span>
+                  </div>
+                  <button class="sim-btn-add" onclick="simAddCart(this)" data-i18n="sim_btn_add">+ أضف</button>
+                </div>
+
+                <div class="sim-menu-card">
+                  <div class="sim-menu-card-info">
+                    <b data-i18n="sim_s3_m2_t">ريش لحم ضاني متبلة</b>
+                    <span>95 AED</span>
+                  </div>
+                  <button class="sim-btn-add" onclick="simAddCart(this)" data-i18n="sim_btn_add">+ أضف</button>
+                </div>
+              </div>
+
+              <div class="sim-demo-cart-bar">
+                <span id="sim-cart-status" style="font-weight:700;color:var(--ink)" data-i18n-html="sim_cart_status">🛒 السلة: <strong id="sim-cart-count" style="color:var(--teal)">2 طلب</strong> جاهز للتنفيذ</span>
+                <span style="background:var(--wa);color:#fff;padding:3px 10px;border-radius:6px;font-size:11.5px;font-weight:700" data-i18n="sim_btn_wa_checkout">اطلب عبر واتساب 💬</span>
+              </div>
+            </div>
+
+            <div class="sim-benefit-bar">
+              <b>💡 كيف تفيدك هذه الخطوة؟</b>
+              <span data-i18n="sim_s3_benefit">الإثبات بالدليل الحي! يرى صاحب النشاط موقعه شغالاً بالفعل باسمه وأطباقه وصوره وسلته التفاعلية، مما يرفع نسبة إغلاق الصفقات 4 أضعاف.</span>
+            </div>
+          </div>
+
+          <!-- SCENE 4: AI Spintax Outreach & Automated Closing -->
+          <div class="sim-scene" id="sim-scene-3">
+            <div class="sim-scene-meta">
+              <div class="sim-scene-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span data-i18n="sim_s4_title">المرحلة الرابعة: صياغة ذكية بالـ AI وإرسال آمن ضد الحظر</span>
+              </div>
+              <span class="sim-scene-pill" style="background:#ede9fe;color:#6d28d9" data-i18n="sim_s4_pill">🤖 Spintax ذكي + حماية الرقم</span>
+            </div>
+
+            <div class="sim-chat-box">
+              <div class="sim-chat-header">
+                <div class="sim-chat-avatar">S</div>
+                <div class="sim-chat-user">
+                  <b data-i18n="sim_s4_chat_user">أحمد - إدارة مطعم ومشاوي السلطان</b>
+                  <span data-i18n="sim_s4_chat_status">متصل الآن 🟢</span>
+                </div>
+              </div>
+
+              <div class="sim-chat-messages">
+                <div class="sim-msg-bubble sim-msg-out">
+                  <span data-i18n="sim_s4_msg_text">السلام عليكم أ. أحمد، شفت مطعمكم المميز على جوجل ماب، ولاحظت عدم وجود رابط لطلباتكم المباشرة لتوفير عمولات التطبيقات. جهزنا لكم منيو تفاعلي سريع بطلب مباشر على الواتساب.. جرب نسختكم الحية من هنا:</span>
+                  <div class="sim-link-card">
+                    <span style="font-size:18px">🌐</span>
+                    <div>
+                      <strong style="display:block;font-size:12px;color:var(--teal)">demo.nextgen.app/sultan-grill</strong>
+                      <small style="color:var(--mut);font-size:10.5px" data-i18n="sim_s4_preview_sub">معاينة مباشرة لمنيو وموقع المطعم التجريبي</small>
+                    </div>
+                  </div>
+                  <span class="sim-msg-time">10:42 AM <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="3" style="margin-inline-start:-8px"><polyline points="20 6 9 17 4 12"/></svg></span>
+                </div>
+
+                <div class="sim-msg-bubble sim-msg-in">
+                  <span data-i18n="sim_s4_reply_text">وعليكم السلام ورحمة الله، الديمو ممتاز جداً وشكله فخم وسريع! كم تكلفة التنفيذ والميعاد المتاح للبدء؟</span>
+                  <span class="sim-msg-time">10:44 AM</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sim-benefit-bar">
+              <b>💡 كيف تفيدك هذه الخطوة؟</b>
+              <span data-i18n="sim_s4_benefit">مراسلة مخصصة 100% لكل عميل بلهجته مع فواصل زمنية عشوائية ذكية تمنع حظر رقمك، وتحوّل الرسائل الباردة إلى صفقات استشارية مدفوعة.</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Simulator Bottom Controls Bar -->
+        <div class="sim-controls-bar">
+          <div class="sim-ctrl-group">
+            <button class="sim-btn-ctrl" onclick="simPrev()" aria-label="المشهد السابق">
+              <span data-i18n="sim_btn_prev">❮ السابق</span>
+            </button>
+            <div class="sim-dots">
+              <span class="sim-dot-nav active" data-step="0" onclick="simGoTo(0)"></span>
+              <span class="sim-dot-nav" data-step="1" onclick="simGoTo(1)"></span>
+              <span class="sim-dot-nav" data-step="2" onclick="simGoTo(2)"></span>
+              <span class="sim-dot-nav" data-step="3" onclick="simGoTo(3)"></span>
+            </div>
+            <button class="sim-btn-ctrl" onclick="simNext()" aria-label="المشهد التالي">
+              <span data-i18n="sim_btn_next">التالي ❯</span>
+            </button>
+          </div>
+
+          <div class="sim-ctrl-group">
+            <a class="btn wa" style="padding:7px 16px;font-size:13px;border-radius:8px" href="#" data-wa="أريد تجربة أداة NextGen Sales Agent ومضاعفة عملائي">
+              <svg class="i" style="width:16px;height:16px" aria-hidden="true"><use href="#i-chat"/></svg>
+              <span data-i18n="sim_btn_get_tool">اطلب نسختك الآن</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+      <p class="caption" data-i18n="sim_caption">محاكاة تفاعلية حية تبين مراحل العمل الـ 4: من سحب وفحص العملاء وبناء الديمو، وحتى الإغلاق عبر واتساب.</p>
+      </div>
+      <!-- SIMULATOR_END -->
+      <!-- OLD_MOCK_REMOVED -->
+      <!--
+      <div class="mock" style="display:none" role="img" aria-label="معاينة تفاعلية للوحة العملاء داخل الأداة">
         <div class="mock-window-head">
           <div class="mock-dots">
             <span class="mock-dot r"></span>
@@ -1631,6 +3017,7 @@ footer{
         </div>
       </div>
       <p class="caption" data-i18n="mock_caption">معاينة واقعية لشاشة البحث والتقييم وصياغة الرسائل التلقائية ثنائية اللغة.</p>
+      -->
     </div>
   </div>
 </div>
@@ -2071,6 +3458,56 @@ footer{
   </div>
 </section>
 
+<!-- ================= TERMS & LEGAL COMPLIANCE ================= -->
+<section id="terms" aria-labelledby="h-terms" style="background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center">
+      <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-shield"/></svg> <span data-i18n="terms_eyebrow">إطار قانوني واضح وشفاف</span></span>
+      <h2 id="h-terms" style="margin-inline:auto" data-i18n="terms_title">شروط الاستخدام، سياسة الخصوصية، والامتثال للقوانين المحلية</h2>
+      <p class="lead" style="margin-inline:auto" data-i18n="terms_lead">نلتزم بالشفافية التامة واحترام القوانين وحماية خصوصية المستخدمين. إليك البنود القانونية الصريحة التي تحكم استخدام أداة NextGen Sales Agent وتحدد المسؤوليات بوضوح تام:</p>
+    </div>
+
+    <div class="terms-grid">
+      <!-- Card 1: Local Compliance -->
+      <div class="terms-card">
+        <div class="terms-ico" style="background:#fee2e2;color:#b91c1c">⚖️</div>
+        <h3 data-i18n="terms_c1_title">1. مسؤولية الامتثال للقوانين المحلية</h3>
+        <p data-i18n="terms_c1_desc">يقر المستخدم صراحةً بأنه المسؤول الوحيد والمباشر عن التحقق من والامتثال لكافة القوانين واللوائح السارية في دولته والدول المستهدفة (بما يشمل قوانين التجارة الإلكترونية، حماية البيانات والخصوصية، وحماية المستهلك، ولوائح الاتصالات وتنظيم المراسلات). الأداة برنامج تقني مصمم لتنظيم جهود التواصل مع الأنشطة التجارية والمهنية المشروعة، ويخلي المطور مسؤوليته القانونية إلى أقصى حد يسمح به القانون المعمول به عن أي استخدام يخالف القوانين المحلية أو إرشادات الجهات التنظيمية.</p>
+      </div>
+
+      <!-- Card 2: 100% Local Privacy -->
+      <div class="terms-card">
+        <div class="terms-ico" style="background:#dcfce7;color:#15803d">🔒</div>
+        <h3 data-i18n="terms_c2_title">2. حفظ بيانات العملاء محلياً ونطاق البيانات التقنية</h3>
+        <p data-i18n="terms_c2_desc">تُخزَّن كافة بيانات عملائك المحتملين (Leads) وسجلات مراسلاتك محلياً في قاعدة بيانات محمية ومرتبطة بجهازك الشخصي ولا تُرفع إلى خوادمنا نهائياً. تقتصر البيانات التي ترسلها الأداة على بيانات تقنية محدودة ومشفرة (بصمة عتاد الجهاز HWID للتحقق من سلامة الترخيص، حالة الاشتراك واستهلاك الحصة اليومية، وسجلات الأعطال البرمجية المجردة تماماً من أي أرقام أو بيانات شخصية، وأحداث الأمان لمكافحة القرصنة) لأغراض التفعيل والدعم الفني وحماية الترخيص، ويحق للمطور إيقاف أو حظر الترخيص عن بُعد عند ثبوت انتهاك صريح للشروط.</p>
+      </div>
+
+      <!-- Card 3: Public Directory Data -->
+      <div class="terms-card">
+        <div class="terms-ico" style="background:#e0f2fe;color:#0369a1">🌐</div>
+        <h3 data-i18n="terms_c3_title">3. الاعتماد على البيانات العامة والمصادر المفتوحة</h3>
+        <p data-i18n="terms_c3_desc">تقتصر الأداة على قراءة وتجميع المعلومات التجارية العامة المتاحة علناً للجمهور على الإنترنت والمنصات الخارجية (مثل خرائط جوجل والصفحات العامة للأنشطة). ولا يعني وجود البيانات بشكل عام موافقة مسبقة على تلقي العروض الترويجية؛ ويكون المستخدم وحده مسؤولاً عن مراعاة القوانين المعمول بها وشروط وسياسات استخدام منصات الطرف الثالث المنظمة للمراسلات.</p>
+      </div>
+
+      <!-- Card 4: Anti-Spam & Fair Use Policy -->
+      <div class="terms-card">
+        <div class="terms-ico" style="background:#fef3c7;color:#b45309">🛡️</div>
+        <h3 data-i18n="terms_c4_title">4. سياسة مكافحة الإزعاج (Anti-Spam) وحظر الأرقام</h3>
+        <p data-i18n="terms_c4_desc">الأداة مزودة بضوابط تقنية تشمل حدوداً يومية قصوى للاستخراج والإرسال لمنع الممارسات العشوائية، وقائمة استبعاد محلية (Blacklist) يمكن للمستخدم تسجيل أي رقم فيها يدوياً لحجبه نهائياً من أي تواصل مستقبلي احتراماً لرغبته. يُحظر استخدام الأداة في الإرسال العشوائي المفرط (Spam)، ونظراً لأن سياسات تقييد الحسابات تخضع لخوارزميات وقرارات واتساب المستقلة، فإن المستخدم يتحمل المسؤولية الكاملة عن أسلوب إدارته ومعدلات مراسلته.</p>
+      </div>
+    </div>
+
+    <!-- Official Legal Declaration Box -->
+    <div class="terms-declaration">
+      <div class="terms-dec-header">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <b data-i18n="terms_dec_title">إقرار وإخلاء مسؤولية قانونية صريح:</b>
+      </div>
+      <p data-i18n="terms_dec_text">يُعد طلب الترخيص، أو تفعيله داخل البرنامج، إقراراً قانونياً ملزماً بأنك اطلعت على هذه الشروط ووافقت عليها بالكامل، وأنك تتحمل المسؤولية القانونية والأخلاقية والتنظيمية عن كافة الأنشطة والمراسلات الصادرة من جهازك. تُقدم الأداة كبرنامج حاسوبي تنظيمي للأعمال المشروعة فقط دون أي ضمانات تتجاوز حدود الترخيص البرمجي المتفق عليه، ويخلي المطور مسؤوليته إلى أقصى حد يسمح به القانون المعمول به عن أي استخدام مخالف.<br><span style="display:inline-block;margin-top:10px;color:var(--teal);font-weight:700">⚖️ للإبلاغ عن أي إساءة استخدام أو طلب مراجعة وإزالة بيانات: تواصل معنا عبر واتساب الدعم المعتمد وسيتم الفحص والمعالجة الفورية.</span></p>
+    </div>
+  </div>
+</section>
+
 <!-- ================= FINAL CTA ================= -->
 <section class="dark final" aria-labelledby="h-final">
   <div class="wrap">
@@ -2088,9 +3525,34 @@ footer{
 
 <!-- Footer -->
 <footer>
+  <div class="wrap">
+    <div class="foot" style="padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:20px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <img src="logo.png" alt="NextGen Logo" style="width:28px;height:28px;border-radius:6px;object-fit:cover">
+        <strong style="color:#fff;font-size:16px">NextGen Sales Agent</strong>
+      </div>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px">
+        <a href="#terms" data-i18n="foot_terms">شروط الاستخدام</a>
+        <a href="#terms" data-i18n="foot_privacy">سياسة الخصوصية</a>
+        <a href="#safe" data-i18n="foot_safe">إرشادات الأمان ومكافحة السبام</a>
+        <a href="#faq" data-i18n="nav_faq">الأسئلة الشائعة</a>
+        <a href="#" data-wa="أريد الاستفسار عن ترخيص NextGen Sales Agent" data-i18n="foot_support">تواصل مع الدعم الفني</a>
+      </div>
+    </div>
+    <div style="font-size:13px;line-height:1.75;color:#64748b">
+      <p style="margin-bottom:8px" data-i18n="foot_disclaimer">⚖️ إخلاء مسؤولية قانونية: أداة NextGen Sales Agent برنامج حاسوبي لتنظيم وإدارة التواصل مع الأنشطة التجارية والمهنية. شراء أو استخدام الأداة يُعد إقراراً صريحاً بأن المستخدم وحده المسؤول قانونياً وتنظيمياً عن كافة الأنشطة والمراسلات وعن التزامه بالقوانين السارية وسياسات المنصات الخارجية، ويخلي المطور مسؤوليته إلى أقصى حد يسمح به القانون. بيانات العملاء تُحفظ محلياً على جهاز المستخدم، وتقتصر البيانات المرسلة على مؤشرات تقنية لحماية الترخيص والدعم.</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px;color:#475569;font-size:12px">
+        <span>&copy; <span id="yr">2026</span> NextGen Sales Agent. <span data-i18n="foot_rights">جميع الحقوق محفوظة.</span></span>
+        <span>Device-Locked Local Database • Protected Licensing Telemetry</span>
+      </div>
+    </div>
+  </div>
+  <!-- OLD_FOOT_WRAP -->
+  <div style="display:none">
   <div class="wrap foot">
     <span data-i18n="foot_disclaimer">الأداة مصممة للتواصل التسويقي الاحترافي والمشروع، والتزامك بسياسات المنصات هو مسؤوليتك.</span>
     <a href="#" data-wa="أريد الاستفسار عن أداة NextGen Sales Agent" data-i18n="foot_support">تواصل مع الدعم الفني</a>
+  </div>
   </div>
 </footer>
 
@@ -2318,6 +3780,74 @@ const TRANSLATIONS = {
     foot_rights: "جميع الحقوق محفوظة.",
     foot_disclaimer: "الأداة مصممة للتواصل التسويقي الاحترافي والمشروع، والتزامك بسياسات المنصات هو مسؤوليتك.",
     foot_support: "تواصل مع الدعم الفني",
+    sim_badge: "محاكاة حية لطريقة عمل الأداة وفوائدها",
+    sim_rec_label: "SIMULATOR • LIVE DEMO",
+    sim_pause_btn: "إيقاف مؤقت",
+    sim_play_btn: "تشغيل العرض",
+    sim_tab_1: "1. صيد العملاء",
+    sim_tab_2: "2. الفحص الذكي",
+    sim_tab_3: "3. بناء الديمو",
+    sim_tab_4: "4. إرسال الواتساب",
+    sim_s1_title: "المرحلة الأولى: رصد العملاء وفلترة الأرقام",
+    sim_s1_pill: "⚡ رادار مسح 150 دولة",
+    sim_s1_query: "🔍 بحث تلقائي: <strong>مطاعم ومشاوي</strong> • دبي، الرياض، لندن (150 دولة مدعومة)",
+    sim_s1_c1_name: "مطعم ومشاوي السلطان (دبي)",
+    sim_s1_c2_name: "كافيه روز باريستا (الرياض)",
+    sim_s1_c3_name: "The Artisan Bakery (London)",
+    sim_tag_noweb: "❌ بدون موقع إلكتروني",
+    sim_tag_social: "📱 إنستجرام فقط • لا موقع",
+    sim_tag_wa: "✅ موبايل واتساب مؤكد",
+    sim_s1_benefit: "توفر عليك 20+ ساعة أسبوعياً من البحث اليدوي الشاق؛ تستخرج مئات العملاء الجاهزين في ثوانٍ وتتخلص تلقائياً من الأرقام الأرضية المغلقة.",
+    sim_s2_title: "المرحلة الثانية: فحص العميل وكشف ثغرات البيع",
+    sim_s2_pill: "⭐ فرصة بيع ذهبية",
+    sim_s2_score_lbl: "درجة الملاءمة للشراء",
+    sim_s2_score_sub: "أولوية تعاقد فائقة",
+    sim_s2_item1_t: "لا يملك موقعاً رسمياً:",
+    sim_s2_item1_d: "يفقد أكثر من 70% من الباحثين عنه يومياً على محرك بحث جوجل لعدم وجود رابط مباشر.",
+    sim_s2_item2_t: "نزيف عمولات التطبيقات:",
+    sim_s2_item2_d: "يعتمد على تطبيقات التوصيل التي تقتطع ما بين 20% إلى 30% من أرباح كل وجبة وطلب!",
+    sim_s2_item3_t: "قناة بيع نشطة متاحة:",
+    sim_s2_item3_d: "يملك رقم واتساب مبيعات مباشر ومفحوص، جاهز لاستقبال الطلبات الفورية بنقرة زر.",
+    sim_s2_benefit: "لن تتصل بعميل لتسأله \"هل تريد موقعاً؟\"، بل تدخل كخبير استشاري يعرف أين يخسر أرباحه بالضبط وتقدم له حلاً يرفع دخله فوراً.",
+    sim_s3_title: "المرحلة الثالثة: توليد موقع ديمو تفاعلي فوري باسمه",
+    sim_s3_pill: "🚀 جاهز خلال 0.8 ثانية",
+    sim_s3_demo_name: "مطعم ومشاوي السلطان 👑",
+    sim_s3_demo_sub: "منيو ديجيتال QR تفاعلي • طلبات واتساب أونلاين",
+    sim_s3_m1_t: "مشاوي مشكلة فاخرة",
+    sim_s3_m2_t: "ريش لحم ضاني متبلة",
+    sim_btn_add: "+ أضف",
+    sim_cart_status: "🛒 السلة: <strong id=\"sim-cart-count\" style=\"color:var(--teal)\">2 طلب</strong> جاهز للتنفيذ",
+    sim_btn_wa_checkout: "اطلب عبر واتساب 💬",
+    sim_s3_benefit: "الإثبات بالدليل الحي! يرى صاحب النشاط موقعه شغالاً بالفعل باسمه وأطباقه وصوره وسلته التفاعلية، مما يرفع نسبة إغلاق الصفقات 4 أضعاف.",
+    sim_s4_title: "المرحلة الرابعة: صياغة ذكية بالـ AI وإرسال آمن ضد الحظر",
+    sim_s4_pill: "🤖 Spintax ذكي + حماية الرقم",
+    sim_s4_chat_user: "أحمد - إدارة مطعم ومشاوي السلطان",
+    sim_s4_chat_status: "متصل الآن 🟢",
+    sim_s4_msg_text: "السلام عليكم أ. أحمد، شفت مطعمكم المميز على جوجل ماب، ولاحظت عدم وجود رابط لطلباتكم المباشرة لتوفير عمولات التطبيقات. جهزنا لكم منيو تفاعلي سريع بطلب مباشر على الواتساب.. جرب نسختكم الحية من هنا:",
+    sim_s4_preview_sub: "معاينة مباشرة لمنيو وموقع المطعم التجريبي",
+    sim_s4_reply_text: "وعليكم السلام ورحمة الله، الديمو ممتاز جداً وشكله فخم وسريع! كم تكلفة التنفيذ والميعاد المتاح للبدء؟",
+    sim_s4_benefit: "مراسلة مخصصة 100% لكل عميل بلهجته مع فواصل زمنية عشوائية ذكية تمنع حظر رقمك، وتحوّل الرسائل الباردة إلى صفقات استشارية مدفوعة.",
+    sim_btn_prev: "❮ السابق",
+    sim_btn_next: "التالي ❯",
+    sim_btn_get_tool: "اطلب نسختك الآن",
+    sim_caption: "محاكاة تفاعلية حية تبين مراحل العمل الـ 4: من سحب وفحص العملاء وبناء الديمو، وحتى الإغلاق عبر واتساب.",
+    nav_terms: "الشروط والامتثال",
+    terms_eyebrow: "إطار قانوني واضح وشفاف",
+    terms_title: "شروط الاستخدام، سياسة الخصوصية، والامتثال للقوانين المحلية",
+    terms_lead: "نلتزم بالشفافية التامة واحترام القوانين وحماية خصوصية المستخدمين. إليك البنود القانونية الصريحة التي تحكم استخدام أداة NextGen Sales Agent وتحدد المسؤوليات بوضوح تام:",
+    terms_c1_title: "1. مسؤولية الامتثال للقوانين المحلية",
+    terms_c1_desc: "يقر المستخدم صراحةً بأنه المسؤول الوحيد والمباشر عن التحقق من والامتثال لكافة القوانين واللوائح السارية في دولته والدول المستهدفة (بما يشمل قوانين التجارة الإلكترونية، حماية البيانات والخصوصية، وحماية المستهلك، ولوائح الاتصالات وتنظيم المراسلات). الأداة برنامج تقني مصمم لتنظيم جهود التواصل مع الأنشطة التجارية والمهنية المشروعة، ويخلي المطور مسؤوليته القانونية إلى أقصى حد يسمح به القانون المعمول به عن أي استخدام يخالف القوانين المحلية أو إرشادات الجهات التنظيمية.",
+    terms_c2_title: "2. حفظ بيانات العملاء محلياً ونطاق البيانات التقنية",
+    terms_c2_desc: "تُخزَّن كافة بيانات عملائك المحتملين (Leads) وسجلات مراسلاتك محلياً في قاعدة بيانات محمية ومرتبطة بجهازك الشخصي ولا تُرفع إلى خوادمنا نهائياً. تقتصر البيانات التي ترسلها الأداة على بيانات تقنية محدودة ومشفرة (بصمة عتاد الجهاز HWID للتحقق من سلامة الترخيص، حالة الاشتراك واستهلاك الحصة اليومية، وسجلات الأعطال البرمجية المجردة تماماً من أي أرقام أو بيانات شخصية، وأحداث الأمان لمكافحة القرصنة) لأغراض التفعيل والدعم الفني وحماية الترخيص، ويحق للمطور إيقاف أو حظر الترخيص عن بُعد عند ثبوت انتهاك صريح للشروط.",
+    terms_c3_title: "3. الاعتماد على البيانات العامة والمصادر المفتوحة",
+    terms_c3_desc: "تقتصر الأداة على قراءة وتجميع المعلومات التجارية العامة المتاحة علناً للجمهور على الإنترنت والمنصات الخارجية (مثل خرائط جوجل والصفحات العامة للأنشطة). ولا يعني وجود البيانات بشكل عام موافقة مسبقة على تلقي العروض الترويجية؛ ويكون المستخدم وحده مسؤولاً عن مراعاة القوانين المعمول بها وشروط وسياسات استخدام منصات الطرف الثالث المنظمة للمراسلات.",
+    terms_c4_title: "4. سياسة مكافحة الإزعاج (Anti-Spam) وحظر الأرقام",
+    terms_c4_desc: "الأداة مزودة بضوابط تقنية تشمل حدوداً يومية قصوى للاستخراج والإرسال لمنع الممارسات العشوائية، وقائمة استبعاد محلية (Blacklist) يمكن للمستخدم تسجيل أي رقم فيها يدوياً لحجبه نهائياً من أي تواصل مستقبلي احتراماً لرغبته. يُحظر استخدام الأداة في الإرسال العشوائي المفرط (Spam)، ونظراً لأن سياسات تقييد الحسابات تخضع لخوارزميات وقرارات واتساب المستقلة، فإن المستخدم يتحمل المسؤولية الكاملة عن أسلوب إدارته ومعدلات مراسلته.",
+    terms_dec_title: "إقرار وإخلاء مسؤولية قانونية صريح:",
+    terms_dec_text: "يُعد طلب الترخيص، أو تفعيله داخل البرنامج، إقراراً قانونياً ملزماً بأنك اطلعت على هذه الشروط ووافقت عليها بالكامل، وأنك تتحمل المسؤولية القانونية والأخلاقية والتنظيمية عن كافة الأنشطة والمراسلات الصادرة من جهازك. تُقدم الأداة كبرنامج حاسوبي تنظيمي للأعمال المشروعة فقط دون أي ضمانات تتجاوز حدود الترخيص البرمجي المتفق عليه، ويخلي المطور مسؤوليته إلى أقصى حد يسمح به القانون المعمول به عن أي استخدام مخالف.",
+    foot_terms: "شروط الاستخدام والامتثال",
+    foot_privacy: "خصوصية البيانات",
+    foot_safe: "إرشادات الأمان ومكافحة السبام",
     wa_float: "تحدث معنا عبر واتساب"
   },
   en: {
@@ -2528,6 +4058,74 @@ const TRANSLATIONS = {
     foot_rights: "All rights reserved.",
     foot_disclaimer: "NextGen Sales Agent is built for professional, compliant B2B outreach. Compliance with third-party platform terms remains the user's responsibility.",
     foot_support: "Contact Technical Support",
+    sim_badge: "Live Interactive Demo & Workflow Simulator",
+    sim_rec_label: "SIMULATOR • LIVE DEMO",
+    sim_pause_btn: "Pause",
+    sim_play_btn: "Play",
+    sim_tab_1: "1. Hunt Leads",
+    sim_tab_2: "2. Smart Audit",
+    sim_tab_3: "3. Instant Demo",
+    sim_tab_4: "4. WhatsApp Outreach",
+    sim_s1_title: "Stage 1: Multi-Country Lead Discovery & Validation",
+    sim_s1_pill: "⚡ 150-Country Radar",
+    sim_s1_query: "🔍 Live Search: <strong>Steakhouses & Cafes</strong> • Dubai, Riyadh, London (150 Countries)",
+    sim_s1_c1_name: "Al-Sultan BBQ & Grill (Dubai)",
+    sim_s1_c2_name: "Rose Barista Specialty Coffee (Riyadh)",
+    sim_s1_c3_name: "The Artisan Bakery (London)",
+    sim_tag_noweb: "❌ No Website",
+    sim_tag_social: "📱 Social Only • No Web",
+    sim_tag_wa: "✅ Mobile Verified",
+    sim_s1_benefit: "Saves you 20+ hours of manual prospecting every week; discovers high-value leads and automatically discards dead landlines.",
+    sim_s2_title: "Stage 2: Instant Audit & High-Ticket Opportunity Detection",
+    sim_s2_pill: "⭐ High-Ticket Deal",
+    sim_s2_score_lbl: "Buying Propensity Score",
+    sim_s2_score_sub: "Top Closing Priority",
+    sim_s2_item1_t: "Missing Official Website:",
+    sim_s2_item1_d: "Loses over 70% of high-intent Google searchers without a direct ordering link.",
+    sim_s2_item2_t: "3rd-Party Delivery Bleed:",
+    sim_s2_item2_d: "Relying on delivery aggregators that slash 20% to 30% from every customer order.",
+    sim_s2_item3_t: "Active Direct Channel:",
+    sim_s2_item3_d: "Has a verified mobile WhatsApp channel ready to receive orders with 0% commissions.",
+    sim_s2_benefit: "You never pitch cold with generic spam. You enter as an authority consultant pinpointing exact lost revenue with a tangible solution.",
+    sim_s3_title: "Stage 3: Instant Branded Live Demo Generator",
+    sim_s3_pill: "🚀 Built in 0.8s",
+    sim_s3_demo_name: "Al-Sultan BBQ & Grill 👑",
+    sim_s3_demo_sub: "Interactive Digital Menu • WhatsApp Online Ordering",
+    sim_s3_m1_t: "Gourmet Mixed Grill",
+    sim_s3_m2_t: "Marinated Lamb Chops",
+    sim_btn_add: "+ Add",
+    sim_cart_status: "🛒 Cart: <strong id=\"sim-cart-count\" style=\"color:var(--teal)\">2 Items</strong> Ready",
+    sim_btn_wa_checkout: "Order on WhatsApp 💬",
+    sim_s3_benefit: "Tangible proof in action! Clients see their actual brand, menu, and live WhatsApp cart live before paying, multiplying conversions 4x.",
+    sim_s4_title: "Stage 4: Dynamic AI Spintax & Ban-Safe Outreach",
+    sim_s4_pill: "🤖 Smart Anti-Ban Spintax",
+    sim_s4_chat_user: "Ahmed - GM at Al-Sultan Grill",
+    sim_s4_chat_status: "Online 🟢",
+    sim_s4_msg_text: "Hello Ahmed, came across your top-rated restaurant on Google. We noticed you're losing revenue to aggregator fees without direct ordering. We generated an ultra-fast branded live demo preview for you to test right now:",
+    sim_s4_preview_sub: "Interactive live demo preview with instant WhatsApp checkout",
+    sim_s4_reply_text: "Hi there! This demo is stunning, lightning-fast, and exactly what we need. What is the pricing and when can we launch?",
+    sim_s4_benefit: "100% unique Spintax copy tailored per client with human random delays to safeguard your number and close high-ticket deals.",
+    sim_btn_prev: "❮ Prev",
+    sim_btn_next: "Next ❯",
+    sim_btn_get_tool: "Get NextGen Now",
+    sim_caption: "Interactive simulator demonstrating the 4 core steps: prospecting, auditing, live demo creation, and warm WhatsApp closing.",
+    nav_terms: "Terms & Compliance",
+    terms_eyebrow: "Transparent Legal & Regulatory Framework",
+    terms_title: "Terms of Service, Privacy Policy & Local Compliance",
+    terms_lead: "We maintain absolute transparency, regulatory respect, and strict customer data protection. Here are the explicit legal clauses governing NextGen Sales Agent usage:",
+    terms_c1_title: "1. Local Legal & Regulatory Compliance",
+    terms_c1_desc: "The user explicitly acknowledges sole responsibility for verifying and complying with all local laws and regulations governing their jurisdiction and targeted business markets (including electronic commerce laws, consumer data protection, anti-spam, and telecommunication acts). NextGen is designed to organize outreach with commercial businesses; developers disclaim liability to the maximum extent permitted by applicable law.",
+    terms_c2_title: "2. Local Prospect Storage & Limited Technical Telemetry",
+    terms_c2_desc: "All prospect leads and outreach logs are stored locally on your device-locked database and are never uploaded to our servers. Transmitted data is strictly limited to technical telemetry (device HWID for license enforcement, quota usage, crash tracebacks stripped of any personal data, and anti-tamper security events) for activation and license protection. Licenses may be revoked remotely upon verified violations.",
+    terms_c3_title: "3. Public Directory & Open Source Records Only",
+    terms_c3_desc: "NextGen strictly reads publicly available commercial directory information published online (Google Maps and public business profiles). Public availability does not constitute prior consent to marketing; the user retains sole responsibility for complying with applicable laws and third-party platform terms.",
+    terms_c4_title: "4. Strict Anti-Spam & Fair Use Policy",
+    terms_c4_desc: "NextGen incorporates technical controls including daily prospecting and outreach limits to prevent erratic volume, and a local opt-out blacklist where users can record numbers requesting cessation. Unsolicited bulk spam is strictly prohibited. Because account restrictions are determined by independent WhatsApp algorithms, users retain sole responsibility for their messaging volume and account health.",
+    terms_dec_title: "Explicit Legal Declaration & Disclaimer:",
+    terms_dec_text: "Requesting or activating a license constitutes a legally binding agreement that you have reviewed and accepted these terms in full. You retain sole regulatory, ethical, and legal liability for all communications initiated from your device. The software is provided as a utility for lawful business purposes only, and developers disclaim liability to the maximum extent permitted by applicable law.",
+    foot_terms: "Terms & Compliance",
+    foot_privacy: "Data Privacy",
+    foot_safe: "Anti-Spam & Safety Policy",
     wa_float: "Chat via WhatsApp"
   }
 };
@@ -2775,11 +4373,1233 @@ document.addEventListener('keydown', e => { if(e.key === 'Escape') setMenu(false
 const yrEl = document.getElementById('yr');
 if (yrEl) yrEl.textContent = new Date().getFullYear();
 
+/* ===== Live Hands-On Interactive Sandbox Controller ===== */
+const SB_DATABASE = {
+  restaurants: {
+    ae: [
+      {
+        name: "مطعم ومشاوي السلطان",
+        city: "دبي • الإمارات 🇦🇪",
+        phone: "+971 50 847 2910",
+        score: 96,
+        slug: "sultan-grill",
+        icon: "🍖",
+        currency: "AED",
+        items: [
+          { name: "مشاوي مشكلة فاخرة (كباب وشقف)", price: "75 AED" },
+          { name: "ريش لحم ضاني متبلة على الفحم", price: "95 AED" }
+        ],
+        manager: "أحمد - إدارة مطعم ومشاوي السلطان",
+        reply: "وعليكم السلام ورحمة الله أخي، الديمو ممتاز جداً وشكله فخم وسريع! كم تكلفة التنفيذ وميعاد التسليم المتاح لديكم؟"
+      },
+      {
+        name: "كبابجي الشرق الأصيل",
+        city: "أبوظبي • الإمارات 🇦🇪",
+        phone: "+971 52 391 8421",
+        score: 93,
+        slug: "alsharq-kabab",
+        icon: "🍢",
+        currency: "AED",
+        items: [
+          { name: "صينية كباب بلدي مع الأرز المبهر", price: "80 AED" },
+          { name: "شيش طاووق مدخن بالخلطة السرية", price: "60 AED" }
+        ],
+        manager: "م. خالد - كبابجي الشرق",
+        reply: "أهلاً بك، الفكرة رهيبة وعجبتني جداً خصوصاً توفير عمولات التطبيقات! تواصل معي للبدء فوراً."
+      },
+      {
+        name: "مشويات الدار الدمشقية",
+        city: "الشارقة • الإمارات 🇦🇪",
+        phone: "+971 55 902 4411",
+        score: 90,
+        slug: "dar-damascus",
+        icon: "🥩",
+        currency: "AED",
+        items: [
+          { name: "شاورما عربي لحم مع مقبلات", price: "45 AED" },
+          { name: "دجاج شواية على الفحم بالخلطة الشامية", price: "55 AED" }
+        ],
+        manager: "أبو طارق - الدار الدمشقية",
+        reply: "أهلاً وسهلاً، رابط الديمو فتح سريع جداً على الموبايل. حابب أطلب الموقع كامل، كيف آلية الدفع؟"
+      }
+    ],
+    sa: [
+      {
+        name: "شواية ومطعم نجد الأصيل",
+        city: "الرياض • السعودية 🇸🇦",
+        phone: "+966 55 412 8839",
+        score: 95,
+        slug: "najd-grill",
+        icon: "🍖",
+        currency: "SAR",
+        items: [
+          { name: "مظبي حاشي فاخر بالرز الشعبي", price: "85 SAR" },
+          { name: "مضغوط لحم نعيمي طازج", price: "95 SAR" }
+        ],
+        manager: "أبو فهد - إدارة مطعم نجد",
+        reply: "يا هلا والله، ما شاء الله ديمو متكتك وسريع. حنا نعاني من عمولات جاهز وهنقرستيشن. كم تكلفة السيستم؟"
+      },
+      {
+        name: "بيت المندي والمظبي الحجازي",
+        city: "جدة • السعودية 🇸🇦",
+        phone: "+966 50 638 1190",
+        score: 92,
+        slug: "hijaz-mandi",
+        icon: "🍗",
+        currency: "SAR",
+        items: [
+          { name: "تيس مندي حجازي كامل مع الشوربة", price: "120 SAR" },
+          { name: "مدفون لحم على الحجر بالزعفران", price: "90 SAR" }
+        ],
+        manager: "م. تركي - بيت المندي",
+        reply: "وعليكم السلام، ممتاز العمل. ودنا نسوي منيو ديجيتال وربط مباشر برقم الطلبات. أرسل لي التفاصيل."
+      },
+      {
+        name: "شاورما وفحم السلطانية",
+        city: "الدمام • السعودية 🇸🇦",
+        phone: "+966 54 881 2045",
+        score: 89,
+        slug: "sultania-shawarma",
+        icon: "🥙",
+        currency: "SAR",
+        items: [
+          { name: "بوكس صاج شاورما عائلي مع الصوصات", price: "65 SAR" },
+          { name: "فطائر على الفحم بالجبنة والعسل", price: "35 SAR" }
+        ],
+        manager: "سلطان - شاورما وفحم",
+        reply: "أهلاً بك، الشكل جداً مرتب! كلمني اتصال أو واتساب نتفق على الشغل."
+      }
+    ],
+    eg: [
+      {
+        name: "قصر الكبابجي النيل",
+        city: "القاهرة • مصر 🇪🇬",
+        phone: "+20 10 9412 5580",
+        score: 97,
+        slug: "kebabgy-palace",
+        icon: "🍖",
+        currency: "EGP",
+        items: [
+          { name: "كيلو مشكل كباب وكفتة ضاني بلدي", price: "750 EGP" },
+          { name: "طاجن موزة بالموزاريلا والأرز البسمتي", price: "380 EGP" }
+        ],
+        manager: "الحاج إبراهيم - قصر الكبابجي",
+        reply: "وعليكم السلام ورحمة الله، الديمو تحفة وسريع أوي! إحنا محتاجين السايت ده فوراً للدليفري، نتواصل إزاي؟"
+      },
+      {
+        name: "مشويات وحاتي الحسين",
+        city: "الجيزة • مصر 🇪🇬",
+        phone: "+20 11 2341 8899",
+        score: 93,
+        slug: "elhussein-hati",
+        icon: "🍢",
+        currency: "EGP",
+        items: [
+          { name: "سرفيس حاتي ملكي مشكل مع الطحينة", price: "620 EGP" },
+          { name: "شيش طاووق مشوي على الفحم", price: "240 EGP" }
+        ],
+        manager: "أ. طارق - حاتي الحسين",
+        reply: "تمام جداً يا فندم، المنيو عجب إدارة المطعم. عايزين نضيف باقي الأصناف ونبدأ العمل."
+      },
+      {
+        name: "طواجن وفحم الدار المصرية",
+        city: "الإسكندرية • مصر 🇪🇬",
+        phone: "+20 12 7855 4120",
+        score: 89,
+        slug: "eldar-restaurant",
+        icon: "🥘",
+        currency: "EGP",
+        items: [
+          { name: "طاجن عكاوي بالبصل القاورما الفاخر", price: "320 EGP" },
+          { name: "فرد حمام محشي فريك بلدي", price: "180 EGP" }
+        ],
+        manager: "الشيف محمود - الدار",
+        reply: "مساء الخير، عجبني جداً زرار الطلب المباشر عبر الواتساب. كلمني نتفق على باقي التفاصيل."
+      }
+    ],
+    uk: [
+      {
+        name: "Sultan Gourmet Grill & Steakhouse",
+        city: "London • UK 🇬🇧",
+        phone: "+44 79 1112 4490",
+        score: 95,
+        slug: "sultan-grill-london",
+        icon: "🥩",
+        currency: "GBP",
+        items: [
+          { name: "Signature Mixed Charcoal Platter", price: "£28.50" },
+          { name: "Dry-Aged Wagyu Ribeye Steak", price: "£36.00" }
+        ],
+        manager: "James Carter - General Manager",
+        reply: "Hello! This demo looks stunning and loaded super quick on my phone. We definitely want to bypass Deliveroo fees. What are the package rates?"
+      },
+      {
+        name: "The Ottoman Charcoal Restaurant",
+        city: "Manchester • UK 🇬🇧",
+        phone: "+44 78 4590 1238",
+        score: 91,
+        slug: "ottoman-manchester",
+        icon: "🍢",
+        currency: "GBP",
+        items: [
+          { name: "Special Lamb & Chicken Kebab Mix", price: "£22.00" },
+          { name: "Handmade Turkish Baklava Selection", price: "£8.50" }
+        ],
+        manager: "Emir Kaya - Owner",
+        reply: "Hi there, great initiative. The live WhatsApp ordering looks clean. Please share onboarding details."
+      },
+      {
+        name: "Piccadilly Artisan Kitchen",
+        city: "London • UK 🇬🇧",
+        phone: "+44 77 3321 8841",
+        score: 88,
+        slug: "piccadilly-kitchen",
+        icon: "🍖",
+        currency: "GBP",
+        items: [
+          { name: "Slow Roasted Lamb Shank with Mash", price: "£24.00" },
+          { name: "Crispy Halloumi & Mediterranean Salad", price: "£14.50" }
+        ],
+        manager: "Sarah Jenkins - Ops",
+        reply: "Hello, very impressive demo! Let's arrange a quick 10-minute call tomorrow to get this deployed."
+      }
+    ]
+  },
+  cafes: {
+    ae: [
+      {
+        name: "كافيه روز باريستا سبيشالتي",
+        city: "دبي • الإمارات 🇦🇪",
+        phone: "+971 50 712 9904",
+        score: 95,
+        slug: "rose-barista-dxb",
+        icon: "☕",
+        currency: "AED",
+        items: [
+          { name: "سبانش لاتيه مثلج بالسيروب العضوي", price: "28 AED" },
+          { name: "فرينش توست بالكراميل المملح", price: "42 AED" }
+        ],
+        manager: "سيف المهيري - مالك الكافيه",
+        reply: "وعليكم السلام، الديمو راقي جداً ويناسب هوية الكافيه! محتاجين نربطه برقم الواتساب فوراً، أرسل لي التفاصيل."
+      },
+      {
+        name: "أورا كافيه ومحمصة جميرا",
+        city: "دبي • الإمارات 🇦🇪",
+        phone: "+971 54 220 8133",
+        score: 92,
+        slug: "aura-cafe-jumeirah",
+        icon: "🥐",
+        currency: "AED",
+        items: [
+          { name: "قهوة V60 إثيوبية مجففة", price: "32 AED" },
+          { name: "سان سباستيان تشيز كيك مع الشوكولاتة", price: "38 AED" }
+        ],
+        manager: "م. ناصر - أورا كافيه",
+        reply: "مرحباً، فكرة المنيو الديجيتال بالـ QR ممتازة للطاولات والطلبات الخارجية. مستعدين للبدء معكم."
+      },
+      {
+        name: "ذا كوفي لاب لاكجري",
+        city: "أبوظبي • الإمارات 🇦🇪",
+        phone: "+971 56 991 3042",
+        score: 89,
+        slug: "coffee-lab-ad",
+        icon: "☕",
+        currency: "AED",
+        items: [
+          { name: "فلات وايت بحليب الشوفان الفاخر", price: "26 AED" },
+          { name: "كرواسون اللوز البلجيكي المقرمش", price: "24 AED" }
+        ],
+        manager: "حمد الكعبي - الإدارة",
+        reply: "أهلاً بك، الشكل مرتب وسريع جداً. كم مدة تجهيز المنيو بالكامل للفرعين؟"
+      }
+    ],
+    sa: [
+      {
+        name: "كافيه ومحمصة إكسير القهوة",
+        city: "الرياض • السعودية 🇸🇦",
+        phone: "+966 55 901 3342",
+        score: 96,
+        slug: "ixir-coffee-riyadh",
+        icon: "☕",
+        currency: "SAR",
+        items: [
+          { name: "آيس دريب كولومبي مختص", price: "29 SAR" },
+          { name: "كيكة العسل الروسية الأصلية", price: "36 SAR" }
+        ],
+        manager: "عبدالله التميمي - إدارة إكسير",
+        reply: "يا هلا ومسهلا، الموقع طالع فنان واللوانه متناسقة مع براندنا. نبي نعتمد التصميم، وش الخطوات؟"
+      },
+      {
+        name: "روز كافيه ولاونج التحلية",
+        city: "جدة • السعودية 🇸🇦",
+        phone: "+966 50 128 4471",
+        score: 91,
+        slug: "rose-lounge-jeddah",
+        icon: "🍰",
+        currency: "SAR",
+        items: [
+          { name: "موهيتو توت بري منعش", price: "32 SAR" },
+          { name: "وافل بلجيكي بصلصة البيستاشيو", price: "40 SAR" }
+        ],
+        manager: "رائد الحربي - روز لاونج",
+        reply: "وعليكم السلام، الديمو بطران وسريع. وفرت علينا عمولات التوصيل. اعتمد ونبي نوقع معك."
+      },
+      {
+        name: "بلاك بيرل سبيشالتي كوفي",
+        city: "الخبر • السعودية 🇸🇦",
+        phone: "+966 54 662 9011",
+        score: 88,
+        slug: "black-pearl-khobar",
+        icon: "☕",
+        currency: "SAR",
+        items: [
+          { name: "كولد برو منقوع 24 ساعة", price: "28 SAR" },
+          { name: "كوكيز كلاسيك دافئ بالشوكولاتة", price: "18 SAR" }
+        ],
+        manager: "فيصل القحطاني - المالك",
+        reply: "حياك الله، ممتاز جداً. جهز العقد وأنا جاهز للتحويل اليوم."
+      }
+    ],
+    eg: [
+      {
+        name: "محمصة وكافيه أرابيكا الزمالك",
+        city: "القاهرة • مصر 🇪🇬",
+        phone: "+20 10 6512 8090",
+        score: 94,
+        slug: "arabica-zamalek",
+        icon: "☕",
+        currency: "EGP",
+        items: [
+          { name: "سبانيش لاتيه كولد برو مميز", price: "110 EGP" },
+          { name: "كرواسون لوز فرنسي زبدة طبيعي", price: "85 EGP" }
+        ],
+        manager: "كريم فهمي - أرابيكا",
+        reply: "أهلاً يا فندم، المنيو الإلكتروني تحفة وسريع جداً على الموبايل! محتاجين نربطه برقم الفرع، كلمني فوراً."
+      },
+      {
+        name: "باريستا كورنر المعادي",
+        city: "القاهرة • مصر 🇪🇬",
+        phone: "+20 11 9840 2215",
+        score: 90,
+        slug: "barista-maadi",
+        icon: "🥐",
+        currency: "EGP",
+        items: [
+          { name: "فلات وايت بحبوب بن برازيلي", price: "95 EGP" },
+          { name: "براونيز كيك بالشوكولاتة البلجيكية", price: "75 EGP" }
+        ],
+        manager: "أحمد حسني - باريستا المعادي",
+        reply: "مساء الخير، عجبنا جداً العرض وطريقة الطلب بالواتساب. هنبدأ على طول إن شاء الله."
+      },
+      {
+        name: "كافيه جاردن الإسكندرية",
+        city: "الإسكندرية • مصر 🇪🇬",
+        phone: "+20 12 4310 9980",
+        score: 88,
+        slug: "garden-cafe-alex",
+        icon: "🍹",
+        currency: "EGP",
+        items: [
+          { name: "سموذي مانجو وتوت استوائي", price: "80 EGP" },
+          { name: "تشيز كيك لوتس فريش", price: "90 EGP" }
+        ],
+        manager: "أ. شريف - جاردن كافيه",
+        reply: "تحياتي، الديمو ممتاز وسهل الاستخدام للزبائن. أرجو إرسال تفاصيل التكلفة وطريقة التعاقد."
+      }
+    ],
+    uk: [
+      {
+        name: "Artisan Coffee Roasters Soho",
+        city: "London • UK 🇬🇧",
+        phone: "+44 79 3341 0029",
+        score: 94,
+        slug: "artisan-soho-london",
+        icon: "☕",
+        currency: "GBP",
+        items: [
+          { name: "Single Origin Ethiopian Geisha V60", price: "£6.50" },
+          { name: "Almond Frangipane Brioche Croissant", price: "£4.80" }
+        ],
+        manager: "Oliver Hughes - Founder",
+        reply: "Hello! Absolutely love the minimalistic clean aesthetic. Exactly what our Soho branch needs. When can we roll this out?"
+      },
+      {
+        name: "The Floral Matcha Bar",
+        city: "London • UK 🇬🇧",
+        phone: "+44 78 1209 4433",
+        score: 91,
+        slug: "floral-matcha-london",
+        icon: "🍵",
+        currency: "GBP",
+        items: [
+          { name: "Ceremonial Grade Iced Matcha Latte", price: "£7.20" },
+          { name: "Yuzu & Pistachio Sponge Cake", price: "£5.50" }
+        ],
+        manager: "Chloe Bennett - Manager",
+        reply: "Hi there! Our customers order constantly via Instagram and WhatsApp; this web menu solves our ordering queue. Let's do it!"
+      },
+      {
+        name: "Covent Garden Espresso Studio",
+        city: "London • UK 🇬🇧",
+        phone: "+44 77 9012 3344",
+        score: 87,
+        slug: "covent-espresso",
+        icon: "☕",
+        currency: "GBP",
+        items: [
+          { name: "Specialty Oat Flat White", price: "£4.60" },
+          { name: "Caramelized Pecan Tart", price: "£5.00" }
+        ],
+        manager: "David Ross - Lead Barista",
+        reply: "Brilliant concept! How do we integrate our full pastry selection? Send me the package specs."
+      }
+    ]
+  },
+  clinics: {
+    ae: [
+      {
+        name: "عيادة النور لطب وجراحة الأسنان",
+        city: "دبي • الإمارات 🇦🇪",
+        phone: "+971 50 338 1902",
+        score: 97,
+        slug: "elnoor-dental-dxb",
+        icon: "🦷",
+        currency: "AED",
+        items: [
+          { name: "كشف أسنان تخصصي + تنظيف جير بالموجات", price: "350 AED" },
+          { name: "جلسة تبييض زووم بالليزر خلال 45 دقيقة", price: "950 AED" }
+        ],
+        manager: "د. رامي النجار - المدير الطبي",
+        reply: "وعليكم السلام ورحمة الله، الديمو احترافي ومناسب جداً لعيادتنا في دبي! المرضى سيسهل عليهم حجز المواعيد. تواصلوا معنا للبدء فوراً."
+      },
+      {
+        name: "مركز الابتسامة التجميلية للأسنان",
+        city: "أبوظبي • الإمارات 🇦🇪",
+        phone: "+971 52 840 3319",
+        score: 93,
+        slug: "smile-cosmetic-ad",
+        icon: "✨",
+        currency: "AED",
+        items: [
+          { name: "ابتسامة هوليوود عدسات فينير ألمانية", price: "1200 AED" },
+          { name: "تقويم أسنان شفاف غير مرئي", price: "3500 AED" }
+        ],
+        manager: "د. هبة - إدارة المركز",
+        reply: "مرحباً، الموقع راقي جداً ويوفر الكثير من مكالمات الاستقبال. نود إضافة نموذج الحجز المباشر، أرسلوا لنا التفاصيل."
+      },
+      {
+        name: "عيادات النخبة الطبية التخصصية",
+        city: "الشارقة • الإمارات 🇦🇪",
+        phone: "+971 55 119 7704",
+        score: 90,
+        slug: "elite-clinic-shj",
+        icon: "🏥",
+        currency: "AED",
+        items: [
+          { name: "زراعة أسنان فورية بنظام سويسري معتمد", price: "2400 AED" },
+          { name: "علاج عصب الأسنان بجلسة واحدة بالميكروسكوب", price: "700 AED" }
+        ],
+        manager: "أ. ماجد - إدارة النخبة",
+        reply: "أهلاً وسهلاً، العرض ممتاز جداً وفريق الإدارة وافق عليه. موعدنا للتنفيذ متى؟"
+      }
+    ],
+    sa: [
+      {
+        name: "مجمع النخبة لطب وزراعة الأسنان",
+        city: "الرياض • السعودية 🇸🇦",
+        phone: "+966 55 220 9811",
+        score: 96,
+        slug: "nokhba-dental-riyadh",
+        icon: "🦷",
+        currency: "SAR",
+        items: [
+          { name: "فحص شامل + أشعة بانوراما وتنظيف لثة", price: "250 SAR" },
+          { name: "تبييض الأسنان بالليزر مع قالب حماية منزلي", price: "800 SAR" }
+        ],
+        manager: "د. فهد السبيعي - المجمع",
+        reply: "يا هلا دكتور، الموقع متقن جداً وسهل لكبار السن والشباب لحجز المواعيد. اعتمدوا التصميم ونبي ننفذه فوراً."
+      },
+      {
+        name: "عيادات د. حسام الاستشارية للأسنان",
+        city: "جدة • السعودية 🇸🇦",
+        phone: "+966 50 774 1290",
+        score: 92,
+        slug: "dr-hossam-dental",
+        icon: "✨",
+        currency: "SAR",
+        items: [
+          { name: "ابتسامة هوليوود إيماكس تجميلية", price: "1500 SAR" },
+          { name: "علاج جذور وأعصاب بأحدث تقنية ديجيتال", price: "600 SAR" }
+        ],
+        manager: "أنس الغامدي - مسؤول التسويق",
+        reply: "وعليكم السلام، طريقة العرض بالديمو مقنعة ومباشرة. جهز لنا اتفاقية العمل ونبدأ هذا الأسبوع."
+      },
+      {
+        name: "مركز الرواد لطب الأسنان الحديث",
+        city: "الدمام • السعودية 🇸🇦",
+        phone: "+966 54 339 6012",
+        score: 89,
+        slug: "alrowad-dental",
+        icon: "🦷",
+        currency: "SAR",
+        items: [
+          { name: "تقويم أسنان ديجيتال للمراهقين والبالغين", price: "3200 SAR" },
+          { name: "تركيبات زيركون تجميلية عالية الدقة", price: "750 SAR" }
+        ],
+        manager: "د. منيرة - مركز الرواد",
+        reply: "أهلاً بكم، الديمو اختصر علينا شهور من البحث عن مبرمجين. جاهزين للتعاقد اليوم."
+      }
+    ],
+    eg: [
+      {
+        name: "مركز د. كريم التخصصي لطب الأسنان",
+        city: "القاهرة • مصر 🇪🇬",
+        phone: "+20 10 2290 4118",
+        score: 95,
+        slug: "dr-karim-dental",
+        icon: "🦷",
+        currency: "EGP",
+        items: [
+          { name: "جلسة تبييض ليزر أمريكي + تنظيف كامل", price: "1800 EGP" },
+          { name: "زراعة أسنان فورية ألمانية بضمان مدى الحياة", price: "6500 EGP" }
+        ],
+        manager: "د. كريم سامي - استشاري الأسنان",
+        reply: "أهلاً بحضرتك، الديمو شكله محترم جداً وبيعكس قيمة العيادة! حابب أربطه بواتساب السكرتارية فوراً، كلمني نتفق."
+      },
+      {
+        name: "عيادات سمايل كير مصر الجديدة",
+        city: "القاهرة • مصر 🇪🇬",
+        phone: "+20 11 8760 1234",
+        score: 91,
+        slug: "smilecare-heliopolis",
+        icon: "✨",
+        currency: "EGP",
+        items: [
+          { name: "كشف شامل وأشعة ديجيتال وخطة علاج", price: "400 EGP" },
+          { name: "حشو تجميلي ضوئي نانو كومبوزيت", price: "750 EGP" }
+        ],
+        manager: "د. نورهان - سمايل كير",
+        reply: "مساء الخير، الفكرة ممتازة لأن أغلب المرضى بيسألوا على الواتساب. جاهزين ننفذ باقي صفحات الموقع."
+      },
+      {
+        name: "مركز الإسكندرية لطب وجراحة الفم",
+        city: "الإسكندرية • مصر 🇪🇬",
+        phone: "+20 12 1198 3340",
+        score: 88,
+        slug: "alex-dental-center",
+        icon: "🦷",
+        currency: "EGP",
+        items: [
+          { name: "تقويم أسنان شفاف إنفزلاين", price: "12000 EGP" },
+          { name: "خلع ضروس العقل جراحياً بدون ألم", price: "1500 EGP" }
+        ],
+        manager: "د. طارق البدري - المدير",
+        reply: "شكراً لتواصلك، الرابط شغال تمام والصفحة سريعة. يرجى إرسال تفاصيل التكلفة وميعاد التسليم."
+      }
+    ],
+    uk: [
+      {
+        name: "Harley Street Dental & Implant Studio",
+        city: "London • UK 🇬🇧",
+        phone: "+44 79 5500 2190",
+        score: 96,
+        slug: "harley-dental-london",
+        icon: "🦷",
+        currency: "GBP",
+        items: [
+          { name: "Comprehensive Dental Check & AirFlow Polish", price: "£145.00" },
+          { name: "Philips Zoom Laser In-Surgery Whitening", price: "£495.00" }
+        ],
+        manager: "Dr. William Sterling - Practice Owner",
+        reply: "Good morning! The live interactive demo is remarkably clean and adheres to medical clinic standards. How soon can we brand and deploy this for our patients?"
+      },
+      {
+        name: "Kensington Aesthetic Dental Clinic",
+        city: "London • UK 🇬🇧",
+        phone: "+44 78 6610 9022",
+        score: 92,
+        slug: "kensington-dental",
+        icon: "✨",
+        currency: "GBP",
+        items: [
+          { name: "Custom Porcelain Veneer Consultation", price: "£120.00" },
+          { name: "Invisalign Clear Aligner Full Scan", price: "£250.00" }
+        ],
+        manager: "Victoria Adams - Clinic Coordinator",
+        reply: "Hello! We lose so many patients who browse Instagram but find no quick booking page. This solves it perfectly. Send the setup proposal."
+      },
+      {
+        name: "City of London Dental Excellence",
+        city: "London • UK 🇬🇧",
+        phone: "+44 77 1290 8877",
+        score: 89,
+        slug: "city-dental-london",
+        icon: "🦷",
+        currency: "GBP",
+        items: [
+          { name: "Emergency Pain Relief & Consultation", price: "£110.00" },
+          { name: "Single Tooth Titanium Dental Implant", price: "£1,450.00" }
+        ],
+        manager: "Dr. Alexander Wright",
+        reply: "Impressive work. Looks great on iPhone screens. Let's arrange a call today to proceed."
+      }
+    ]
+  },
+  fashion: {
+    ae: [
+      {
+        name: "بوتيك ريم للأزياء والعبايات الراقية",
+        city: "دبي • الإمارات 🇦🇪",
+        phone: "+971 50 994 1120",
+        score: 95,
+        slug: "reem-boutique-dxb",
+        icon: "👗",
+        currency: "AED",
+        items: [
+          { name: "عباية حرير ياباني كلاسيك مطرزة يدوياً", price: "650 AED" },
+          { name: "فستان سهرة كريب فرنسي فاخر", price: "1250 AED" }
+        ],
+        manager: "ريم المنصوري - مصممة ومالكة البوتيك",
+        reply: "وعليكم السلام يا هلا، المتجر طالع يجنن وراقي وايد! الزبونات بالانستقرام يطلبون رابط مباشر للطلب بالواتساب. اعتمدي ونبي نبدأ فوراً."
+      },
+      {
+        name: "دار لمار كوتور ديزاين",
+        city: "أبوظبي • الإمارات 🇦🇪",
+        phone: "+971 54 883 0192",
+        score: 92,
+        slug: "lamar-couture-ad",
+        icon: "✨",
+        currency: "AED",
+        items: [
+          { name: "قفطان مغربي مطرز بخيوط الصقلي الذهبية", price: "950 AED" },
+          { name: "جلابية استقبال حريرية ناعمة", price: "480 AED" }
+        ],
+        manager: "لمار - إدارة كوتور",
+        reply: "مرحباً، الموقع تحفة وفخم جداً ويسهل الطلب السريع. نبي نربطه برقم المبيعات، شو التفاصيل؟"
+      },
+      {
+        name: "فيفتي ون بوتيك أزياء ومجوهرات",
+        city: "الشارقة • الإمارات 🇦🇪",
+        phone: "+971 56 410 9981",
+        score: 89,
+        slug: "fiftyone-boutique",
+        icon: "🛍️",
+        currency: "AED",
+        items: [
+          { name: "طقم كاجوال لينين صيفي راقي", price: "390 AED" },
+          { name: "حقيبة يد جلد طبيعي هاند ميد", price: "520 AED" }
+        ],
+        manager: "موزة الشامسي - البوتيك",
+        reply: "أهلاً وسهلاً، رابط الديمو سريع وعجب صاحبة البوتيك. متى تقدرون تجهزون الموقع كامل؟"
+      }
+    ],
+    sa: [
+      {
+        name: "دار سارة للأزياء والموضة",
+        city: "الرياض • السعودية 🇸🇦",
+        phone: "+966 55 881 4432",
+        score: 96,
+        slug: "sarah-fashion-riyadh",
+        icon: "👗",
+        currency: "SAR",
+        items: [
+          { name: "عباية ملكية بقماش كريب صالونا فاخر", price: "580 SAR" },
+          { name: "فستان سهرة ناعم بتطريز لؤلؤي", price: "950 SAR" }
+        ],
+        manager: "سارة العتيبي - مالكة الدار",
+        reply: "يا هلا والله! المتجر الإلكتروني طالع خرافي وسريع. تعبنا من رسائل الدايركت بالانستقرام وضياع الطلبات. نبي السيستم فوراً!"
+      },
+      {
+        name: "لوتس كولكشن بوتيك",
+        city: "جدة • السعودية 🇸🇦",
+        phone: "+966 50 442 8190",
+        score: 91,
+        slug: "lotus-collection-jeddah",
+        icon: "✨",
+        currency: "SAR",
+        items: [
+          { name: "فستان مناسبات كلاسيك راقي", price: "780 SAR" },
+          { name: "عباية بليزر عصرية للدوام والمناسبات", price: "490 SAR" }
+        ],
+        manager: "أ. نجلاء - لوتس كولكشن",
+        reply: "وعليكم السلام، ما شاء الله ديمو يفتح النفس! أرسلي لي حسابكم والخطوات نتفق ونبدأ."
+      },
+      {
+        name: "فلورا للأزياء والجلابيات الراقية",
+        city: "الخبر • السعودية 🇸🇦",
+        phone: "+966 54 902 1134",
+        score: 88,
+        slug: "flora-fashion-khobar",
+        icon: "🛍️",
+        currency: "SAR",
+        items: [
+          { name: "جلابية مغربية فخمة للمناسبات الخاصة", price: "650 SAR" },
+          { name: "طرحة وشيلة ليزر بتطريز كمبيوتر مميز", price: "120 SAR" }
+        ],
+        manager: "خلود الدوسري - فلورا",
+        reply: "حياك الله، التصميم جداً مميز وسهل للزبائن. اعتمدوا الديمو ونبي نبدأ العمل."
+      }
+    ],
+    eg: [
+      {
+        name: "جاليري فيروزا للأزياء الراقية",
+        city: "القاهرة • مصر 🇪🇬",
+        phone: "+20 10 7712 9044",
+        score: 94,
+        slug: "fayrouza-gallery",
+        icon: "👗",
+        currency: "EGP",
+        items: [
+          { name: "فستان سواريه تركي ستان حرير فاخر", price: "2800 EGP" },
+          { name: "بدلة حريمي كلاسيك للمناسبات والعمل", price: "1950 EGP" }
+        ],
+        manager: "مدام نيفين - جاليري فيروزا",
+        reply: "أهلاً يا فندم، الديمو رائع جداً وشيك أوي! البنات اللي بيطلبوا من صفحة الفيسبوك محتاجين رابط مباشر زي ده. نتفق إزاي؟"
+      },
+      {
+        name: "شيك آند إليجانت بوتيك المعادي",
+        city: "القاهرة • مصر 🇪🇬",
+        phone: "+20 11 3320 8711",
+        score: 90,
+        slug: "chic-elegant-maadi",
+        icon: "✨",
+        currency: "EGP",
+        items: [
+          { name: "فستان سهرة كريب فرنسي مطرز", price: "2400 EGP" },
+          { name: "بليزر كاجوال أوفر سايز راقي", price: "1150 EGP" }
+        ],
+        manager: "أ. ياسمين - البوتيك",
+        reply: "مساء الورد، المنيو والمتجر ده هيوفر علينا وقت طويل في الرد على المقاسات والأسعار. جاهزين للبدء."
+      },
+      {
+        name: "كويين كولكشن ألكسندريا",
+        city: "الإسكندرية • مصر 🇪🇬",
+        phone: "+20 12 8840 1290",
+        score: 87,
+        slug: "queen-alex-fashion",
+        icon: "🛍️",
+        currency: "EGP",
+        items: [
+          { name: "دريس شيفون تركي مشجر صيفي", price: "890 EGP" },
+          { name: "حقيبة يد سواريه كلوتش سواروفسكي", price: "650 EGP" }
+        ],
+        manager: "مدام رانيا - كويين",
+        reply: "تحياتي، الديمو ممتاز وسهل الشراء منه. أرجو التواصل معي لمناقشة التفاصيل والبدء."
+      }
+    ],
+    uk: [
+      {
+        name: "Mayfair Luxury Boutique & Atelier",
+        city: "London • UK 🇬🇧",
+        phone: "+44 79 4410 8820",
+        score: 95,
+        slug: "mayfair-boutique-london",
+        icon: "👗",
+        currency: "GBP",
+        items: [
+          { name: "Handcrafted Silk Evening Gown", price: "£620.00" },
+          { name: "Tailored Italian Wool Double-Breasted Blazer", price: "£385.00" }
+        ],
+        manager: "Eleanor Vance - Creative Director",
+        reply: "Hello! What a fabulous digital showcase. It aligns flawlessly with our Mayfair high-end clientele. Let's arrange a call to get this live."
+      },
+      {
+        name: "Chelsea Designer Wardrobe",
+        city: "London • UK 🇬🇧",
+        phone: "+44 78 9901 2234",
+        score: 91,
+        slug: "chelsea-wardrobe",
+        icon: "✨",
+        currency: "GBP",
+        items: [
+          { name: "Cashmere Turtleneck Knitwear", price: "£195.00" },
+          { name: "Signature Leather Crossbody Bag", price: "£280.00" }
+        ],
+        manager: "Sophie Turner - Store Manager",
+        reply: "Hi there! Our shoppers order so much through WhatsApp concierges. Having this live interactive catalog is a game changer. Please send setup terms."
+      },
+      {
+        name: "Camden Vintage & Bohemian Couture",
+        city: "London • UK 🇬🇧",
+        phone: "+44 77 4109 5511",
+        score: 87,
+        slug: "camden-couture",
+        icon: "🛍️",
+        currency: "GBP",
+        items: [
+          { name: "Vintage Suede Fringe Jacket", price: "£145.00" },
+          { name: "Handmade Floral Maxi Dress", price: "£98.00" }
+        ],
+        manager: "Leo Martinez - Stylist",
+        reply: "Great demo! Looks very slick on mobile devices. Let's get our collection listed right away."
+      }
+    ]
+  }
+};
+
+let sbNiche = 'restaurants';
+let sbCountry = 'ae';
+let sbLeadIndex = 0;
+let sbStep = 0;
+let sbDialect = 'gulf';
+let sbCartCount = 0;
+let sbSpintaxIndex = 0;
+let sbIsSending = false;
+
+function sbGetCurrentLead() {
+  const list = (SB_DATABASE[sbNiche] && SB_DATABASE[sbNiche][sbCountry]) || SB_DATABASE.restaurants.ae;
+  return list[sbLeadIndex] || list[0];
+}
+
+function sbSelectNiche(niche, btn) {
+  sbNiche = niche;
+  document.querySelectorAll('#sb-niche-pills .sim-pill-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  sbLeadIndex = 0;
+  sbRenderLeads();
+  sbUpdateAllScenes();
+}
+
+function sbSelectCountry(country, btn) {
+  sbCountry = country;
+  document.querySelectorAll('#sb-country-pills .sim-pill-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  sbLeadIndex = 0;
+  sbRenderLeads();
+  sbUpdateAllScenes();
+}
+
+function sbTriggerSearch() {
+  const indicator = document.getElementById('sb-search-indicator');
+  if (indicator) {
+    indicator.innerHTML = '🔍 <span style="color:var(--teal);font-weight:800">جاري مسح خرائط جوجل وشبكات التواصل بالأقمار... ⚡</span>';
+    setTimeout(() => {
+      sbRenderLeads();
+      const lead = sbGetCurrentLead();
+      indicator.innerHTML = `🔍 نتائج الفحص الحي: <strong>3 أنشطة مؤكدة</strong> في (${lead.city}) بدون موقع وتملك أرقام واتساب فعالة`;
+    }, 400);
+  } else {
+    sbRenderLeads();
+  }
+}
+
+function sbRenderLeads() {
+  const container = document.getElementById('sb-leads-stream');
+  if (!container) return;
+  const list = (SB_DATABASE[sbNiche] && SB_DATABASE[sbNiche][sbCountry]) || SB_DATABASE.restaurants.ae;
+  
+  container.innerHTML = list.map((lead, idx) => `
+    <div class="sim-lead-card" style="cursor:pointer;border-color:${idx === sbLeadIndex ? 'var(--teal)' : 'var(--line)'};background:${idx === sbLeadIndex ? 'var(--teal-l)' : 'var(--paper)'}" onclick="sbPickLead(${idx})">
+      <div class="sim-lead-info">
+        <div class="sim-lead-ico">${lead.icon}</div>
+        <div>
+          <span class="sim-lead-name">${lead.name}</span>
+          <span class="sim-lead-sub">
+            <span class="sim-tag-noweb">❌ بدون موقع</span>
+            <span class="sim-tag-wa">✅ واتساب مؤكد</span>
+            <span style="direction:ltr;unicode-bidi:embed">${lead.phone}</span>
+          </span>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="sc" style="width:68px"><b>${lead.score}</b><i style="--w:${lead.score}%"></i></div>
+        <button type="button" class="sim-lead-select-btn" onclick="event.stopPropagation();sbPickLead(${idx})">
+          ${idx === sbLeadIndex ? '✓ مفحوص' : '👉 افحص وابدأ البيع'}
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function sbPickLead(idx) {
+  sbLeadIndex = idx;
+  sbRenderLeads();
+  sbUpdateAllScenes();
+  sbGoTo(1);
+}
+
+function sbUpdateAllScenes() {
+  const lead = sbGetCurrentLead();
+  if (!lead) return;
+
+  // Scene 2: Smart Audit
+  const auditName = document.getElementById('sb-audit-name');
+  const auditPhone = document.getElementById('sb-audit-phone');
+  const auditCity = document.getElementById('sb-audit-city');
+  const auditScore = document.getElementById('sb-audit-score');
+  if (auditName) auditName.textContent = lead.name;
+  if (auditPhone) auditPhone.textContent = lead.phone;
+  if (auditCity) auditCity.textContent = lead.city;
+  if (auditScore) auditScore.textContent = lead.score;
+
+  // Scene 3: Demo Preview
+  const demoUrl = document.getElementById('sb-demo-url');
+  const demoBrand = document.getElementById('sb-demo-brand-name');
+  const demoSub = document.getElementById('sb-demo-brand-sub');
+  if (demoUrl) demoUrl.textContent = `demo.nextgen.app/${lead.slug}`;
+  if (demoBrand) demoBrand.textContent = `${lead.name} 👑`;
+  if (demoSub) demoSub.textContent = `منيو وتطبيق ديجيتال QR تفاعلي • طلبات واتساب أونلاين (${lead.city})`;
+
+  // Render demo products
+  const menuGrid = document.getElementById('sb-demo-items-grid');
+  if (menuGrid && lead.items) {
+    menuGrid.innerHTML = lead.items.map(item => `
+      <div class="sim-menu-card">
+        <div class="sim-menu-card-info">
+          <b>${item.name}</b>
+          <span>${item.price}</span>
+        </div>
+        <button type="button" class="sim-btn-add" onclick="sbAddCartItem(this)">+ أضف</button>
+      </div>
+    `).join('');
+  }
+
+  // Scene 4: WhatsApp Outreach
+  const chatAvatar = document.getElementById('sb-chat-avatar');
+  const chatUser = document.getElementById('sb-chat-user-name');
+  const chatUrl = document.getElementById('sb-chat-card-url');
+  const clientReplyText = document.getElementById('sb-client-reply-text');
+  if (chatAvatar) chatAvatar.textContent = lead.name.charAt(0);
+  if (chatUser) chatUser.textContent = lead.manager;
+  if (chatUrl) chatUrl.textContent = `demo.nextgen.app/${lead.slug}`;
+  if (clientReplyText) clientReplyText.textContent = lead.reply;
+
+  sbUpdateWhatsAppMessage();
+}
+
+function sbSelectDialect(dialect, btn) {
+  sbDialect = dialect;
+  document.querySelectorAll('#sb-dialect-pills .sim-pill-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  sbUpdateWhatsAppMessage();
+}
+
+function sbRegenerateSpintax() {
+  sbSpintaxIndex++;
+  sbUpdateWhatsAppMessage();
+  const btn = event ? event.target : null;
+  if (btn) {
+    const orig = btn.textContent;
+    btn.textContent = '✓ تم توليد صياغة ذكية جديدة!';
+    setTimeout(() => { btn.textContent = orig; }, 1200);
+  }
+}
+
+function sbUpdateWhatsAppMessage() {
+  const lead = sbGetCurrentLead();
+  const msgEl = document.getElementById('sb-chat-msg-text');
+  if (!lead || !msgEl) return;
+
+  const demoLink = `demo.nextgen.app/${lead.slug}`;
+  const templates = {
+    gulf: [
+      `السلام عليكم أ. ${lead.manager.split(' - ')[0]}، شفت نشاطكم المميز (${lead.name}) على خرائط جوجل في ${lead.city}، ولاحظت عدم وجود رابط لطلباتكم المباشرة لتوفير عمولات التطبيقات (25%). صممنا لكم ديمو سريع لمنيو تفاعلي يرسل الطلبات للواتساب مباشرة.. جرب نسختكم الحية من هنا:`,
+      `مرحبا ومسهلا أ. ${lead.manager.split(' - ')[0]}، حبيت أهنيكم على سمعة (${lead.name}) العالية. سوينا لكم نموذج موقع ومنيو تجريبي متكامل باسمكم لاستقبال الطلبات أونلاين برابط مباشر وحفظ أرباحكم كاملة: عاينه مجاناً من هنا:`,
+      `يا هلا أ. ${lead.manager.split(' - ')[0]}، بحثت عن خدماتكم ولقيت إقبال كبير من العملاء، جهزنا لـ (${lead.name}) صفحة حجز وطلب واتساب سريعة بالـ QR كود تناسب زبائنكم: تفضل عاين النسخة التجريبية الحية:`
+    ],
+    egyptian: [
+      `السلام عليكم يا فندم، تابعت تقييمات (${lead.name}) الممتازة في ${lead.city}، ولاحظت إن مفيش موقع أو منيو طلبات مباشر يوفر عمولات تطبيقات التوصيل (20-30%). جهزنا لحضرتك ديمو مجاني جاهز بنقرة زرار على الواتساب.. تقدر تجربه دلوقتي من هنا:`,
+      `مساء الخير يا فندم، إحنا فريق بنساعد أنشطة ${lead.city} في مضاعفة مبيعاتهم المباشرة. صممنا لحضرتك موقع سريع باسم (${lead.name}) بيستقبل الطلبات أونلاين برابط مباشر على رقمك، شوف الديمو شغال إزاي بنفسك:`,
+      `أهلاً بحضرتك يا فندم، شفت الشغل الجميل لـ (${lead.name})، وعملنا لحضرتك ديمو لمنيو ذكي بالأسعار والصور بيحول كل زوار جوجل وفيسبوك لطلبات واتساب فورية: تفضل جرب النسخة:`
+    ],
+    levantine: [
+      `مرحبا أستاذ ${lead.manager.split(' - ')[0]}، يسعد أوقاتكم. شفت فرعكم المميز (${lead.name}) في ${lead.city} والتقييمات العالية، بس لاحظت عدم توفر موقع إلكتروني مباشر لطلبات الزبائن. صممنا لكم منيو ديجيتال فوري مع زر طلب واتساب سريع ومباشر لتوفير نسب التوصيل، شوف الديمو التفاعلي هون:`,
+      `أهلاً وسهلاً أستاذ ${lead.manager.split(' - ')[0]}، مبروك النجاح لبراندكم (${lead.name}). جهزنا لكم نسخة تجريبية لمنيو وتطبيق طلبات حديث بالاسم والهوية الخاصة فيكم بدون أي عمولات خارجية، عاين النسخة الحية من هالرابط:`
+    ],
+    english: [
+      `Hi ${lead.name} Team, noticed your fantastic rating on Google Maps in ${lead.city}, but saw you don't have a direct mobile ordering link to skip the 25% aggregator commissions. We built a live interactive demo for you to take direct WhatsApp orders — try your live version here:`,
+      `Hello ${lead.manager.split(' - ')[0]}, we love what you're doing at ${lead.name}! To help you capture direct Google search traffic without commission cuts, our team generated a fully branded interactive web demo for you: check it out live here:`
+    ]
+  };
+
+  const list = templates[sbDialect] || templates.gulf;
+  const text = list[sbSpintaxIndex % list.length];
+  msgEl.textContent = text;
+}
+
+function sbSetTheme(bg1, bg2) {
+  const head = document.getElementById('sb-demo-header');
+  if (head) {
+    head.style.background = `linear-gradient(135deg, ${bg1}, ${bg2})`;
+  }
+}
+
+function sbAddCartItem(btn) {
+  sbCartCount++;
+  const countEl = document.getElementById('sb-cart-count');
+  if (countEl) {
+    countEl.textContent = `${sbCartCount} طلبات`;
+    countEl.style.color = '#16a34a';
+    setTimeout(() => { countEl.style.color = 'var(--teal)'; }, 400);
+  }
+  if (btn) {
+    const orig = btn.textContent;
+    btn.textContent = '✓ تم';
+    btn.style.background = '#16a34a';
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.style.background = '';
+    }, 1200);
+  }
+}
+
+function sbAddCart() {
+  sbAddCartItem(null);
+}
+
+function sbTriggerSend() {
+  if (sbIsSending) return;
+  sbIsSending = true;
+
+  const btn = document.getElementById('sb-test-send-btn');
+  const ticks = document.getElementById('sb-check-ticks');
+  const typing = document.getElementById('sb-typing-indicator');
+  const replyBox = document.getElementById('sb-client-reply-box');
+  const celebrateBox = document.getElementById('sb-celebrate-box');
+
+  if (btn) {
+    btn.style.pointerEvents = 'none';
+    btn.style.opacity = '0.7';
+    btn.innerHTML = '<span>جاري إرسال الرسالة إلى الواتساب... ⏳</span>';
+  }
+  if (ticks) {
+    ticks.style.color = '#0284c7';
+    ticks.textContent = '✓✓';
+  }
+
+  // Show typing after 600ms
+  setTimeout(() => {
+    if (typing) typing.style.display = 'inline-flex';
+  }, 600);
+
+  // Reveal client reply after 1800ms
+  setTimeout(() => {
+    if (typing) typing.style.display = 'none';
+    if (replyBox) {
+      replyBox.style.display = 'block';
+      replyBox.style.animation = 'simPopIn .4s ease both';
+    }
+  }, 1900);
+
+  // Show celebrate box after 2700ms
+  setTimeout(() => {
+    if (celebrateBox) {
+      celebrateBox.style.display = 'block';
+      celebrateBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    if (btn) {
+      btn.style.opacity = '1';
+      btn.style.background = '#16a34a';
+      btn.innerHTML = '<span>✓ تم إرسال الرسالة واستلام الرد بنجاح! 🎉</span>';
+    }
+    sbIsSending = false;
+  }, 2800);
+}
+
+function sbGoTo(stepIdx) {
+  sbStep = stepIdx;
+
+  // Tabs
+  document.querySelectorAll('#sb-steps-nav .sim-step-tab').forEach((tab, idx) => {
+    tab.classList.toggle('active', idx === sbStep);
+  });
+
+  // Dots
+  document.querySelectorAll('.sim-controls-bar .sim-dot-nav').forEach((dot, idx) => {
+    dot.classList.toggle('active', idx === sbStep);
+  });
+
+  // Scenes
+  const scenes = [
+    document.getElementById('sb-scene-0'),
+    document.getElementById('sb-scene-1'),
+    document.getElementById('sb-scene-2'),
+    document.getElementById('sb-scene-3')
+  ];
+  scenes.forEach((sc, idx) => {
+    if (sc) sc.classList.toggle('active', idx === sbStep);
+  });
+
+  // Progress Bar
+  const bar = document.getElementById('sb-progress-bar');
+  if (bar) bar.style.width = `${(sbStep + 1) * 25}%`;
+}
+
+function sbNext() {
+  sbGoTo((sbStep + 1) % 4);
+}
+
+function sbPrev() {
+  sbGoTo((sbStep + 3) % 4);
+}
+
+function sbResetSandbox() {
+  sbCartCount = 0;
+  sbIsSending = false;
+  const countEl = document.getElementById('sb-cart-count');
+  if (countEl) countEl.textContent = '0 طلبات';
+  
+  const replyBox = document.getElementById('sb-client-reply-box');
+  const celebrateBox = document.getElementById('sb-celebrate-box');
+  const typing = document.getElementById('sb-typing-indicator');
+  const btn = document.getElementById('sb-test-send-btn');
+  if (replyBox) replyBox.style.display = 'none';
+  if (celebrateBox) celebrateBox.style.display = 'none';
+  if (typing) typing.style.display = 'none';
+  if (btn) {
+    btn.style.pointerEvents = 'auto';
+    btn.style.opacity = '1';
+    btn.style.background = '';
+    btn.innerHTML = '<span>📱 اضغط هنا لتجربة إرسال رسالة الواتساب للعميل الآن 💬</span>';
+  }
+
+  sbGoTo(0);
+}
+
+function sbInit() {
+  sbRenderLeads();
+  sbUpdateAllScenes();
+  sbGoTo(0);
+}
+
+/* OLD_SIMULATOR_JS_FALLBACK
+let simStep = 0;
+let simPlaying = true;
+let simDuration = 7000;
+let simElapsed = 0;
+let simInterval = null;
+let simCartItems = 2;
+
+function simInit() {
+  simGoTo(0, false);
+  simStartTimer();
+}
+
+function simStartTimer() {
+  if (simInterval) clearInterval(simInterval);
+  const stepMs = 100;
+  simInterval = setInterval(() => {
+    if (!simPlaying) return;
+    simElapsed += stepMs;
+    const pct = Math.min(100, (simElapsed / simDuration) * 100);
+    const bar = document.getElementById('sim-progress-bar');
+    if (bar) bar.style.width = pct + '%';
+
+    const totalSec = Math.floor((simStep * 7) + (simElapsed / 1000));
+    const pad = n => (n < 10 ? '0' : '') + n;
+    const tc = document.getElementById('sim-timecode');
+    if (tc) tc.textContent = '00:' + pad(totalSec % 60) + ' / 00:28';
+
+    if (simElapsed >= simDuration) {
+      simElapsed = 0;
+      simGoTo((simStep + 1) % 4, false);
+    }
+  }, stepMs);
+}
+
+function simGoTo(stepIndex, userAction = true) {
+  simStep = stepIndex;
+  simElapsed = 0;
+
+  document.querySelectorAll('.sim-step-tab').forEach((tab, idx) => {
+    tab.classList.toggle('active', idx === simStep);
+  });
+
+  document.querySelectorAll('.sim-dot-nav').forEach((dot, idx) => {
+    dot.classList.toggle('active', idx === simStep);
+  });
+
+  document.querySelectorAll('.sim-scene').forEach((sc, idx) => {
+    sc.classList.toggle('active', idx === simStep);
+  });
+
+  const bar = document.getElementById('sim-progress-bar');
+  if (bar) bar.style.width = '0%';
+
+  if (userAction) {
+    simElapsed = 0;
+  }
+}
+
+function simNext() {
+  simGoTo((simStep + 1) % 4, true);
+}
+
+function simPrev() {
+  simGoTo((simStep + 3) % 4, true);
+}
+
+function simTogglePlay() {
+  simPlaying = !simPlaying;
+  const icon = document.getElementById('sim-play-icon');
+  const txt = document.getElementById('sim-play-text');
+  const isAr = (currentLang === 'ar');
+
+  if (icon) icon.textContent = simPlaying ? '⏸' : '▶';
+  if (txt) {
+    txt.textContent = simPlaying 
+      ? (isAr ? 'إيقاف مؤقت' : 'Pause')
+      : (isAr ? 'تشغيل العرض' : 'Play');
+  }
+}
+
+function simReset() {
+  simElapsed = 0;
+  simPlaying = true;
+  const icon = document.getElementById('sim-play-icon');
+  const txt = document.getElementById('sim-play-text');
+  if (icon) icon.textContent = '⏸';
+  if (txt) txt.textContent = (currentLang === 'ar') ? 'إيقاف مؤقت' : 'Pause';
+  simGoTo(0, true);
+}
+
+function simAddCart(btn) {
+  simCartItems++;
+  const countEl = document.getElementById('sim-cart-count');
+  const isAr = (currentLang === 'ar');
+  if (countEl) {
+    countEl.textContent = simCartItems + (isAr ? ' طلبات' : ' Items');
+    countEl.style.color = '#16a34a';
+    setTimeout(() => { countEl.style.color = 'var(--teal)'; }, 400);
+  }
+  if (btn) {
+    const orig = btn.textContent;
+    btn.textContent = isAr ? '✓ تم' : '✓ Added';
+    btn.style.background = '#16a34a';
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.style.background = '';
+    }, 1200);
+  }
+}
+
+function simSetDemoTheme(bg1, bg2) {
+  const head = document.getElementById('sim-demo-header');
+  if (head) {
+    head.style.background = `linear-gradient(135deg, ${bg1}, ${bg2})`;
+  }
+}
+
+*/
 // Initialize on load
 updateRegionTabCounts();
 initSearchControls();
 applyTheme(document.documentElement.getAttribute('data-theme'));
 setLanguage(currentLang);
+sbInit();
+
+// Floating WhatsApp Button: Show only after scrolling down
+const waFloatBtn = document.querySelector('.wa-floating-btn');
+function checkWaFloatVisibility() {
+  if (!waFloatBtn) return;
+  if (window.scrollY > 260) {
+    waFloatBtn.classList.add('visible');
+  } else {
+    waFloatBtn.classList.remove('visible');
+  }
+}
+window.addEventListener('scroll', checkWaFloatVisibility, { passive: true });
+checkWaFloatVisibility();
 </script>
 </body>
 </html>
