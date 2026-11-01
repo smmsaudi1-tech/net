@@ -1159,6 +1159,7 @@ h2{font-size:clamp(1.85rem,3.4vw,2.65rem);max-width:none}
   font-weight:700;
   animation:simBlink 1.2s infinite;
 }
+.sb-phone-blur{filter:blur(4.5px);user-select:none;opacity:0.75;letter-spacing:1px;display:inline-block;pointer-events:none}
 
 /* ---------- facts strip ---------- */
 .facts{
@@ -2388,7 +2389,7 @@ footer{
                 <b id="sb-audit-name" style="font-size:16px;color:var(--ink)">مطعم ومشاوي السلطان (دبي)</b>
               </div>
               <div style="font-size:12px;color:var(--mut)">
-                <span id="sb-audit-phone" style="direction:ltr;unicode-bidi:embed;font-weight:700;color:var(--teal)">+971 50 847 2910</span>
+                <span id="sb-audit-phone" style="direction:ltr;unicode-bidi:embed;font-weight:700;color:var(--teal)">+971 50 <span class="sb-phone-blur">847 2910</span></span>
                 <span id="sb-audit-city" style="margin-inline-start:8px;background:var(--card);padding:3px 8px;border-radius:6px;border:1px solid var(--line)">الإمارات 🇦🇪</span>
               </div>
             </div>
@@ -3465,6 +3466,9 @@ footer{
       <span class="eyebrow"><svg class="i" style="width:15px;height:15px"><use href="#i-shield"/></svg> <span data-i18n="terms_eyebrow">إطار قانوني واضح وشفاف</span></span>
       <h2 id="h-terms" style="margin-inline:auto" data-i18n="terms_title">شروط الاستخدام، سياسة الخصوصية، والامتثال للقوانين المحلية</h2>
       <p class="lead" style="margin-inline:auto" data-i18n="terms_lead">نلتزم بالشفافية التامة واحترام القوانين وحماية خصوصية المستخدمين. إليك البنود القانونية الصريحة التي تحكم استخدام أداة NextGen Sales Agent وتحدد المسؤوليات بوضوح تام:</p>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);padding:6px 16px;border-radius:99px;font-size:13px;font-weight:700;color:var(--teal);margin-top:14px">
+        <span data-i18n="terms_ver_badge">📄 إصدار الشروط والامتثال: v2.1 • 📅 تاريخ آخر تحديث: 1 نوفمبر 2026</span>
+      </div>
     </div>
 
     <div class="terms-grid">
@@ -3834,6 +3838,7 @@ const TRANSLATIONS = {
     nav_terms: "الشروط والامتثال",
     terms_eyebrow: "إطار قانوني واضح وشفاف",
     terms_title: "شروط الاستخدام، سياسة الخصوصية، والامتثال للقوانين المحلية",
+    terms_ver_badge: "📄 إصدار الشروط والامتثال: v2.1 • 📅 تاريخ آخر تحديث: 1 نوفمبر 2026",
     terms_lead: "نلتزم بالشفافية التامة واحترام القوانين وحماية خصوصية المستخدمين. إليك البنود القانونية الصريحة التي تحكم استخدام أداة NextGen Sales Agent وتحدد المسؤوليات بوضوح تام:",
     terms_c1_title: "1. مسؤولية الامتثال للقوانين المحلية",
     terms_c1_desc: "يقر المستخدم صراحةً بأنه المسؤول الوحيد والمباشر عن التحقق من والامتثال لكافة القوانين واللوائح السارية في دولته والدول المستهدفة (بما يشمل قوانين التجارة الإلكترونية، حماية البيانات والخصوصية، وحماية المستهلك، ولوائح الاتصالات وتنظيم المراسلات). الأداة برنامج تقني مصمم لتنظيم جهود التواصل مع الأنشطة التجارية والمهنية المشروعة، ويخلي المطور مسؤوليته القانونية إلى أقصى حد يسمح به القانون المعمول به عن أي استخدام يخالف القوانين المحلية أو إرشادات الجهات التنظيمية.",
@@ -4112,6 +4117,7 @@ const TRANSLATIONS = {
     nav_terms: "Terms & Compliance",
     terms_eyebrow: "Transparent Legal & Regulatory Framework",
     terms_title: "Terms of Service, Privacy Policy & Local Compliance",
+    terms_ver_badge: "📄 Terms Version: v2.1 • 📅 Last Updated: November 1, 2026",
     terms_lead: "We maintain absolute transparency, regulatory respect, and strict customer data protection. Here are the explicit legal clauses governing NextGen Sales Agent usage:",
     terms_c1_title: "1. Local Legal & Regulatory Compliance",
     terms_c1_desc: "The user explicitly acknowledges sole responsibility for verifying and complying with all local laws and regulations governing their jurisdiction and targeted business markets (including electronic commerce laws, consumer data protection, anti-spam, and telecommunication acts). NextGen is designed to organize outreach with commercial businesses; developers disclaim liability to the maximum extent permitted by applicable law.",
@@ -5183,6 +5189,19 @@ function sbTriggerSearch() {
   }
 }
 
+function sbMaskPhone(phone) {
+  if (!phone) return '';
+  const parts = phone.trim().split(' ');
+  if (parts.length >= 3) {
+    const visible = parts.slice(0, 2).join(' ');
+    const hidden = parts.slice(2).join(' ');
+    return `<span style="direction:ltr;unicode-bidi:embed;display:inline-flex;align-items:center;gap:3px"><span>${visible}</span> <span class="sb-phone-blur">${hidden}</span></span>`;
+  }
+  const visible = phone.slice(0, 7);
+  const hidden = phone.slice(7) || '••••••';
+  return `<span style="direction:ltr;unicode-bidi:embed;display:inline-flex;align-items:center;gap:3px"><span>${visible}</span> <span class="sb-phone-blur">${hidden}</span></span>`;
+}
+
 function sbRenderLeads() {
   const container = document.getElementById('sb-leads-stream');
   if (!container) return;
@@ -5197,7 +5216,7 @@ function sbRenderLeads() {
           <span class="sim-lead-sub">
             <span class="sim-tag-noweb">❌ بدون موقع</span>
             <span class="sim-tag-wa">✅ واتساب مؤكد</span>
-            <span style="direction:ltr;unicode-bidi:embed">${lead.phone}</span>
+            ${sbMaskPhone(lead.phone)}
           </span>
         </div>
       </div>
@@ -5228,7 +5247,7 @@ function sbUpdateAllScenes() {
   const auditCity = document.getElementById('sb-audit-city');
   const auditScore = document.getElementById('sb-audit-score');
   if (auditName) auditName.textContent = lead.name;
-  if (auditPhone) auditPhone.textContent = lead.phone;
+  if (auditPhone) auditPhone.innerHTML = sbMaskPhone(lead.phone);
   if (auditCity) auditCity.textContent = lead.city;
   if (auditScore) auditScore.textContent = lead.score;
 
